@@ -1,0 +1,63 @@
+<script>
+	import emblaCarouselSvelte from 'embla-carousel-svelte';
+	import FeaturedSlideV2 from './FeaturedSlideV2.svelte';
+	import PrevButton from './PrevButton.svelte';
+	import NextButton from './NextButton.svelte';
+	export let slides;
+
+	let emblaRef;
+	let emblaApi;
+	let options = {
+		slidesToScroll: 'auto',
+		containScroll: 'trimSnaps',
+		startIndex: 0
+	};
+
+	let selectedIndex = 0;
+	let scrollSnaps = [];
+	let prevBtnEnabled = false;
+	let nextBtnEnabled = false;
+
+	const onInit = (event) => {
+		emblaApi = event.detail;
+
+		const onSelect = () => {
+			prevBtnEnabled = emblaApi.canScrollPrev();
+			nextBtnEnabled = emblaApi.canScrollNext();
+			selectedIndex = emblaApi.selectedScrollSnap();
+			scrollSnaps = emblaApi.scrollSnapList();
+		};
+
+		emblaApi.on('select', onSelect);
+		emblaApi.on('reInit', onSelect);
+		onSelect();
+	};
+
+	const scrollPrev = () => {
+		if (emblaApi) {
+			emblaApi.scrollPrev();
+		}
+	};
+
+	const scrollNext = () => {
+		if (emblaApi) {
+			emblaApi.scrollNext();
+		}
+	};
+
+	const slidesQty = slides.length;
+</script>
+
+<div class="news__embla relative">
+	<div class="news__embla__viewport" use:emblaCarouselSvelte={{ options }} on:emblaInit={onInit}>
+		<div class="embla__container">
+			{#each slides as slide, i}
+				<div key={i} class="news__embla__slide">
+					<FeaturedSlideV2 item={slide} {i} {slidesQty} />
+				</div>
+			{/each}
+		</div>
+	</div>
+	<PrevButton {scrollPrev} enabled={prevBtnEnabled} />
+	<NextButton {scrollNext} enabled={nextBtnEnabled} />
+</div>

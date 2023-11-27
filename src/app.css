@@ -1,0 +1,143 @@
+@import '@fontsource-variable/inter';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	@apply overflow-x-hidden bg-white  font-inter leading-relaxed text-gray-800;
+}
+
+h1 {
+	@apply text-3xl font-semibold leading-tight lg:text-5xl;
+}
+
+h2 {
+	@apply text-2xl font-semibold leading-tight  tracking-tight lg:text-4xl;
+}
+
+h3 {
+	@apply text-lg font-semibold leading-snug  tracking-tight lg:text-xl;
+}
+
+h4 {
+	@apply text-lg  leading-snug  tracking-tight lg:text-xl;
+}
+
+h2 {
+	display: inline-block;
+}
+
+p {
+	@apply text-sm leading-normal lg:text-base;
+}
+/* a {
+	@apply font-semibold text-blue-800 duration-300 hover:text-gray-700;
+} */
+
+.container {
+	@apply mx-auto  mx-auto max-w-7xl sm:px-6 lg:px-8;
+}
+
+.sectionPy {
+	@apply py-8 lg:py-16;
+}
+
+h2:after {
+	display: block;
+	content: '';
+	transform: scaleX(0);
+	transition: transform 250ms ease-in-out;
+}
+h2.fromLeftWhite:after {
+	transform-origin: 100% 50%;
+	border-bottom: solid 3px #ffffff;
+}
+h2.fromLeftBlack:after {
+	transform-origin: 100% 50%;
+	border-bottom: solid 2px #000000;
+}
+h2.fromRight:after {
+	transform-origin: 0% 50%;
+}
+h2.fromLeftWhite:hover:after {
+	transform: scaleX(1);
+	transform-origin: 0% 50%;
+}
+h2.fromLeftBlack:hover:after {
+	transform: scaleX(1);
+	transform-origin: 0% 50%;
+}
+h2.fromRight:hover:after {
+	transform: scaleX(1);
+	transform-origin: 100% 50%;
+}
+
+.roundedHeader {
+	width: 105%;
+	height: 40%;
+	left: -3%;
+	position: relative;
+	background-color: #67797b;
+	border-top-left-radius: 50% 20%;
+	border-top-right-radius: 50% 20%;
+	border-bottom-left-radius: 0% 0%;
+	border-bottom-right-radius: 0% 0%;
+}
+
+.width {
+	min-width: 100vh;
+	width: 100%;
+}
+
+.richText p {
+	@apply mb-3;
+}
+
+.richText a {
+	@apply font-semibold text-blue-800 duration-300 hover:text-gray-700;
+}
+
+.richText h1 {
+	@apply py-6 text-xl font-semibold  leading-tight lg:text-5xl;
+}
+
+.richText h2 {
+	@apply my-3 text-xl font-semibold;
+}
+
+.richText h3 {
+	@apply my-3 text-xl font-semibold;
+}
+
+.richText h4 {
+	@apply my-3 text-lg font-semibold;
+}
+
+.richText h5 {
+	@apply my-2 text-base font-semibold;
+}
+
+.richText h6 {
+	@apply mb-6 text-sm font-semibold italic;
+}
+
+.richText img {
+	@apply my-6;
+}
+
+/* .richText li {
+	@apply list-none;
+} */
+
+.richText ul {
+	@apply list-disc  pl-6;
+}
