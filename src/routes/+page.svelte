@@ -8,6 +8,7 @@
 	export let data;
 	import BlogHomepage from '$components/Blog/BlogHomepage.svelte';
 	import EventsHomepage from '$components/Events/EventsHomepage.svelte';
+	import { isPreview } from 'sveltekit-preview-mode';
 
 	let landingPage = data.landingPage?.[0].fields;
 	let { programmes, newsletter, partners, events, news } = data;

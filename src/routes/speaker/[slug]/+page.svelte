@@ -10,11 +10,13 @@
 	import EventListing from '$components/Events/EventListing.svelte';
 	import { ensureHttps } from '$utils/utils.js';
 
-	let events;
+	let events = [];
+
+	$: events = data.events;
 
 	$: speaker = data.item;
 	$: {
-		events = $eventsData
+		events = events
 			.filter((events) => {
 				if (events.fields.speakers && speaker.fields.name) {
 					return events.fields.speakers.some((item) => item.fields?.name === speaker.fields.name);

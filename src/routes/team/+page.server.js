@@ -1,12 +1,9 @@
 export const prerender = true;
 
-import { SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN } from '$env/static/private';
-import { createContentfulClient, fetchContentfulDataServer } from '$lib/contentfulClient';
-
-const client = createContentfulClient(SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN);
+import { fetchContentfulData } from '$lib/contentfulClient';
 
 export async function entries() {
-	const entries = await fetchContentfulDataServer(client, 'staff');
+	const entries = await fetchContentfulData('staff');
 	return entries.map((entry) => {
 		return {
 			slug: entry.fields.slug
@@ -16,7 +13,7 @@ export async function entries() {
 
 export async function load() {
 	try {
-		const entries = await fetchContentfulDataServer(client, 'staff');
+		const entries = await fetchContentfulData('staff');
 		return {
 			entries
 		};

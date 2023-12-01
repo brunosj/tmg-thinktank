@@ -96,6 +96,9 @@ devDependencies:
   svelte-intersection-observer:
     specifier: ^0.10.1
     version: 0.10.1
+  sveltekit-preview-mode:
+    specifier: ^0.1.8
+    version: 0.1.8(vite@4.5.0)
   tailwindcss:
     specifier: ^3.3.5
     version: 3.3.5
@@ -2500,6 +2503,16 @@ packages:
       locate-character: 3.0.0
       magic-string: 0.30.5
       periscopic: 3.1.0
+
+  /sveltekit-preview-mode@0.1.8(vite@4.5.0):
+    resolution: {integrity: sha512-lYe3zlxr+lQIn+lCkNdGTB6KhMiih4Bqz4I6XCXKLoqMJ5SRHudmxaI/UQOoTNWLfy8381h0z6AuCIvsjUAK8A==}
+    dependencies:
+      '@sveltejs/kit': 1.27.6(svelte@4.2.7)(vite@4.5.0)
+      svelte: 4.2.7
+    transitivePeerDependencies:
+      - supports-color
+      - vite
+    dev: true
 
   /svg.draggable.js@2.2.2:
     resolution: {integrity: sha512-JzNHBc2fLQMzYCZ90KZHN2ohXL0BQJGQimK1kGk6AvSeibuKcIdDX9Kr0dT9+UJ5O8nYA0RB839Lhvk4CY4MZw==}

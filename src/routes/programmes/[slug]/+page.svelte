@@ -1,6 +1,5 @@
 <script>
 	export let data;
-	import { page } from '$app/stores';
 	import SEO from '$components/SEO/SEO.svelte';
 	import { parseISO } from 'date-fns';
 	import ProgrammeHeader from '$components/Programme/ProgrammeHeader.svelte';

@@ -3,9 +3,11 @@
 	import '$styles/carousel.css';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicIn, cubicOut } from 'svelte/easing';
+	import { PreviewBanner } from 'sveltekit-preview-mode';
 	import Footer from '$components/Layout/Footer.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Header from '$components/Layout/Header.svelte';
+	import { isPreview } from 'sveltekit-preview-mode';
 
 	export let data;
 	$: pathname = data.pathname;
@@ -22,6 +24,7 @@
 	}
 </script>
 
+<PreviewBanner />
 <SEO />
 <Header />
 {#key pathname}

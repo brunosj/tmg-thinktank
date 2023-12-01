@@ -18,7 +18,7 @@
 			textColor="dark"
 		/>
 
-		<div class="mx-auto mt-12 grid grid-cols-1 lg:grid-cols-3">
+		<div class="mx-auto mt-12">
 			<CarouselV2 {slides} />
 		</div>
 	</div>

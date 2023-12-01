@@ -5,7 +5,7 @@
 <section>
 	<div class="flex flex-col gap-12 py-10">
 		{#each items as item (item.fields.slug)}
-			<a href={`/publication-features/${item.fields.slug}`}>
+			<a href={`/publication-feature/${item.fields.slug}`}>
 				<div class="group h-full border pb-5 lg:flex lg:pb-0">
 					<div
 						class="mt-auto w-full opacity-100 transition duration-200 ease-in-out group-hover:opacity-90 lg:w-1/3"

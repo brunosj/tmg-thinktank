@@ -58,6 +58,10 @@
 			{/each}
 		</div>
 	</div>
-	<PrevButton {scrollPrev} enabled={prevBtnEnabled} />
-	<NextButton {scrollNext} enabled={nextBtnEnabled} />
+</div>
+<div class="flex">
+	<div class="ml-auto flex h-full items-center justify-center gap-6 pt-16 lg:gap-0 lg:pt-6">
+		<PrevButton {scrollPrev} enabled={prevBtnEnabled} />
+		<NextButton {scrollNext} enabled={nextBtnEnabled} />
+	</div>
 </div>
