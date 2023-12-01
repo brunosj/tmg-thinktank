@@ -20,6 +20,9 @@ const config = {
 		prerender: {
 			handleHttpError: 'warn',
 			entries: ['/newsletter', '/programmes']
+		},
+		paths: {
+			relative: false
 		}
 	}
 };

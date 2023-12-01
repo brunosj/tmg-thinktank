@@ -36,9 +36,6 @@ dependencies:
     version: 0.17.4
 
 devDependencies:
-  '@accuser/svelte-plausible-analytics':
-    specifier: ^0.5.0
-    version: 0.5.0(@sveltejs/kit@1.27.6)(svelte@4.2.7)
   '@iconify-json/fa6-brands':
     specifier: ^1.1.13
     version: 1.1.13
@@ -114,16 +111,6 @@ packages:
   /@aashutoshrathi/word-wrap@1.2.6:
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==}
     engines: {node: '>=0.10.0'}
-    dev: true
-
-  /@accuser/svelte-plausible-analytics@0.5.0(@sveltejs/kit@1.27.6)(svelte@4.2.7):
-    resolution: {integrity: sha512-25YysCh1pcPENFudYENJZ5o3Vv89ZerQD1D9t1x0PcmAp120gBs7wBtNafLi5zWoL5yk+oWFCYh9+HMQk6hPPQ==}
-    peerDependencies:
-      '@sveltejs/kit': ^1.20.4
-      svelte: ^4.0.0
-    dependencies:
-      '@sveltejs/kit': 1.27.6(svelte@4.2.7)(vite@4.5.0)
-      svelte: 4.2.7
     dev: true
 
   /@alloc/quick-lru@5.2.0:

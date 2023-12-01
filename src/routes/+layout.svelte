@@ -8,7 +8,6 @@
 	import SEO from '$components/SEO/SEO.svelte';
 	import Header from '$components/Layout/Header.svelte';
 	import { isPreview } from 'sveltekit-preview-mode';
-	import { PlausibleAnalytics } from '@accuser/svelte-plausible-analytics';
 
 	export let data;
 	$: pathname = data.pathname;
@@ -26,7 +25,6 @@
 </script>
 
 <!-- <PreviewBanner /> -->
-<!-- <PlausibleAnalytics /> -->
 <SEO />
 <Header />
 {#key pathname}

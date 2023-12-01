@@ -10,7 +10,6 @@
 		"format": "prettier --write  --plugin prettier-plugin-svelte ."
 	},
 	"devDependencies": {
-		"@accuser/svelte-plausible-analytics": "^0.5.0",
 		"@iconify-json/fa6-brands": "^1.1.13",
 		"@iconify-json/fa6-regular": "^1.1.13",
 		"@rgossiaux/svelte-headlessui": "^2.0.0",
