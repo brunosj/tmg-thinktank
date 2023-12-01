@@ -20,7 +20,7 @@
 	description={feature.fields.summary}
 	image={feature.fields.pageBanner.fields.file.url}
 />
-<article class="py-6 lg:py-12">
+<article class="py-16">
 	<section class="h-full w-full">
 		<div class="justify-center">
 			<div class="z-0 m-auto">
