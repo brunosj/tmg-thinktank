@@ -1,7 +1,9 @@
 <script>
-	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
-
 	export let item;
+	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
+	import { formatDateNews } from '$utils/utils.js';
+
+	console.log(item);
 </script>
 
 <li>
@@ -24,9 +26,9 @@
 				{item.fields.summary}
 			</p>
 
-			{#if item.fields.dateDay}
+			{#if item.fields.date}
 				<p class="pb-4 text-base font-semibold text-black">
-					Deadline for applications: {item.fields.dateDay}
+					Deadline for applications: {formatDateNews(item.fields.date)}
 				</p>
 			{/if}
 
