@@ -2,11 +2,20 @@ export const prerender = true;
 
 import { fetchContentfulData } from '$lib/contentfulClient';
 
+export async function entries() {
+	const entries = await fetchContentfulData('publicationFeature');
+	return entries.map((entry) => {
+		return {
+			slug: entry.fields.slug
+		};
+	});
+}
+
 export async function load() {
 	try {
-		const about = await fetchContentfulData('about');
+		const entries = await fetchContentfulData('publicationFeature');
 		return {
-			about
+			entries
 		};
 	} catch (error) {
 		console.error('Error fetching data:', error);

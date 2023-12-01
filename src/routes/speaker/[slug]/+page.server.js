@@ -1,5 +1,4 @@
-import { SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN } from '$env/static/private';
-import { createContentfulClient, fetchContentfulDataServer } from '$lib/contentfulClient';
+import { fetchContentfulData } from '$lib/contentfulClient';
 
 export const config = {
 	isr: {
@@ -7,17 +6,16 @@ export const config = {
 	}
 };
 
-const client = createContentfulClient(SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN);
-
 export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const entries = await fetchContentfulDataServer(client, 'speakers');
+		const entries = await fetchContentfulData('speakers');
 		const item = entries.find((p) => p.fields.slug === slug);
+		const events = await fetchContentfulData('event');
 
 		if (item) {
-			return { entries, item };
+			return { item, events };
 		} else {
 			throw new Error('Entry not found');
 		}

@@ -1,6 +1,4 @@
 <script>
-	import { page } from '$app/stores';
-	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 </script>
 
 <!-- <SectionHeaderLow title="This page cannot be found :(" background="bg-green-normal" /> -->

@@ -1,5 +1,4 @@
-import { SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN } from '$env/static/private';
-import { createContentfulClient, fetchContentfulDataServer } from '$lib/contentfulClient';
+import { fetchContentfulData } from '$lib/contentfulClient';
 
 export const config = {
 	isr: {
@@ -7,16 +6,14 @@ export const config = {
 	}
 };
 
-const client = createContentfulClient(SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN);
-
 export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const entries = await fetchContentfulDataServer(client, 'unfssCop26');
+		const entries = await fetchContentfulData('unfssCop26');
 		const item = entries.find((p) => p.fields.slug === slug);
 
-		const videos = await fetchContentfulDataServer(client, 'video');
+		const videos = await fetchContentfulData('video');
 
 		if (item) {
 			return { item, videos };

@@ -1,12 +1,9 @@
 export const prerender = true;
 
-import { SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN } from '$env/static/private';
-import { createContentfulClient, fetchContentfulDataServer } from '$lib/contentfulClient';
-
-const client = createContentfulClient(SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN);
+import { fetchContentfulData } from '$lib/contentfulClient';
 
 export async function entries() {
-	const entries = await fetchContentfulDataServer(client, 'program');
+	const entries = await fetchContentfulData('program');
 	return entries.map((entry) => {
 		return {
 			slug: entry.fields.slug
@@ -18,13 +15,13 @@ export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const entries = await fetchContentfulDataServer(client, 'program');
+		const entries = await fetchContentfulData('program');
 		const item = entries.find((p) => p.fields.slug === slug);
 
-		const publications = await fetchContentfulDataServer(client, 'publications');
-		const news = await fetchContentfulDataServer(client, 'news');
-		const events = await fetchContentfulDataServer(client, 'event');
-		const videos = await fetchContentfulDataServer(client, 'video');
+		const publications = await fetchContentfulData('publications');
+		const news = await fetchContentfulData('news');
+		const events = await fetchContentfulData('event');
+		const videos = await fetchContentfulData('video');
 
 		if (item) {
 			return { item, events, news, videos, publications };

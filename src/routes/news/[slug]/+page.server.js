@@ -1,7 +1,4 @@
-import { SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN } from '$env/static/private';
-import { createContentfulClient, fetchContentfulDataServer } from '$lib/contentfulClient';
-
-const client = createContentfulClient(SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN);
+import { fetchContentfulData } from '$lib/contentfulClient';
 
 export const config = {
 	isr: {
@@ -13,7 +10,7 @@ export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const entries = await fetchContentfulDataServer(client, 'news');
+		const entries = await fetchContentfulData('news');
 		const item = entries.find((p) => p.fields.slug === slug);
 
 		if (item) {

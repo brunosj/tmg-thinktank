@@ -53,7 +53,7 @@
 							<div class="p-6 text-lg lg:text-xl">
 								Check out our
 								<a
-									href="/publication-features"
+									href="/publication-feature"
 									class="font-bold duration-300 ease-in-out hover:text-black"
 								>
 									publication features

@@ -1,5 +1,4 @@
-import { SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN } from '$env/static/private';
-import { createContentfulClient, fetchContentfulDataServer } from '$lib/contentfulClient';
+import { fetchContentfulData } from '$lib/contentfulClient';
 
 export const config = {
 	isr: {
@@ -7,11 +6,9 @@ export const config = {
 	}
 };
 
-const client = createContentfulClient(SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN);
-
 export async function load() {
 	try {
-		const newsletter = await fetchContentfulDataServer(client, 'newsletter');
+		const newsletter = await fetchContentfulData('newsletter');
 		return {
 			newsletter
 		};
