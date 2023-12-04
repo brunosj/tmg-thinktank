@@ -108,7 +108,7 @@
 		description={programme.fields.description}
 	/>
 	<Heading text="Latest" bgColor="#F4F6F6" textColor="#67797B" />
-	<div class="container mx-auto my-12 grid grid-cols-1 lg:grid-cols-3">
+	<div class="container mx-auto mt-12">
 		<CarouselV2 slides={events.slice(0, 5)} />
 	</div>
 	<Heading text="Topics" bgColor="#F4F6F6" textColor="#67797B" />
