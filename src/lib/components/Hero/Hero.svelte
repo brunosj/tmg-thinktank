@@ -59,7 +59,7 @@
 
 								<a
 									href="/publications"
-									class="text-sm font-semibold leading-6 text-white duration-300 hover:text-gray-700"
+									class="text-sm font-semibold leading-6 text-white duration-300 hover:text-gray-300"
 									>View our publications <span aria-hidden="true">→</span></a
 								>
 							</div>
@@ -82,7 +82,7 @@
 
 							<a
 								href="/publications"
-								class="text-sm font-semibold leading-6 duration-300 hover:text-gray-700"
+								class="text-sm font-semibold leading-6 duration-300 hover:text-gray-300"
 								>View our publications <span aria-hidden="true">→</span></a
 							>
 						</div>

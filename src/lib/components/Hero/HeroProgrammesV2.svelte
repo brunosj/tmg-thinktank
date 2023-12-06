@@ -24,7 +24,7 @@
 		<HeadingV2 title="We work towards" textColor="light" />
 
 		<div class="mx-auto mt-12 max-w-2xl lg:max-w-none">
-			<dl
+			<div
 				class="grid grid-cols-1 gap-1 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4"
 			>
 				{#each heroProgrammes.sort( (a, b) => (a.fields.title || '').localeCompare(b.fields.title || '') ) as programme, index}
@@ -40,18 +40,18 @@
 						<div
 							class=" flex h-full flex-col items-center space-y-2 bg-white p-8 duration-300 group-hover:bg-green-variation"
 						>
-							<dt class="text-base font-semibold leading-6 text-gray-500">
+							<div class="text-base font-semibold leading-6 text-gray-500">
 								{getIntro(programme.fields.slug)}
-							</dt>
-							<dd
+							</div>
+							<div
 								class="text-2xl font-semibold leading-none tracking-tight duration-300 group-hover:opacity-70"
 							>
 								{programme.fields.title}
-							</dd>
+							</div>
 						</div>
 					</a>
 				{/each}
-			</dl>
+			</div>
 		</div>
 	</div>
 </div>
