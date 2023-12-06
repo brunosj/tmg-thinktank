@@ -16,7 +16,6 @@
 		addDays,
 		format
 	} from 'date-fns';
-	import { enUS } from 'date-fns/locale';
 	import ItemTooltip from './ItemTooltip.svelte';
 	import EventLegend from './EventLegend.svelte';
 
@@ -111,9 +110,10 @@
 						key={index}
 						class="flex w-full items-center justify-end border-[0.5px] border-gray-100 px-1 py-2 text-sm font-bold dark:border-neutral-500"
 					>
-						{format(addDays(startOfWeek(currentMonth, { weekStartsOn: 1 }), index), 'EEEEEE', {
-							locale: enUS
-						}).toUpperCase()}
+						{format(
+							addDays(startOfWeek(currentMonth, { weekStartsOn: 1 }), index),
+							'EEEEEE'
+						).toUpperCase()}
 					</div>
 				{/each}
 			</div>
