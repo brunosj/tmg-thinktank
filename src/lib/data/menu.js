@@ -61,8 +61,8 @@ export const footerMenu = [
 	{
 		category: 'Legal',
 		links: [
-			{ title: 'Imprint', to: '/imprint' },
-			{ title: 'Privacy Policy', to: '/privacy-policy' }
+			{ title: 'Imprint', to: '/legal/imprint' },
+			{ title: 'Privacy Policy', to: '/legal/privacy-policy' }
 		]
 	}
 ];

@@ -2,8 +2,9 @@
 	export let data;
 	import SEO from '$components/SEO/SEO.svelte';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
-	import EventListing from '../../lib/components/Events/EventListing.svelte';
+	import EventListing from '$components/Events/EventListing.svelte';
 	import ButtonLoadMore from '$components/UI/ButtonLoadMore.svelte';
+	import Calendar from '$components/Calendar/Calendar.svelte';
 
 	$: eventSeries = data.eventSeries.sort((a, b) => {
 		const dateA = new Date(a.fields.cutoffDate);
@@ -48,10 +49,13 @@
 <SectionHeaderLow title="Events" background="bg-green-normal" subtitle="" />
 <div class="bg-white">
 	<div class="container">
-		<div class="pb-12 pt-6 text-3xl font-bold lg:pt-12">Upcoming Events</div>
+		<div class="sectionPy">
+			<Calendar {events} />
+		</div>
+		<!-- <div class="pb-12 pt-6 text-3xl font-bold lg:pt-12">Upcoming Events</div>
 		<div class="grid grid-cols-1 pb-6 lg:grid-cols-2 lg:pb-12">
 			<EventListing events={eventsFuture} />
-		</div>
+		</div> -->
 	</div>
 </div>
 
@@ -59,7 +63,7 @@
 	<div class="bg-green-variation">
 		<div class="container">
 			<div class="pt-6 text-3xl font-bold lg:pt-12">Event Series</div>
-			<div class="grid grid-cols-1 items-center gap-12 py-12 lg:grid-cols-2">
+			<div class="grid grid-cols-1 items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
 				{#each eventSeries as item (item.fields.slug)}
 					<a href={`/event-series/${item.fields.slug}`}>
 						<img
