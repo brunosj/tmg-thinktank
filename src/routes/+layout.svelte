@@ -24,7 +24,7 @@
 	}
 </script>
 
-<!-- <PreviewBanner /> -->
+<PreviewBanner />
 <SEO />
 <Header />
 {#key pathname}

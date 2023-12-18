@@ -42,8 +42,7 @@ export function renderRichText(richText) {
 		[INLINES.HYPERLINK]: (node) => {
 			const url = node.data.uri;
 			const text = node.content[0].value;
-			const isExternalLink =
-				url.startsWith('http') || url.startsWith('https') || url.startsWith('www');
+			const isExternalLink = url.includes('http') || url.includes('https') || url.includes('www');
 			const targetAttribute = isExternalLink ? 'target="_blank" rel="noopener noreferrer"' : '';
 			return `<a href="${ensureHttps(url)}" ${targetAttribute}>${text}</a>`;
 		}
@@ -133,10 +132,8 @@ export function formatDateNews(date) {
 //////  Util function to ensure external links do not use client navigation
 
 export function ensureHttps(url) {
-	// Check if the URL starts with "http://" or "https://"
 	if (!url.startsWith('http://') && !url.startsWith('https://')) {
-		// If not, add "https://"
 		return 'https://' + url;
 	}
-	return url; // URL already has "http://" or "https://"
+	return url;
 }
