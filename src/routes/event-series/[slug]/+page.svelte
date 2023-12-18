@@ -33,20 +33,17 @@
 				});
 		}
 	}
+
+	$: image =
+		item.fields.pageBannerCdn?.length > 0
+			? item.fields.pageBannerCdn[0].secure_url
+			: item.fields.pageBanner.fields.file.url;
 </script>
 
-<SEO
-	title={item.fields.title}
-	description={item.fields.summary}
-	image={item.fields.pageBanner.fields.file.url}
-/>
+<SEO title={item.fields.title} description={item.fields.summary} {image} />
 
 <div class="pb-6 lg:pb-12">
-	<TitleImageGradientHeader
-		image={item.fields.pageBanner.fields.file.url}
-		title={item.fields.title}
-		subtitle={item.fields.summary}
-	/>
+	<TitleImageGradientHeader {image} title={item.fields.title} subtitle={item.fields.summary} />
 	<section class="container pb-6 pt-6 lg:pb-12 lg:pt-12">
 		<div class="richText">
 			{#if item.fields.description}

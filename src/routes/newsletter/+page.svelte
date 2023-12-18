@@ -34,6 +34,10 @@
 
 		<section class="flex flex-wrap justify-around gap-12 py-12">
 			{#each newsletter as item, i}
+				{@const image =
+					item.fields.thumbnailCdn?.length > 0
+						? item.fields.thumbnailCdn[0].secure_url
+						: item.fields.thumbnail.fields.file.url}
 				<a
 					href={item.fields.url}
 					target="_blank"
@@ -42,7 +46,7 @@
 				>
 					<img
 						loading="lazy"
-						src={item.fields.thumbnail.fields.file.url}
+						src={image}
 						alt={'Newsletter #' + item.fields.number}
 						class="w-48 scale-100 hover:scale-105"
 					/>

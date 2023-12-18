@@ -51,9 +51,14 @@
 				return dateB - dateA;
 			});
 	}
+
+	$: image =
+		item.fields.pictureCdn?.length > 0
+			? item.fields.pictureCdn[0].secure_url
+			: item.fields.picture.fields.file.url;
 </script>
 
-<SEO title={item.fields.name} image={item.fields.picture.fields.file.url} />
+<SEO title={item.fields.name} {image} />
 
 <article class="pb-6 pt-24 lg:pb-16 lg:pt-48">
 	<div class="gril-cols-1 container grid lg:grid-cols-4" key={item.fields.id}>
@@ -92,12 +97,12 @@
 			</div>
 		</div>
 
-		{#if item.fields.picture}
+		{#if image}
 			<div class="order-1 ml-0 w-1/3 px-2 pb-5 lg:order-2 lg:ml-12 lg:w-full lg:pb-2">
 				<img
 					loading="lazy"
 					class="aspect-square w-full rounded-full object-cover"
-					src={item.fields.picture.fields.file.url}
+					src={image}
 					alt={item.fields.name}
 				/>
 			</div>

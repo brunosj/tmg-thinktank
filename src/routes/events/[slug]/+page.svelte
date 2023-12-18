@@ -17,13 +17,19 @@
 	import VideoListing from '$components/Video/VideoListing.svelte';
 
 	$: item = data;
+
+	$: image =
+		item.fields.imageCdn?.length > 0
+			? item.fields.imageCdn[0].secure_url
+			: item.fields.image.fields.file.url;
+
+	$: imageCaption =
+		item.fields.imageCdn?.length > 0
+			? item.fields.imageCdn[0].context.custom.caption
+			: item.fields.image.fields.description;
 </script>
 
-<SEO
-	title={item.fields.title}
-	description={item.fields.summary}
-	image={item.fields.image.fields.file.url}
-/>
+<SEO title={item.fields.title} description={item.fields.summary} {image} />
 <article>
 	<div class="overflow-hidden pt-12 lg:pt-32">
 		<EventHeader {item} />
@@ -62,14 +68,18 @@
 		</section>
 
 		<section class="container py-6">
-			<div class="w-full pb-6">
-				<img loading="lazy" src={item.fields.image.fields.file.url} alt={item.fields.title} />
-				<div class="flex">
-					<span class="ml-auto pt-2 text-sm font-normal italic text-black">
-						{item.fields.image.fields.description}
-					</span>
+			{#if image}
+				<div class="w-full pb-6">
+					<img loading="lazy" src={image} alt={item.fields.title} />
+					{#if imageCaption}
+						<div class="flex">
+							<span class="ml-auto pt-2 text-sm font-normal italic text-black">
+								{imageCaption}
+							</span>
+						</div>
+					{/if}
 				</div>
-			</div>
+			{/if}
 
 			{#if item.fields.programme.fields.title}
 				<div class="border-b border-t border-gray-300 py-6 leading-loose">

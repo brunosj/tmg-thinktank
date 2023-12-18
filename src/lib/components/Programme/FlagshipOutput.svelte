@@ -1,5 +1,10 @@
 <script>
 	export let item;
+
+	let image =
+		feature.fields.pageBannerCdn?.length > 0
+			? feature.fields.pageBannerCdn[0].secure_url
+			: feature.fields.pageBanner.fields.file.url;
 </script>
 
 <div class="col-span-1 mx-auto flex">
@@ -22,7 +27,7 @@
 				</h1>
 			</div>
 			<div class="mt-auto opacity-100 transition duration-200 ease-in-out group-hover:opacity-90">
-				<img loading="lazy" src={item.fields.image.fields.file.url} alt={item.fields.title} />
+				<img loading="lazy" src={image} alt={item.fields.title} />
 			</div>
 		</div>
 	</a>

@@ -29,6 +29,11 @@
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
 			: item.fields.image.fields.file.url;
+
+	$: imageCaption =
+		item.fields.imageCdn?.length > 0
+			? item.fields.imageCdn[0].context.custom.caption
+			: item.fields.image.fields.description;
 </script>
 
 <SEO title={item.fields.title} description={item.fields.summary} {image} />
@@ -65,10 +70,10 @@
 					class="h-full w-full object-cover"
 				/>
 			</div>
-			{#if item.fields.image.description}
+			{#if imageCaption}
 				<div class="mt-2 flex w-full italic">
 					<div class="richText ml-auto text-sm font-semibold">
-						{item.fields.image.fields.description}
+						{imageCaption}
 					</div>
 				</div>
 			{/if}

@@ -15,6 +15,7 @@
 	$: events = data.events;
 
 	$: speaker = data.item;
+
 	$: {
 		events = events
 			.filter((events) => {
@@ -29,9 +30,14 @@
 				return dateB - dateA;
 			});
 	}
+
+	$: image =
+		speaker.fields.pictureCdn?.length > 0
+			? speaker.fields.pictureCdn[0].secure_url
+			: speaker.fields.picture.fields.file.url;
 </script>
 
-<SEO title={speaker.fields.name} image={speaker.fields.picture.fields.file.url} />
+<SEO title={speaker.fields.name} {image} />
 <article class="pb-6 pt-32 lg:pb-12 lg:pt-48">
 	<div class="container grid grid-cols-1 lg:grid-cols-4">
 		<div class="order-2 justify-between pr-0 leading-normal lg:order-1 lg:col-span-3 lg:pr-16">
@@ -70,12 +76,12 @@
 			</div>
 		</div>
 
-		{#if speaker.fields.picture}
+		{#if image}
 			<div class="order-1 ml-0 aspect-square w-1/3 px-2 pb-5 lg:order-2 lg:ml-12 lg:w-full lg:pb-2">
 				<img
 					loading="lazy"
 					class="aspect-square w-full rounded-full object-cover"
-					src={speaker.fields.picture.fields.file.url}
+					src={image}
 					alt={speaker.fields.name}
 				/>
 			</div>

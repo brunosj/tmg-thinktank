@@ -6,16 +6,20 @@
 
 <div class="container grid grid-cols-1 pb-6 pt-6 lg:grid-cols-2 lg:gap-5 lg:pt-12">
 	{#each items.sort((a, b) => new Date(b.fields.publicationDate) - new Date(a.fields.publicationDate)) as item, i}
+		{@const image =
+			item.fields.thumbnailCdn?.length > 0
+				? item.fields.thumbnailCdn[0].secure_url
+				: item.fields.thumbnail.fields.file.url}
 		{#if item.fields.pdf}
 			<a href={item.fields.pdf.fields.file.url} target="_blank" key={i}>
 				<div class="group grid grid-cols-1 pb-6 lg:grid-cols-4">
-					{#if item.fields.thumbnail.fields.file.url}
+					{#if image}
 						<div
 							class="group:hover:opacity-80 w-1/3 rounded-full px-2 pb-5 transition duration-300 ease-in-out lg:w-full lg:pb-2"
 						>
 							<img
 								loading="lazy"
-								src={item.fields.thumbnail.fields.file.url}
+								src={image}
 								alt={item.fields.title}
 								class="duration-300 hover:opacity-80"
 							/>

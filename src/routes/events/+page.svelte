@@ -43,8 +43,6 @@
 	function loadMoreEvents() {
 		eventsCount += 12;
 	}
-
-	$: console.log(eventSeries);
 </script>
 
 <SEO title="Events" description="Events from TMG and its partners" />
@@ -54,10 +52,6 @@
 		<div class="sectionPy">
 			<Calendar {events} />
 		</div>
-		<!-- <div class="pb-12 pt-6 text-3xl font-bold lg:pt-12">Upcoming Events</div>
-		<div class="grid grid-cols-1 pb-6 lg:grid-cols-2 lg:pb-12">
-			<EventListing events={eventsFuture} />
-		</div> -->
 	</div>
 </div>
 
@@ -67,10 +61,14 @@
 			<div class="pt-6 text-3xl font-bold lg:pt-12">Event Series</div>
 			<div class="grid grid-cols-1 items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
 				{#each eventSeries as item (item.fields.slug)}
+					{@const image =
+						item.fields.imageCdn?.length > 0
+							? item.fields.imageCdn[0].secure_url
+							: item.fields.image.fields.file.url}
 					<a href={`/event-series/${item.fields.slug}`}>
 						<img
 							loading="lazy"
-							src={item.fields.image.fields.file.url}
+							src={image}
 							alt={item.fields.title}
 							class="duration-300 hover:opacity-80"
 						/>

@@ -9,6 +9,10 @@
 			{#if videos.length >= 1}
 				<ul class="grid grid-cols-1 gap-6 pb-12 pt-6 md:grid-cols-2 lg:pt-16">
 					{#each videos as video, i}
+						{@const image =
+							video.fields.imageCdn?.length > 0
+								? video.fields.imageCdn[0].secure_url
+								: video.fields.image.fields.file.url}
 						<li class="pb-5" key={i}>
 							<div class="h-full border">
 								<VideoWrapper
@@ -16,7 +20,7 @@
 									videoWidth="600"
 									videoHeight="337"
 									videoTitle={video.fields.title}
-									videoImage={video.fields.image.fields.file.url}
+									videoImage={image}
 								/>
 								<div class="p-4">
 									<h1

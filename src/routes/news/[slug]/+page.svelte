@@ -12,13 +12,18 @@
 
 	$: item = data.item;
 
-	$: itemImage =
+	$: image =
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
 			: item.fields.image.fields.file.url;
+
+	$: imageCaption =
+		item.fields.imageCdn?.length > 0
+			? item.fields.imageCdn[0].context.custom.caption
+			: item.fields.image.fields.description;
 </script>
 
-<SEO title={item.fields.title} description={item.fields.summary} image={itemImage} />
+<SEO title={item.fields.title} description={item.fields.summary} {image} />
 <div class="container overflow-hidden pt-16 lg:pt-32">
 	<section class="mt-6 border-b border-green-normal lg:mt-12">
 		<div class="space-y-6 overflow-hidden">
@@ -39,14 +44,14 @@
 		/>
 	</section>
 
-	{#if itemImage}
+	{#if image}
 		<div class="mt-12 lg:max-w-4xl">
-			<img loading="lazy" src={itemImage} alt={item.fields.title} />
-			<!-- {#if item.fields.image.description}
+			<img loading="lazy" src={image} alt={item.fields.title} />
+			{#if imageCaption}
 				<div class="pt-2 text-center text-sm font-normal italic text-black">
-					{item.fields.image.description}
+					{imageCaption}
 				</div>
-			{/if} -->
+			{/if}
 		</div>
 	{/if}
 

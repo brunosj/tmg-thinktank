@@ -16,9 +16,9 @@
 <Hero hero={landingPage} heroProgrammes={programmes} />
 <!-- <HeroV2 hero={landingPage} heroProgrammes={programmes} /> -->
 <LatestV2 {landingPage} />
-<EventsHomepage {events} {landingPage} />
+<!-- <EventsHomepage {events} {landingPage} /> -->
 <HeroProgrammesV2 heroProgrammes={programmes} />
-<BlogHomepage {news} {landingPage} />
+<!-- <BlogHomepage {news} {landingPage} /> -->
 
 <NewsletterBanner {newsletter} {landingPage} />
 <NetworksBanner {partners} {landingPage} />

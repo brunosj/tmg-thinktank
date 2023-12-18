@@ -74,13 +74,12 @@
 	function loadMorePublications() {
 		publicationsCount += 12;
 	}
+
+	$: image =
+		project.fields.thumbnailCdn?.length > 0 ? project.fields.thumbnailCdn[0].secure_url : image;
 </script>
 
-<SEO
-	title={project.fields.title}
-	description={project.fields.summary}
-	image={project.fields.thumbnail.fields.file.url}
-/>
+<SEO title={project.fields.title} description={project.fields.summary} {image} />
 <div class="bg-green-normal">
 	<div class="container pb-16 pt-24 lg:pt-32">
 		<div class="mb-5 text-sm text-green-light">
