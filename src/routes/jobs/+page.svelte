@@ -43,9 +43,9 @@
 		{/if}
 
 		{#if jobOffers.length === 0 && consultancyOffers.length === 0}
-			<div class="pt-12 text-lg font-semibold">
-				There are currently no open positions at our organization. Please visit this page at a later
-				stage to consult future openings.
+			<div class="pb-12 pt-16 font-semibold lg:pb-24 lg:pt-32">
+				<p>There are currently no open positions at our organization.</p>
+				<p>Please visit this page at a later stage to consult future openings.</p>
 			</div>
 		{/if}
 	</div>

@@ -31,21 +31,19 @@
 					Check out our different channels where we publish articles, videos, and analyses of global
 					and local debates
 				</p>
-				<div>
-					<ul class="flex justify-between pt-6 lg:justify-start">
-						{#each socialLinks as link (link.label)}
-							<li class="mr-0 inline-block lg:mr-5">
-								<a
-									href={link.link}
-									target="_blank"
-									class="text-green-light transition duration-300 ease-in-out hover:text-gray-800"
-								>
-									<Icon icon={link.icon} label={link.label} />
-								</a>
-							</li>
-						{/each}
-					</ul>
-				</div>
+				<ul class="flex justify-center gap-12 pt-6 lg:justify-start">
+					{#each socialLinks as link (link.label)}
+						<li class="mr-0 inline-block lg:mr-5">
+							<a
+								href={link.link}
+								target="_blank"
+								class="text-green-light transition duration-300 ease-in-out hover:text-gray-800"
+							>
+								<Icon icon={link.icon} label={link.label} />
+							</a>
+						</li>
+					{/each}
+				</ul>
 			</div>
 		</div>
 	</div>

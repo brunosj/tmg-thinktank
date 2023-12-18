@@ -3,7 +3,6 @@
 	import '$styles/carousel.css';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicIn, cubicOut } from 'svelte/easing';
-	// import { PreviewBanner } from 'sveltekit-preview-mode';
 	import Footer from '$components/Layout/Footer.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Header from '$components/Layout/Header.svelte';
@@ -23,7 +22,6 @@
 	}
 </script>
 
-<!-- <PreviewBanner /> -->
 <SEO />
 <Header />
 {#key pathname}

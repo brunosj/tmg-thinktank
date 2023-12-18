@@ -1,15 +1,3 @@
-<script>
-</script>
-
-<!-- <SectionHeaderLow title="This page cannot be found :(" background="bg-green-normal" /> -->
-<!-- <article class="container flex min-h-[30vh] items-center">
-	<p class>
-		<span class="font-bold text-green-normal"> Error code: </span>
-		{$page.status}
-		{$page.error.message}
-	</p>
-</article> -->
-
 <main class="relative isolate min-h-full">
 	<img
 		src="https://res.cloudinary.com/tmgthinktank/image/upload/f_auto/q_auto/v1699277689/Website%20Assets/hero-forest_nlyt4i.jpg"
