@@ -7,7 +7,6 @@
 	import Footer from '$components/Layout/Footer.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Header from '$components/Layout/Header.svelte';
-	import { isPreview } from 'sveltekit-preview-mode';
 
 	export let data;
 	$: pathname = data.pathname;

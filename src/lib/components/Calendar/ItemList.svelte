@@ -66,7 +66,6 @@
 		});
 
 		sortedDays = Array.from(itemsByDay.keys()).sort();
-		console.log(itemsByDay);
 	}
 </script>
 

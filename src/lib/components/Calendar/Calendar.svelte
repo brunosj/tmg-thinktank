@@ -64,7 +64,6 @@
 	};
 
 	const handleDayMouseLeave = () => {
-		console.log('Mouse left');
 		hoveredDay = null;
 	};
 
