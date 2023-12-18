@@ -13,22 +13,19 @@
 	import PartnersLogo from '$components/Partners/PartnersLogo.svelte';
 
 	$: feature = data.item;
+
+	$: image =
+		feature.fields.pageBannerCdn?.length > 0
+			? feature.fields.pageBannerCdn[0].secure_url
+			: feature.fields.pageBanner.fields.file.url;
 </script>
 
-<SEO
-	title={feature.fields.title}
-	description={feature.fields.summary}
-	image={feature.fields.pageBanner.fields.file.url}
-/>
+<SEO title={feature.fields.title} description={feature.fields.summary} {image} />
 <article class="py-16">
 	<section class="h-full w-full">
 		<div class="justify-center">
 			<div class="z-0 m-auto">
-				<img
-					loading="lazy"
-					src={feature.fields.pageBanner.fields.file.url}
-					alt={feature.fields.title}
-				/>
+				<img loading="lazy" src={image} alt={feature.fields.title} />
 			</div>
 		</div>
 	</section>
