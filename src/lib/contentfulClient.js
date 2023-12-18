@@ -1,10 +1,8 @@
-import {
-	SECRET_CONTENTFUL_SPACE_ID,
-	SECRET_CONTENTFUL_ACCESS_TOKEN,
-	SECRET_CONTENTFUL_PREVIEW_ACCESS_TOKEN
-} from '$env/static/private';
+import { SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN } from '$env/static/private';
+import { PUBLIC_CONTENTFUL_HOST } from '$env/static/public';
+
 import { createClient } from 'contentful';
-import { isPreview } from 'sveltekit-preview-mode';
+// import { isPreview } from 'sveltekit-preview-mode';
 
 // Previous approach
 
@@ -31,13 +29,22 @@ import { isPreview } from 'sveltekit-preview-mode';
 
 const client = () => {
 	return createClient({
-		accessToken: isPreview()
-			? SECRET_CONTENTFUL_PREVIEW_ACCESS_TOKEN
-			: SECRET_CONTENTFUL_ACCESS_TOKEN,
-		host: isPreview() ? 'preview.contentful.com' : 'cdn.contentful.com',
+		accessToken: SECRET_CONTENTFUL_ACCESS_TOKEN,
+		host: PUBLIC_CONTENTFUL_HOST,
 		space: SECRET_CONTENTFUL_SPACE_ID
 	});
 };
+
+// to enable preview mode (not working yet)
+// const client = () => {
+// 	return createClient({
+// 		accessToken: isPreview()
+// 			? SECRET_CONTENTFUL_PREVIEW_ACCESS_TOKEN
+// 			: SECRET_CONTENTFUL_ACCESS_TOKEN,
+// 		host: isPreview() ? 'preview.contentful.com' : 'cdn.contentful.com',
+// 		space: SECRET_CONTENTFUL_SPACE_ID
+// 	});
+// };
 
 export async function fetchContentfulData(contentType) {
 	try {

@@ -43,6 +43,8 @@
 	function loadMoreEvents() {
 		eventsCount += 12;
 	}
+
+	$: console.log(eventSeries);
 </script>
 
 <SEO title="Events" description="Events from TMG and its partners" />
