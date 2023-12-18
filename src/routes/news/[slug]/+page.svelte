@@ -12,11 +12,6 @@
 
 	$: item = data.item;
 
-	$: image =
-		item.fields.imageCdn?.length > 0
-			? item.fields.imageCdn[0].secure_url
-			: item.fields.image.fields.file.url;
-
 	$: itemImage =
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
@@ -44,14 +39,14 @@
 		/>
 	</section>
 
-	{#if image}
+	{#if itemImage}
 		<div class="mt-12 lg:max-w-4xl">
-			<img loading="lazy" src={image} alt={item.fields.description} />
-			{#if item.fields.image.description}
+			<img loading="lazy" src={itemImage} alt={item.fields.title} />
+			<!-- {#if item.fields.image.description}
 				<div class="pt-2 text-center text-sm font-normal italic text-black">
 					{item.fields.image.description}
 				</div>
-			{/if}
+			{/if} -->
 		</div>
 	{/if}
 
@@ -107,7 +102,3 @@
 		</div>
 	</div>
 </div>
-
-<style>
-	/* Add your CSS styles here */
-</style>

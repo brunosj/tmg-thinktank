@@ -38,7 +38,7 @@
 		<div class="relative z-0 bg-green-variation py-24 lg:pb-32 lg:pt-40">
 			<div class="container w-full space-y-6 last:pb-12 lg:w-2/3">
 				<div class="font-bold text-white">
-					<span class="bg-gray-900 rounded-lg px-2 py-1">{item.fields.type}</span>
+					<span class="rounded-lg bg-gray-900 px-2 py-1">{item.fields.type}</span>
 				</div>
 				<h1 class="text-green-normal">
 					{item.fields.title}
@@ -46,9 +46,11 @@
 				<h4 class=" text-black">
 					{item.fields.summary}
 				</h4>
-				<p class=" text-black">
-					by <span class="font-semibold">{item.fields.author}</span> | {item.fields.dateFormat}
-				</p>
+				{#if item.fields.author}
+					<p class=" text-black">
+						by <span class="font-semibold">{item.fields.author}</span> | {item.fields.dateFormat}
+					</p>
+				{/if}
 			</div>
 		</div>
 
@@ -59,15 +61,17 @@
 				<img
 					loading="lazy"
 					src={image}
-					alt={item.fields.description}
+					alt={item.fields.title}
 					class="h-full w-full object-cover"
 				/>
 			</div>
-			<div class="mt-2 flex w-full italic">
-				<div class="richText ml-auto text-sm font-semibold">
-					{item.fields.image.fields.description}
+			{#if item.fields.image.description}
+				<div class="mt-2 flex w-full italic">
+					<div class="richText ml-auto text-sm font-semibold">
+						{item.fields.image.fields.description}
+					</div>
 				</div>
-			</div>
+			{/if}
 		</div>
 	</section>
 
