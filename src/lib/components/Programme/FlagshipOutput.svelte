@@ -2,9 +2,9 @@
 	export let item;
 
 	let image =
-		feature.fields.pageBannerCdn?.length > 0
-			? feature.fields.pageBannerCdn[0].secure_url
-			: feature.fields.pageBanner.fields.file.url;
+		item.fields.imageCdn?.length > 0
+			? item.fields.imageCdn[0].secure_url
+			: item.fields.image.fields.file.url;
 </script>
 
 <div class="col-span-1 mx-auto flex">
