@@ -33,20 +33,20 @@
 	let landingPage = data.landingPage[0];
 	let { programmes, newsletter, partners, events, news, publicationFeatures } = data;
 
-	// const publicationFeatureItems = publicationFeatures.filter(
-	// 	(item) => item.fields.featuredOnHomepage === true
-	// );
+	const publicationFeatureItems = publicationFeatures.filter(
+		(item) => item.fields.featuredOnHomepage === true
+	);
 </script>
 
 <!-- <HeroV2 hero={landingPage} heroProgrammes={programmes} /> -->
 
-<Hero hero={landingPage} />
+<!-- <Hero hero={landingPage} />
 <LatestV2 {landingPage} />
 <EventsHomepage {events} {landingPage} />
-<!-- {#if publicationFeatureItems.length >= 1}
+{#if publicationFeatureItems.length >= 1}
 	<ImageBanner item={publicationFeatureItems[0]} />
-{/if} -->
+{/if}
 <HeroProgrammesV2 heroProgrammes={programmes} />
 <BlogHomepage {news} {landingPage} />
 <NewsletterBanner {newsletter} {landingPage} />
-<NetworksBanner {partners} {landingPage} />
+<NetworksBanner {partners} {landingPage} /> -->
