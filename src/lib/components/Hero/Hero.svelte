@@ -11,7 +11,7 @@
 	let element;
 	let intersecting = false;
 
-	let { heroPicture, heroText } = hero;
+	let { heroPicture, heroText } = hero.fields;
 </script>
 
 <div
@@ -27,7 +27,6 @@
 					alt="TMG Think Tank"
 					class="object-cover"
 					decoding="async"
-					fetchpriority="high"
 				/>
 			</div>
 			<div class="container z-10">

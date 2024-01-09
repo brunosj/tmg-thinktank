@@ -1,7 +1,8 @@
 <script lang="ts">
-	export let events;
-	export let landingPage;
+	export let events: Event[];
+	export let landingPage: LandingPage;
 
+	import type { Event, LandingPage } from '$lib/types/types';
 	import { parseISO, isAfter } from 'date-fns';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	import EventListing from '$components/Events/EventListing.svelte';
@@ -17,7 +18,7 @@
 			.sort((a, b) => {
 				const dateA = parseISO(a.fields.date);
 				const dateB = parseISO(b.fields.date);
-				return dateA - dateB;
+				return dateA.getTime() - dateB.getTime();
 			})
 			.slice(0, 4);
 	}
@@ -29,8 +30,8 @@
 	<div class="sectionPy bg-white">
 		<div class="container">
 			<HeadingV2
-				title={landingPage.eventSectionTitle}
-				subtitle={landingPage.eventSectionSubtitle}
+				title={landingPage.fields.eventSectionTitle}
+				subtitle={landingPage.fields.eventSectionSubtitle}
 				textColor="dark"
 			/>
 

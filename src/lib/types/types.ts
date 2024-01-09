@@ -14,20 +14,22 @@ export interface AboutPage {
 }
 
 export interface LandingPage {
-	title: string;
-	heroPicture: ImageCdn[];
-	heroText: string;
-	latestSectionTitle: string;
-	latestSectionSubtitle: string;
-	featuresItems: (News | Event)[];
-	eventSectionTitle: string;
-	eventSectionSubtitle: string;
-	eventSeriesBanner: Image;
-	blogSectionTitle: string;
-	blogSectionSubtitle: string;
-	newsletterBanner: Banner;
-	networksSectionTitle: string;
-	networksSectionSubtitle: string;
+	fields: {
+		title: string;
+		heroPicture: ImageCdn[];
+		heroText: string;
+		latestSectionTitle: string;
+		latestSectionSubtitle: string;
+		featuredItems: (News | Event)[];
+		eventSectionTitle: string;
+		eventSectionSubtitle: string;
+		eventSeriesBanner: Image;
+		blogSectionTitle: string;
+		blogSectionSubtitle: string;
+		newsletterBanner: Banner;
+		networksSectionTitle: string;
+		networksSectionSubtitle: string;
+	};
 }
 
 export interface Legal {
