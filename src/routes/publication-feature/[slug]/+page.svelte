@@ -26,8 +26,6 @@
 		feature.fields.pageBannerCdn?.length > 0
 			? feature.fields.pageBannerCdn[0].secure_url
 			: feature.fields.pageBanner.fields.file.url;
-
-	$: console.log(feature);
 </script>
 
 <SEO title={feature.fields.title} description={feature.fields.summary} {image} />

@@ -30,7 +30,7 @@
 		publicationFeatures: PublicationFeature[];
 	};
 
-	let landingPage = data.landingPage?.[0];
+	let landingPage = data.landingPage[0];
 	let { programmes, newsletter, partners, events, news, publicationFeatures } = data;
 
 	// const publicationFeatureItems = publicationFeatures.filter(
