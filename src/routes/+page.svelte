@@ -37,7 +37,11 @@
 		(item) => item.fields.featuredOnHomepage === true
 	);
 
-	const publicationFeatureItem = publicationFeatureItems[0];
+	let publicationFeatureItem: PublicationFeature;
+
+	publicationFeatureItems.length >= 1
+		? (publicationFeatureItem = publicationFeatureItems[0])
+		: null;
 </script>
 
 <!-- <HeroV2 hero={landingPage} heroProgrammes={programmes} /> -->
@@ -45,7 +49,9 @@
 <Hero hero={landingPage} />
 <LatestV2 {landingPage} />
 <EventsHomepage {events} {landingPage} />
-<ImageBanner item={publicationFeatureItem} />
+{#if publicationFeatureItem}
+	<ImageBanner item={publicationFeatureItem} />
+{/if}
 <HeroProgrammesV2 heroProgrammes={programmes} />
 <BlogHomepage {news} {landingPage} />
 <NewsletterBanner {newsletter} {landingPage} />
