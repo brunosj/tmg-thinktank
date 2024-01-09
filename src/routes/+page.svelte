@@ -36,8 +36,6 @@
 	const publicationFeatureItems = publicationFeatures.filter(
 		(item) => item.fields.featuredOnHomepage === true
 	);
-
-	const publicationFeatureItem = publicationFeatureItems[0];
 </script>
 
 <!-- <HeroV2 hero={landingPage} heroProgrammes={programmes} /> -->
@@ -45,8 +43,8 @@
 <Hero hero={landingPage} />
 <LatestV2 {landingPage} />
 <EventsHomepage {events} {landingPage} />
-{#if publicationFeatureItem}
-	<ImageBanner item={publicationFeatureItem} />
+{#if publicationFeatureItems.length >= 1}
+	<ImageBanner item={publicationFeatureItems[0]} />
 {/if}
 <HeroProgrammesV2 heroProgrammes={programmes} />
 <BlogHomepage {news} {landingPage} />
