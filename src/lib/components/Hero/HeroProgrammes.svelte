@@ -1,11 +1,10 @@
-<script lang="ts">
-	export let heroProgrammes: Programme[];
+<script>
+	export let heroProgrammes;
 
-	import type { Programme } from '$lib/types/types';
 	import ProgrammeBanner from '$components/Banner/ProgrammeBanner.svelte';
 	import Heading from '$components/Layout/Heading.svelte';
 
-	function getIntro(slug: string) {
+	function getIntro(slug) {
 		switch (slug) {
 			case 'food-systems':
 				return 'Transforming';

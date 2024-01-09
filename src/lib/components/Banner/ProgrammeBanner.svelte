@@ -1,10 +1,10 @@
 <!-- ProgrammeBanner.svelte -->
-<script lang="ts">
-	export let image: string;
-	export let intro: string;
-	export let title: string;
-	export let to: string;
-	export let key: number;
+<script>
+	export let image;
+	export let intro;
+	export let title;
+	export let to;
+	export let key;
 
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';
@@ -16,7 +16,7 @@
 	const isTextRight = key === 0 || key === 2;
 </script>
 
-<a href={to} bind:this={element}>
+<a href={to} {key} bind:this={element}>
 	<IntersectionObserver {element} bind:intersecting once threshold={0.7}>
 		{#if intersecting}
 			<div class="relative">

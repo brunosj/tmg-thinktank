@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let heroProgrammes;
 
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';

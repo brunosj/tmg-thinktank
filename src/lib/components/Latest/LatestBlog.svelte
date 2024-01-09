@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let news;
 
 	import { slugify } from '$utils/utils.js';

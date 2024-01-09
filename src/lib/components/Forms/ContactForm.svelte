@@ -1,17 +1,10 @@
-<script lang="ts">
-	export let form: HTMLFormElement;
+<script>
+	export let form;
 
 	import { enhance } from '$app/forms';
 	import Button from '$components/UI/Button.svelte';
 	import { elasticOut } from 'svelte/easing';
 	import { fade } from 'svelte/transition';
-
-	interface SpinParams {
-		delay: number;
-		duration: number;
-	}
-
-	interface SvelteNode extends Element {}
 
 	let action_result;
 	let success = false;
@@ -26,7 +19,7 @@
 		}
 	};
 
-	export const spin = (node: SvelteNode, { delay, duration }: SpinParams) => {
+	export const spin = (node, { delay, duration }) => {
 		return {
 			delay,
 			duration,

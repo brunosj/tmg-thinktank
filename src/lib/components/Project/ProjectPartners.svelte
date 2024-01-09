@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let items;
 
 	import { ensureHttps } from '$lib/utils/utils';

@@ -1,6 +1,6 @@
-<script lang="ts">
-	export let text: string;
-	export let author: string;
+<script>
+	export let text;
+	export let author;
 
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';

@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let hoveredDay;
 	export let handleDayMouseEnter;
 	export let handleDayMouseLeave;

@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	import Button from '$components/UI/Button.svelte';
 	import HeadingAbout from '$components/About/HeadingAbout.svelte';
 </script>

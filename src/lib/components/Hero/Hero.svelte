@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let hero;
 
 	import { renderRichText } from '$utils/utils.js';
@@ -11,7 +11,7 @@
 	let element;
 	let intersecting = false;
 
-	let { heroPicture, heroText } = hero.fields;
+	let { heroPicture, heroText } = hero;
 </script>
 
 <div
@@ -27,6 +27,7 @@
 					alt="TMG Think Tank"
 					class="object-cover"
 					decoding="async"
+					fetchpriority="high"
 				/>
 			</div>
 			<div class="container z-10">

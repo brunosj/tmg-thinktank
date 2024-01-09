@@ -1,6 +1,6 @@
 <!-- PublicationFilter.svelte -->
 
-<script lang="ts">
+<script>
 	import { onMount } from 'svelte';
 	import { parseISO } from 'date-fns';
 	import { Disclosure, DisclosurePanel, DisclosureButton } from '@rgossiaux/svelte-headlessui';

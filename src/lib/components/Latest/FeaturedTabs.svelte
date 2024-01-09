@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let landingPage;
 	export let newsletter;
 	export let events;

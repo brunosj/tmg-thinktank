@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 </script>
 
 <section class="pt-6">

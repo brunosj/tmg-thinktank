@@ -1,10 +1,10 @@
-<script lang="ts">
-	export let data: Page;
-
-	import type { News } from '$lib/types/types';
+<script>
+	export let data;
 	import SEO from '$components/SEO/SEO.svelte';
+
 	import Button from '$components/UI/Button.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
+
 	import { renderRichText } from '$lib/utils/utils.js';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
 	import { slugify } from '$lib/utils/utils.js';
@@ -12,19 +12,13 @@
 	import { ensureHttps } from '$lib/utils/utils.js';
 	import { formatDateNews } from '$lib/utils/utils';
 
-	type Page = {
-		item: News;
-	};
-
-	let item: News;
-
 	$: item = data.item;
 
 	$: image =
-		item.fields.publication?.fields.thumbnail.fields.file.url || item.fields.image.fields.file.url;
+		item.fields.publication?.fields.thumbnail.fields.file.url ||
+		item.fields.thumbnail.fields.file.url;
 
-	$: link =
-		item.fields.publication?.fields.pdf.fields.file.url || item.fields.externalPublicationUrl;
+	$: link = item.fields.publication?.fields.pdf.fields.file.url || item.fields.publicationUrl;
 </script>
 
 <SEO title={item.fields.title} description={item.fields.summary} {image} />

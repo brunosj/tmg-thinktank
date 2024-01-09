@@ -1,10 +1,9 @@
-<script lang="ts">
-	export let items: News[];
+<script>
+	export let items;
 
-	import type { News } from '$lib/types/types';
 	import { parseISO, format } from 'date-fns';
 
-	function getSingleItemPrefix(type: string) {
+	function getSingleItemPrefix(type) {
 		switch (type) {
 			case 'Blog Post':
 				return 'blog';
@@ -21,7 +20,7 @@
 		}
 	}
 
-	function formatDate(date: string) {
+	function formatDate(date) {
 		return format(new Date(date), 'dd MMMM yyyy');
 	}
 </script>
@@ -30,9 +29,13 @@
 	{#each items.sort((a, b) => {
 		const dateA = parseISO(a.fields.dateFormat);
 		const dateB = parseISO(b.fields.dateFormat);
-		return Number(dateB) - Number(dateA);
-	}) as item (item.fields.slug)}
-		<a href={`/${getSingleItemPrefix(item.fields.type)}/${item.fields.slug}`} class="bg-white">
+		return dateB - dateA;
+	}) as item, i}
+		<a
+			href={`/${getSingleItemPrefix(item.fields.type)}/${item.fields.slug}`}
+			key={i}
+			class="bg-white"
+		>
 			<div class="p-5">
 				<div class="group justify-between border-b border-green-normal leading-normal">
 					<div>

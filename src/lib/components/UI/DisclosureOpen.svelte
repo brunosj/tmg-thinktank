@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let heading;
 
 	import { MinusSmIcon, PlusSmIcon } from '@rgossiaux/svelte-heroicons/outline';

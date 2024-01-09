@@ -1,11 +1,10 @@
-<script lang="ts">
-	export let video: Video;
-	export let bgColor: string;
-	export let text: string;
+<script>
+	export let video;
+	export let bgColor;
+	export let text;
 	export let order = 'order-last';
 	export let textAlignment = 'text-left';
 
-	import type { Video } from '$lib/types/types';
 	import VideoWrapper from '$components/Video/VideoWrapper.svelte';
 </script>
 

@@ -1,13 +1,12 @@
-<script lang="ts">
-	export let newsletter: Newsletter[];
-	export let landingPage: LandingPage;
+<script>
+	export let newsletter;
+	export let landingPage;
 
-	import type { Newsletter, LandingPage } from '$lib/types/types';
 	import Button from '$components/UI/Button.svelte';
 </script>
 
 <section
-	class={landingPage.fields.newsletterBanner.fields.backgroundColor === 'TMG Green'
+	class={landingPage.newsletterBanner.fields.backgroundColor === 'TMG Green'
 		? 'bg-green-normal'
 		: 'bg0-white'}
 >
@@ -15,14 +14,14 @@
 		<div class="col-span-2 pb-10 pt-5 lg:pb-0 lg:pt-0">
 			<div class="pb-5">
 				<p class="rounded-lg text-lg font-semibold leading-tight text-white lg:text-4xl">
-					{landingPage.fields.newsletterBanner.fields.title}
+					{landingPage.newsletterBanner.fields.title}
 				</p>
 			</div>
 			<p class="pb-5 text-sm font-normal text-white lg:text-xl">
-				{landingPage.fields.newsletterBanner.fields.subtitle}
+				{landingPage.newsletterBanner.fields.subtitle}
 			</p>
-			<Button to={landingPage.fields.newsletterBanner.fields.buttonPath} colors="white">
-				{landingPage.fields.newsletterBanner.fields.buttonText}
+			<Button to={landingPage.newsletterBanner.fields.buttonPath} colors="white">
+				{landingPage.newsletterBanner.fields.buttonText}
 			</Button>
 		</div>
 		<div class="relative m-auto">

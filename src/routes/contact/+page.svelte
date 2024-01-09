@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	import { siteMetadata } from '$data/siteMetadata.js';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import ContactForm from '$components/Forms/ContactForm.svelte';

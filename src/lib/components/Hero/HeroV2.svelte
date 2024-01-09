@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let hero;
 
 	import { renderRichText } from '$utils/utils.js';

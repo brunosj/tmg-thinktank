@@ -1,5 +1,5 @@
 <!-- Icon.svelte -->
-<script lang="ts">
+<script>
 	export let icon;
 	export let label;
 	export let classes;

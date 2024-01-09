@@ -1,7 +1,5 @@
-<script lang="ts">
-	export let pictures: Image[];
-
-	import type { Image } from '$lib/types/types';
+<script>
+	export let pictures;
 	import HeadingAbout from '$components/About/HeadingAbout.svelte';
 
 	const guidingPrinciples = [

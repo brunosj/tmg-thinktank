@@ -1,11 +1,11 @@
-<script lang="ts">
+<script>
 	export let events;
 
 	import { formatTime, formatDay, formatMonth, formatYear } from '$lib/utils/utils.js';
 </script>
 
 {#each events as event, i}
-	<div class="rounded-lg bg-white p-4 duration-300 hover:bg-green-variation" key={i}>
+	<div class="bg-white p-4 duration-300 hover:bg-green-variation" key={i}>
 		<a href={`/events/${event.fields.slug}`}>
 			<div class="group">
 				<div class="grid grid-cols-6 duration-200 ease-in-out">

@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let items;
 
 	import { formatDateNews } from '$lib/utils/utils';

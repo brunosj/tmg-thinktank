@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let scrollPrev;
 	export let enabled;
 </script>

@@ -1,13 +1,11 @@
-<script lang="ts">
-	export let items: Team[];
-
-	import type { Team } from '$lib/types/types';
-
+<script>
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
 	import FaLinkedin from 'virtual:icons/fa6-brands/linkedin-in';
 	import FaMail from 'virtual:icons/fa6-regular/envelope';
 	import Icon from '$components/UI/Icon.svelte';
 	import { ensureHttps } from '$utils/utils.js';
+
+	export let items;
 </script>
 
 <div>

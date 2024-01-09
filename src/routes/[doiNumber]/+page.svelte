@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let data;
 	import Button from '$components/UI/Button.svelte';
 	import SEO from '$components/SEO/SEO.svelte';

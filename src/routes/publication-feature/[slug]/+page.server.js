@@ -1,3 +1,4 @@
+import { SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN } from '$env/static/private';
 import { fetchContentfulData } from '$lib/contentfulClient';
 
 export const config = {

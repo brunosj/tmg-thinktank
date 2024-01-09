@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let item;
 	export let slidesQty;
 	export let i;

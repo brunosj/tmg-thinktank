@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let item;
 	import { format } from 'date-fns';
 	import Button from '$components/UI/Button.svelte';

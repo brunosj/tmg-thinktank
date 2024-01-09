@@ -1,7 +1,5 @@
-<script lang="ts">
-	export let item: Partner;
-
-	import type { Partner } from '$lib/types/types';
+<script>
+	export let item;
 
 	$: image =
 		item.fields.logoCdn?.length > 0

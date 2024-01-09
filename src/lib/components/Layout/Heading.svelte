@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let text, textColor, bgColor;
 
 	import IntersectionObserver from 'svelte-intersection-observer';

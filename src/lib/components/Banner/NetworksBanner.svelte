@@ -1,8 +1,7 @@
-<script lang="ts">
-	export let partners: Partner[];
-	export let landingPage: LandingPage;
+<script>
+	export let partners;
+	export let landingPage;
 
-	import type { Partner, LandingPage } from '$lib/types/types';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	import PartnersLogo from '$components/Partners/PartnersLogo.svelte';
 
@@ -14,8 +13,8 @@
 <section class="section Py bg-white">
 	<div class="container py-6 lg:py-12">
 		<HeadingV2
-			title={landingPage.fields.networksSectionTitle}
-			subtitle={landingPage.fields.networksSectionSubtitle}
+			title={landingPage.networksSectionTitle}
+			subtitle={landingPage.networksSectionSubtitle}
 			textColor="dark"
 		/>
 

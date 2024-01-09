@@ -1,5 +1,5 @@
-<script lang="ts">
-	export let map: string;
+<script>
+	export let map;
 </script>
 
 <div class="bg-green-variation">

@@ -1,11 +1,9 @@
-<script lang="ts">
-	export let events: Event[];
-	export let titleTextColor: string = '';
-	export let color1: string = '#67797B';
-	export let color2: string;
-	export let bgColor: string = '';
+<script>
+	export let events;
+	export let titleTextColor;
+	export let color1;
+	export let bgColor;
 
-	import type { Event } from '$lib/types/types';
 	import { formatTime, formatDay, formatMonth, formatYear } from '$lib/utils/utils.js';
 	import { ensureHttps } from '$lib/utils/utils.js';
 </script>
@@ -14,7 +12,7 @@
 	{#each events as event (event.fields.slug)}
 		<div
 			class="group scale-100 transform rounded-lg border-2 group-hover:scale-110"
-			style="border-color: {color1}"
+			style="border-color: {color1 ? color1 : '#67797B'}"
 		>
 			<div style="background-color: {bgColor}">
 				<a href={`/events/${event.fields.slug}`}>
@@ -25,7 +23,7 @@
 									<div class="flex">
 										<span
 											class="text-3xl font-semibold leading-none lg:text-5xl"
-											style="color: {color1}"
+											style="color: {color1 ? color1 : '#67797B'}"
 										>
 											{formatDay(event.fields.date)}
 										</span>
@@ -36,7 +34,7 @@
 										</span>
 									</div>
 									<div class="flex">
-										<span class="text-lg font-bold" style="color: {color1}">
+										<span class="text-lg font-bold" style="color: {color1 ? color1 : '#67797B'}">
 											{formatYear(event.fields.date)}
 										</span>
 									</div>
@@ -44,7 +42,7 @@
 							</div>
 							<div
 								class="transform text-white group-hover:scale-105"
-								style="background-color: {color1}"
+								style="background-color: {color1 ? color1 : '#67797B'}"
 							>
 								<div class="group flex-col p-5 text-center">
 									<div class="text-sm">{event.fields.type}</div>

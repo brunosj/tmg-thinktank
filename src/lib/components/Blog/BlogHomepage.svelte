@@ -1,22 +1,22 @@
-<script lang="ts">
-	export let news: News[];
-	export let landingPage: LandingPage;
+<script>
+	export let news;
+	export let landingPage;
 
-	import type { News, LandingPage } from '$lib/types/types';
 	import { slugify } from '$utils/utils.js';
 	import { parseISO, format } from 'date-fns';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	import { formatDateNews } from '$utils/utils.js';
-
-	let blogs: News[];
+	let blogs;
 
 	$: {
 		blogs = news
-			.filter((blog) => slugify(blog.fields.type) === 'blog-post')
+			.filter((blogs) => {
+				return slugify(blogs.fields.type) === 'blog-post';
+			})
 			.sort((a, b) => {
-				const dateA = new Date(a.fields.dateFormat);
-				const dateB = new Date(b.fields.dateFormat);
-				return dateB.getTime() - dateA.getTime();
+				const dateA = parseISO(a.fields.dateFormat);
+				const dateB = parseISO(b.fields.dateFormat);
+				return dateB - dateA;
 			})
 			.slice(0, 3);
 	}
@@ -25,8 +25,8 @@
 <div class="sectionPy bg-white">
 	<div class="mx-auto max-w-7xl px-6 lg:px-8">
 		<HeadingV2
-			title={landingPage.fields.blogSectionTitle}
-			subtitle={landingPage.fields.blogSectionSubtitle}
+			title={landingPage.blogSectionTitle}
+			subtitle={landingPage.blogSectionSubtitle}
 			textColor="dark"
 		/>
 

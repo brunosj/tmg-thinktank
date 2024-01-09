@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	import { isSameDay } from 'date-fns';
 	import ItemToolTip from './ItemTooltip.svelte';
 

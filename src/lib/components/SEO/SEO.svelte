@@ -1,8 +1,8 @@
-<script lang="ts">
-	export let title: string = 'TMG Think Tank';
-	export let description: string =
-		'A Berlin-based organization working on sustainability transformations';
-	export let image: string = '';
+<script>
+	export let title = 'TMG Think Tank';
+	export let description = 'A Berlin-based organization working on sustainability transformations';
+	export let image;
+
 	export let tags = ['development', 'foodsystems', 'thinktank', 'Berlin'];
 	export let ogType = 'website';
 </script>

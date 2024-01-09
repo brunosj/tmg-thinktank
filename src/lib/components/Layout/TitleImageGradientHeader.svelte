@@ -1,7 +1,7 @@
-<script lang="ts">
-	export let image: string;
-	export let title: string;
-	export let subtitle: string;
+<script>
+	export let image;
+	export let title;
+	export let subtitle;
 
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';

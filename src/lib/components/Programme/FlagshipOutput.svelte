@@ -1,7 +1,5 @@
-<script lang="ts">
-	export let item: FlagshipOutput;
-
-	import type { FlagshipOutput } from '$lib/types/types';
+<script>
+	export let item;
 
 	let image =
 		item.fields.imageCdn?.length > 0

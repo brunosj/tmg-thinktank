@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let to;
 	export let color;
 	export let textColor;
