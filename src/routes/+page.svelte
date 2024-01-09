@@ -37,11 +37,7 @@
 		(item) => item.fields.featuredOnHomepage === true
 	);
 
-	let publicationFeatureItem: PublicationFeature;
-
-	publicationFeatureItems.length >= 1
-		? (publicationFeatureItem = publicationFeatureItems[0])
-		: null;
+	const publicationFeatureItem = publicationFeatureItems[0];
 </script>
 
 <!-- <HeroV2 hero={landingPage} heroProgrammes={programmes} /> -->
