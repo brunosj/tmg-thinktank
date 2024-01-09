@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let item;
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';

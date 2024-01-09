@@ -1,6 +1,7 @@
-<script>
-	export let quotePicture;
+<script lang="ts">
+	export let quotePicture: Image | ImageCdn;
 
+	import type { Image, ImageCdn } from '$lib/types/types';
 	import logo from '$assets/TMG_logo_white.png';
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';
@@ -8,6 +9,17 @@
 
 	let element;
 	let intersecting = false;
+
+	let imageUrl: string | undefined;
+	if (
+		'fields' in quotePicture &&
+		'file' in quotePicture.fields &&
+		'url' in quotePicture.fields.file
+	) {
+		imageUrl = quotePicture.fields.file.url;
+	} else if ('secure_url' in quotePicture) {
+		imageUrl = quotePicture.secure_url;
+	}
 </script>
 
 <div class="bg-green-normal" bind:this={element}>
@@ -42,7 +54,7 @@
 				<div class="flex-col lg:pb-0">
 					<img
 						loading="lazy"
-						src={quotePicture.fields.file.url}
+						src={imageUrl}
 						alt="Klaus Toepfer"
 						class="h-24 w-24 lg:h-48 lg:w-48"
 					/>

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { renderRichText } from '$utils/utils.js';
 	import ProgrammeQuote from '$components/Programme/ProgrammeQuote.svelte';
 	import FlagshipOutput from '$components/Programme/FlagshipOutput.svelte';

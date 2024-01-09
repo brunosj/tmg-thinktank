@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let item;
 	import VideoListing from '$components/Video/VideoListing.svelte';
 </script>

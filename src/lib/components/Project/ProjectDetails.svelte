@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let item;
 	import ProjectPartners from '$components/Project/ProjectPartners.svelte';
 </script>

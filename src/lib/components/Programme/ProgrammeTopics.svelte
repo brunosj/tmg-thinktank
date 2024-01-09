@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { renderRichText } from '$utils/utils.js';
 	import ProjectCard from '$components/Programme/ProjectCard.svelte';

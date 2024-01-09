@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let item;
 	import SpeakerListing from '$components/Events/SpeakerListing.svelte';
 </script>

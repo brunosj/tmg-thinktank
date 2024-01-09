@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import '../app.css';
 	import '$styles/carousel.css';
 	import { fly, fade } from 'svelte/transition';

@@ -1,22 +1,22 @@
-<script>
-	export let news;
-	export let landingPage;
+<script lang="ts">
+	export let news: News[];
+	export let landingPage: LandingPage;
 
+	import type { News, LandingPage } from '$lib/types/types';
 	import { slugify } from '$utils/utils.js';
 	import { parseISO, format } from 'date-fns';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	import { formatDateNews } from '$utils/utils.js';
-	let blogs;
+
+	let blogs: News[];
 
 	$: {
 		blogs = news
-			.filter((blogs) => {
-				return slugify(blogs.fields.type) === 'blog-post';
-			})
+			.filter((blog) => slugify(blog.fields.type) === 'blog-post')
 			.sort((a, b) => {
-				const dateA = parseISO(a.fields.dateFormat);
-				const dateB = parseISO(b.fields.dateFormat);
-				return dateB - dateA;
+				const dateA = new Date(a.fields.dateFormat);
+				const dateB = new Date(b.fields.dateFormat);
+				return dateB.getTime() - dateA.getTime();
 			})
 			.slice(0, 3);
 	}

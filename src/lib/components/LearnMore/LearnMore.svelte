@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { siteMetadata } from '$data/siteMetadata.js';
 	import FaFacebook from 'virtual:icons/fa6-brands/facebook';
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';

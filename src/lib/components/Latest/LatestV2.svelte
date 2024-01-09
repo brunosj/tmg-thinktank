@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let landingPage;
 
 	import CarouselV2 from '$components/Carousel/CarouselV2.svelte';

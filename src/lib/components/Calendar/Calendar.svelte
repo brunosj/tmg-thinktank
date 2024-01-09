@@ -1,6 +1,7 @@
-<script>
-	export let events;
+<script lang="ts">
+	export let events: Event[];
 
+	import type { Event } from '$lib/types/types';
 	import { onMount, onDestroy } from 'svelte';
 	import CalendarHeader from '$components/Calendar/CalendarHeader.svelte';
 	import ItemList from '$components/Calendar/ItemList.svelte';

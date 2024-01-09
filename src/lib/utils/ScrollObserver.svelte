@@ -1,5 +1,5 @@
 <!-- ScrollObserver.svelte -->
-<script>
+<script lang="ts">
 	import { onDestroy } from 'svelte';
 
 	let observers = new Map();

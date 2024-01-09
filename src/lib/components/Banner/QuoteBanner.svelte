@@ -1,9 +1,9 @@
-<script>
-	export let image;
-	export let text;
-	export let person;
-	export let organisation;
-	export let bgColor;
+<script lang="ts">
+	export let image: string;
+	export let text: string;
+	export let person: string;
+	export let organisation: string;
+	export let bgColor: string;
 </script>
 
 <section>

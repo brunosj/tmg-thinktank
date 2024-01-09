@@ -1,7 +1,6 @@
-<script>
-	export let to;
-
-	export let colors;
+<script lang="ts">
+	export let to: string = '';
+	export let colors: 'green' | 'white';
 </script>
 
 <a href={to}>

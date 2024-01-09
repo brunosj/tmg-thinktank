@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let events;
 	import { parseISO, isAfter } from 'date-fns';
 	import EventListing from '$components/Events/EventListing.svelte';

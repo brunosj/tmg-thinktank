@@ -1,22 +1,26 @@
-<script>
-	export let publications;
-	export let bgColor;
-	export let bannerText;
+<script lang="ts">
+	export let publications: Publication[];
+	export let bgColor: string;
+	export let bannerText: string;
+
+	import type { Publication } from '$lib/types/types';
 </script>
 
 <section>
 	<div style="background-color: {bgColor}">
 		<div class="container grid grid-cols-2 items-center py-10 lg:py-24">
 			<div>
-				<div class="pb-10 pt-5 text-left font-bold leading-tight text-black lg:pb-0 lg:pt-0">
+				<div
+					class="pb-10 pt-5 text-left text-2xl font-extrabold leading-tight text-black lg:pb-0 lg:pt-0 lg:text-5xl"
+				>
 					{#if bannerText}
-						<h1>{bannerText}</h1>
+						<span>{bannerText}</span>
 					{:else}
-						<h1>
+						<h2>
 							Read the
 							<br />
 							publications
-						</h1>
+						</h2>
 					{/if}
 				</div>
 			</div>

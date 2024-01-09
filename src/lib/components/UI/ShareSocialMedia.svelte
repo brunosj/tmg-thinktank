@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
 	import FaLinkedin from 'virtual:icons/fa6-brands/linkedin-in';
 
