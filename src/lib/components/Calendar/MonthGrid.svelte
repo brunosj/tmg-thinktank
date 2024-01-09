@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let currentMonth;
 	export let items;
 	export let hoveredDay;

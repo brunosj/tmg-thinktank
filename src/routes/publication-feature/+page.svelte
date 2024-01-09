@@ -1,11 +1,17 @@
-<script>
-	export let data;
+<script lang="ts">
+	export let data: Page;
+
+	import type { PublicationFeature as PublicationFeatureType } from '$lib/types/types';
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import PublicationFeature from '$components/Publications/PublicationFeature.svelte';
 
-	let { entries } = data;
+	type Page = {
+		entries: PublicationFeatureType[];
+	};
+
+	let items = data.entries;
 </script>
 
 <SEO title="Publication Features" />
@@ -13,6 +19,6 @@
 <article>
 	<SectionHeaderLow title="Publication Features" background="bg-green-normal" />
 	<div class="container">
-		<PublicationFeature items={entries} />
+		<PublicationFeature {items} />
 	</div>
 </article>

@@ -1,5 +1,7 @@
-<script>
-	export let items;
+<script lang="ts">
+	export let items: News[];
+
+	import type { News } from '$lib/types/types';
 </script>
 
 <section>

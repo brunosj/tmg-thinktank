@@ -1,7 +1,8 @@
-<script>
-	export let partners;
-	export let landingPage;
+<script lang="ts">
+	export let partners: Partner[];
+	export let landingPage: LandingPage;
 
+	import type { Partner, LandingPage } from '$lib/types/types';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	import PartnersLogo from '$components/Partners/PartnersLogo.svelte';
 

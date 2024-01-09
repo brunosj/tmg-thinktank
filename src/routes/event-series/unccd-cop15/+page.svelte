@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let data;
 	import { parseISO } from 'date-fns';
 	import SEO from '$components/SEO/SEO.svelte';

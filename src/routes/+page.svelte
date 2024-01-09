@@ -19,6 +19,5 @@
 <EventsHomepage {events} {landingPage} />
 <HeroProgrammesV2 heroProgrammes={programmes} />
 <BlogHomepage {news} {landingPage} />
-
 <NewsletterBanner {newsletter} {landingPage} />
 <NetworksBanner {partners} {landingPage} />

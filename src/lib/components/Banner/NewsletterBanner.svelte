@@ -1,7 +1,8 @@
-<script>
-	export let newsletter;
-	export let landingPage;
+<script lang="ts">
+	export let newsletter: Newsletter[];
+	export let landingPage: LandingPage;
 
+	import type { Newsletter, LandingPage } from '$lib/types/types';
 	import Button from '$components/UI/Button.svelte';
 </script>
 

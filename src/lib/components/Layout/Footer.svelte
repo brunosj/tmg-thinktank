@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { footerMenu } from '$data/menu.js';
 	import LearnMore from '$components/LearnMore/LearnMore.svelte';
 	import Button from '$components/UI/Button.svelte';

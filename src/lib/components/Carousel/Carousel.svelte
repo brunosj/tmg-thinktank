@@ -1,14 +1,17 @@
-<script>
+<script lang="ts">
+	export let slides: News[] | Event[];
+
+	import type { News } from '$lib/types/types';
+	import type { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel-svelte';
 	import { onMount, afterUpdate } from 'svelte';
 	import emblaCarouselSvelte from 'embla-carousel-svelte';
 	import Autoplay from 'embla-carousel-autoplay';
 	import FeaturedSlide from './FeaturedSlide.svelte';
 	import { fly, fade } from 'svelte/transition';
-	export let slides;
 
-	let emblaRef;
-	let emblaApi;
-	let options = {
+	let emblaRef: HTMLDivElement;
+	let emblaApi: EmblaCarouselType;
+	let options: EmblaOptionsType = {
 		loop: true,
 		plugins: [Autoplay()]
 	};
@@ -18,7 +21,7 @@
 	let scrollSnaps = [];
 	let dots = [];
 
-	const onInit = (event) => {
+	const onInit = (event: CustomEvent<EmblaCarouselType>) => {
 		emblaApi = event.detail;
 
 		const onSelect = () => {
@@ -71,8 +74,8 @@
 	on:emblaInit={onInit}
 >
 	<div class="embla__container">
-		{#each slides as slide, i}
-			<div key={i} class="embla__slide">
+		{#each slides as slide}
+			<div class="embla__slide">
 				<FeaturedSlide item={slide} />
 			</div>
 		{/each}
@@ -84,7 +87,6 @@
 			<div
 				class="embla__dot {dot ? 'embla__dot--selected' : ''}"
 				on:click={() => emblaApi.scrollTo(i)}
-				key={i}
 			></div>
 		{/each}
 	</div>

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import VideoWrapper from '$components/Video/VideoWrapper.svelte';
 	export let videos;
 </script>

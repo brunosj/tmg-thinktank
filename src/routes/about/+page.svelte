@@ -1,5 +1,7 @@
-<script>
+<script lang="ts">
 	export let data;
+
+	import type { AboutPage } from '$lib/types/types';
 	import ContactForm from '$components/Forms/ContactForm.svelte';
 	import Location from '$components/About/Location.svelte';
 	import GuidingPrinciples from '$components/About/GuidingPrinciples.svelte';
@@ -7,7 +9,7 @@
 	import Description from '$components/About/Description.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 
-	let about = data.about[0];
+	let about: AboutPage = data.about[0];
 </script>
 
 <SEO title={about.fields.title} description={about.fields.description} />

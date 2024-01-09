@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let item;
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
 	import { formatDateNews } from '$utils/utils.js';

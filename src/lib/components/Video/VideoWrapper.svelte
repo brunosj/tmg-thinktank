@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let videoSrcURL;
 	export let videoTitle;
 	export let videoWidth;

@@ -1,13 +1,15 @@
-<script>
+<script lang="ts">
+	export let slides: News[] | Event[];
+
+	import type { News } from '$lib/types/types';
+	import type { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel-svelte';
 	import emblaCarouselSvelte from 'embla-carousel-svelte';
 	import FeaturedSlideV2 from './FeaturedSlideV2.svelte';
 	import PrevButton from './PrevButton.svelte';
 	import NextButton from './NextButton.svelte';
-	export let slides;
-
-	let emblaRef;
-	let emblaApi;
-	let options = {
+	let emblaRef: HTMLDivElement;
+	let emblaApi: EmblaCarouselType;
+	let options: EmblaOptionsType = {
 		slidesToScroll: 'auto',
 		containScroll: 'trimSnaps',
 		startIndex: 0
@@ -18,7 +20,7 @@
 	let prevBtnEnabled = false;
 	let nextBtnEnabled = false;
 
-	const onInit = (event) => {
+	const onInit = (event: CustomEvent<EmblaCarouselType>) => {
 		emblaApi = event.detail;
 
 		const onSelect = () => {
@@ -49,10 +51,14 @@
 </script>
 
 <div class="news__embla relative">
-	<div class="news__embla__viewport" use:emblaCarouselSvelte={{ options }} on:emblaInit={onInit}>
+	<div
+		class="news__embla__viewport"
+		use:emblaCarouselSvelte={{ options, plugins: [] }}
+		on:emblaInit={onInit}
+	>
 		<div class="embla__container">
 			{#each slides as slide, i}
-				<div key={i} class="news__embla__slide">
+				<div class="news__embla__slide">
 					<FeaturedSlideV2 item={slide} {i} {slidesQty} />
 				</div>
 			{/each}

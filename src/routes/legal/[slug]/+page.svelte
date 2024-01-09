@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let data;
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import { renderRichText } from '$utils/utils.js';
