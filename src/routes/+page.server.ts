@@ -40,7 +40,7 @@ export async function load() {
 			})
 			.slice(0, 3);
 
-		// const publicationFeatures = await fetchContentfulData('publicationFeature');
+		const publicationFeatures = await fetchContentfulData('publicationFeature');
 
 		return {
 			landingPage,
@@ -48,8 +48,8 @@ export async function load() {
 			newsletter,
 			partners,
 			events: upcomingEvents,
-			news: latestBlog
-			// publicationFeatures
+			news: latestBlog,
+			publicationFeatures
 		};
 	} catch (error) {
 		console.error('Error fetching data:', error);
