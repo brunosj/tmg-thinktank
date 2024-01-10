@@ -1,12 +1,13 @@
 <script lang="ts">
-	export let slides: News[] | Event[];
+	export let slides: (News | Event)[];
 
-	import type { News } from '$lib/types/types';
+	import type { News, Event } from '$lib/types/types';
 	import type { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel-svelte';
 	import emblaCarouselSvelte from 'embla-carousel-svelte';
 	import FeaturedSlideV2 from './FeaturedSlideV2.svelte';
 	import PrevButton from './PrevButton.svelte';
 	import NextButton from './NextButton.svelte';
+
 	let emblaRef: HTMLDivElement;
 	let emblaApi: EmblaCarouselType;
 	let options: EmblaOptionsType = {
@@ -14,7 +15,6 @@
 		containScroll: 'trimSnaps',
 		startIndex: 0
 	};
-
 	let selectedIndex = 0;
 	let scrollSnaps = [];
 	let prevBtnEnabled = false;

@@ -10,8 +10,8 @@
 <div class="sectionPy bg-white">
 	<div class="mx-auto max-w-7xl px-6 lg:px-8">
 		<HeadingV2
-			title={landingPage.blogSectionTitle}
-			subtitle={landingPage.blogSectionSubtitle}
+			title={landingPage.fields.blogSectionTitle}
+			subtitle={landingPage.fields.blogSectionSubtitle}
 			textColor="dark"
 		/>
 

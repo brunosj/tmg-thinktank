@@ -14,8 +14,8 @@
 <section class="section Py bg-white">
 	<div class="container py-6 lg:py-12">
 		<HeadingV2
-			title={landingPage.networksSectionTitle}
-			subtitle={landingPage.networksSectionSubtitle}
+			title={landingPage.fields.networksSectionTitle}
+			subtitle={landingPage.fields.networksSectionSubtitle}
 			textColor="dark"
 		/>
 

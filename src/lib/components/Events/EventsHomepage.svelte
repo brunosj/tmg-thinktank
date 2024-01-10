@@ -13,8 +13,8 @@
 	<div class="sectionPy bg-white">
 		<div class="container">
 			<HeadingV2
-				title={landingPage.eventSectionTitle}
-				subtitle={landingPage.eventSectionSubtitle}
+				title={landingPage.fields.eventSectionTitle}
+				subtitle={landingPage.fields.eventSectionSubtitle}
 				textColor="dark"
 			/>
 

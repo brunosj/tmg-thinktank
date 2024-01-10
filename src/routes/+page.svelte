@@ -30,7 +30,7 @@
 		publicationFeatures: PublicationFeature[];
 	};
 
-	let landingPage = data.landingPage?.[0].fields;
+	let landingPage = data.landingPage[0];
 	let { programmes, newsletter, partners, events, news, publicationFeatures } = data;
 </script>
 
