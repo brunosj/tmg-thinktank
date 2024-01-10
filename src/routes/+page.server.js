@@ -14,7 +14,6 @@ export async function load() {
 		const partners = await fetchContentfulData('partners');
 		const events = await fetchContentfulData('event');
 		const news = await fetchContentfulData('news');
-		const publicationFeatures = await fetchContentfulData('publicationFeature');
 
 		return {
 			landingPage,
@@ -22,8 +21,7 @@ export async function load() {
 			newsletter,
 			partners,
 			events,
-			news,
-			publicationFeatures
+			news
 		};
 	} catch (error) {
 		console.error('Error fetching data:', error);
