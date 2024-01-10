@@ -38,7 +38,7 @@
 <!-- <HeroV2 hero={landingPage} heroProgrammes={programmes} /> -->
 <LatestV2 {landingPage} />
 <EventsHomepage {events} {landingPage} />
-<ImageBanner items={publicationFeatures} />
+<!-- <ImageBanner items={publicationFeatures} /> -->
 <HeroProgrammesV2 heroProgrammes={programmes} />
 <BlogHomepage {news} {landingPage} />
 <NewsletterBanner {newsletter} {landingPage} />
