@@ -1,7 +1,8 @@
 <script lang="ts">
-	export let items;
+	export let items: News[];
 
-	function getSingleItemPrefix(type) {
+	import type { News } from '$lib/types/types';
+	function getSingleItemPrefix(type: string) {
 		switch (type) {
 			case 'Blog Post':
 				return 'blog';
@@ -20,10 +21,9 @@
 </script>
 
 <div class="grid grid-cols-1 gap-5 py-6 md:grid-cols-3 lg:py-12">
-	{#each items as item, i}
+	{#each items as item (item.fields.slug)}
 		<a
 			href={`/${getSingleItemPrefix(item.fields.type)}/${item.fields.slug}`}
-			key={i}
 			class="group h-full border pb-5 lg:pb-0"
 		>
 			<div class="h-48 opacity-100 transition duration-300 ease-in-out group-hover:opacity-90">

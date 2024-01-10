@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let data;
+	export let data: Event;
+
+	import type { Event } from '$lib/types/types';
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import Button from '$components/UI/Button.svelte';
@@ -21,12 +23,14 @@
 	$: image =
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image.fields.file.url;
+			: item.fields.image?.fields.file.url;
 
 	$: imageCaption =
 		item.fields.imageCdn?.length > 0
-			? item.fields.imageCdn[0].context.custom.caption
-			: item.fields.image.fields.description;
+			? item.fields.imageCdn[0].context?.custom.caption
+			: item.fields.image?.fields.description;
+
+	$: console.log(item);
 </script>
 
 <SEO title={item.fields.title} description={item.fields.summary} {image} />
@@ -62,7 +66,7 @@
 			{#if item.fields.facilitators}
 				<EventFacilitators {item} />
 			{/if}
-			{#if item.fields.relatedVideos || item.fields.news || item.fields.relatedDocuments || item.fields.relatedEvents}
+			{#if item.fields.relatedVideos || item.fields.relatedNews || item.fields.relatedDocuments || item.fields.relatedEvents}
 				<RelatedItems {item} />
 			{/if}
 		</section>

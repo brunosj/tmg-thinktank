@@ -1,8 +1,10 @@
 <script lang="ts">
-	export let item;
+	export let item: News | Event;
+
+	import type { News, Event } from '$lib/types/types';
 	import { fly } from 'svelte/transition';
 
-	let singleItemPrefix;
+	let singleItemPrefix: string;
 
 	$: singleItem = item;
 
@@ -26,7 +28,7 @@
 	$: image =
 		singleItem.fields.imageCdn?.length > 0
 			? singleItem.fields.imageCdn[0].secure_url
-			: singleItem.fields.image.fields.file.url;
+			: singleItem.fields.image?.fields.file.url;
 </script>
 
 <div class="overflow-hidden" in:fly={{ y: 200, duration: 300 }}>

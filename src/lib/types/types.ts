@@ -380,6 +380,7 @@ export interface MediaFile {
 export interface Image {
 	fields: {
 		title: string;
+		description: string;
 		file: {
 			url: string;
 		};
@@ -388,4 +389,9 @@ export interface Image {
 
 export interface ImageCdn {
 	secure_url: string;
+	context: {
+		custom: {
+			caption: string;
+		};
+	};
 }

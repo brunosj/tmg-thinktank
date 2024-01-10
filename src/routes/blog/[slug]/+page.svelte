@@ -1,6 +1,7 @@
 <script lang="ts">
-	export let data;
+	export let data: Page;
 
+	import type { News } from '$lib/types/types';
 	import { parseISO } from 'date-fns';
 	import Button from '$components/UI/Button.svelte';
 	import BlogListing from '$components/Blog/BlogListing.svelte';
@@ -11,16 +12,21 @@
 	import SEO from '$components/SEO/SEO.svelte';
 	import { ensureHttps } from '$lib/utils/utils.js';
 
+	type Page = {
+		item: News;
+		entries: News[];
+	};
+
 	$: item = data.item;
 	$: entries = data.entries;
 
-	let moreBlogItems;
+	let moreBlogItems: News[];
 
 	$: {
 		moreBlogItems = entries
 			.filter((item) => item.fields.type === 'Blog Post')
 			.sort((a, b) => {
-				return parseISO(b.fields.dateFormat) - parseISO(a.fields.dateFormat);
+				return +parseISO(b.fields.dateFormat) - +parseISO(a.fields.dateFormat);
 			})
 			.slice(0, 3);
 	}
@@ -32,7 +38,7 @@
 
 	$: imageCaption =
 		item.fields.imageCdn?.length > 0
-			? item.fields.imageCdn[0].context.custom.caption
+			? item.fields.imageCdn[0].context?.custom.caption
 			: item.fields.image.fields.description;
 </script>
 
@@ -95,7 +101,9 @@
 			{#if item.fields.video}
 				<div>
 					<h1 class="py-12 font-semibold text-black">
-						{item.fields.video.length >= 2 ? 'Related videos' : 'Related video'}
+						{Array.isArray(item.fields.video) && item.fields.video.length >= 2
+							? 'Related videos'
+							: 'Related video'}
 					</h1>
 					<VideoListing videos={item.fields.video} />
 				</div>

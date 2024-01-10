@@ -1,21 +1,29 @@
 <script lang="ts">
-	export let data;
+	export let data: Page;
+
+	import type { Event, EventSeries } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import EventListing from '$components/Events/EventListing.svelte';
 	import ButtonLoadMore from '$components/UI/ButtonLoadMore.svelte';
 	import Calendar from '$components/Calendar/Calendar.svelte';
 
+	type Page = {
+		eventSeries: EventSeries[];
+		events: Event[];
+	};
+
 	$: eventSeries = data.eventSeries.sort((a, b) => {
 		const dateA = new Date(a.fields.cutoffDate);
 		const dateB = new Date(b.fields.cutoffDate);
-		return dateB - dateA;
+		return Number(dateB) - Number(dateA);
 	});
 
 	$: events = data.events;
 
-	let eventsFuture;
-	let eventsPast;
+	let eventsFuture: Event[];
+	let eventsPast: Event[];
+
 	const today = new Date();
 
 	$: {
@@ -28,7 +36,7 @@
 			.sort((a, b) => {
 				const dateA = new Date(a.fields.date);
 				const dateB = new Date(b.fields.date);
-				return dateA - dateB;
+				return Number(dateA) - Number(dateB);
 			});
 		eventsPast = events.filter((event) => {
 			const date = new Date(event.fields.date);

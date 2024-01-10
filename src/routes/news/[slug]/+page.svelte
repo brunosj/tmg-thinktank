@@ -1,6 +1,7 @@
 <script lang="ts">
-	export let data;
+	export let data: Page;
 
+	import type { News } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Button from '$components/UI/Button.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
@@ -9,6 +10,10 @@
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
 	import { slugify } from '$lib/utils/utils.js';
 	import Tag from '$components/UI/Tag.svelte';
+
+	type Page = {
+		item: News;
+	};
 
 	$: item = data.item;
 
@@ -19,7 +24,7 @@
 
 	$: imageCaption =
 		item.fields.imageCdn?.length > 0
-			? item.fields.imageCdn[0].context.custom.caption
+			? item.fields.imageCdn[0].context?.custom.caption
 			: item.fields.image.fields.description;
 </script>
 

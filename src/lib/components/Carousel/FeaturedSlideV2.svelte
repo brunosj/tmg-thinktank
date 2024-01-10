@@ -1,12 +1,14 @@
 <script lang="ts">
-	export let item;
-	export let slidesQty;
-	export let i;
+	export let item: News | Event;
+	export let slidesQty: number;
+	export let i: number;
 
+	import type { News, Event } from '$lib/types/types';
 	import { fly } from 'svelte/transition';
 	import { formatDateNews } from '$utils/utils.js';
 
-	let itemPrefix;
+	let itemPrefix: string;
+
 	$: item = item;
 	$: {
 		itemPrefix;
@@ -27,7 +29,7 @@
 	$: image =
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image.fields.file.url;
+			: item.fields.image?.fields.file.url;
 </script>
 
 <div
@@ -45,7 +47,6 @@
 			alt={item.fields.title}
 			class="z-10 h-48 w-full object-cover saturate-50 duration-300 group-hover:saturate-100 lg:h-64"
 			loading="eager"
-			fetchpriority="high"
 		/>
 		<div class="space-y-6 p-8 lg:p-12">
 			<div class=" text-xs font-bold lg:text-sm">
