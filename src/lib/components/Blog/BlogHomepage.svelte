@@ -3,23 +3,8 @@
 	export let landingPage: LandingPage;
 
 	import type { News, LandingPage } from '$lib/types/types';
-	import { slugify } from '$utils/utils.js';
-	import { parseISO, format } from 'date-fns';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	import { formatDateNews } from '$utils/utils.js';
-
-	let blogs: News[];
-
-	$: {
-		blogs = news
-			.filter((blog) => slugify(blog.fields.type) === 'blog-post')
-			.sort((a, b) => {
-				const dateA = new Date(a.fields.dateFormat);
-				const dateB = new Date(b.fields.dateFormat);
-				return dateB.getTime() - dateA.getTime();
-			})
-			.slice(0, 3);
-	}
 </script>
 
 <div class="sectionPy bg-white">
@@ -33,7 +18,7 @@
 		<div
 			class="mx-auto mt-6 grid max-w-2xl grid-cols-1 gap-x-4 gap-y-4 border-t border-gray-200 pt-6 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-y-16"
 		>
-			{#each blogs as item}
+			{#each news as item}
 				<a
 					href={`/blog/${item.fields.slug}`}
 					class="group flex max-w-xl flex-col items-start justify-between rounded-lg bg-white p-4 duration-300 hover:bg-green-variation"

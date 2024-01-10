@@ -1,26 +1,10 @@
 <script lang="ts">
-	export let events;
-	export let landingPage;
+	export let events: Event[];
+	export let landingPage: LandingPage;
 
-	import { parseISO, isAfter } from 'date-fns';
+	import type { Event, LandingPage } from '$lib/types/types';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	import EventListing from '$components/Events/EventListing.svelte';
-
-	const today = new Date();
-
-	$: {
-		events = events
-			.filter((event) => {
-				const eventDate = parseISO(event.fields.date);
-				return isAfter(eventDate, today);
-			})
-			.sort((a, b) => {
-				const dateA = parseISO(a.fields.date);
-				const dateB = parseISO(b.fields.date);
-				return dateA - dateB;
-			})
-			.slice(0, 4);
-	}
 
 	$: shouldDisplay = events.length >= 1;
 </script>
