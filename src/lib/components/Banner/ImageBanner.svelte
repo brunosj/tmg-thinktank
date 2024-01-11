@@ -7,6 +7,7 @@
 	const today = new Date();
 
 	let featuredItem: PublicationFeatureType | undefined;
+
 	featuredItem = items.filter(
 		(item) =>
 			item.fields.featuredOnHomepage === true && isAfter(parseISO(item.fields.cutoffDate), today)
@@ -14,7 +15,7 @@
 </script>
 
 {#if featuredItem}
-	<section class="h-full w-full">
+	<a class="h-full w-full" href={`publication-feature/${featuredItem.fields.slug}`}>
 		<div class="justify-center">
 			<div class="z-0 m-auto">
 				<img
@@ -25,5 +26,5 @@
 				/>
 			</div>
 		</div>
-	</section>
+	</a>
 {/if}
