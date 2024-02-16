@@ -1,9 +1,9 @@
 <script lang="ts">
-	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
-	import FaLinkedin from 'virtual:icons/fa6-brands/linkedin-in';
-
 	export let text;
 	export let url;
+
+	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
+	import FaLinkedin from 'virtual:icons/fa6-brands/linkedin-in';
 
 	const shareText = encodeURIComponent(text);
 	const shareUrl = encodeURIComponent(url);

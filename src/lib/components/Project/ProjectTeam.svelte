@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let items;
+	export let items: Team[];
+
+	import type { Team } from '$lib/types/types';
 </script>
 
 {#each items as item}

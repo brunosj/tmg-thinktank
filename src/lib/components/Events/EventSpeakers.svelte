@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let item;
+	export let item: Event;
+
+	import type { Event } from '$lib/types/types';
 	import SpeakerListing from '$components/Events/SpeakerListing.svelte';
 </script>
 
@@ -15,4 +17,4 @@
 		<span></span>
 	{/if}
 </div>
-<SpeakerListing items={item.fields.speakers} class="grid grid-cols-1 gap-x-6 lg:grid-cols-2" />
+<SpeakerListing items={item.fields.speakers} />

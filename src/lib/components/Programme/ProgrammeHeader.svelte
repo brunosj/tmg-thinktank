@@ -1,7 +1,8 @@
 <script lang="ts">
-	export let title;
-	export let image;
+	export let title: string;
+	export let image: string;
 
+	import type { Image } from '$lib/types/types';
 	import SectionHeader from '$components/Layout/SectionHeader.svelte';
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';

@@ -1,6 +1,8 @@
 <script lang="ts">
-	export let latest;
-	export let recent;
+	export let latest: News;
+	export let recent: News[];
+
+	import type { News } from '$lib/types/types';
 </script>
 
 <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">

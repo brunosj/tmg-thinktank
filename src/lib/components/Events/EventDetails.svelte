@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let item;
+	export let item: Event;
+
+	import type { Event } from '$lib/types/types';
 	import { format } from 'date-fns';
 	import Button from '$components/UI/Button.svelte';
 	import { formatTime, formatDate } from '$lib/utils/utils.js';

@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let newsletter;
+	export let newsletter: Newsletter[];
+
+	import type { Newsletter } from '$lib/types/types';
 </script>
 
 <section class="pb-6 pt-3 text-base lg:pb-3 lg:pt-12 lg:text-lg">
@@ -31,7 +33,6 @@
 				<a
 					href={newsletter[0].fields.url}
 					target="_blank"
-					key={newsletter[0].fields.number}
 					class="transform opacity-100 transition duration-300 hover:opacity-70"
 				>
 					<img
@@ -51,10 +52,9 @@
 				</span>
 			</div>
 			<div class="flex flex-wrap justify-around gap-12 pb-6">
-				{#each newsletter.slice(1, 3) as item, i}
+				{#each newsletter.slice(1, 3) as item (item.fields.number)}
 					<a
 						href="/newsletter"
-						key={i}
 						class="transform opacity-100 transition duration-300 hover:opacity-70"
 					>
 						<img

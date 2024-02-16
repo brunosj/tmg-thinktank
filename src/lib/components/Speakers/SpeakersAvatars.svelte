@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let speakers;
+	export let speakers: Speaker[];
+
+	import type { Speaker } from '$lib/types/types';
 </script>
 
 <ul

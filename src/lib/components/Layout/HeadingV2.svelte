@@ -1,7 +1,7 @@
 <script lang="ts">
-	export let title,
-		subtitle = '',
-		textColor;
+	export let title: string;
+	export let subtitle = '';
+	export let textColor: string;
 
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';

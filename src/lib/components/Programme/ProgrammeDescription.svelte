@@ -1,12 +1,13 @@
 <script lang="ts">
+	export let quoteText: string;
+	export let quoteAuthor: string;
+	export let flagshipOutput: FlagshipOutputType;
+	export let description: string;
+
+	import type { FlagshipOutput as FlagshipOutputType } from '$lib/types/types';
 	import { renderRichText } from '$utils/utils.js';
 	import ProgrammeQuote from '$components/Programme/ProgrammeQuote.svelte';
 	import FlagshipOutput from '$components/Programme/FlagshipOutput.svelte';
-
-	export let quoteText;
-	export let quoteAuthor;
-	export let flagshipOutput;
-	export let description;
 </script>
 
 <section class="container pb-6 lg:pb-12">

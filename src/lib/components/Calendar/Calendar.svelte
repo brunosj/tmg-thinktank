@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let events: Event[];
 
-	import type { Event } from '$lib/types/types';
+	import type { Event, CalendarEvent } from '$lib/types/types';
 	import { onMount, onDestroy } from 'svelte';
 	import CalendarHeader from '$components/Calendar/CalendarHeader.svelte';
 	import ItemList from '$components/Calendar/ItemList.svelte';
@@ -10,10 +10,10 @@
 	import EventLegend from './EventLegend.svelte';
 
 	let currentMonth = new Date();
-	let hoveredDay = null;
+	let hoveredDay: Date | null = null;
 	let isListView = false;
 	let selectedDate = new Date();
-	let items = [];
+	let items: CalendarEvent[] = [];
 
 	if (browser) {
 		const isMobile = window.innerWidth < 768;
@@ -39,11 +39,10 @@
 			return {
 				start,
 				end,
-				allDay: event.eventDuration === 'allDay',
+				// allDay: event.eventDuration === 'allDay',
 				title: event.fields.title,
-				subtitle: event.fields.subtitle,
+				subtitle: event.fields.summary,
 				slug: event.fields.slug,
-				image: event.imageMain?.sourceUrl,
 				isMultiDay: end > start,
 				type: event.fields.type,
 				category: event.fields.type
@@ -53,14 +52,14 @@
 		items = [...transformedEvents];
 	});
 
-	const handleMonthChange = (event) => {
+	const handleMonthChange = (event: any) => {
 		const selectedOption = event.detail;
 		if (selectedOption) {
 			currentMonth = new Date(selectedOption);
 		}
 	};
 
-	const handleDayMouseEnter = (date) => {
+	const handleDayMouseEnter = (date: Date) => {
 		hoveredDay = date;
 	};
 

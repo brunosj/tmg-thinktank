@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let items;
+	export let items: Project[];
+
+	import type { Project } from '$lib/types/types';
 </script>
 
 <div class="flex flex-wrap">
@@ -8,7 +10,7 @@
 			item.fields.thumbnailCdn?.length > 0
 				? item.fields.thumbnailCdn[0].secure_url
 				: item.fields.thumbnail.fields.file.url}
-		<div class="group w-full pb-2 pr-0 lg:w-1/2 lg:pr-5" key={i}>
+		<div class="group w-full pb-2 pr-0 lg:w-1/2 lg:pr-5">
 			<a href={`/projects/${item.fields.slug}`}>
 				<div class="flex h-full overflow-hidden rounded-lg border border-gray-300 bg-white">
 					<div

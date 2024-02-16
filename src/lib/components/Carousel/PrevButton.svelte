@@ -1,6 +1,6 @@
 <script lang="ts">
-	export let scrollPrev;
-	export let enabled;
+	export let scrollPrev: () => void;
+	export let enabled: boolean;
 </script>
 
 <button

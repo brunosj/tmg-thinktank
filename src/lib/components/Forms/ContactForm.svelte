@@ -13,30 +13,17 @@
 
 	interface SvelteNode extends Element {}
 
-	let action_result;
+	let action_result: any;
 	let success = false;
 	let message_type = 'error';
 
-	const handle_result = (result) => {
+	const handle_result = (result: any) => {
 		action_result = result;
 		if (result.type === 'success') {
 			success = true;
 		} else if (result.type === 'failure') {
 			message_type = 'error';
 		}
-	};
-
-	export const spin = (node: SvelteNode, { delay, duration }: SpinParams) => {
-		return {
-			delay,
-			duration,
-			css: (t) => {
-				const eased = elasticOut(t);
-				return `
-          transform: scale(${eased}) rotate(${eased * 360}deg);
-          `;
-			}
-		};
 	};
 </script>
 
@@ -66,7 +53,7 @@
 							<input
 								type="text"
 								name="name"
-								class="-md focus:shadow-outline w-full appearance-none rounded-md border border-gray-400 bg-white px-5 py-3 leading-snug text-black placeholder-gray-600 transition duration-300 ease-in-out focus:border-blue-300 focus:outline-none sm:max-w-sm"
+								class="focus:shadow-outline w-full appearance-none rounded-md border border-gray-400 bg-white px-5 py-3 leading-snug text-black placeholder-gray-600 transition duration-300 ease-in-out focus:border-blue-300 focus:outline-none"
 							/>
 						</div>
 					</div>
@@ -76,7 +63,7 @@
 							<input
 								type="email"
 								name="email"
-								class="-md focus:shadow-outline w-full appearance-none rounded-md border border-gray-400 bg-white px-5 py-3 leading-snug text-black placeholder-gray-600 transition duration-300 ease-in-out focus:border-blue-300 focus:outline-none sm:max-w-sm"
+								class="focus:shadow-outline w-full appearance-none rounded-md border border-gray-400 bg-white px-5 py-3 leading-snug text-black placeholder-gray-600 transition duration-300 ease-in-out focus:border-blue-300 focus:outline-none"
 								value={form?.email ?? ''}
 								required
 							/>
@@ -90,7 +77,7 @@
 						<input
 							type="subject"
 							name="subject"
-							class="-md focus:shadow-outline w-full appearance-none rounded-md border border-gray-400 bg-white px-5 py-3 leading-snug text-black placeholder-gray-600 transition duration-300 ease-in-out focus:border-blue-300 focus:outline-none"
+							class="focus:shadow-outline w-full appearance-none rounded-md border border-gray-400 bg-white px-5 py-3 leading-snug text-black placeholder-gray-600 transition duration-300 ease-in-out focus:border-blue-300 focus:outline-none"
 						/>
 					</div>
 				</div>
@@ -98,7 +85,7 @@
 					<label for="message" class="font-semibold"> Message* </label>
 					<textarea
 						name="message"
-						class="-md focus:shadow-outline h-full w-full appearance-none rounded-md border border-gray-400 bg-white px-5 py-6 leading-snug text-black placeholder-gray-600 transition duration-300 ease-in-out focus:border-blue-300 focus:outline-none"
+						class="focus:shadow-outline h-full w-full appearance-none rounded-md border border-gray-400 bg-white px-5 py-6 leading-snug text-black placeholder-gray-600 transition duration-300 ease-in-out focus:border-blue-300 focus:outline-none"
 					/>
 				</div>
 				<div class="">
@@ -109,7 +96,7 @@
 					{:else if action_result === 'failure'}
 						<p>Ooops! There was an error.</p>
 					{:else}
-						<Button colors="green" type="submit">Submit</Button>
+						<Button colors="green" submit={true}>Submit</Button>
 					{/if}
 				</div>
 

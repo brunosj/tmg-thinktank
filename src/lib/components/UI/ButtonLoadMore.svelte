@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let onClick;
+	export let onClick: () => void;
 </script>
 
 <button class="w-full" on:click={onClick}>

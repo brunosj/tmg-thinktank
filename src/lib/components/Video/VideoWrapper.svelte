@@ -1,9 +1,9 @@
 <script lang="ts">
-	export let videoSrcURL;
-	export let videoTitle;
-	export let videoWidth;
-	export let videoHeight;
-	export let videoImage;
+	export let videoSrcURL: string;
+	export let videoTitle: string;
+	export let videoWidth: string;
+	export let videoHeight: string;
+	export let videoImage: string;
 
 	let showVideoPlayer = false;
 	let youtubeApiLoaded = false;
@@ -13,7 +13,9 @@
 			const tag = document.createElement('script');
 			tag.src = 'https://www.youtube.com/iframe_api';
 			const firstScriptTag = document.getElementsByTagName('script')[0];
-			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			if (firstScriptTag.parentNode) {
+				firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			}
 			youtubeApiLoaded = true;
 		}
 	}
@@ -23,7 +25,9 @@
 			loadYoutubeApi();
 			showVideoPlayer = true;
 		} else {
+			let youtubePlayer: any;
 			if (youtubePlayer) {
+				let youtubePlayer: any;
 				youtubePlayer.playVideo();
 			}
 		}
@@ -37,8 +41,6 @@
 			title={videoTitle}
 			class="w-full"
 			frameborder="0"
-			webkitallowfullscreen="true"
-			mozallowfullscreen="true"
 			allowfullscreen
 			width={videoWidth}
 			height={videoHeight}

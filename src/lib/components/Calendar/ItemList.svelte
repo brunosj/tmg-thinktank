@@ -1,6 +1,6 @@
 <script lang="ts">
-	export let currentMonth;
-	export let items;
+	export let currentMonth: Date;
+	export let items: CalendarEvent[];
 
 	import {
 		startOfMonth,
@@ -11,10 +11,11 @@
 		parseISO
 	} from 'date-fns';
 	import { ArrowRightIcon } from '@rgossiaux/svelte-heroicons/outline';
+	import type { CalendarEvent } from '$lib/types/types';
 
 	let isExternal = false;
 
-	let bgColorClass = (type) => {
+	let bgColorClass = (type: string) => {
 		switch (type) {
 			case 'Workshop':
 				return 'bg-[#A9FBD7]';
@@ -28,7 +29,7 @@
 	};
 
 	let itemsByDay = new Map();
-	let sortedDays = [];
+	let sortedDays: string[] = [];
 
 	$: {
 		itemsByDay.clear();
@@ -41,7 +42,7 @@
 					start: startOfMonthDate,
 					end: endOfMonthDate
 				}) ||
-				(event.allDay &&
+				(event &&
 					isWithinInterval(event.end, {
 						start: startOfMonthDate,
 						end: endOfMonthDate
@@ -74,8 +75,8 @@
 		<p class="pt-6 text-base">There are no events this month.</p>
 	{/if}
 
-	{#each sortedDays as day}
-		<div key={day} class="">
+	{#each sortedDays as day (day)}
+		<div>
 			<div
 				class="my-auto flex items-center rounded-md bg-green-normal px-6 py-2 font-bold text-white"
 			>

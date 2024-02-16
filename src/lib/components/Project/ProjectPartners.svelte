@@ -1,6 +1,7 @@
 <script lang="ts">
-	export let items;
+	export let items: Partner[];
 
+	import type { Partner } from '$lib/types/types';
 	import { ensureHttps } from '$lib/utils/utils';
 </script>
 

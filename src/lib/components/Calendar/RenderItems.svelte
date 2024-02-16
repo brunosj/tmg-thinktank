@@ -1,12 +1,13 @@
 <script lang="ts">
+	export let items: CalendarEvent[];
+	export let day: Date;
+	export let hoveredDay: Date | null;
+	export let handleDayMouseEnter: (date: Date) => void;
+	export let handleDayMouseLeave: () => void;
+
 	import { isSameDay } from 'date-fns';
 	import ItemToolTip from './ItemTooltip.svelte';
-
-	export let items;
-	export let day;
-	export let hoveredDay;
-	export let handleDayMouseEnter;
-	export let handleDayMouseLeave;
+	import type { CalendarEvent } from '$lib/types/types';
 
 	let sortedItems = items.slice().sort((a, b) => {
 		if (a.isMultiDay === b.isMultiDay) {
@@ -19,7 +20,7 @@
 	let dayItems = sortedItems.filter(
 		(event) =>
 			isSameDay(event.start, day) ||
-			(event.allDay && isSameDay(event.end, day)) ||
+			(event && isSameDay(event.end, day)) ||
 			(event.start < day && event.end >= day)
 	);
 
@@ -33,9 +34,8 @@
 	{/if}
 
 	<ul class="">
-		{#each truncatedItems as event, index}
+		{#each truncatedItems as event (event)}
 			<li
-				key={index}
 				class={`${event.isMultiDay ? 'rounded-md' : ''} relative my-1 px-2 text-xs`}
 				on:mouseenter={() => handleDayMouseEnter(day)}
 				on:mouseleave={handleDayMouseLeave}

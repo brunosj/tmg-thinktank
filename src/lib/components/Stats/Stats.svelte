@@ -1,12 +1,12 @@
 <script lang="ts">
-	export let title;
-	export let subtitle;
-	export let item1;
-	export let number1;
-	export let item2;
-	export let number2;
-	export let item3;
-	export let number3;
+	export let title: string;
+	export let subtitle: string;
+	export let item1: string;
+	export let number1: string;
+	export let item2: string;
+	export let number2: string;
+	export let item3: string;
+	export let number3: string;
 </script>
 
 <section class="">

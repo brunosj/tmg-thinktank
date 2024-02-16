@@ -1,6 +1,6 @@
 <script lang="ts">
-	export let scrollNext;
-	export let enabled;
+	export let scrollNext: () => void;
+	export let enabled: boolean;
 </script>
 
 <button

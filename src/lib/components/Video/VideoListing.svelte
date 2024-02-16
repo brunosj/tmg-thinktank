@@ -1,6 +1,8 @@
 <script lang="ts">
+	export let videos: Video[];
+
+	import type { Video } from '$lib/types/types';
 	import VideoWrapper from '$components/Video/VideoWrapper.svelte';
-	export let videos;
 </script>
 
 <div class="bg-green-light">
@@ -8,12 +10,12 @@
 		<div class="">
 			{#if videos.length >= 1}
 				<ul class="grid grid-cols-1 gap-6 pb-12 pt-6 md:grid-cols-2 lg:pt-16">
-					{#each videos as video, i}
+					{#each videos as video, i (video.fields.url)}
 						{@const image =
 							video.fields.imageCdn?.length > 0
 								? video.fields.imageCdn[0].secure_url
 								: video.fields.image.fields.file.url}
-						<li class="pb-5" key={i}>
+						<li class="pb-5">
 							<div class="h-full border">
 								<VideoWrapper
 									videoSrcURL={video.fields.url}
@@ -40,20 +42,20 @@
 				<ul class=" h-[full]">
 					<li>
 						<VideoWrapper
-							videoSrcURL={videos.fields.url}
+							videoSrcURL={videos[0].fields.url}
 							videoWidth="1248"
 							videoHeight="600"
-							videoTitle={videos.fields.title}
-							videoImage={videos.fields.image.fields.file.url}
+							videoTitle={videos[0].fields.title}
+							videoImage={videos[0].fields.image.fields.file.url}
 						/>
 						<div class="p-4">
 							<h1
 								class="font pt-3 text-base font-bold leading-tight text-black group-hover:text-green-normal lg:text-xl"
 							>
-								{videos.fields.title}
+								{videos[0].fields.title}
 							</h1>
 							<p class="pb-2 pt-4 text-sm text-black">
-								<span>{videos.fields.summary}</span>
+								<span>{videos[0].fields.summary}</span>
 							</p>
 						</div>
 					</li>

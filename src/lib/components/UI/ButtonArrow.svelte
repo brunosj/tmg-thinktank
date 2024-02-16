@@ -1,8 +1,8 @@
 <script lang="ts">
-	export let to;
-	export let color;
-	export let textColor;
-	export let arrowDirection;
+	export let to: string;
+	export let color: string;
+	export let textColor: string;
+	export let arrowDirection: string;
 
 	import { ArrowLeftIcon, ArrowRightIcon } from '@rgossiaux/svelte-heroicons/outline';
 </script>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let to;
+	export let to: string;
 	export let textColor = 'white';
 </script>
 
@@ -17,7 +17,3 @@
 		</div>
 	</button>
 </a>
-
-<style>
-	/* Add your CSS styles here */
-</style>

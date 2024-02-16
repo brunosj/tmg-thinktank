@@ -1,10 +1,12 @@
 <script lang="ts">
-	export let news;
+	export let news: News[];
 
+	import type { News } from '$lib/types/types';
 	import { slugify } from '$utils/utils.js';
 	import { parseISO } from 'date-fns';
 	import BlogGrid from '$components/Latest/BlogGrid.svelte';
-	let blogs;
+
+	let blogs: News[] = [];
 
 	$: {
 		blogs = news
@@ -12,9 +14,9 @@
 				return slugify(blogs.fields.type) === 'blog-post';
 			})
 			.sort((a, b) => {
-				const dateA = parseISO(a.fields.date);
-				const dateB = parseISO(b.fields.date);
-				return dateA - dateB;
+				const dateA = parseISO(a.fields.dateFormat);
+				const dateB = parseISO(b.fields.dateFormat);
+				return dateA.getTime() - dateB.getTime();
 			})
 			.slice(0, 4);
 	}

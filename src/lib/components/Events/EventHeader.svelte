@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let item;
+	export let item: Event;
+
+	import type { Event } from '$lib/types/types';
 </script>
 
 <section class="container border-b border-green-normal">

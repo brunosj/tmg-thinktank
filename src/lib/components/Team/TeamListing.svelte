@@ -2,7 +2,6 @@
 	export let items: Team[];
 
 	import type { Team } from '$lib/types/types';
-
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
 	import FaLinkedin from 'virtual:icons/fa6-brands/linkedin-in';
 	import FaMail from 'virtual:icons/fa6-regular/envelope';
@@ -14,7 +13,7 @@
 	<ul class="bg-green-light">
 		<div class="container grid grid-cols-1 gap-8 pt-16 md:grid-cols-2 lg:gap-16">
 			{#each items.sort( (a, b) => (a.fields.name || '').localeCompare(b.fields.name || '') ) as item (item.fields.name)}
-				<li class=" grid grid-cols-1 pb-6 lg:grid-cols-4 lg:pb-10" key={item.fields.id}>
+				<li class=" grid grid-cols-1 pb-6 lg:grid-cols-4 lg:pb-10">
 					{#if item.fields.picture}
 						<a href={`/team/${item.fields.slug}`}>
 							<div

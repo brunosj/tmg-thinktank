@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let item;
+	export let item: Event;
+
+	import type { Event } from '$lib/types/types';
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import VideoListing from '$components/Video/VideoListing.svelte';
@@ -73,6 +75,6 @@
 				<span></span>
 			{/if}
 		</div>
-		<EventListing events={item.fields.relatedEvents} class="" />
+		<EventListing events={item.fields.relatedEvents} />
 	</section>
 {/if}

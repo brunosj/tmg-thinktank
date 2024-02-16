@@ -56,7 +56,7 @@
 			<SidebarGroup class="flex h-full flex-col justify-between">
 				{#each headerMenu as category, i}
 					{#if i === 0 || i === 1}
-						<li class="list-none" key={i}>
+						<li class="list-none">
 							<SidebarDropdownWrapper
 								label={category.category}
 								class="group flex w-full items-center rounded-lg p-1 text-lg font-semibold text-green-normal  transition duration-75 hover:bg-green-variation lg:p-2 lg:text-2xl"
@@ -77,7 +77,7 @@
 							</SidebarDropdownWrapper>
 						</li>
 					{:else}
-						<li key={i}>
+						<li>
 							<SidebarDropdownWrapper
 								label={category.category}
 								class="group flex w-full items-center rounded-lg p-1 text-lg font-semibold text-green-normal  transition duration-75 hover:bg-green-variation lg:p-2 lg:text-2xl"

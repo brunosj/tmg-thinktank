@@ -1,35 +1,35 @@
 <!-- PublicationFilter.svelte -->
 
 <script lang="ts">
+	export let items: News[] | Publication[];
+	export let filterField = 'category';
+	export let allLabel = 'All Publications';
+
 	import { onMount } from 'svelte';
-	import { parseISO } from 'date-fns';
+	import type { News, Publication, Programme } from '$lib/types/types';
 	import { Disclosure, DisclosurePanel, DisclosureButton } from '@rgossiaux/svelte-headlessui';
 	import { MinusSmIcon, PlusSmIcon } from '@rgossiaux/svelte-heroicons/outline';
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 
-	export let items;
-	export let filterField = 'category'; // Default to category
-	export let allLabel = 'All Publications'; // Default label
-
-	let filters = [];
-	let programmes = [];
+	let filters: string[] = [];
+	let programmes: string[] = [];
 	let filteredItems = [];
 
 	onMount(() => {
 		initialize();
 	});
 
-	function getFilters(items, field) {
+	function getFilters(items: News[] | Publication[], field: string) {
 		let filterItems = items.map((item) => {
-			return item.fields[field];
+			return item.fields[field as keyof typeof item.fields];
 		});
 		let uniqueFilters = new Set(filterItems);
 		return [allLabel, ...Array.from(uniqueFilters)];
 	}
 
-	function getProgrammes(items) {
+	function getProgrammes(items: News[] | Publication[]) {
 		let programmeItems = items.map((item) => {
 			return item.fields.programme.fields.title;
 		});
@@ -39,16 +39,20 @@
 		return programmes;
 	}
 
-	function handleFilters(filterField, filterValue) {
+	function handleFilters(filterField: string, filterValue: string) {
 		if (filterValue === allLabel) {
 			filteredItems = [...items];
 		} else {
-			filteredItems = [...items.filter((item) => item.fields[filterField] === filterValue)];
+			filteredItems = [
+				...items.filter(
+					(item) => item.fields[filterField as keyof typeof item.fields] === filterValue
+				)
+			];
 		}
 		dispatch('filteredData', filteredItems);
 	}
 
-	function handleProgrammes(programme) {
+	function handleProgrammes(programme: string | Programme) {
 		if (programme === 'All Programmes') {
 			filteredItems = [...items];
 		} else {
@@ -58,7 +62,7 @@
 	}
 
 	function initialize() {
-		filters = getFilters(items, filterField);
+		filters = getFilters(items, filterField).map(String);
 		programmes = getProgrammes(items);
 		filteredItems = [...items];
 	}
@@ -92,20 +96,17 @@
 						</DisclosureButton>
 					</h3>
 					<DisclosurePanel class="prose prose-sm pb-6">
-						<!-- svelte-ignore a11y-no-static-element-interactions -->
-						<!-- svelte-ignore a11y-click-events-have-key-events -->
 						{#each filters as filter, index (filter)}
-							<div
+							<button
 								class="relative flex items-center py-2"
 								on:click={() => handleFilters(filterField, filter)}
-								key={index}
 							>
 								<div class="flex h-5 items-center">
 									<input
 										id="{filterField}-{index}"
 										name="filter"
 										type="radio"
-										defaultChecked={index === null}
+										checked={index === null}
 										class="h-4 w-4 cursor-pointer border-gray-300 text-green-normal focus:ring-green-normal"
 									/>
 								</div>
@@ -115,7 +116,7 @@
 										class="cursor-pointer select-none font-medium text-gray-700">{filter}</label
 									>
 								</div>
-							</div>
+							</button>
 						{/each}
 					</DisclosurePanel>
 				</div>
@@ -147,20 +148,17 @@
 						</DisclosureButton>
 					</h3>
 					<DisclosurePanel class="prose prose-sm pb-6">
-						{#each programmes as programme, index}
-							<!-- svelte-ignore a11y-click-events-have-key-events -->
-							<!-- svelte-ignore a11y-no-static-element-interactions -->
-							<div
+						{#each programmes as programme, index (index)}
+							<button
 								class="relative flex items-center py-2"
 								on:click={() => handleProgrammes(programme)}
-								key={index}
 							>
 								<div class="flex h-5 items-center">
 									<input
 										id="programme-{index}"
 										name="programme"
 										type="radio"
-										defaultChecked={index === null}
+										checked={index === null}
 										class="h-4 w-4 cursor-pointer border-gray-300 text-green-normal focus:ring-green-normal"
 									/>
 								</div>
@@ -170,7 +168,7 @@
 										class="cursor-pointer select-none font-medium text-gray-700">{programme}</label
 									>
 								</div>
-							</div>
+							</button>
 						{/each}
 					</DisclosurePanel>
 				</div>

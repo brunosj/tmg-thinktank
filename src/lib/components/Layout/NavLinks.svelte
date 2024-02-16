@@ -1,7 +1,8 @@
 <script lang="ts">
-	export let category;
-	export let links = [];
+	export let category: string;
+	export let links: MenuLink[] = [];
 
+	import type { MenuLink } from '$lib/types/types';
 	import { fade } from 'svelte/transition';
 	import { Menu, MenuButton, MenuItems, MenuItem } from '@rgossiaux/svelte-headlessui';
 	import { ChevronDownIcon } from '@rgossiaux/svelte-heroicons/solid';
@@ -38,7 +39,6 @@
 							<a
 								href={item.to}
 								class="-m-3 flex flex-col justify-between rounded-lg p-3 hover:text-gray-500"
-								key={i}
 							>
 								<div class="flex md:h-full lg:flex-col">
 									<div

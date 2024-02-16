@@ -1,17 +1,18 @@
 <script lang="ts">
-	export let items;
+	export let items: Publication[];
 
+	import type { Publication } from '$lib/types/types';
 	import { formatDateNews } from '$lib/utils/utils';
 </script>
 
 <div class="container grid grid-cols-1 pb-6 pt-6 lg:grid-cols-2 lg:gap-5 lg:pt-12">
-	{#each items.sort((a, b) => new Date(b.fields.publicationDate) - new Date(a.fields.publicationDate)) as item, i}
+	{#each items.sort((a, b) => +new Date(b.fields.publicationDate) - +new Date(a.fields.publicationDate)) as item, i (item.fields.title)}
 		{@const image =
 			item.fields.thumbnailCdn?.length > 0
 				? item.fields.thumbnailCdn[0].secure_url
 				: item.fields.thumbnail.fields.file.url}
 		{#if item.fields.pdf}
-			<a href={item.fields.pdf.fields.file.url} target="_blank" key={i}>
+			<a href={item.fields.pdf.fields.file.url} target="_blank">
 				<div class="group grid grid-cols-1 pb-6 lg:grid-cols-4">
 					{#if image}
 						<div

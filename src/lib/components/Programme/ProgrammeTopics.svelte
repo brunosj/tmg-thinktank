@@ -1,22 +1,23 @@
 <script lang="ts">
+	export let topics: Topic[];
+
+	import type { Topic } from '$lib/types/types';
 	import { createEventDispatcher } from 'svelte';
 	import { renderRichText } from '$utils/utils.js';
 	import ProjectCard from '$components/Programme/ProjectCard.svelte';
-
-	export let topics;
 
 	const dispatch = createEventDispatcher();
 
 	let topicStates = topics.map(() => ({ descriptionMore: false, viewButton: true }));
 
-	const handleDescriptionMore = (index) => {
+	const handleDescriptionMore = (index: number) => {
 		topicStates[index].descriptionMore = true;
 		topicStates[index].viewButton = false;
 	};
 </script>
 
 {#each topics as topic, i}
-	<section id={topic.fields.slug} class="container border-b border-t py-6" key={i}>
+	<section id={topic.fields.slug} class="container border-b border-t py-6">
 		<h1 class="py-0 text-center text-2xl font-bold lg:py-6 lg:text-left lg:text-3xl">
 			{topic.fields.title}
 		</h1>

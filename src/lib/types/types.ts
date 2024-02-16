@@ -86,7 +86,7 @@ export interface Event {
 		facilitators: Speaker[];
 		image: Image;
 		imageCdn: ImageCdn[];
-		relatedNews: News[];
+		news: News[];
 		relatedEvents: Event[];
 		relatedVideos: Video[];
 		relatedDocuments: Publication[];
@@ -98,6 +98,17 @@ export interface Event {
 		thumbnail: Image;
 		slug: string;
 	};
+}
+
+export interface CalendarEvent {
+	start: Date;
+	end: Date;
+	title: string;
+	subtitle: string;
+	slug: string;
+	isMultiDay: boolean;
+	type: string;
+	category: string;
 }
 
 export interface EventSeries {
@@ -221,7 +232,7 @@ export interface Team {
 
 export interface Publication {
 	fields: {
-		type: string;
+		category: string;
 		programme: Programme;
 		project: Project;
 		title: string;
@@ -244,7 +255,7 @@ export interface Publication {
 
 export interface Project {
 	fields: {
-		projectName: string;
+		name: string;
 		projectSummary: string;
 		quote: string;
 		quoteAuthor: string;
@@ -340,10 +351,10 @@ export interface Speaker {
 export interface Topic {
 	fields: {
 		title: string;
-		topicSummary: string;
+		summary: string;
 		programmes: Programme[];
 		descriptionIntro: string;
-		descriptionReadMore: string;
+		description: string;
 		image: Image;
 		imageCdn: ImageCdn[];
 		projects: Project[];
@@ -368,6 +379,11 @@ export interface Video {
 }
 
 // Data
+
+export interface MenuLink {
+	title: string;
+	to: string;
+}
 
 export interface MediaFile {
 	fields: {

@@ -1,9 +1,10 @@
 <script lang="ts">
-	export let heroProgrammes;
+	export let heroProgrammes: Programme[];
 
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
+	import type { Programme } from '$lib/types/types';
 
-	function getIntro(slug) {
+	function getIntro(slug: string) {
 		switch (slug) {
 			case 'food-systems':
 				return 'Transforming';

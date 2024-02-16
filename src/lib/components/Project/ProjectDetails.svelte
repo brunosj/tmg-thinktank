@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let item;
+	export let item: Project;
+
+	import type { Project } from '$lib/types/types';
 	import ProjectPartners from '$components/Project/ProjectPartners.svelte';
 </script>
 

@@ -1,12 +1,13 @@
 <script lang="ts">
-	export let items;
+	export let items: Speaker[];
 
+	import type { Speaker } from '$lib/types/types';
 	import { ensureHttps } from '$utils/utils.js';
 </script>
 
 <div class="grid grid-cols-1 gap-x-6 lg:grid-cols-2">
-	{#each items as item}
-		<div class="pb-5" key={item.fields.id}>
+	{#each items as item (item.fields.slug)}
+		<div class="pb-5">
 			<a href={`/speaker/${item.fields.slug}`}>
 				<div class="group grid grid-cols-8 py-0 pr-0 lg:pr-5">
 					<div
@@ -30,8 +31,8 @@
 							<div class="text-sm font-light text-black">
 								{item.fields.position}
 							</div>
-							{#if item.fields.organisationURL}
-								<a href={ensureHttps(item.fields.organisationURL)} target="_blank">
+							{#if item.fields.organisationUrl}
+								<a href={ensureHttps(item.fields.organisationUrl)} target="_blank">
 									<span class="text-sm font-light italic leading-none text-black">
 										{item.fields.organisation}
 									</span>

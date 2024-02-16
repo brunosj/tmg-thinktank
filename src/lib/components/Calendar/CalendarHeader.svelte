@@ -1,13 +1,13 @@
 <script lang="ts">
-	export let currentMonth;
-	export let monthChange;
-	export let toggleView;
-	export let isListView;
+	export let currentMonth: Date;
+	export let monthChange: (event: CustomEvent<string>) => void;
+	export let toggleView: () => void;
+	export let isListView: boolean;
 
 	import { onMount } from 'svelte';
 	import { format, addMonths, subMonths } from 'date-fns';
 
-	let monthOptions = [];
+	let monthOptions: { value: string; label: string }[] = [];
 	let value;
 
 	let selectedMonth = format(currentMonth, 'yyyy-MM');
@@ -31,7 +31,10 @@
 </script>
 
 <div class="mb-4 flex items-center justify-between">
-	<select bind:value={selectedMonth} on:change={() => monthChange({ detail: selectedMonth })}>
+	<select
+		bind:value={selectedMonth}
+		on:change={() => monthChange(new CustomEvent('change', { detail: selectedMonth }))}
+	>
 		{#each monthOptions as { value, label }}
 			<option {value}>{label}</option>
 		{/each}

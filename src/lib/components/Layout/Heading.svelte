@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let text, textColor, bgColor;
+	export let text: string;
+	export let textColor: string;
+	export let bgColor: string;
 
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';

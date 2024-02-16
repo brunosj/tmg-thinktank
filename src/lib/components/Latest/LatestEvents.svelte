@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let events;
+	export let events: Event[] = [];
+
+	import type { Event } from '$lib/types/types';
 	import { parseISO, isAfter } from 'date-fns';
 	import EventListing from '$components/Events/EventListing.svelte';
 	const today = new Date();
@@ -13,7 +15,7 @@
 			.sort((a, b) => {
 				const dateA = parseISO(a.fields.date);
 				const dateB = parseISO(b.fields.date);
-				return dateA - dateB;
+				return dateA.getTime() - dateB.getTime();
 			})
 			.slice(0, 5);
 	}

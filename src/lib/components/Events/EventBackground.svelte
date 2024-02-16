@@ -1,6 +1,7 @@
 <script lang="ts">
-	export let item;
+	export let item: Event;
 
+	import type { Event } from '$lib/types/types';
 	import { MinusSmIcon, PlusSmIcon } from '@rgossiaux/svelte-heroicons/outline';
 	import { Disclosure, DisclosurePanel, DisclosureButton } from '@rgossiaux/svelte-headlessui';
 	import { renderRichText } from '$utils/utils.js';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let heading;
+	export let heading: string;
 
 	import { MinusSmIcon, PlusSmIcon } from '@rgossiaux/svelte-heroicons/outline';
 	import { Disclosure, DisclosurePanel, DisclosureButton } from '@rgossiaux/svelte-headlessui';

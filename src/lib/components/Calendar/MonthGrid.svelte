@@ -1,10 +1,10 @@
 <script lang="ts">
-	export let currentMonth;
-	export let items;
-	export let hoveredDay;
-	export let handleDayMouseEnter;
-	export let handleDayMouseLeave;
-	export let selectedDate;
+	export let currentMonth: Date;
+	export let items: CalendarEvent[];
+	export let hoveredDay: Date | null;
+	export let handleDayMouseEnter: (date: Date) => void;
+	export let handleDayMouseLeave: () => void;
+	export let selectedDate: Date;
 
 	import {
 		startOfMonth,
@@ -18,10 +18,11 @@
 	} from 'date-fns';
 	import ItemTooltip from './ItemTooltip.svelte';
 	import EventLegend from './EventLegend.svelte';
+	import type { CalendarEvent } from '$lib/types/types';
 
 	let rows = [];
 
-	let multiDayClass = (event, date) => {
+	let multiDayClass = (event: CalendarEvent, date: Date) => {
 		if (event.isMultiDay && isSameDay(event.start, date)) {
 			return 'rounded-l-md';
 		} else if (isSameDay(event.end, date)) {
@@ -31,7 +32,7 @@
 		}
 	};
 
-	let bgColorClass = (type) => {
+	let bgColorClass = (type: string) => {
 		switch (type) {
 			case 'Workshop':
 				return 'bg-[#A9FBD7] bg-opacity-30';
@@ -73,7 +74,7 @@
 				const dayItems = sortedItems.filter(
 					(event) =>
 						isSameDay(event.start, day) ||
-						(event.allDay && isSameDay(event.end, day)) ||
+						(event && isSameDay(event.end, day)) ||
 						(event.start < day && event.end >= day)
 				);
 
@@ -107,7 +108,6 @@
 			<div class="grid w-full grid-cols-7">
 				{#each [...Array(7)] as _, index}
 					<div
-						key={index}
 						class="flex w-full items-center justify-end border-[0.5px] border-gray-100 px-1 py-2 text-sm font-bold dark:border-neutral-500"
 					>
 						{format(
@@ -118,7 +118,7 @@
 				{/each}
 			</div>
 			{#each updateMonthGrid() as row (row)}
-				<div key={row} class="flex flex-grow-0 flex-row">
+				<div class="flex flex-grow-0 flex-row">
 					{#each row as { date, isEventDay, isCurrentMonth, isWeekend, weekendClass, dateFormat, truncatedItems, additionalEventCount }}
 						{#if date}
 							<div
@@ -139,9 +139,8 @@
 														{handleDayMouseLeave}
 													/>
 												{/if}
-												{#each truncatedItems as event, index}
+												{#each truncatedItems as event (event)}
 													<li
-														key={index}
 														class={`${bgColorClass(event.type)} ${
 															event.isMultiDay ? multiDayClass(event, date) : ''
 														} 

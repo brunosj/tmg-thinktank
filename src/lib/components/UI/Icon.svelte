@@ -1,8 +1,8 @@
 <!-- Icon.svelte -->
 <script lang="ts">
-	export let icon;
-	export let label;
-	export let classes;
+	export let icon: any;
+	export let label: string;
+	export let classes: string = '';
 </script>
 
 <span class="sr-only">{label}</span>
