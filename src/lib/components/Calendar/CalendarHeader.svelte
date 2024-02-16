@@ -10,20 +10,20 @@
 	let monthOptions: { value: string; label: string }[] = [];
 	let value;
 
-	let selectedMonth = format(currentMonth, 'yyyy-MM');
+	let selectedMonth = format(currentMonth, 'yyyy-MM-d');
 
 	onMount(() => {
 		const monthsInPast = 3;
 		const monthsInFuture = 6;
 
-		monthOptions = [...Array(monthsInPast + monthsInFuture + 1)].map((_, index) => {
+		monthOptions = [...Array(monthsInPast + monthsInFuture)].map((_, index) => {
 			const monthDate =
 				index <= monthsInPast
 					? subMonths(currentMonth, monthsInPast - index)
 					: addMonths(currentMonth, index - monthsInPast);
 
 			return {
-				value: format(monthDate, 'yyyy-MM'),
+				value: format(monthDate, 'yyyy-MM-d'),
 				label: format(monthDate, 'MMMM yyyy')
 			};
 		});

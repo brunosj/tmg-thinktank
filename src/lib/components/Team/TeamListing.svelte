@@ -47,7 +47,8 @@
 
 							<ul class="flex items-center space-x-3 pt-2 text-green-normal">
 								{#if item.fields.email}
-									<a href={`mailto:${item.fields.email}`} class="">
+									{@const mailWithoutAt = item.fields.email.replace('@', ' [at] ')}
+									<a href={`mailto:${mailWithoutAt}`} class="">
 										<Icon icon={FaMail} label="Mail" classes="w-4 h-4" />
 									</a>
 								{/if}

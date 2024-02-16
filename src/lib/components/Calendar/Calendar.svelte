@@ -8,12 +8,14 @@
 	import MonthGrid from '$components/Calendar/MonthGrid.svelte';
 	import { browser } from '$app/environment';
 	import EventLegend from './EventLegend.svelte';
+	import is from 'date-fns/locale/is';
 
 	let currentMonth = new Date();
 	let hoveredDay: Date | null = null;
-	let isListView = false;
 	let selectedDate = new Date();
 	let items: CalendarEvent[] = [];
+
+	$: isListView = true;
 
 	if (browser) {
 		const isMobile = window.innerWidth < 768;
