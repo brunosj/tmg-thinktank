@@ -4,8 +4,8 @@ export const siteMetadata = {
 	description: `Enabling Sustainability`,
 	author: `@brunosj`,
 	siteUrl: 'https://tmg-thinktank.com/',
-	image: '/social.png',
-	imageUrl: 'https://tmg-thinktank.com/social.png',
+	image: '/tmg-seo.jpg',
+	imageUrl: 'https://tmg-thinktank.com/tmg-seo.jpg',
 	limitMonthInTheFuture: 12,
 	programmes: {
 		prog1: 'Food Systems',

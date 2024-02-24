@@ -2,9 +2,11 @@
 	export let title: string = 'TMG Think Tank';
 	export let description: string =
 		'A Berlin-based organization working on sustainability transformations';
-	export let image: string = '';
+	export let image: string = 'https://tmg-thinktank.com/tmg-seo.jpg';
 	export let tags = ['development', 'foodsystems', 'thinktank', 'Berlin'];
 	export let ogType = 'website';
+
+	let imageSeo = image.startsWith('//') ? 'https:' + image : image;
 </script>
 
 <svelte:head>
@@ -18,11 +20,7 @@
 		<meta property="og:description" content={description} />
 	{/if}
 	{#if image}
-		<meta
-			property="og:image"
-			content={image ||
-				'https://res.cloudinary.com/tmgthinktank/image/upload/v1699275389/Logos/tmg_social_ox8fu0.png'}
-		/>
+		<meta property="og:image" content={imageSeo} />
 	{/if}
 	{#if tags.length > 0}
 		<meta name="keywords" content={tags.join(',')} />

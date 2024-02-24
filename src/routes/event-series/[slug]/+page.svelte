@@ -62,15 +62,26 @@
 	}
 
 	$: image =
+		item.fields.imageCdn?.length > 0
+			? item.fields.imageCdn[0].secure_url
+			: item.fields.image.fields.file.url;
+
+	$: banner =
 		item.fields.pageBannerCdn?.length > 0
 			? item.fields.pageBannerCdn[0].secure_url
 			: item.fields.pageBanner.fields.file.url;
+
+	$: console.log(image);
 </script>
 
 <SEO title={item.fields.title} description={item.fields.summary} {image} />
 
 <article>
-	<TitleImageGradientHeader {image} title={item.fields.title} subtitle={item.fields.summary} />
+	<TitleImageGradientHeader
+		image={banner}
+		title={item.fields.title}
+		subtitle={item.fields.summary}
+	/>
 
 	{#if item.fields.quoteText && item.fields.quotePerson && item.fields.quotePersonOrganization}
 		<QuoteBanner
