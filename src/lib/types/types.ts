@@ -113,19 +113,22 @@ export interface CalendarEvent {
 
 export interface EventSeries {
 	fields: {
-		automaticallyGenerate: boolean;
 		featuredOnHomepage: boolean;
 		cutoffDate: string;
 		title: string;
-		secondLanguage: string;
-		titleSecondLanguage: string;
 		summary: string;
-		text1: string;
+		description: string;
+		quoteText: string;
+		quotePerson: string;
+		quotePersonOrganization: string;
 		text2: string;
+		statsTitle: string;
+		statsEvents: number;
+		statsSpeakers: number;
 		text3: string;
 		text4: string;
-		events: Event;
-		eventUrl: string;
+		eventFeatured: Event;
+		events: Event[];
 		news: News[];
 		relatedDocuments: Publication[];
 		additionalEvents: Event[];

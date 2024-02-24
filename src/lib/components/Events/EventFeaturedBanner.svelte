@@ -1,0 +1,41 @@
+<script lang="ts">
+	export let event: Event;
+	export let bgColor: string = '#67797B';
+	export let textColor: string = '#ffffff';
+
+	import type { Event } from '$lib/types/types';
+</script>
+
+<section class="container relative">
+	<div class=" relative h-full overflow-hidden md:absolute md:left-0 md:h-full md:w-1/3 lg:w-2/3">
+		<div class="md:rounded-lg">
+			<img
+				loading="lazy"
+				src={event.fields.image.fields.file.url}
+				alt={event.fields.title}
+				class="h-full w-full object-contain duration-300 md:rounded-lg"
+			/>
+		</div>
+	</div>
+	<div class="relative mx-auto max-w-7xl py-0 md:py-24">
+		<div
+			class="space-y-6 bg-white p-6 text-white md:ml-auto md:w-2/3 md:rounded-lg lg:p-12"
+			style="background-color: {bgColor}"
+		>
+			<p class="font-semibold leading-7 underline">Featured Event</p>
+			<h2 class=" font-bold tracking-tight">
+				{event.fields.title}
+			</h2>
+			<p class=" text-base leading-7 text-gray-300">
+				{event.fields.summary}
+			</p>
+			<div class="">
+				<a
+					href={event.fields.slug}
+					class="inline-flex rounded-md bg-white/10 px-3.5 py-2.5 text-sm font-semibold shadow-sm duration-300 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+					>Learn More</a
+				>
+			</div>
+		</div>
+	</div>
+</section>

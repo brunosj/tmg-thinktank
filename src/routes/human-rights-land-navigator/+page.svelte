@@ -20,7 +20,7 @@
 <article class="pb-6 text-cop1 lg:pb-12">
 	<TitleImageGradientHeader {image} title={item.fields.title} subtitle={item.fields.subtitle} />
 
-	<section class="container pb-6 pt-6 lg:pb-12 lg:pt-12">
+	<section class="sectionPy container">
 		<div class="grid grid-cols-1 gap-x-12 lg:grid-cols-3">
 			<div class="richText col-span-2">
 				{#if item.fields.text1}

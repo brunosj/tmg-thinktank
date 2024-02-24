@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let events: Event[];
+	export let color: string = '#67797B';
 
 	import type { Event } from '$lib/types/types';
 	import { formatTime, formatDay, formatMonth, formatYear } from '$lib/utils/utils.js';
@@ -13,7 +14,10 @@
 					<div class="cols-span-1 p-0 lg:p-2">
 						<div class="flex flex-col items-center space-y-2">
 							<div class="flex">
-								<span class="text-3xl font-semibold leading-none text-green-normal lg:text-4xl">
+								<span
+									class="text-3xl font-semibold leading-none lg:text-4xl"
+									style="color: {color}"
+								>
 									{formatDay(event.fields.date)}
 								</span>
 							</div>
@@ -23,7 +27,7 @@
 								</span>
 							</div>
 							<div class="flex">
-								<span class="text-lg font-semibold leading-none text-green-normal">
+								<span class="text-lg font-semibold leading-none" style="color: {color}">
 									{formatYear(event.fields.date)}
 								</span>
 							</div>

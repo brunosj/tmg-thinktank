@@ -6,7 +6,7 @@ export const config = {
 	}
 };
 
-export async function load({}) {
+export async function load() {
 	try {
 		const entries = await fetchContentfulData('unfssCop26');
 		const item = entries.find((item) => item.fields.slug === 'unccd-cop15');

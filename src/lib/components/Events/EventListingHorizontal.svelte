@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let events: Event[];
-	export let color: string;
+	export let color: string = '#67797B';
 
 	import type { Event } from '$lib/types/types';
 	import { formatTime, formatDay, formatMonth, formatYear } from '$lib/utils/utils.js';
