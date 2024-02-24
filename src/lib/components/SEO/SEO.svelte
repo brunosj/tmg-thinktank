@@ -2,7 +2,7 @@
 	export let title: string = 'TMG Think Tank';
 	export let description: string =
 		'A Berlin-based organization working on sustainability transformations';
-	export let image: string = 'https://tmg-thinktank.com/tmg-seo.jpg';
+	export let image: string;
 	export let tags = ['development', 'foodsystems', 'thinktank', 'Berlin'];
 	export let ogType = 'website';
 
@@ -20,7 +20,7 @@
 		<meta property="og:description" content={description} />
 	{/if}
 	{#if image}
-		<meta property="og:image" content={imageSeo} />
+		<meta property="og:image" content={imageSeo || 'https://tmg-thinktank.com/tmg-seo.jpg'} />
 	{/if}
 	{#if tags.length > 0}
 		<meta name="keywords" content={tags.join(',')} />
