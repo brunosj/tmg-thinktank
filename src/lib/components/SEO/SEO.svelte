@@ -6,7 +6,7 @@
 	export let tags = ['development', 'foodsystems', 'thinktank', 'Berlin'];
 	export let ogType = 'website';
 
-	let imageSeo = image.startsWith('//') ? 'https:' + image : image;
+	let imageSeo = image?.startsWith('//') ? 'https:' + image : image;
 </script>
 
 <svelte:head>
