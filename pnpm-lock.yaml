@@ -24,11 +24,11 @@ dependencies:
     specifier: ^10.7.0
     version: 10.7.0
   date-fns:
-    specifier: ^3.3.1
-    version: 3.3.1
+    specifier: ^2.3.0
+    version: 2.3.0
   date-fns-tz:
     specifier: ^2.0.0
-    version: 2.0.0(date-fns@3.3.1)
+    version: 2.0.0(date-fns@2.3.0)
   embla-carousel-autoplay:
     specifier: 8.0.0
     version: 8.0.0(embla-carousel@8.0.0)
@@ -1304,16 +1304,16 @@ packages:
     hasBin: true
     dev: true
 
-  /date-fns-tz@2.0.0(date-fns@3.3.1):
+  /date-fns-tz@2.0.0(date-fns@2.3.0):
     resolution: {integrity: sha512-OAtcLdB9vxSXTWHdT8b398ARImVwQMyjfYGkKD2zaGpHseG2UPHbHjXELReErZFxWdSLph3c2zOaaTyHfOhERQ==}
     peerDependencies:
       date-fns: '>=2.0.0'
     dependencies:
-      date-fns: 3.3.1
+      date-fns: 2.3.0
     dev: false
 
-  /date-fns@3.3.1:
-    resolution: {integrity: sha512-y8e109LYGgoQDveiEBD3DYXKba1jWf5BA8YU1FL5Tvm0BTdEfy54WLCwnuYWZNnzzvALy/QQ4Hov+Q9RVRv+Zw==}
+  /date-fns@2.3.0:
+    resolution: {integrity: sha512-A8o+iXBVqQayl9Z39BHgb7m/zLOfhF7LK82t+n9Fq1adds1vaUn8ByVoADqWLe4OTc6BZYc/FdbdTwufNYqkJw==}
     dev: false
 
   /debug@4.3.4:
