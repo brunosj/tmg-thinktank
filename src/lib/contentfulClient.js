@@ -1,6 +1,7 @@
 import { SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN } from '$env/static/private';
 import { PUBLIC_CONTENTFUL_HOST } from '$env/static/public';
-import { createClient } from 'contentful';
+import pkg from 'contentful';
+const { createClient } = pkg;
 
 const client = () => {
 	return createClient({
