@@ -70,6 +70,8 @@
 		item.fields.pageBannerCdn?.length > 0
 			? item.fields.pageBannerCdn[0].secure_url
 			: item.fields.pageBanner.fields.file.url;
+
+	$: console.log(speakers);
 </script>
 
 <SEO title={item.fields.title} description={item.fields.summary} {image} />
@@ -90,7 +92,7 @@
 		/>
 	{/if}
 
-	<section class="sectionPy container">
+	<section class="sectionPb container">
 		<div class="richText m-auto lg:w-3/4">
 			{#if item.fields.description}
 				{@html renderRichText(item.fields.description)}
@@ -119,7 +121,7 @@
 			</div>
 		{/if}
 
-		{#if speakers}
+		{#if speakers.length > 0}
 			<section class="">
 				<SpeakersAvatars {speakers} color={item.fields.color2} />
 			</section>

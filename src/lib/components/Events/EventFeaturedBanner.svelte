@@ -4,19 +4,28 @@
 	export let textColor: string = '#ffffff';
 
 	import type { Event } from '$lib/types/types';
+
+	let image: string = '';
+
+	$: image =
+		event.fields.imageCdn?.length > 0
+			? event.fields.imageCdn[0].secure_url
+			: event.fields.image?.fields.file.url;
 </script>
 
 <section class="container relative">
-	<div class=" relative h-full overflow-hidden md:absolute md:left-0 md:h-full md:w-1/3 lg:w-2/3">
-		<div class="md:rounded-lg">
-			<img
-				loading="lazy"
-				src={event.fields.image.fields.file.url}
-				alt={event.fields.title}
-				class="h-full w-full object-contain duration-300 md:rounded-lg"
-			/>
+	{#if image}
+		<div class=" relative h-full overflow-hidden md:absolute md:left-0 md:h-full md:w-1/3 lg:w-2/3">
+			<div class="md:rounded-lg">
+				<img
+					loading="lazy"
+					src={image}
+					alt={event.fields.title}
+					class="h-full w-full object-contain duration-300 md:rounded-lg"
+				/>
+			</div>
 		</div>
-	</div>
+	{/if}
 	<div class="relative mx-auto max-w-7xl py-0 md:py-24">
 		<div
 			class="space-y-6 bg-white p-6 text-white md:ml-auto md:w-2/3 md:rounded-lg lg:p-12"

@@ -103,7 +103,7 @@
 	<div class="container w-full pb-6 lg:pb-12">
 		{#if item.fields.video}
 			<section class="border-t border-gray-300">
-				<div class="pt-6 text-xl font-semibold lg:pt-12 lg:text-2xl">
+				<div class="pt-6 text-xl font-semibold lg:text-2xl">
 					{Array.isArray(item.fields.video) && item.fields.video.length >= 2
 						? 'Related Videos'
 						: 'Related Video'}
