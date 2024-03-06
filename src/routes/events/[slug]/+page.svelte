@@ -30,7 +30,7 @@
 			? item.fields.imageCdn[0].context?.custom.caption
 			: item.fields.image?.fields.description;
 
-	$: console.log(item);
+	$: console.log(item.fields.description.content);
 </script>
 
 <SEO title={item.fields.title} description={item.fields.summary} {image} />
@@ -66,7 +66,7 @@
 			{#if item.fields.facilitators}
 				<EventFacilitators {item} />
 			{/if}
-			{#if item.fields.relatedVideos || item.fields.relatedNews || item.fields.relatedDocuments || item.fields.relatedEvents}
+			{#if item.fields.relatedVideos || item.fields.news || item.fields.relatedDocuments || item.fields.relatedEvents}
 				<RelatedItems {item} />
 			{/if}
 		</section>

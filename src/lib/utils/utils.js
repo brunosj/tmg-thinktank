@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import * as contentfulTypes from '@contentful/rich-text-types';
-const { BLOCKS, INLINES, MARKS } = contentfulTypes;
+const { BLOCKS, INLINES } = contentfulTypes;
 
 export function renderRichText(richText) {
 	const renderNode = {
@@ -33,12 +33,26 @@ export function renderRichText(richText) {
 			return `<ul>${next(node.content)}</ul>`;
 		},
 		[BLOCKS.EMBEDDED_ASSET]: (node) => {
-			// Handle embedded assets by rendering them as <img loading='lazy'> tags
-			const assetUrl = node.data.target.fields.file.url;
-			const altText = node.data.target.fields.description;
-			const imgCaption = altText ? altText : '';
-			return `<img loading='lazy' src="${assetUrl}" alt="${altText}" /><h6 style="text-align:right; font-style:italic;" >${imgCaption}</h6>`;
+			if (node.data.target.fields.file.contentType === 'application/pdf') {
+				// Assuming title and fileUrl are properties of node.data.target.fields
+				const title = node.data.target.fields.title;
+				const fileUrl = node.data.target.fields.file.url;
+
+				// Generate HTML string
+				return `<a href="${fileUrl}" target="_blank">${title}</a>`;
+			} else if (node.data.target.fields.file.contentType === 'image/jpeg') {
+				const assetUrl = node.data.target.fields.file.url;
+				const altText = node.data.target.fields.description;
+				const imgCaption = altText ? altText : '';
+				return `<img loading='lazy' src="${assetUrl}" alt="${altText}" /><h6 style="text-align:right; font-style:italic;" >${imgCaption}</h6>`;
+			} else if (node.data.target.fields.file.contentType === 'image/png') {
+				const assetUrl = node.data.target.fields.file.url;
+				const altText = node.data.target.fields.description;
+				const imgCaption = altText ? altText : '';
+				return `<img loading='lazy' src="${assetUrl}" alt="${altText}" /><h6 style="text-align:right; font-style:italic;" >${imgCaption}</h6>`;
+			}
 		},
+
 		[INLINES.HYPERLINK]: (node) => {
 			const url = node.data.uri;
 			const text = node.content[0].value;
@@ -47,15 +61,6 @@ export function renderRichText(richText) {
 			return `<a href="${ensureHttps(url)}" ${targetAttribute}>${text}</a>`;
 		}
 	};
-
-	// const renderMark = {
-	// 	[MARKS.BOLD]: (text) => {
-	// 		return `<strong>${text}</strong>`;
-	// 	},
-	// 	[MARKS.ITALIC]: (text) => {
-	// 		return `<em>${text}</em>`;
-	// 	}
-	// };
 
 	return documentToHtmlString(richText, { renderNode });
 }

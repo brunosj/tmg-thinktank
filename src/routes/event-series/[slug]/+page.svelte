@@ -70,8 +70,6 @@
 		item.fields.pageBannerCdn?.length > 0
 			? item.fields.pageBannerCdn[0].secure_url
 			: item.fields.pageBanner.fields.file.url;
-
-	$: console.log(image);
 </script>
 
 <SEO title={item.fields.title} description={item.fields.summary} {image} />

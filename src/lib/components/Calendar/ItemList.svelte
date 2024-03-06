@@ -36,7 +36,6 @@
 		itemsByDay.clear();
 		let startOfMonthDate = startOfMonth(currentMonth);
 
-		console.log(getMonth(currentMonth), startOfMonthDate);
 		let endOfMonthDate = endOfMonth(currentMonth);
 
 		let itemsInCurrentMonth = items?.filter(
