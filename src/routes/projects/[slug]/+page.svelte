@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let data;
+	export let data: Page;
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import { slugify } from '$utils/utils.js';
@@ -14,12 +14,22 @@
 	import { renderRichText } from '$utils/utils.js';
 	import ProjectTeam from '$components/Project/ProjectTeam.svelte';
 	import ProjectDetails from '../../../lib/components/Project/ProjectDetails.svelte';
+	import type { Project, Event, Publication, News, Video } from '$lib/types/types';
 
-	let project;
-	let events = [];
-	let publications = [];
-	let news = [];
-	let videos = [];
+	type Page = {
+		item: Project;
+		events: Event[];
+		publications: Publication[];
+		news: News[];
+		videos: Video[];
+	};
+
+	let project: Project;
+	let events: Event[] = [];
+	let publications: Publication[] = [];
+	let news: News[] = [];
+	let videos: Video[] = [];
+	let image: string;
 
 	$: project = data.item;
 	$: events = data.events;
@@ -33,19 +43,19 @@
 			.sort((a, b) => {
 				const dateA = parseISO(a.fields.publicationDate);
 				const dateB = parseISO(b.fields.publicationDate);
-				return dateB - dateA;
+				return +dateB - +dateA;
 			});
 	}
 
 	$: {
 		news = news
-			.filter((news) =>
-				news.fields.project?.some((item) => item.fields?.name === project.fields?.name)
-			)
+			.filter((news) => {
+				return news.fields.project?.some((item) => item.fields?.name === project.fields?.name);
+			})
 			.sort((a, b) => {
 				const dateA = parseISO(a.fields.dateFormat);
 				const dateB = parseISO(b.fields.dateFormat);
-				return dateB - dateA;
+				return +dateB - +dateA;
 			});
 	}
 
@@ -57,7 +67,7 @@
 			.sort((a, b) => {
 				const dateA = parseISO(a.fields.date);
 				const dateB = parseISO(b.fields.date);
-				return dateB - dateA;
+				return +dateB - +dateA;
 			});
 	}
 
@@ -79,7 +89,7 @@
 		project.fields.thumbnailCdn?.length > 0 ? project.fields.thumbnailCdn[0].secure_url : image;
 </script>
 
-<SEO title={project.fields.title} description={project.fields.summary} {image} />
+<SEO title={project.fields.name} description={project.fields.projectSummary} {image} />
 <div class="bg-green-normal">
 	<div class="container pb-16 pt-24 lg:pt-32">
 		<div class="mb-5 text-sm text-green-light">
@@ -97,7 +107,7 @@
 				{project.fields.name}
 			</h1>
 			<h3 class="pt-5 text-left text-green-light">
-				{project.fields.summary}
+				{project.fields.projectSummary}
 			</h3>
 		</div>
 	</div>

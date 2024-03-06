@@ -2,7 +2,7 @@
 	export let title: string = 'TMG Think Tank';
 	export let description: string =
 		'A Berlin-based organization working on sustainability transformations';
-	export let image: string;
+	export let image: string = '';
 	export let tags = ['development', 'foodsystems', 'thinktank', 'Berlin'];
 	export let ogType = 'website';
 

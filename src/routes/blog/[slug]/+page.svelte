@@ -97,21 +97,20 @@
 			<div class="richText">
 				{@html renderRichText(item.fields.descriptionRich)}
 			</div>
-
-			{#if item.fields.video}
-				<div>
-					<h1 class="py-12 font-semibold text-black">
-						{Array.isArray(item.fields.video) && item.fields.video.length >= 2
-							? 'Related videos'
-							: 'Related video'}
-					</h1>
-					<VideoListing videos={item.fields.video} />
-				</div>
-			{/if}
 		</div>
 	</div>
 
 	<div class="container w-full pb-6 lg:pb-12">
+		{#if item.fields.video}
+			<section class="border-t border-gray-300">
+				<div class="pt-6 text-xl font-semibold lg:pt-12 lg:text-2xl">
+					{Array.isArray(item.fields.video) && item.fields.video.length >= 2
+						? 'Related Videos'
+						: 'Related Video'}
+				</div>
+				<VideoListing videos={item.fields.video} />
+			</section>
+		{/if}
 		<section class="border-t border-gray-300">
 			<div class="pt-6 text-xl font-semibold lg:text-2xl">Recent Blogs</div>
 			<BlogListing items={moreBlogItems} />

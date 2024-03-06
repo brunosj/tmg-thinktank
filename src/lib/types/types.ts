@@ -165,7 +165,7 @@ export interface News {
 	fields: {
 		programme: Programme;
 		secondProgramme: Programme;
-		projects: Project[];
+		project: Project[];
 		dateFormat: string;
 		type: string;
 		author: string;

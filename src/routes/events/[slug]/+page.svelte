@@ -2,7 +2,6 @@
 	export let data: Event;
 
 	import type { Event } from '$lib/types/types';
-
 	import SEO from '$components/SEO/SEO.svelte';
 	import Button from '$components/UI/Button.svelte';
 	import { renderRichText } from '$utils/utils.js';
@@ -29,8 +28,6 @@
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].context?.custom.caption
 			: item.fields.image?.fields.description;
-
-	$: console.log(item.fields.description.content);
 </script>
 
 <SEO title={item.fields.title} description={item.fields.summary} {image} />

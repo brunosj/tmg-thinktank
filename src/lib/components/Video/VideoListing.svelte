@@ -1,16 +1,18 @@
 <script lang="ts">
-	export let videos: Video[];
+	export let videos: Video[] | Video;
 
 	import type { Video } from '$lib/types/types';
 	import VideoWrapper from '$components/Video/VideoWrapper.svelte';
+
+	$: videosArray = Array.isArray(videos) ? videos : [videos];
 </script>
 
 <div class="bg-green-light">
 	<ul class="">
 		<div class="">
-			{#if videos.length >= 1}
-				<ul class="grid grid-cols-1 gap-6 pb-12 pt-6 md:grid-cols-2 lg:pt-16">
-					{#each videos as video, i (video.fields.url)}
+			{#if videosArray.length >= 1}
+				<ul class="grid grid-cols-1 gap-6 pb-12 pt-6 md:grid-cols-2 lg:pt-12">
+					{#each videosArray as video, i (video.fields.url)}
 						{@const image =
 							video.fields.imageCdn?.length > 0
 								? video.fields.imageCdn[0].secure_url
@@ -42,20 +44,20 @@
 				<ul class=" h-[full]">
 					<li>
 						<VideoWrapper
-							videoSrcURL={videos[0].fields.url}
+							videoSrcURL={videosArray[0].fields.url}
 							videoWidth="1248"
 							videoHeight="600"
-							videoTitle={videos[0].fields.title}
-							videoImage={videos[0].fields.image.fields.file.url}
+							videoTitle={videosArray[0].fields.title}
+							videoImage={videosArray[0].fields.image.fields.file.url}
 						/>
 						<div class="p-4">
 							<h1
 								class="font pt-3 text-base font-bold leading-tight text-black group-hover:text-green-normal lg:text-xl"
 							>
-								{videos[0].fields.title}
+								{videosArray[0].fields.title}
 							</h1>
 							<p class="pb-2 pt-4 text-sm text-black">
-								<span>{videos[0].fields.summary}</span>
+								<span>{videosArray[0].fields.summary}</span>
 							</p>
 						</div>
 					</li>

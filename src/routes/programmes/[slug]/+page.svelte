@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let data;
+	export let data: Page;
+
 	import SEO from '$components/SEO/SEO.svelte';
 	import { parseISO } from 'date-fns';
 	import ProgrammeHeader from '$components/Programme/ProgrammeHeader.svelte';
@@ -12,12 +13,21 @@
 	import EventListing from '$components/Events/EventListing.svelte';
 	import ButtonLoadMore from '$components/UI/ButtonLoadMore.svelte';
 	import CarouselV2 from '$components/Carousel/CarouselV2.svelte';
+	import type { Programme, Event, Publication, News, Video } from '$lib/types/types';
 
-	let programme;
-	let events = [];
-	let publications = [];
-	let news = [];
-	let videos = [];
+	let programme: Programme;
+	let events: Event[] = [];
+	let publications: Publication[] = [];
+	let news: News[] = [];
+	let videos: Video[] = [];
+
+	type Page = {
+		item: Programme;
+		events: Event[];
+		news: News[];
+		publications: Publication[];
+		videos: Video[];
+	};
 
 	$: events = data.events;
 	$: news = data.news;
@@ -31,7 +41,7 @@
 			.sort((a, b) => {
 				const dateA = parseISO(a.fields.date);
 				const dateB = parseISO(b.fields.date);
-				return dateB - dateA;
+				return +dateB - +dateA;
 			});
 	}
 
@@ -43,7 +53,7 @@
 			.sort((a, b) => {
 				const dateA = parseISO(a.fields.publicationDate);
 				const dateB = parseISO(b.fields.publicationDate);
-				return dateB - dateA;
+				return +dateB - +dateA;
 			});
 	}
 
@@ -53,19 +63,21 @@
 			.sort((a, b) => {
 				const dateA = parseISO(a.fields.dateFormat);
 				const dateB = parseISO(b.fields.dateFormat);
-				return dateB - dateA;
+				return +dateB - +dateA;
 			});
 	}
 
 	$: {
 		videos = videos
 			.filter((video) => {
-				video.fields.programmes?.some((prog) => prog.fields.title === programme.fields?.title);
+				return video.fields.programmes?.some(
+					(prog) => prog.fields.title === programme.fields?.title
+				);
 			})
 			.sort((a, b) => {
 				const dateA = parseISO(a.fields.date);
 				const dateB = parseISO(b.fields.date);
-				return dateB - dateA;
+				return +dateB - +dateA;
 			});
 	}
 
@@ -92,7 +104,7 @@
 
 <SEO
 	title={programme.fields.title}
-	description={programme.fields.summary}
+	description={programme.fields.subtitle}
 	image={programme.fields.bannerPicture[0].secure_url}
 />
 <ProgrammeHeader

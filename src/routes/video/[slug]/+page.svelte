@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let data;
+	export let data: Page;
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import Button from '$components/UI/Button.svelte';
@@ -7,8 +7,15 @@
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import VideoListing from '$components/Video/VideoListing.svelte';
 	import { renderRichText } from '$lib/utils/utils.js';
+	import type { News } from '$lib/types/types';
+
+	type Page = {
+		item: News;
+		entries: News[];
+	};
 
 	$: item = data.item;
+
 	$: image =
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
