@@ -18,6 +18,7 @@ export async function load() {
 		const newsletter = await fetchContentfulData('newsletter');
 		const partners = await fetchContentfulData('partners');
 		const events = await fetchContentfulData('event');
+
 		const upcomingEvents = events
 			.filter((event: Event) => {
 				const eventDate = parseISO(event.fields.date);
@@ -42,12 +43,15 @@ export async function load() {
 
 		const publicationFeatures = await fetchContentfulData('publicationFeature');
 
+		const eventSeries = await fetchContentfulData('unfssCop26');
+
 		return {
 			landingPage,
 			programmes,
 			newsletter,
 			partners,
 			events: upcomingEvents,
+			eventSeries,
 			news: latestBlog,
 			publicationFeatures
 		};
