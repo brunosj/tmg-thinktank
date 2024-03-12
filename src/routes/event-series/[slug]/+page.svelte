@@ -10,8 +10,8 @@
 	import Heading from '$components/Layout/Heading.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import EventListing from '$components/Events/EventListing.svelte';
-	import FeatureEventCard from '$components/Events/FeatureEventCard.svelte';
 	import TitleImageGradientHeader from '$components/Layout/TitleImageGradientHeader.svelte';
+	import ImageGallery from '$components/Gallery/ImageGallery.svelte';
 	import Stats from '$components/Stats/Stats.svelte';
 	import QuoteBanner from '$components/Banner/QuoteBanner.svelte';
 	import SpeakersAvatars from '$components/Speakers/SpeakersAvatars.svelte';
@@ -120,7 +120,7 @@
 		{/if}
 
 		{#if speakers.length > 0}
-			<section class="">
+			<section>
 				<SpeakersAvatars {speakers} color={item.fields.color2} />
 			</section>
 		{/if}
@@ -168,6 +168,10 @@
 			</div>
 		</section>
 	{/if} -->
+
+	{#if item.fields.gallery}
+		<ImageGallery images={item.fields.gallery} borderColor={item.fields.color2} />
+	{/if}
 
 	{#if item.fields.relatedDocuments}
 		<section class="">

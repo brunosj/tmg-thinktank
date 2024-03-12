@@ -11,6 +11,8 @@
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import FeatureEventCard from '$components/Events/FeatureEventCard.svelte';
 	import PartnersLogo from '$components/Partners/PartnersLogo.svelte';
+	import Gallery from '$components/Gallery/Gallery.svelte';
+	import ImageGallery from '$components/Gallery/ImageGallery.svelte';
 
 	type Page = {
 		item: PublicationFeatureType;
@@ -79,6 +81,10 @@
 		/>
 	{/if}
 
+	{#if feature.fields.gallery}
+		<ImageGallery images={feature.fields.gallery} borderColor={feature.fields.color1} />
+	{/if}
+
 	{#if feature.fields.text2}
 		<div class="container py-6 lg:py-12">
 			<div class="grid grid-cols-1 lg:grid-cols-3">
@@ -96,10 +102,6 @@
 						{@html renderRichText(feature.fields.text2)}
 					{/if}
 				</div>
-
-				<!-- <div class="col-span-2 col-start-2">
-				<ImageGallery assets={feature.fields.gallery} />
-			</div> -->
 			</div>
 		</div>
 	{/if}

@@ -132,7 +132,7 @@ export interface EventSeries {
 		news: News[];
 		relatedDocuments: Publication[];
 		additionalEvents: Event[];
-		gallery: Image[];
+		gallery: ImageCdn[];
 		image: Image;
 		imageCdn: ImageCdn[];
 		pageBanner: Image;
@@ -270,7 +270,7 @@ export interface Project {
 		fundersList: Partner[];
 		thumbnail: Image;
 		thumbnailCdn: ImageCdn[];
-		gallery: Image[];
+		gallery: ImageCdn[];
 		team: Team[];
 		url: string;
 		videos: Video[];
@@ -323,7 +323,7 @@ export interface PublicationFeature {
 		publicationSeriesPublications: Publication[];
 		text2: string;
 		textBox2: string;
-		gallery: Image[];
+		gallery: ImageCdn[];
 		events: Event[];
 		news: News[];
 		relatedDocuments: Publication[];

@@ -12,8 +12,6 @@
 		(item) =>
 			item.fields.featuredOnHomepage === true && isAfter(parseISO(item.fields.cutoffDate), today)
 	)[0];
-
-	console.log(featuredItem);
 </script>
 
 {#if featuredItem}

@@ -112,6 +112,9 @@ devDependencies:
   svelte-intersection-observer:
     specifier: ^1.0.0
     version: 1.0.0
+  svelte-lightbox:
+    specifier: ^1.1.2
+    version: 1.1.2(svelte@4.2.12)
   tailwindcss:
     specifier: ^3.4.1
     version: 3.4.1
@@ -2976,6 +2979,14 @@ packages:
 
   /svelte-intersection-observer@1.0.0:
     resolution: {integrity: sha512-AoxSog8fSt9sSN8ajMYM1I48ndq+rmPlaZSkJFCRbZ7I3KO8IPX6pl5mewWxdYL1JDI06hHu/7epn3h5tlJV9w==}
+    dev: true
+
+  /svelte-lightbox@1.1.2(svelte@4.2.12):
+    resolution: {integrity: sha512-zOvLq+z1TI5V2/U2myUL6m+oHATum8dV9wNnzBe+cCUGpP79OqRwoRu6Y9T9F9jomc/wiy4SomvL7RGnsXN81g==}
+    peerDependencies:
+      svelte: ^3.25.0 || ^4.0.0
+    dependencies:
+      svelte: 4.2.12
     dev: true
 
   /svelte-markdown@0.4.1(svelte@4.2.12):

@@ -6,7 +6,7 @@
 </script>
 
 <ul
-	class="mx-auto grid grid-cols-3 gap-x-4 gap-y-8 py-6 sm:grid-cols-4 md:gap-x-6 lg:w-full lg:gap-x-8 lg:gap-y-8 lg:py-12 xl:grid-cols-6"
+	class="m-auto grid grid-cols-3 gap-x-4 gap-y-8 py-6 sm:grid-cols-4 md:gap-x-6 lg:gap-x-8 lg:gap-y-8 lg:py-12 xl:grid-cols-6"
 >
 	{#each speakers as speaker (speaker.fields.slug)}
 		<li class="group">
