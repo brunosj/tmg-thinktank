@@ -89,7 +89,7 @@
 		project.fields.thumbnailCdn?.length > 0 ? project.fields.thumbnailCdn[0].secure_url : image;
 </script>
 
-<SEO title={project.fields.name} description={project.fields.projectSummary} {image} />
+<SEO title={project.fields.name} description={project.fields.summary} {image} />
 <div class="bg-green-normal">
 	<div class="container pb-16 pt-24 lg:pt-32">
 		<div class="mb-5 text-sm text-green-light">
@@ -107,7 +107,7 @@
 				{project.fields.name}
 			</h1>
 			<h3 class="pt-5 text-left text-green-light">
-				{project.fields.projectSummary}
+				{project.fields.summary}
 			</h3>
 		</div>
 	</div>

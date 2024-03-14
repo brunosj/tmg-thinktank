@@ -259,7 +259,7 @@ export interface Publication {
 export interface Project {
 	fields: {
 		name: string;
-		projectSummary: string;
+		summary: string;
 		quote: string;
 		quoteAuthor: string;
 		description: string;
