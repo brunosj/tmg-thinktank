@@ -42,7 +42,6 @@ export async function load() {
 			.slice(0, 3);
 
 		const publicationFeatures = await fetchContentfulData('publicationFeature');
-
 		const eventSeries = await fetchContentfulData('unfssCop26');
 
 		return {

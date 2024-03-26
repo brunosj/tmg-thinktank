@@ -1,29 +1,59 @@
 <script lang="ts">
-	import {
-		Drawer,
-		Button,
-		CloseButton,
-		Sidebar,
-		SidebarBrand,
-		SidebarCta,
-		SidebarDropdownItem,
-		SidebarDropdownWrapper,
-		SidebarGroup,
-		SidebarItem,
-		SidebarWrapper
-	} from 'flowbite-svelte';
 	import logo from '$assets/TMG_logo_transparent.png';
-	import { MenuIcon, XIcon } from '@rgossiaux/svelte-heroicons/outline';
-	import { headerMenu, footerMenu } from '$data/menu.js';
-	import { sineIn } from 'svelte/easing';
+	import { MenuIcon, SearchIcon } from '@rgossiaux/svelte-heroicons/outline';
 
-	let hidden2 = true;
-	let spanClass = 'flex-1 ml-3 whitespace-nowrap';
-	let transitionParamsRight = {
-		x: 320,
-		duration: 200,
-		easing: sineIn
+	import { onMount } from 'svelte';
+	import { createPostsIndex, searchPostsIndex } from '$lib/search';
+	import SearchResults from '$components/Search/SearchResults.svelte';
+	import SidebarComponent from '$components/Layout/Sidebar.svelte';
+	import type { SearchItem } from '$lib/types/types';
+
+	let search: 'loading' | 'ready' = 'loading';
+	let searchTerm = '';
+	let results: SearchItem[] = [];
+	let posts: SearchItem[] = [];
+	let showSearchInput = false;
+	let sidebarHidden = true;
+
+	onMount(async () => {
+		try {
+			const response = await fetch('/search.json');
+			posts = await response.json();
+			createPostsIndex(posts);
+			search = 'ready';
+		} catch (error) {
+			console.error('Error fetching posts:', error);
+		}
+	});
+
+	onMount(() => {
+		document.addEventListener('keydown', handleKeyDown);
+	});
+
+	$: if (search === 'ready') {
+		results = searchPostsIndex(searchTerm);
+	}
+
+	const toggleSearch = () => {
+		showSearchInput = !showSearchInput;
 	};
+
+	const toggleSidebar = () => {
+		sidebarHidden = !sidebarHidden;
+		showSearchInput = false;
+		searchTerm = '';
+	};
+
+	const handleKeyDown = (event: KeyboardEvent) => {
+		if (event.key === 'Escape') {
+			showSearchInput = false;
+			searchTerm = '';
+		}
+	};
+
+	function init(el: HTMLElement) {
+		el.focus();
+	}
 </script>
 
 <header class="fixed top-0 z-50 w-full bg-white bg-opacity-90 shadow-lg">
@@ -34,85 +64,57 @@
 					<img src={logo} alt="TMG Think Tank for Sustainability" loading="eager" />
 				</a>
 			</div>
-			<button type="button" aria-label="menu" on:click={() => (hidden2 = false)}>
-				<MenuIcon class="textHover h-6 w-6 text-green-normal" />
-			</button>
+			<div class="flex justify-end gap-3">
+				{#if search === 'ready' && showSearchInput}
+					<div class=" ml-auto flex justify-end">
+						<input
+							bind:value={searchTerm}
+							use:init
+							placeholder="Search"
+							autocomplete="off"
+							spellcheck="false"
+							type="search"
+						/>
+					</div>
+				{/if}
+				{#if !showSearchInput}
+					<button type="button" aria-label="menu" on:click={toggleSearch}>
+						<SearchIcon
+							class="h-8 w-8 rounded-lg bg-transparent p-1 text-green-normal duration-300 hover:bg-green-variation"
+						/>
+					</button>
+				{/if}
+				<button type="button" aria-label="menu" on:click={toggleSidebar}>
+					<MenuIcon
+						class="h-8 w-8 rounded-lg bg-transparent p-1 text-green-normal duration-300 hover:bg-green-variation"
+					/>
+				</button>
+			</div>
 		</div>
 	</div>
 </header>
-<Drawer
-	placement="right"
-	transitionType="fly"
-	transitionParams={transitionParamsRight}
-	bind:hidden={hidden2}
-	id="sidebar2"
-	width="w-[85%] lg:w-[30%]"
->
-	<div class="flex items-center">
-		<CloseButton on:click={() => (hidden2 = true)} class="mb-4 dark:text-white" />
-	</div>
-	<Sidebar class=" z-50 w-full">
-		<SidebarWrapper class="overflow-y-auto bg-white py-6 lg:py-12">
-			<SidebarGroup class="flex h-full flex-col justify-between">
-				{#each headerMenu as category, i}
-					{#if i === 0 || i === 1}
-						<li class="list-none">
-							<SidebarDropdownWrapper
-								label={category.category}
-								class="group flex w-full items-center rounded-lg p-1 text-lg font-semibold text-green-normal  transition duration-75 hover:bg-green-variation lg:p-2 lg:text-2xl"
-								isOpen
-							>
-								<ul>
-									{#each category.links as link}
-										<li>
-											<SidebarDropdownItem
-												label={link.title}
-												href={link.to}
-												class="flex items-center rounded-lg p-1 pl-12 text-sm font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 lg:text-base"
-												on:click={() => (hidden2 = true)}
-											/>
-										</li>
-									{/each}
-								</ul>
-							</SidebarDropdownWrapper>
-						</li>
-					{:else}
-						<li>
-							<SidebarDropdownWrapper
-								label={category.category}
-								class="group flex w-full items-center rounded-lg p-1 text-lg font-semibold text-green-normal  transition duration-75 hover:bg-green-variation lg:p-2 lg:text-2xl"
-							>
-								<ul>
-									{#each category.links as link}
-										<li>
-											<SidebarDropdownItem
-												label={link.title}
-												href={link.to}
-												class="flex items-center rounded-lg p-1 pl-12 text-sm font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 lg:text-base"
-												on:click={() => (hidden2 = true)}
-											/>
-										</li>
-									{/each}
-								</ul>
-							</SidebarDropdownWrapper>
-						</li>
-					{/if}
-				{/each}
-			</SidebarGroup>
-			<!-- <SidebarGroup border>
-				<SidebarItem
-					class="text-sm"
-					label="About TMG"
-					href="/about"
-					on:click={() => (hidden2 = true)}
-				></SidebarItem>
-				<SidebarItem
-					class="text-sm"
-					label="Contact"
-					href="/contact"
-					on:click={() => (hidden2 = true)}
-				></SidebarItem>
-			</SidebarGroup> -->
-		</SidebarWrapper>
-	</Sidebar>
-</Drawer>
+
+{#if searchTerm.length > 0}
+	<SearchResults {results} bind:searchTerm bind:showSearchInput />
+{/if}
+
+<SidebarComponent bind:sidebarHidden />
+
+<style>
+	input {
+		border: 1px solid #67797b;
+		border-radius: 0.375rem;
+		padding: 0.2rem 1rem;
+		font-size: 0.9rem;
+		width: 80%;
+	}
+
+	@media (min-width: 768px) {
+		input {
+			border-radius: 0.375rem;
+			padding: 0.5rem 1rem;
+			font-size: 0.9rem;
+			width: 100%;
+		}
+	}
+</style>

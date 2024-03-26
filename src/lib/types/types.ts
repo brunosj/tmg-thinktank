@@ -372,7 +372,7 @@ export interface Video {
 		description: string;
 		summary: string;
 		url: string;
-		videoID: string;
+		videoId: string;
 		image: Image;
 		imageCdn: ImageCdn[];
 		programmes: Programme[];
@@ -412,5 +412,18 @@ export interface ImageCdn {
 		custom: {
 			caption: string;
 		};
+	};
+}
+
+export interface SearchItem {
+	title: string;
+	summary: string;
+	slug?: string;
+	type?: string;
+	date?: string;
+	link?: string;
+	itemType: {
+		key: 'news' | 'events' | 'publications' | 'publicationFeatures' | 'eventSeries' | 'videos';
+		label: 'News' | 'Events' | 'Publications' | 'Publication Features' | 'Event Series' | 'Video';
 	};
 }

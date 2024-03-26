@@ -149,3 +149,7 @@ h2.fromRight:hover:after {
 .richText ul {
 	@apply list-disc  pl-6;
 }
+
+mark {
+	background-color: '#67797B' !important;
+}

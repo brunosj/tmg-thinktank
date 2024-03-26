@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { siteMetadata } from '$data/siteMetadata.js';
-	import FaFacebook from 'virtual:icons/fa6-brands/facebook';
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
 	import FaLinkedin from 'virtual:icons/fa6-brands/linkedin-in';
 	import FaYoutube from 'virtual:icons/fa6-brands/youtube';
-	import FaMedium from 'virtual:icons/fa6-brands/medium';
 	import Icon from '$components/UI/Icon.svelte';
 
 	let links = siteMetadata.links;

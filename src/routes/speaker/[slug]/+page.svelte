@@ -2,32 +2,33 @@
 	export let data;
 
 	import SEO from '$components/SEO/SEO.svelte';
-	import { parseISO } from 'date-fns';
-	import { eventsData } from '$stores/store.js';
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
 	import Icon from '$components/UI/Icon.svelte';
 	import Heading from '$components/Layout/Heading.svelte';
 	import EventListing from '$components/Events/EventListing.svelte';
 	import { ensureHttps } from '$utils/utils.js';
+	import type { Event, Speaker } from '$lib/types/types';
 
-	let events = [];
+	let events: Event[];
+	let speaker: Speaker;
 
 	$: events = data.events;
-
 	$: speaker = data.item;
 
 	$: {
 		events = events
 			.filter((events) => {
 				if (events.fields.speakers && speaker.fields.name) {
-					return events.fields.speakers.some((item) => item.fields?.name === speaker.fields.name);
+					return events.fields.speakers.some(
+						(item: Speaker) => item.fields?.name === speaker.fields.name
+					);
 				}
 				return false;
 			})
 			.sort((a, b) => {
-				const dateA = parseISO(a.fields.date);
-				const dateB = parseISO(b.fields.date);
-				return dateB - dateA;
+				const dateA = new Date(a.fields.date);
+				const dateB = new Date(b.fields.date);
+				return dateB.getTime() - dateA.getTime();
 			});
 	}
 

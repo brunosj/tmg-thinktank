@@ -17,7 +17,7 @@
 							video.fields.imageCdn?.length > 0
 								? video.fields.imageCdn[0].secure_url
 								: video.fields.image.fields.file.url}
-						<li class="pb-5">
+						<li class="pb-5" id={video.fields.videoId}>
 							<div class="h-full border">
 								<VideoWrapper
 									videoSrcURL={video.fields.url}
