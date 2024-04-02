@@ -32,13 +32,13 @@ export function renderRichText(richText) {
 		[BLOCKS.UL_LIST]: (node, next) => {
 			return `<ul>${next(node.content)}</ul>`;
 		},
+		[BLOCKS.QUOTE]: (node, next) => {
+			return `<blockquote>${next(node.content)}</blockquote>`;
+		},
 		[BLOCKS.EMBEDDED_ASSET]: (node) => {
 			if (node.data.target.fields.file.contentType === 'application/pdf') {
-				// Assuming title and fileUrl are properties of node.data.target.fields
 				const title = node.data.target.fields.title;
 				const fileUrl = node.data.target.fields.file.url;
-
-				// Generate HTML string
 				return `<a href="${fileUrl}" target="_blank">${title}</a>`;
 			} else if (node.data.target.fields.file.contentType === 'image/jpeg') {
 				const assetUrl = node.data.target.fields.file.url;

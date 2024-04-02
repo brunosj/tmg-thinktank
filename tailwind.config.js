@@ -22,7 +22,8 @@ const config = {
 		fontFamily: {
 			sans: ['apple-system', 'system-ui', 'sans-serif'],
 			serif: ['ivypresto-display'],
-			inter: ['Inter Variable', 'sans-serif']
+			inter: ['Inter Variable', 'sans-serif'],
+			italic: ['Inter', 'sans-serif']
 		},
 		fontSize: {
 			xs: '.75rem',
