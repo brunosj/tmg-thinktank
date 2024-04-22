@@ -2,7 +2,7 @@
 	export let data;
 
 	import SEO from '$components/SEO/SEO.svelte';
-	import { renderRichText } from '$utils/utils.js';
+	import { renderRichText } from '$utils/utils';
 	import QuoteBanner from '$components/Banner/QuoteBanner.svelte';
 	import TitleImageGradientHeader from '$components/Layout/TitleImageGradientHeader.svelte';
 	import VideoBanner from '$components/Banner/VideoBanner.svelte';

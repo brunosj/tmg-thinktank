@@ -6,7 +6,7 @@
 	import FaLinkedin from 'virtual:icons/fa6-brands/linkedin-in';
 	import FaMail from 'virtual:icons/fa6-regular/envelope';
 	import Icon from '$components/UI/Icon.svelte';
-	import { ensureHttps } from '$utils/utils.js';
+	import { ensureHttps } from '$utils/utils';
 </script>
 
 <div>

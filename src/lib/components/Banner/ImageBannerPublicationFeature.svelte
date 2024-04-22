@@ -1,6 +1,5 @@
 <script lang="ts">
 	export let items: PublicationFeatureType[];
-	import { parseISO, isAfter } from 'date-fns';
 
 	import type { PublicationFeature as PublicationFeatureType } from '$lib/types/types';
 
@@ -8,10 +7,9 @@
 
 	let featuredItem: PublicationFeatureType | undefined;
 
-	featuredItem = items.filter(
-		(item) =>
-			item.fields.featuredOnHomepage === true && isAfter(parseISO(item.fields.cutoffDate), today)
-	)[0];
+	featuredItem = items.find((item) => {
+		return item.fields.featuredOnHomepage === true && new Date(item.fields.cutoffDate) > today;
+	});
 </script>
 
 {#if featuredItem}

@@ -6,8 +6,8 @@
 	export let bgColor: string = '';
 
 	import type { Event } from '$lib/types/types';
-	import { formatTime, formatDay, formatMonth, formatYear } from '$lib/utils/utils.js';
-	import { ensureHttps } from '$lib/utils/utils.js';
+	import { formatTime, formatDay, formatMonth, formatYear } from '$utils/utils';
+	import { ensureHttps } from '$utils/utils';
 </script>
 
 <section class="grid grid-cols-1 gap-5 py-4 lg:grid-cols-2 lg:py-8">

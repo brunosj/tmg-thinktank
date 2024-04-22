@@ -6,7 +6,7 @@
 	import Icon from '$components/UI/Icon.svelte';
 	import Heading from '$components/Layout/Heading.svelte';
 	import EventListing from '$components/Events/EventListing.svelte';
-	import { ensureHttps } from '$utils/utils.js';
+	import { ensureHttps } from '$utils/utils';
 	import type { Event, Speaker } from '$lib/types/types';
 
 	let events: Event[];

@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let data;
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
-	import { renderRichText } from '$utils/utils.js';
+	import { renderRichText } from '$utils/utils';
 	import SEO from '$components/SEO/SEO.svelte';
 
 	$: item = data;

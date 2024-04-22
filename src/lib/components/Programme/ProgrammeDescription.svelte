@@ -5,7 +5,7 @@
 	export let description: string;
 
 	import type { FlagshipOutput as FlagshipOutputType } from '$lib/types/types';
-	import { renderRichText } from '$utils/utils.js';
+	import { renderRichText } from '$utils/utils';
 	import ProgrammeQuote from '$components/Programme/ProgrammeQuote.svelte';
 	import FlagshipOutput from '$components/Programme/FlagshipOutput.svelte';
 </script>

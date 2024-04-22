@@ -7,9 +7,9 @@
 .news__embla {
 	--slide-spacing: 1rem;
 	--slide-size: 30%;
-	--slide-height: 19rem;
+	/* --slide-height: 19rem;
 	height: 100%;
-	width: 35%;
+	width: 35%; */
 }
 .news__embla__container {
 	backface-visibility: hidden;
@@ -31,9 +31,9 @@
 }
 
 .embla__container {
-	display: grid;
-	grid-auto-flow: column;
-	grid-auto-columns: 100%;
+	backface-visibility: hidden;
+	display: flex;
+	touch-action: pan-y;
 }
 
 .embla__slide {
@@ -143,10 +143,11 @@
 	}
 
 	.news__embla {
+		--slide-spacing: 1rem;
+		--slide-size: 95%;
+		/* --slide-height: 19rem;
 		height: 100%;
-		width: 100%;
-
-		/* padding: 1.6rem; */
+		width: 35%; */
 	}
 	.news__embla__viewport {
 		overflow: scroll;

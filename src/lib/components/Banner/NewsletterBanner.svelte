@@ -4,6 +4,12 @@
 
 	import type { Newsletter, LandingPage } from '$lib/types/types';
 	import Button from '$components/UI/Button.svelte';
+
+	function getImage(newsletter: Newsletter) {
+		return newsletter.fields.thumbnailCdn?.length > 0
+			? newsletter.fields.thumbnailCdn[0].secure_url
+			: newsletter.fields.thumbnail.fields.file.url;
+	}
 </script>
 
 <section
@@ -30,8 +36,8 @@
 				<div class="absolute left-0 top-0 h-full w-full">
 					<img
 						loading="lazy"
-						src={newsletter[1].fields.thumbnail.fields.file.url}
-						alt={`${newsletter[2].fields.number}`}
+						src={getImage(newsletter[0])}
+						alt={`${newsletter[0].fields.number}`}
 						class="w-48"
 					/>
 				</div>
@@ -40,7 +46,7 @@
 				<div class="z-10 ml-20 mt-10 h-full w-full">
 					<img
 						loading="lazy"
-						src={newsletter[0].fields.thumbnail.fields.file.url}
+						src={getImage(newsletter[1])}
 						alt={`${newsletter[1].fields.number}`}
 						class="w-48"
 					/>

@@ -2,7 +2,6 @@
 	export let data: Page;
 
 	import SEO from '$components/SEO/SEO.svelte';
-	import { parseISO } from 'date-fns';
 	import ProgrammeHeader from '$components/Programme/ProgrammeHeader.svelte';
 	import ProgrammeDescription from '$components/Programme/ProgrammeDescription.svelte';
 	import Heading from '$components/Layout/Heading.svelte';
@@ -39,9 +38,9 @@
 		events = events
 			.filter((event) => event.fields.programme?.fields.title === programme.fields?.title)
 			.sort((a, b) => {
-				const dateA = parseISO(a.fields.date);
-				const dateB = parseISO(b.fields.date);
-				return +dateB - +dateA;
+				const dateA = new Date(a.fields.date).getTime();
+				const dateB = new Date(b.fields.date).getTime();
+				return dateB - dateA;
 			});
 	}
 
@@ -51,9 +50,9 @@
 				(publication) => publication.fields.programme?.fields.title === programme.fields?.title
 			)
 			.sort((a, b) => {
-				const dateA = parseISO(a.fields.publicationDate);
-				const dateB = parseISO(b.fields.publicationDate);
-				return +dateB - +dateA;
+				const dateA = new Date(a.fields.publicationDate).getTime();
+				const dateB = new Date(b.fields.publicationDate).getTime();
+				return dateB - dateA;
 			});
 	}
 
@@ -61,9 +60,9 @@
 		news = news
 			.filter((news) => news.fields.programme?.fields.title === programme.fields?.title)
 			.sort((a, b) => {
-				const dateA = parseISO(a.fields.dateFormat);
-				const dateB = parseISO(b.fields.dateFormat);
-				return +dateB - +dateA;
+				const dateA = new Date(a.fields.dateFormat).getTime();
+				const dateB = new Date(b.fields.dateFormat).getTime();
+				return dateB - dateA;
 			});
 	}
 
@@ -75,11 +74,13 @@
 				);
 			})
 			.sort((a, b) => {
-				const dateA = parseISO(a.fields.date);
-				const dateB = parseISO(b.fields.date);
-				return +dateB - +dateA;
+				const dateA = new Date(a.fields.date).getTime();
+				const dateB = new Date(b.fields.date).getTime();
+				return dateB - dateA;
 			});
 	}
+
+	$: slides = programme.fields.featuredItems;
 
 	//// Load more functionality
 	let newsCount = 6;
@@ -119,10 +120,13 @@
 		flagshipOutput={programme.fields.flagshipOutput}
 		description={programme.fields.description}
 	/>
-	<Heading text="Latest" bgColor="#F4F6F6" textColor="#67797B" />
-	<div class="container mx-auto mt-12">
-		<CarouselV2 slides={events.slice(0, 5)} />
-	</div>
+
+	{#if slides.length > 0}
+		<Heading text="Latest" bgColor="#F4F6F6" textColor="#67797B" />
+		<div class="container mx-auto mt-12">
+			<CarouselV2 {slides} />
+		</div>
+	{/if}
 	<Heading text="Topics" bgColor="#F4F6F6" textColor="#67797B" />
 	<ProgrammeTopics topics={programme.fields.topics} />
 

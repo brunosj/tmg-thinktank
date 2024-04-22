@@ -35,8 +35,6 @@
 
 	let landingPage = data.landingPage[0];
 	let { programmes, newsletter, partners, events, news, publicationFeatures, eventSeries } = data;
-
-	let publicationFeaturesAndEventSeries;
 </script>
 
 <Hero hero={landingPage} />

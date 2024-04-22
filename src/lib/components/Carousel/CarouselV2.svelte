@@ -2,13 +2,12 @@
 	export let slides: (News | Event)[];
 
 	import type { News, Event } from '$lib/types/types';
-	import type { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel-svelte';
+	import type { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel';
 	import emblaCarouselSvelte from 'embla-carousel-svelte';
 	import FeaturedSlideV2 from './FeaturedSlideV2.svelte';
 	import PrevButton from './PrevButton.svelte';
 	import NextButton from './NextButton.svelte';
 
-	let emblaRef: HTMLDivElement;
 	let emblaApi: EmblaCarouselType;
 	let options: EmblaOptionsType = {
 		slidesToScroll: 'auto',
@@ -56,13 +55,13 @@
 		use:emblaCarouselSvelte={{ options, plugins: [] }}
 		on:emblaInit={onInit}
 	>
-		<div class="embla__container">
+		<ul class="embla__container">
 			{#each slides as slide, i}
-				<div class="news__embla__slide">
+				<li class="news__embla__slide">
 					<FeaturedSlideV2 item={slide} {i} {slidesQty} />
-				</div>
+				</li>
 			{/each}
-		</div>
+		</ul>
 	</div>
 </div>
 <div class="flex">

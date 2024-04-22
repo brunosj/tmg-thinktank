@@ -2,16 +2,6 @@
 	export let currentMonth: Date;
 	export let items: CalendarEvent[];
 
-	import {
-		startOfMonth,
-		endOfMonth,
-		eachDayOfInterval,
-		isWithinInterval,
-		format,
-		getMonth,
-		parseISO
-	} from 'date-fns';
-	import { ArrowRightIcon } from '@rgossiaux/svelte-heroicons/outline';
 	import type { CalendarEvent } from '$lib/types/types';
 
 	let isExternal = false;
@@ -34,37 +24,26 @@
 
 	$: {
 		itemsByDay.clear();
-		let startOfMonthDate = startOfMonth(currentMonth);
+		let startOfMonthDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
 
-		let endOfMonthDate = endOfMonth(currentMonth);
+		let endOfMonthDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
 
 		let itemsInCurrentMonth = items?.filter(
-			(event) =>
-				isWithinInterval(event.start, {
-					start: startOfMonthDate,
-					end: endOfMonthDate
-				}) ||
-				(event &&
-					isWithinInterval(event.end, {
-						start: startOfMonthDate,
-						end: endOfMonthDate
-					})) ||
-				(event.start < startOfMonthDate && event.end >= endOfMonthDate)
+			(event) => event.start >= startOfMonthDate && event.end <= endOfMonthDate
 		);
 
 		itemsInCurrentMonth?.forEach((event) => {
-			if (event.start <= event.end) {
-				let daysOfEvent = eachDayOfInterval({
-					start: event.start,
-					end: event.end
-				});
-				daysOfEvent.forEach((day) => {
-					let dayKey = format(day, 'yyyy-MM-dd');
-					if (!itemsByDay.has(dayKey)) {
-						itemsByDay.set(dayKey, []);
-					}
-					itemsByDay.get(dayKey).push(event);
-				});
+			let startDate = new Date(event.start);
+			let endDate = new Date(event.end);
+			let currentDate = new Date(startDate);
+
+			while (currentDate <= endDate) {
+				let dayKey = currentDate.toISOString().slice(0, 10);
+				if (!itemsByDay.has(dayKey)) {
+					itemsByDay.set(dayKey, []);
+				}
+				itemsByDay.get(dayKey).push(event);
+				currentDate.setDate(currentDate.getDate() + 1);
 			}
 		});
 
@@ -83,8 +62,12 @@
 				class="my-auto flex items-center rounded-md bg-green-normal px-6 py-2 font-bold text-white"
 			>
 				<span>
-					{format(parseISO(day), 'EEEE')},{' '}
-					{format(parseISO(day), 'dd.MM.yy')}
+					{new Date(day).toLocaleString('en-UK', { weekday: 'long' })},{' '}
+					<span>
+						{new Date(day)
+							.toLocaleDateString('en-UK', { day: '2-digit', month: '2-digit', year: '2-digit' })
+							.replace(/\//g, '.')}
+					</span>
 				</span>
 			</div>
 			<ul class=" ml-6 py-2">

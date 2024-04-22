@@ -3,7 +3,7 @@
 
 	import type { PublicationFeature as PublicationFeatureType } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
-	import { renderRichText } from '$utils/utils.js';
+	import { renderRichText } from '$utils/utils';
 	import Heading from '$components/Layout/Heading.svelte';
 	import PublicationBanner from '$components/Publications/PublicationBanner.svelte';
 	import PublicationSeriesBanner from '$components/Publications/PublicationSeriesBanner.svelte';

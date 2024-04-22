@@ -8,7 +8,6 @@
 	import MonthGrid from '$components/Calendar/MonthGrid.svelte';
 	import { browser } from '$app/environment';
 	import EventLegend from './EventLegend.svelte';
-	import is from 'date-fns/locale/is';
 
 	let currentMonth = new Date();
 	let hoveredDay: Date | null = null;

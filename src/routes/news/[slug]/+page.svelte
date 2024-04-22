@@ -6,9 +6,9 @@
 	import Button from '$components/UI/Button.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
-	import { renderRichText } from '$utils/utils.js';
+	import { renderRichText } from '$utils/utils';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
-	import { slugify } from '$lib/utils/utils.js';
+	import { slugify } from '$utils/utils';
 	import Tag from '$components/UI/Tag.svelte';
 
 	type Page = {

@@ -1,8 +1,7 @@
 <script lang="ts">
-	export let data;
+	export let data: Page;
 
 	import SEO from '$components/SEO/SEO.svelte';
-	import { parseISO } from 'date-fns';
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
 	import FaLinkedin from 'virtual:icons/fa6-brands/linkedin-in';
 	import FaMail from 'virtual:icons/fa6-regular/envelope';
@@ -11,10 +10,17 @@
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import ButtonArrow from '$components/UI/ButtonArrow.svelte';
-	import { ensureHttps } from '$utils/utils.js';
+	import { ensureHttps } from '$utils/utils';
+	import type { Team, News, Publication } from '$lib/types/types';
 
-	let publications = [];
-	let news = [];
+	type Page = {
+		item: Team;
+		news: News[];
+		publications: Publication[];
+	};
+
+	let publications: Publication[] = [];
+	let news: News[] = [];
 
 	$: item = data.item;
 	$: news = data.news;
@@ -22,32 +28,34 @@
 
 	$: {
 		publications = publications
-			.filter((publications) => {
-				if (publications.fields.authorTmg && item.fields.name) {
-					return publications.fields.authorTmg.some(
+			.filter((publication) => {
+				if (publication.fields.authorTmg && item.fields.name) {
+					return publication.fields.authorTmg.some(
 						(author) => author.fields?.name === item.fields?.name
 					);
 				}
 				return false;
 			})
 			.sort((a, b) => {
-				const dateA = parseISO(a.fields.publicationDate);
-				const dateB = parseISO(b.fields.publicationDate);
+				const dateA = new Date(a.fields.publicationDate).getTime();
+				const dateB = new Date(b.fields.publicationDate).getTime();
 				return dateB - dateA;
 			});
 	}
 
 	$: {
 		news = news
-			.filter((news) => {
-				if (news.fields.authorTmg && item.fields.name) {
-					return news.fields.authorTmg.some((author) => author.fields?.name === item.fields?.name);
+			.filter((newsItem) => {
+				if (newsItem.fields.authorTmg && item.fields.name) {
+					return newsItem.fields.authorTmg.some(
+						(author) => author.fields?.name === item.fields?.name
+					);
 				}
 				return false;
 			})
 			.sort((a, b) => {
-				const dateA = parseISO(a.fields.dateFormat);
-				const dateB = parseISO(b.fields.dateFormat);
+				const dateA = new Date(a.fields.dateFormat).getTime();
+				const dateB = new Date(b.fields.dateFormat).getTime();
 				return dateB - dateA;
 			});
 	}
@@ -61,7 +69,7 @@
 <SEO title={item.fields.name} {image} />
 
 <article class="pb-6 pt-24 lg:pb-16 lg:pt-48">
-	<div class="gril-cols-1 container grid lg:grid-cols-4" key={item.fields.id}>
+	<div class="gril-cols-1 container grid lg:grid-cols-4">
 		<div class="order-2 justify-between pr-0 leading-normal lg:order-1 lg:col-span-3 lg:pr-16">
 			<div class="">
 				<h2 class="font-semibold text-gray-700">
@@ -120,13 +128,12 @@
 	{#if publications.length >= 1}
 		<section class="container pt-6">
 			<DisclosureOpen heading="Publications">
-				<PublicationListing items={publications} class="grid grid-cols-1 pt-6 lg:grid-cols-2" />
+				<PublicationListing items={publications} />
 			</DisclosureOpen>
 		</section>
 	{/if}
 
 	<div class="container pt-6 lg:pt-8">
-		<ButtonArrow to="/team" color="#F4F6F" textColor="#67797B" iconcolor="#67797B">Team</ButtonArrow
-		>
+		<ButtonArrow to="/team" color="#F4F6F" textColor="#67797B">Team</ButtonArrow>
 	</div>
 </article>

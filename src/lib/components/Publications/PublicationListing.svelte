@@ -2,7 +2,7 @@
 	export let items: Publication[];
 
 	import type { Publication } from '$lib/types/types';
-	import { formatDateNews } from '$lib/utils/utils';
+	import { formatDateNews } from '$utils/utils';
 </script>
 
 <div class="container grid grid-cols-1 pb-6 pt-6 lg:grid-cols-2 lg:gap-5 lg:pt-12">

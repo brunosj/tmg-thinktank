@@ -3,7 +3,7 @@
 
 	import type { Job } from '$lib/types/types';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
-	import { formatDateNews } from '$utils/utils.js';
+	import { formatDateNews } from '$utils/utils';
 </script>
 
 <li>

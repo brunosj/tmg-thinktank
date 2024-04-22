@@ -5,12 +5,12 @@
 	import SEO from '$components/SEO/SEO.svelte';
 	import Button from '$components/UI/Button.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
-	import { renderRichText } from '$lib/utils/utils.js';
+	import { renderRichText } from '$utils/utils';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
-	import { slugify } from '$lib/utils/utils.js';
+	import { slugify } from '$utils/utils';
 	import Tag from '$components/UI/Tag.svelte';
-	import { ensureHttps } from '$lib/utils/utils.js';
-	import { formatDateNews } from '$lib/utils/utils';
+	import { ensureHttps } from '$utils/utils';
+	import { formatDateNews } from '$utils/utils';
 
 	type Page = {
 		item: News;

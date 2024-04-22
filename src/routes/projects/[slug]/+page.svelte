@@ -2,16 +2,14 @@
 	export let data: Page;
 
 	import SEO from '$components/SEO/SEO.svelte';
-	import { slugify } from '$utils/utils.js';
-	import { parseISO } from 'date-fns';
+	import { slugify } from '$utils/utils';
 	import Heading from '$components/Layout/Heading.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import VideoListing from '$components/Video/VideoListing.svelte';
-	import EventListing from '$components/Events/EventListing.svelte';
 	import ButtonLoadMore from '$components/UI/ButtonLoadMore.svelte';
 	import Button from '$components/UI/Button.svelte';
-	import { renderRichText } from '$utils/utils.js';
+	import { renderRichText } from '$utils/utils';
 	import ProjectTeam from '$components/Project/ProjectTeam.svelte';
 	import ProjectDetails from '../../../lib/components/Project/ProjectDetails.svelte';
 	import type { Project, Event, Publication, News, Video } from '$lib/types/types';
@@ -41,9 +39,9 @@
 		publications = publications
 			.filter((publication) => publication.fields.project?.fields.name === project.fields?.name)
 			.sort((a, b) => {
-				const dateA = parseISO(a.fields.publicationDate);
-				const dateB = parseISO(b.fields.publicationDate);
-				return +dateB - +dateA;
+				const dateA = new Date(a.fields.publicationDate).getTime();
+				const dateB = new Date(b.fields.publicationDate).getTime();
+				return dateB - dateA;
 			});
 	}
 
@@ -53,9 +51,9 @@
 				return news.fields.project?.some((item) => item.fields?.name === project.fields?.name);
 			})
 			.sort((a, b) => {
-				const dateA = parseISO(a.fields.dateFormat);
-				const dateB = parseISO(b.fields.dateFormat);
-				return +dateB - +dateA;
+				const dateA = new Date(a.fields.dateFormat).getTime();
+				const dateB = new Date(b.fields.dateFormat).getTime();
+				return dateB - dateA;
 			});
 	}
 
@@ -65,9 +63,9 @@
 				video.fields.projects?.some((item) => item.fields?.name === project.fields?.name)
 			)
 			.sort((a, b) => {
-				const dateA = parseISO(a.fields.date);
-				const dateB = parseISO(b.fields.date);
-				return +dateB - +dateA;
+				const dateA = new Date(a.fields.date).getTime();
+				const dateB = new Date(b.fields.date).getTime();
+				return dateB - dateA;
 			});
 	}
 

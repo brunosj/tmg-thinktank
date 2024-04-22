@@ -2,7 +2,7 @@
 	export let to: string;
 	export let color: string;
 	export let textColor: string;
-	export let arrowDirection: string;
+	export let arrowDirection: string = 'right';
 
 	import { ArrowLeftIcon, ArrowRightIcon } from '@rgossiaux/svelte-heroicons/outline';
 </script>

@@ -3,7 +3,7 @@
 	export let color: string = '#67797B';
 
 	import type { Event } from '$lib/types/types';
-	import { formatTime, formatDay, formatMonth, formatYear } from '$lib/utils/utils.js';
+	import { formatTime, formatDay, formatMonth, formatYear } from '$utils/utils';
 </script>
 
 {#each events as event, i}

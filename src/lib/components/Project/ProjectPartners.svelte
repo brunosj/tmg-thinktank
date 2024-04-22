@@ -2,7 +2,7 @@
 	export let items: Partner[];
 
 	import type { Partner } from '$lib/types/types';
-	import { ensureHttps } from '$lib/utils/utils';
+	import { ensureHttps } from '$utils/utils';
 </script>
 
 {#each items as item (item.fields.name)}

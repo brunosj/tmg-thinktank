@@ -4,9 +4,9 @@
 	import type { Event } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Button from '$components/UI/Button.svelte';
-	import { renderRichText } from '$utils/utils.js';
+	import { renderRichText } from '$utils/utils';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
-	import { slugify } from '$lib/utils/utils.js';
+	import { slugify } from '$utils/utils';
 	import Tag from '$components/UI/Tag.svelte';
 	import EventDetails from '$components/Events/EventDetails.svelte';
 	import EventBackground from '$components/Events/EventBackground.svelte';

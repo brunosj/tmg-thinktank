@@ -6,26 +6,15 @@
 	export let handleDayMouseLeave: () => void;
 	export let selectedDate: Date;
 
-	import {
-		startOfMonth,
-		endOfMonth,
-		startOfWeek,
-		endOfWeek,
-		isSameDay,
-		isSameMonth,
-		addDays,
-		format
-	} from 'date-fns';
 	import ItemTooltip from './ItemTooltip.svelte';
-	import EventLegend from './EventLegend.svelte';
 	import type { CalendarEvent } from '$lib/types/types';
 
 	let rows = [];
 
 	let multiDayClass = (event: CalendarEvent, date: Date) => {
-		if (event.isMultiDay && isSameDay(event.start, date)) {
+		if (event.isMultiDay && event.start.toDateString() === date.toDateString()) {
 			return 'rounded-l-md';
-		} else if (isSameDay(event.end, date)) {
+		} else if (event.end.toDateString() === date.toDateString()) {
 			return 'rounded-r-md text-transparent';
 		} else {
 			return 'text-transparent';
@@ -41,27 +30,28 @@
 			case 'Conference':
 				return 'bg-[#CCC9E7] bg-opacity-30';
 			default:
-				return 'bg-[#CCC9E7';
+				return 'bg-[#CCC9E7]';
 		}
 	};
 
 	const updateMonthGrid = () => {
-		const monthStart = startOfMonth(currentMonth);
-		const monthEnd = endOfMonth(monthStart);
-		const startDate = startOfWeek(monthStart, { weekStartsOn: 1 });
-		const endDate = endOfWeek(monthEnd, { weekStartsOn: 1 });
-		const dateFormat = 'dd';
+		const monthStart = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+		const monthEnd = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+		const startDate = new Date(monthStart);
+		startDate.setDate(startDate.getDate() - startDate.getDay() + 1);
+		const endDate = new Date(monthEnd);
+		endDate.setDate(endDate.getDate() + (7 - endDate.getDay()));
 
 		rows = [];
 		let days = [];
-		let day = startDate;
+		let day = new Date(startDate);
 
 		while (day <= endDate) {
 			for (let i = 0; i < 7; i++) {
-				const isEventDay = isSameDay(day, selectedDate);
-				const isCurrentMonth = isSameMonth(day, monthStart);
+				const isEventDay = day.toDateString() === selectedDate.toDateString();
+				const isCurrentMonth = day.getMonth() === monthStart.getMonth();
 				const isWeekend = day.getDay() === 6 || day.getDay() === 0;
-				const weekendClass = isWeekend ? ' bg-green-normal bg-opacity-20' : '';
+				const weekendClass = isWeekend ? 'bg-green-normal bg-opacity-20' : '';
 
 				let sortedItems = items.slice().sort((a, b) => {
 					if (a.isMultiDay === b.isMultiDay) {
@@ -73,8 +63,8 @@
 
 				const dayItems = sortedItems.filter(
 					(event) =>
-						isSameDay(event.start, day) ||
-						(event && isSameDay(event.end, day)) ||
+						event.start.toDateString() === day.toDateString() ||
+						event.end.toDateString() === day.toDateString() ||
 						(event.start < day && event.end >= day)
 				);
 
@@ -82,17 +72,17 @@
 				const additionalEventCount = dayItems.length - truncatedItems.length;
 
 				days.push({
-					date: day,
+					date: new Date(day),
 					isEventDay,
 					isCurrentMonth,
 					isWeekend,
 					weekendClass,
-					dateFormat: format(day, dateFormat),
+					dateFormat: day.getDate().toString(),
 					truncatedItems,
 					additionalEventCount
 				});
 
-				day = addDays(day, 1);
+				day = new Date(day.setDate(day.getDate() + 1));
 			}
 			rows.push([...days]);
 			days = [];
@@ -110,10 +100,13 @@
 					<div
 						class="flex w-full items-center justify-end border-[0.5px] border-gray-100 px-1 py-2 text-sm font-bold dark:border-neutral-500"
 					>
-						{format(
-							addDays(startOfWeek(currentMonth, { weekStartsOn: 1 }), index),
-							'EEEEEE'
-						).toUpperCase()}
+						{new Date(
+							new Date(currentMonth).setDate(
+								new Date(currentMonth).getDate() - new Date(currentMonth).getDay() + 1 + index
+							)
+						)
+							.toLocaleDateString('en-US', { weekday: 'short' })
+							.toUpperCase()}
 					</div>
 				{/each}
 			</div>
@@ -122,7 +115,7 @@
 					{#each row as { date, isEventDay, isCurrentMonth, isWeekend, weekendClass, dateFormat, truncatedItems, additionalEventCount }}
 						{#if date}
 							<div
-								class={`relative grid h-32 w-full flex-grow-0 grid-cols-7 border-[0.5px]  border-neutral-400     ${
+								class={`relative grid h-32 w-full flex-grow-0 grid-cols-7 border-[0.5px] border-neutral-400 ${
 									isCurrentMonth ? '' : 'text-neutral-300 '
 								} ${isEventDay ? 'bg-green-variation ' : ''}  ${weekendClass}`}
 							>
@@ -131,7 +124,7 @@
 									<div>
 										{#if items && items.length > 0}
 											<ul class="">
-												{#if hoveredDay && isSameDay(hoveredDay, date)}
+												{#if hoveredDay && date.toDateString() === hoveredDay.toDateString()}
 													<ItemTooltip
 														items={truncatedItems}
 														{hoveredDay}
@@ -144,7 +137,7 @@
 														class={`${bgColorClass(event.type)} ${
 															event.isMultiDay ? multiDayClass(event, date) : ''
 														} 
-														relative my-1  px-2 text-xs`}
+													relative my-1 px-2 text-xs`}
 														on:mouseenter={() => handleDayMouseEnter(date)}
 														on:mouseleave={handleDayMouseLeave}
 													>

@@ -2,19 +2,19 @@
 	export let events: Event[] = [];
 
 	import type { Event } from '$lib/types/types';
-	import { parseISO, isAfter } from 'date-fns';
 	import EventListing from '$components/Events/EventListing.svelte';
+
 	const today = new Date();
 
 	$: {
 		events = events
 			.filter((event) => {
-				const eventDate = parseISO(event.fields.date);
-				return isAfter(eventDate, today);
+				const eventDate = new Date(event.fields.date);
+				return eventDate > today;
 			})
 			.sort((a, b) => {
-				const dateA = parseISO(a.fields.date);
-				const dateB = parseISO(b.fields.date);
+				const dateA = new Date(a.fields.date);
+				const dateB = new Date(b.fields.date);
 				return dateA.getTime() - dateB.getTime();
 			})
 			.slice(0, 5);

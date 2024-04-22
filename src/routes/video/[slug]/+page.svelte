@@ -6,7 +6,7 @@
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import VideoListing from '$components/Video/VideoListing.svelte';
-	import { renderRichText } from '$lib/utils/utils.js';
+	import { renderRichText } from '$utils/utils';
 	import type { News } from '$lib/types/types';
 
 	type Page = {

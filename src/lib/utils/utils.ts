@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import * as contentfulTypes from '@contentful/rich-text-types';
 const { BLOCKS, INLINES } = contentfulTypes;
@@ -111,34 +110,63 @@ export function processMarkdownLinks(markdownRef) {
 	});
 }
 
-export function formatYear(date) {
-	return format(new Date(date), 'yyyy');
+export function formatYear(date: string) {
+	return new Date(date).getFullYear().toString();
 }
 
-export function formatMonth(date) {
-	return format(new Date(date), 'MMMM');
+export function formatMonth(date: string) {
+	const months = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December'
+	];
+	return months[new Date(date).getMonth()];
 }
 
-export function formatDay(date) {
-	return format(new Date(date), 'dd');
+export function formatDay(date: string) {
+	return ('0' + new Date(date).getDate()).slice(-2);
 }
 
-export function formatTime(date) {
-	return format(new Date(date), 'HH:mm');
+export function formatTime(date: string) {
+	const hours = ('0' + new Date(date).getHours()).slice(-2);
+	const minutes = ('0' + new Date(date).getMinutes()).slice(-2);
+	return `${hours}:${minutes}`;
 }
 
-export function formatDate(date) {
-	return format(new Date(date), 'dd.MM.yyyy');
+export function formatDate(date: string) {
+	const day = formatDay(date);
+	const month = formatMonth(date);
+	const year = formatYear(date);
+	return `${day}.${month}.${year}`;
 }
 
-export function formatDateNews(date) {
-	return format(new Date(date), 'MMM d, yyyy');
+export function formatDateNews(date: string) {
+	const day = formatDay(date);
+	const month = formatMonth(date).slice(0, 3);
+	const year = formatYear(date);
+	return `${month} ${day}, ${year}`;
 }
-//////  Util function to ensure external links do not use client navigation
 
-export function ensureHttps(url) {
+export function ensureHttps(url: string) {
 	if (!url.startsWith('http://') && !url.startsWith('https://')) {
 		return 'https://' + url;
 	}
 	return url;
+}
+
+export function formatDateLong(date: string) {
+	const formattedDate = new Date(date);
+	const day = formattedDate.getDate();
+	const month = formattedDate.toLocaleString('en', { month: 'long' });
+	const year = formattedDate.getFullYear();
+	return `${day} ${month} ${year}`;
 }

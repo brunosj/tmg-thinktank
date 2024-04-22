@@ -4,7 +4,7 @@
 
 	import type { News, LandingPage } from '$lib/types/types';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
-	import { formatDateNews } from '$utils/utils.js';
+	import { formatDateNews } from '$utils/utils';
 </script>
 
 <div class="sectionPy bg-white">

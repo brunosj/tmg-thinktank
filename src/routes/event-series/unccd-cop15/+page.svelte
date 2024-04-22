@@ -6,7 +6,7 @@
 
 	import type { EventSeries, Video, Speaker, Event } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
-	import { renderRichText } from '$utils/utils.js';
+	import { renderRichText } from '$utils/utils';
 	import Heading from '$components/Layout/Heading.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import TitleImageGradientHeader from '$components/Layout/TitleImageGradientHeader.svelte';

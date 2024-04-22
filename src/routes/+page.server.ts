@@ -1,5 +1,4 @@
 import { fetchContentfulData } from '$lib/contentfulClient';
-import { parseISO, isAfter } from 'date-fns';
 import { slugify } from '$utils/utils.js';
 import type { Event, News } from '$lib/types/types';
 
@@ -21,12 +20,12 @@ export async function load() {
 
 		const upcomingEvents = events
 			.filter((event: Event) => {
-				const eventDate = parseISO(event.fields.date);
-				return isAfter(eventDate, today);
+				const eventDate = new Date(event.fields.date);
+				return eventDate > today;
 			})
 			.sort((a: Event, b: Event) => {
-				const dateA = parseISO(a.fields.date).getTime();
-				const dateB = parseISO(b.fields.date).getTime();
+				const dateA = new Date(a.fields.date).getTime();
+				const dateB = new Date(b.fields.date).getTime();
 				return dateA - dateB;
 			})
 			.slice(0, 4);

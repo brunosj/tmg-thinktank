@@ -5,7 +5,7 @@
 	};
 
 	import type { EventSeries, Video, Speaker, Event } from '$lib/types/types';
-	import { renderRichText } from '$utils/utils.js';
+	import { renderRichText } from '$utils/utils';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Heading from '$components/Layout/Heading.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';

@@ -5,7 +5,7 @@
 
 	import { MinusSmIcon, PlusSmIcon, XIcon } from '@rgossiaux/svelte-heroicons/outline';
 	import type { SearchItem } from '$lib/types/types';
-	import { formatDateNews } from '$utils/utils.js';
+	import { formatDateNews } from '$utils/utils';
 
 	const clearSearchTerm = () => {
 		searchTerm = '';

@@ -90,7 +90,7 @@ export interface Event {
 		relatedEvents: Event[];
 		relatedVideos: Video[];
 		relatedDocuments: Publication[];
-		eventRecording: Video[];
+		eventRecording: Video;
 		livestreamUrl: string;
 		livestreamPassword: string;
 		livestream: Video;
@@ -169,7 +169,7 @@ export interface News {
 		dateFormat: string;
 		type: string;
 		author: string;
-		authorTMGStaff: Team[];
+		authorTmg: Team[];
 		title: string;
 		summary: string;
 		image: Image;
@@ -204,7 +204,7 @@ export interface Job {
 		title: string;
 		summary: string;
 		category: string;
-		date?: string;
+		date: string;
 	};
 }
 
@@ -240,7 +240,7 @@ export interface Publication {
 		project: Project;
 		title: string;
 		author: string;
-		authorTMGStaff: Team[];
+		authorTmg: Team[];
 		publicationDate: string;
 		language: string;
 		summary: string;
@@ -297,6 +297,7 @@ export interface Programme {
 		quote: string;
 		quoteAuthor: string;
 		description: string;
+		featuredItems: (News | Event)[];
 		topics: Topic[];
 		slug: string;
 		flagshipOutput: FlagshipOutput;

@@ -1,17 +1,22 @@
 <script lang="ts">
-	export let data;
-	import { parseISO } from 'date-fns';
+	export let data: Page;
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import BlogListing from '$components/Blog/BlogListing.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 	import type { News } from '$lib/types/types';
+
+	type Page = {
+		news: News[];
+	};
 
 	let items: News[];
 
 	items = data.news
 		.filter((item) => item.fields.type === 'Blog Post')
 		.sort((a, b) => {
-			return parseISO(b.fields.dateFormat) - parseISO(a.fields.dateFormat);
+			const dateA = new Date(a.fields.dateFormat).getTime();
+			const dateB = new Date(b.fields.dateFormat).getTime();
+			return dateB - dateA;
 		});
 </script>
 

@@ -2,15 +2,14 @@
 	export let data: Page;
 
 	import type { News } from '$lib/types/types';
-	import { parseISO } from 'date-fns';
 	import Button from '$components/UI/Button.svelte';
 	import BlogListing from '$components/Blog/BlogListing.svelte';
 	import VideoListing from '$components/Video/VideoListing.svelte';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
-	import { slugify, renderRichText } from '$utils/utils.js';
+	import { slugify, renderRichText } from '$utils/utils';
 	import Tag from '$components/UI/Tag.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
-	import { ensureHttps } from '$lib/utils/utils.js';
+	import { ensureHttps } from '$utils/utils';
 
 	type Page = {
 		item: News;
@@ -26,7 +25,7 @@
 		moreBlogItems = entries
 			.filter((item) => item.fields.type === 'Blog Post')
 			.sort((a, b) => {
-				return +parseISO(b.fields.dateFormat) - +parseISO(a.fields.dateFormat);
+				return new Date(b.fields.dateFormat).getTime() - new Date(a.fields.dateFormat).getTime();
 			})
 			.slice(0, 3);
 	}

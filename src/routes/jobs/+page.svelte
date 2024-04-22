@@ -1,17 +1,22 @@
 <script lang="ts">
-	export let data;
+	export let data: Page;
 
+	import type { Job } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
-	import { parseISO, isAfter } from 'date-fns';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import JobListing from '$components/Jobs/JobListing.svelte';
 
-	let jobs = data.entries;
+	type Page = {
+		entries: Job[];
+	};
+
+	let jobs: Job[] = data.entries;
+
 	const today = new Date();
 
 	const activeJobs = jobs.filter((job) => {
-		const eventDate = parseISO(job.fields.date);
-		return isAfter(eventDate, today);
+		const jobDeadline = new Date(job.fields.date);
+		return jobDeadline > today;
 	});
 	const noDeadlineJobs = jobs.filter((item) => item.fields.date == null);
 	const allActiveJobs = activeJobs.concat(noDeadlineJobs);

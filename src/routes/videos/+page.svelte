@@ -1,7 +1,6 @@
 <script lang="ts">
 	export let data: Page;
 	import SEO from '$components/SEO/SEO.svelte';
-	import { parseISO } from 'date-fns';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import VideoListing from '$components/Video/VideoListing.svelte';
 	import type { Video } from '$lib/types/types';
@@ -14,8 +13,8 @@
 
 	$: {
 		videos = videos.sort((a, b) => {
-			const dateA = parseISO(a.fields.date);
-			const dateB = parseISO(b.fields.date);
+			const dateA = new Date(a.fields.date);
+			const dateB = new Date(b.fields.date);
 			return +dateB - +dateA;
 		});
 	}

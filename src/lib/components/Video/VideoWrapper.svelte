@@ -5,8 +5,17 @@
 	export let videoHeight: string;
 	export let videoImage: string;
 
+	import PlayCircle from 'virtual:icons/fa6-regular/circle-play';
+	import { fade } from 'svelte/transition';
+
 	let showVideoPlayer = false;
 	let youtubeApiLoaded = false;
+
+	let showPlayIcon = false;
+
+	function togglePlayIcon(value: boolean) {
+		showPlayIcon = value;
+	}
 
 	function loadYoutubeApi() {
 		if (!youtubeApiLoaded) {
@@ -34,7 +43,13 @@
 	}
 </script>
 
-<div class="left-0 top-0 w-full">
+<div
+	class="left-0 top-0 w-full"
+	on:mouseenter={() => togglePlayIcon(true)}
+	on:mouseleave={() => togglePlayIcon(false)}
+	role="button"
+	tabindex="0"
+>
 	{#if showVideoPlayer}
 		<iframe
 			src={videoSrcURL}
@@ -46,15 +61,28 @@
 			height={videoHeight}
 		/>
 	{:else}
-		<!-- svelte-ignore a11y-click-events-have-key-events -->
-		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-		<img
-			loading="lazy"
-			src={videoImage}
-			alt={videoTitle}
-			class="w-full"
-			on:click={loadYoutubeVideo}
-			style="cursor: pointer;"
-		/>
+		<div style="position: relative;">
+			<button
+				class="w-full"
+				on:click={loadYoutubeVideo}
+				on:keydown|preventDefault={(event) => {
+					if (event.key === 'Enter' || event.key === ' ') {
+						loadYoutubeVideo();
+					}
+				}}
+				style="cursor: pointer;"
+			>
+				<img src={videoImage} alt={videoTitle} class="w-full" />
+			</button>
+			{#if showPlayIcon}
+				<div
+					style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+					class="pointer-events-none cursor-pointer"
+					transition:fade={{ duration: 300 }}
+				>
+					<PlayCircle width="128" height="128" color="white" />
+				</div>
+			{/if}
+		</div>
 	{/if}
 </div>

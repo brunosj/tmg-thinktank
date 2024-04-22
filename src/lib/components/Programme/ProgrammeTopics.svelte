@@ -3,7 +3,7 @@
 
 	import type { Topic } from '$lib/types/types';
 	import { createEventDispatcher } from 'svelte';
-	import { renderRichText } from '$utils/utils.js';
+	import { renderRichText } from '$utils/utils';
 	import ProjectCard from '$components/Programme/ProjectCard.svelte';
 
 	const dispatch = createEventDispatcher();

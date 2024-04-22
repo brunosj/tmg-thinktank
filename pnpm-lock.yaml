@@ -23,15 +23,18 @@ dependencies:
   contentful:
     specifier: ^10.7.0
     version: 10.7.0
-  date-fns:
-    specifier: ^2.3.0
-    version: 2.3.0
   date-fns-tz:
     specifier: ^2.0.0
     version: 2.0.0(date-fns@2.3.0)
+  dayjs:
+    specifier: ^1.11.10
+    version: 1.11.10
+  embla-carousel:
+    specifier: ^8.0.2
+    version: 8.0.2
   embla-carousel-autoplay:
     specifier: 8.0.0
-    version: 8.0.0(embla-carousel@8.0.0)
+    version: 8.0.0(embla-carousel@8.0.2)
   embla-carousel-svelte:
     specifier: 8.0.0
     version: 8.0.0(svelte@4.2.12)
@@ -1322,6 +1325,10 @@ packages:
     resolution: {integrity: sha512-A8o+iXBVqQayl9Z39BHgb7m/zLOfhF7LK82t+n9Fq1adds1vaUn8ByVoADqWLe4OTc6BZYc/FdbdTwufNYqkJw==}
     dev: false
 
+  /dayjs@1.11.10:
+    resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
+    dev: false
+
   /debug@4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
     engines: {node: '>=6.0'}
@@ -1401,12 +1408,12 @@ packages:
     resolution: {integrity: sha512-/if4Ueg0GUQlhCrW2ZlXwDAm40ipuKo+OgeHInlL8sbjt+hzISxZK949fZeJaVsheamrzANXvw1zQTvbxTvSHw==}
     dev: true
 
-  /embla-carousel-autoplay@8.0.0(embla-carousel@8.0.0):
+  /embla-carousel-autoplay@8.0.0(embla-carousel@8.0.2):
     resolution: {integrity: sha512-FWHhZULH5+ydg7fiabwQppCDoTMi8pbMC20lmVytoXn7hH2KAhXHc/8yCUb3yToqMduCN6xPKUONtgzBqz3RZg==}
     peerDependencies:
       embla-carousel: 8.0.0
     dependencies:
-      embla-carousel: 8.0.0
+      embla-carousel: 8.0.2
     dev: false
 
   /embla-carousel-reactive-utils@8.0.0(embla-carousel@8.0.0):
@@ -1429,6 +1436,10 @@ packages:
 
   /embla-carousel@8.0.0:
     resolution: {integrity: sha512-ecixcyqS6oKD2nh5Nj5MObcgoSILWNI/GtBxkidn5ytFaCCmwVHo2SecksaQZHcARMMpIR2dWOlSIdA1LkZFUA==}
+    dev: false
+
+  /embla-carousel@8.0.2:
+    resolution: {integrity: sha512-bogsDO8xosuh/l3PxIvA5AMl3+BnRVAse9sDW/60amzj4MbGS5re4WH5eVEXiuH8G1/3G7QUAX2QNr3Yx8z5rA==}
     dev: false
 
   /emoji-regex@8.0.0:
