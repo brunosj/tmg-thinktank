@@ -1,11 +1,14 @@
 <script lang="ts">
 	export let items: Publication[];
+	export let container: boolean = true;
 
 	import type { Publication } from '$lib/types/types';
 	import { formatDateNews } from '$utils/utils';
 </script>
 
-<div class="container grid grid-cols-1 pb-6 pt-6 lg:grid-cols-2 lg:gap-5 lg:pt-12">
+<div
+	class={`${container ? 'container' : ' '} grid grid-cols-1 pb-6 pt-6 lg:grid-cols-2 lg:gap-5 lg:pt-12`}
+>
 	{#each items.sort((a, b) => +new Date(b.fields.publicationDate) - +new Date(a.fields.publicationDate)) as item, i (item.fields.title)}
 		{@const image =
 			item.fields.thumbnailCdn?.length > 0

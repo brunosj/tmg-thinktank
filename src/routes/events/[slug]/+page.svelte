@@ -32,8 +32,20 @@
 
 <SEO title={item.fields.title} description={item.fields.summary} {image} />
 <article>
-	<div class="overflow-hidden pt-12 lg:pt-32">
+	<div class="overflow-hidden pt-16 lg:pt-32">
 		<EventHeader {item} />
+		{#if image && item.fields.imagePosition === 'Top'}
+			<div class="container w-full py-6 lg:py-12">
+				<img loading="lazy" src={image} alt={item.fields.title} />
+				{#if imageCaption}
+					<div class="flex">
+						<span class="ml-auto pt-2 text-sm font-normal italic text-black">
+							{imageCaption}
+						</span>
+					</div>
+				{/if}
+			</div>
+		{/if}
 		<div class="container grid grid-cols-1 gap-0 pb-6 pt-6 lg:grid-cols-3 lg:gap-12">
 			<div class="col-span-2 space-y-12">
 				<ShareSocialMedia
@@ -56,7 +68,7 @@
 			<EventDetails {item} />
 		</div>
 
-		<section class="container space-y-6 py-12">
+		<section class="container space-y-6 py-6 lg:py-12">
 			{#if item.fields.speakers}
 				<EventSpeakers {item} />
 			{/if}
@@ -68,8 +80,8 @@
 			{/if}
 		</section>
 
-		<section class="container py-6">
-			{#if image}
+		<section class="container">
+			{#if image && item.fields.imagePosition !== 'Top'}
 				<div class="w-full pb-6">
 					<img loading="lazy" src={image} alt={item.fields.title} />
 					{#if imageCaption}

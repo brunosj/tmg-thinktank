@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let data;
+	export let data: Page;
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
@@ -8,6 +8,11 @@
 	import EventListing from '$components/Events/EventListing.svelte';
 	import { ensureHttps } from '$utils/utils';
 	import type { Event, Speaker } from '$lib/types/types';
+
+	type Page = {
+		events: Event[];
+		item: Speaker;
+	};
 
 	let events: Event[];
 	let speaker: Speaker;

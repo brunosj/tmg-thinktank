@@ -86,6 +86,7 @@ export interface Event {
 		facilitators: Speaker[];
 		image: Image;
 		imageCdn: ImageCdn[];
+		imagePosition: 'Top' | 'Bottom';
 		news: News[];
 		relatedEvents: Event[];
 		relatedVideos: Video[];

@@ -33,7 +33,6 @@
 	function formatLocalTimeWithTZ(startDateStr: string, endDateStr: string): string {
 		const startTime = dayjs(startDateStr).format('HH:mm');
 		const endTime = dayjs(endDateStr).format('HH:mm');
-		const tzAbbreviation = dayjs(startDateStr).format('zzz');
 		return `${startTime} - ${endTime}`;
 	}
 

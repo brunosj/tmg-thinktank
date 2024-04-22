@@ -11,7 +11,7 @@
 	<ul class="">
 		<div class="">
 			{#if videosArray.length >= 1}
-				<ul class="grid grid-cols-1 gap-6 pb-12 pt-6 md:grid-cols-2 lg:pt-12">
+				<ul class="grid grid-cols-1 gap-6 pb-6 pt-6 md:grid-cols-2 lg:pb-12 lg:pt-12">
 					{#each videosArray as video, i (video.fields.url)}
 						{@const image =
 							video.fields.imageCdn?.length > 0

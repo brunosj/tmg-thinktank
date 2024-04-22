@@ -122,9 +122,7 @@
 	{#if feature.fields.relatedDocuments}
 		<section>
 			<Heading text="Documents" textColor={feature.fields.color1} bgColor="#F4F6F6" />
-			<div class="">
-				<PublicationListing items={feature.fields.relatedDocuments} />
-			</div>
+			<PublicationListing items={feature.fields.relatedDocuments} />
 		</section>
 	{/if}
 

@@ -58,7 +58,7 @@
 				<span></span>
 			{/if}
 		</div>
-		<PublicationListing items={item.fields.relatedDocuments} />
+		<PublicationListing items={item.fields.relatedDocuments} container={false} />
 	</div>
 {/if}
 {#if item.fields.relatedEvents}

@@ -149,9 +149,7 @@
 	{#if publications.length >= 1}
 		<section id="publications">
 			<Heading text="Publications" bgColor="#F4F6F6" textColor="#67797B" />
-			<div class="container">
-				<PublicationListing items={publications.slice(0, publicationsCount)} />
-			</div>
+			<PublicationListing items={publications.slice(0, publicationsCount)} />
 			{#if publications.length > publicationsCount}
 				<div class="container flex justify-evenly pb-6 lg:pb-12">
 					<ButtonLoadMore onClick={loadMorePublications}>Load More Publications</ButtonLoadMore>

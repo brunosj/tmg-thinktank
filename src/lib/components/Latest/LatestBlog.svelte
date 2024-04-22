@@ -18,8 +18,6 @@
 				return dateA.getTime() - dateB.getTime();
 			})
 			.slice(0, 4);
-
-		console.log(blogs);
 	}
 </script>
 

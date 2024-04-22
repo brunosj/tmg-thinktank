@@ -138,7 +138,7 @@
 	{#if item.fields.relatedDocuments}
 		<section class="">
 			<Heading text="Publications & Articles" bgColor="#202f46" textColor="#ffffff" />
-			<div class="">
+			<div class="container">
 				<PublicationListing items={item.fields.relatedDocuments} />
 			</div>
 		</section>
