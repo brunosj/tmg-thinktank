@@ -3,7 +3,7 @@
 	export let searchTerm: string;
 	export let showSearchInput: boolean;
 
-	import { MinusSmIcon, PlusSmIcon, XIcon } from '@rgossiaux/svelte-heroicons/outline';
+	import { XIcon } from '@rgossiaux/svelte-heroicons/outline';
 	import type { SearchItem } from '$lib/types/types';
 	import { formatDateNews } from '$utils/utils';
 
@@ -11,21 +11,31 @@
 		searchTerm = '';
 		showSearchInput = false;
 	};
+
+	let selectedFilter: string = '';
+	let filteredResults: SearchItem[] = [];
+
+	$: filteredResults = results.filter(
+		(result) => selectedFilter === '' || result.itemType.label === selectedFilter
+	);
+
+	const applyFilter = (filter: string) => {
+		selectedFilter = filter;
+	};
+
+	$: filterOptionsSet = new Set(
+		results.map((result) => result.itemType.label).sort((a, b) => a.localeCompare(b))
+	);
+	$: filterOptions = Array.from(filterOptionsSet);
 </script>
 
 <section
-	class="fixed right-0 top-16 z-50 ml-auto max-h-full w-full overflow-scroll overflow-y-scroll bg-white shadow-lg lg:max-h-[60vh]"
+	class="fixed right-0 top-12 z-50 ml-auto max-h-full w-full overflow-scroll overflow-y-scroll bg-white shadow-lg lg:top-16 lg:max-h-[60vh]"
 >
-	<div class="container space-y-3 pb-3 pt-6">
-		<div class="flex items-center justify-between">
+	<div class=" space-y-3 pb-3 pt-6">
+		<div class="container flex items-center justify-between">
 			<div class="flex flex-col space-y-1">
 				<h2 class="text-lg font-bold">Search Results</h2>
-				<!-- <div class="text-sm">
-					<span>query:</span>
-					<span class="font-semibold text-green-normal">
-						"{searchTerm}"
-					</span>
-				</div> -->
 			</div>
 			<button type="button" on:click={clearSearchTerm}>
 				<XIcon
@@ -33,8 +43,27 @@
 				/>
 			</button>
 		</div>
-		<ul class="gap-6 md:grid md:grid-cols-2 lg:grid-cols-3">
-			{#each results as result}
+
+		<div class="bg-green-normal py-2">
+			<div class="container flex flex-wrap gap-x-6 gap-y-3 space-x-0 lg:space-x-12">
+				{#each filterOptions as option, index}
+					<label class="flex items-center space-x-2">
+						<input
+							class="h-4 w-4 cursor-pointer border-white text-green-normal focus:ring-green-normal"
+							type="radio"
+							bind:group={selectedFilter}
+							value={option}
+							on:change={() => applyFilter(option)}
+						/>
+						<span class="cursor-pointer select-none text-xs font-medium text-white lg:text-sm"
+							>{option}</span
+						>
+					</label>
+				{/each}
+			</div>
+		</div>
+		<ul class="container gap-6 md:grid md:grid-cols-2 lg:grid-cols-3">
+			{#each filteredResults as result}
 				<li class="">
 					<a
 						href={`
