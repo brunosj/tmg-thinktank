@@ -53,13 +53,13 @@
 			class="z-10 h-48 w-full object-cover saturate-50 duration-300 group-hover:saturate-100 lg:h-64"
 			loading="eager"
 		/>
-		{#if imageCaption}
+		<!-- {#if imageCaption}
 			<div class="flex">
 				<span class="ml-auto pt-2 text-sm font-normal italic text-black">
 					{imageCaption}
 				</span>
 			</div>
-		{/if}
+		{/if} -->
 		<div class="space-y-6 p-8 lg:p-12">
 			<div class=" text-xs font-bold lg:text-sm">
 				<span class="rounded-lg bg-gray-900 px-3 py-1.5 duration-200 ease-in-out">
