@@ -16,20 +16,15 @@
 	const tzAbbreviation = dayjs(item.fields.date).format('zzz');
 
 	function isSameDay(dateStr1: string, dateStr2: string): boolean {
-		const date1 = new Date(dateStr1);
-		const date2 = new Date(dateStr2);
-		return date1.toDateString() === date2.toDateString();
+		const date1 = dayjs(dateStr1).utc();
+		const date2 = dayjs(dateStr2).utc();
+
+		return date1.isSame(date2, 'day');
 	}
 
 	function formatDate(dateStr: string): string {
-		const date = new Date(dateStr);
-		return new Intl.DateTimeFormat('en-UK', {
-			day: '2-digit',
-			month: '2-digit',
-			year: '2-digit'
-		})
-			.format(date)
-			.replace(/\//g, '.');
+		const date = dayjs(dateStr).utc();
+		return date.format('DD.MM.YY');
 	}
 
 	function formatLocalTimeWithTZ(startDateStr: string, endDateStr: string): string {

@@ -37,7 +37,7 @@
 
 {#if items && items.length > 0}
 	{#if hoveredDay}
-		<ItemToolTip {items} {hoveredDay} {handleDayMouseEnter} {handleDayMouseLeave} />
+		<ItemToolTip {items} {hoveredDay} />
 	{/if}
 
 	<ul class="">

@@ -125,12 +125,7 @@
 										{#if items && items.length > 0}
 											<ul class="">
 												{#if hoveredDay && date.toDateString() === hoveredDay.toDateString()}
-													<ItemTooltip
-														items={truncatedItems}
-														{hoveredDay}
-														{handleDayMouseEnter}
-														{handleDayMouseLeave}
-													/>
+													<ItemTooltip items={truncatedItems} {hoveredDay} />
 												{/if}
 												{#each truncatedItems as event (event)}
 													<li
