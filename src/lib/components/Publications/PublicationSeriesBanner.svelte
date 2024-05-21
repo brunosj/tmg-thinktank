@@ -4,6 +4,8 @@
 	export let bannerText: string;
 
 	import type { Publication } from '$lib/types/types';
+
+	const nbrColumns = publications.length;
 </script>
 
 <section>
@@ -24,14 +26,14 @@
 					{/if}
 				</div>
 			</div>
-			<div class="flex justify-end gap-6">
+			<div class={`grid grid-cols-${nbrColumns} gap-6`}>
 				{#each publications as publication (publication.fields.pdf.fields.file.url)}
 					<a href={publication.fields.pdf.fields.file.url} target="_blank">
 						<img
 							loading="lazy"
 							src={publication.fields.thumbnail.fields.file.url}
 							alt={publication.fields.title}
-							class="w-auto duration-300 hover:opacity-80"
+							class="h-full w-full object-cover duration-300 hover:opacity-80"
 						/>
 					</a>
 				{/each}
