@@ -31,7 +31,7 @@
 							loading="lazy"
 							src={publication.fields.thumbnail.fields.file.url}
 							alt={publication.fields.title}
-							class="duration-300 hover:opacity-80"
+							class="w-auto duration-300 hover:opacity-80"
 						/>
 					</a>
 				{/each}

@@ -19,19 +19,27 @@
 			<div style="background-color: {bgColor}">
 				<a href={`/events/${event.fields.slug}`}>
 					<div>
-						<div class="duration-200 ease-in-out">
+						<div class="duration-300 ease-in-out">
 							<div class="p-0 lg:p-2">
 								<div class="flex flex-col items-center space-y-1 p-5">
 									<div class="flex">
 										<span
-											class="text-3xl font-semibold leading-none lg:text-5xl"
+											class="text-3xl font-semibold leading-none lg:text-4xl"
 											style="color: {color1}"
 										>
 											{formatDay(event.fields.date)}
 										</span>
+										{#if event.fields.endDate && formatDay(event.fields.endDate) !== formatDay(event.fields.date)}
+											<span
+												class="text-3xl font-semibold leading-none lg:text-4xl"
+												style="color: {color1}"
+											>
+												-{formatDay(event.fields.endDate)}
+											</span>
+										{/if}
 									</div>
 									<div class="flex">
-										<span class="text-base font-semibold text-black">
+										<span class="text-lg font-semibold text-black">
 											{formatMonth(event.fields.date)}
 										</span>
 									</div>
@@ -43,7 +51,7 @@
 								</div>
 							</div>
 							<div
-								class="transform text-white group-hover:scale-105"
+								class="transform text-white duration-300 group-hover:scale-105"
 								style="background-color: {color1}"
 							>
 								<div class="group flex-col p-5 text-center">

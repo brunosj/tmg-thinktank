@@ -81,7 +81,7 @@
 		/>
 	{/if}
 
-	{#if feature.fields.gallery}
+	{#if feature.fields.gallery.length > 0}
 		<ImageGallery images={feature.fields.gallery} borderColor={feature.fields.color1} />
 	{/if}
 

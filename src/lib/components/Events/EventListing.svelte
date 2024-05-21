@@ -10,17 +10,26 @@
 	<div class="rounded-lg bg-white p-4 duration-300 hover:bg-green-variation">
 		<a href={`/events/${event.fields.slug}`}>
 			<div class="group">
-				<div class="grid grid-cols-6 duration-200 ease-in-out">
-					<div class="cols-span-1 p-0 lg:p-2">
+				<div class="grid grid-cols-7 duration-200 ease-in-out">
+					<div class="col-span-2 p-0 lg:p-2">
 						<div class="flex flex-col items-center space-y-2">
 							<div class="flex">
 								<span
-									class="text-3xl font-semibold leading-none lg:text-4xl"
+									class="text-2xl font-semibold leading-none lg:text-3xl"
 									style="color: {color}"
 								>
 									{formatDay(event.fields.date)}
 								</span>
+								{#if event.fields.endDate && formatDay(event.fields.endDate) !== formatDay(event.fields.date)}
+									<span
+										class="text-2xl font-semibold leading-none lg:text-3xl"
+										style="color: {color}"
+									>
+										-{formatDay(event.fields.endDate)}
+									</span>
+								{/if}
 							</div>
+
 							<div class="flex">
 								<span class="text-base font-semibold leading-none text-black">
 									{formatMonth(event.fields.date)}
