@@ -5,14 +5,12 @@
 	import SEO from '$components/SEO/SEO.svelte';
 	import { renderRichText } from '$utils/utils';
 	import Heading from '$components/Layout/Heading.svelte';
-	import PublicationBanner from '$components/Publications/PublicationBanner.svelte';
-	import PublicationSeriesBanner from '$components/Publications/PublicationSeriesBanner.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import FeatureEventCard from '$components/Events/FeatureEventCard.svelte';
 	import PartnersLogo from '$components/Partners/PartnersLogo.svelte';
-	import Gallery from '$components/Gallery/Gallery.svelte';
 	import ImageGallery from '$components/Gallery/ImageGallery.svelte';
+	import Banner from '$components/Banner/Banner.svelte';
 
 	type Page = {
 		item: PublicationFeatureType;
@@ -23,6 +21,12 @@
 	$: {
 		feature = data.item;
 	}
+
+	$: sectionsWithContentBlocks = feature.fields.sections.map((section) => {
+		return {
+			contentBlocks: section.fields.contentBlocks
+		};
+	});
 
 	$: image =
 		feature.fields.pageBannerCdn?.length > 0
@@ -45,65 +49,56 @@
 		</div>
 	</section>
 
-	<section class="container py-6 lg:py-12">
+	<section class="pt container pt-6 lg:pt-12">
 		<div>
 			<h1>{feature.fields.title}</h1>
 			<h3>{feature.fields.summary}</h3>
 		</div>
-
-		<div class="mt-6 grid grid-cols-1 lg:mt-12 lg:grid-cols-3">
-			<div class="richText col-span-2">
-				{#if feature.fields.text1}
-					{@html renderRichText(feature.fields.text1)}
-				{/if}
-			</div>
-			<div class="col-span-1 ml-0 flex items-center border-b lg:ml-12 lg:border-none">
-				<div class="richText bg-green-variation p-8 text-center text-black">
-					{#if feature.fields.textBox1}
-						{@html renderRichText(feature.fields.textBox1)}
-					{/if}
-				</div>
-			</div>
-		</div>
 	</section>
 
-	{#if feature.fields.publicationSeriesPublications}
-		<PublicationSeriesBanner
-			publications={feature.fields.publicationSeriesPublications}
-			bgColor={feature.fields.color1}
-			bannerText={feature.fields.publicationSeriesText}
-		/>
-	{:else}
-		<PublicationBanner
-			publication={feature.fields.publicationBannerPublication}
-			bgColor={feature.fields.color1}
-			bannerText={feature.fields.publicationBannerText}
-		/>
-	{/if}
-
-	{#if feature.fields.gallery.length > 0}
-		<ImageGallery images={feature.fields.gallery} borderColor={feature.fields.color1} />
-	{/if}
-
-	{#if feature.fields.text2}
-		<div class="container py-6 lg:py-12">
-			<div class="grid grid-cols-1 lg:grid-cols-3">
-				{#if feature.fields.textBox2}
-					<div class="col-span-1 flex items-center border-b lg:border-none">
-						<div
-							class="richText mr-0 hidden bg-green-variation p-8 text-center text-base font-light text-black lg:mr-12 lg:block lg:text-lg"
-						>
-							{@html renderRichText(feature.fields.textBox2)}
+	{#each sectionsWithContentBlocks as sectionContent, index}
+		<div class="container grid grid-cols-1 gap-6 py-6 lg:grid-cols-3 lg:gap-12 lg:py-12">
+			<div class="col-span-2 {index % 2 === 1 ? 'order-last' : 'order-first'}">
+				{#each sectionContent.contentBlocks as item}
+					{#if item.sys.contentType.sys.id === 'textBlock' || item.sys.contentType.sys.id === 'imageBlock'}
+						<div class="richText">
+							{#if item.sys.contentType.sys.id === 'textBlock'}
+								{@html renderRichText(item.fields.text)}
+							{:else if item.sys.contentType.sys.id === 'imageBlock'}
+								<img
+									loading="lazy"
+									src={item.fields.imageCdn[0].secure_url}
+									alt={''}
+									class="w-full"
+								/>
+							{/if}
 						</div>
-					</div>
-				{/if}
-				<div class="richText col-span-2 pt-8 lg:pt-0">
-					{#if feature.fields.text2}
-						{@html renderRichText(feature.fields.text2)}
 					{/if}
-				</div>
+				{/each}
+			</div>
+			<div class="col-span-1 flex items-center border-b lg:border-none">
+				{#each sectionContent.contentBlocks as item}
+					{#if item.sys.contentType.sys.id === 'textBoxBlock'}
+						<div class="richText bg-green-variation p-8 text-center text-black">
+							{@html renderRichText(item.fields.text)}
+						</div>
+					{/if}
+				{/each}
 			</div>
 		</div>
+
+		{#each sectionContent.contentBlocks as item}
+			{#if item.sys.contentType.sys.id === 'banners'}
+				<Banner
+					publications={item.fields.publications}
+					bgColor={feature.fields.color1}
+					bannerText={item.fields.title}
+				/>
+			{/if}
+		{/each}
+	{/each}
+	{#if feature.fields.gallery && feature.fields.gallery.length > 0}
+		<ImageGallery images={feature.fields.gallery} borderColor={feature.fields.color1} />
 	{/if}
 
 	{#if feature.fields.events}

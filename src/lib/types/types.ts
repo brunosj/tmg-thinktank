@@ -50,7 +50,8 @@ export interface Banner {
 		subtitle: string;
 		buttonText: string;
 		buttonPath: string;
-		backgroundColor: string;
+		imageCdn: ImageCdn[];
+		publications: Publication[];
 	};
 }
 
@@ -315,16 +316,13 @@ export interface PublicationFeature {
 		cutoffDate: string;
 		title: string;
 		summary: string;
+		sections: {
+			fields: {
+				contentBlocks: ContentBlock[];
+			};
+		}[];
 		pageBanner: Image;
 		pageBannerCdn: ImageCdn[];
-		text1: string;
-		textBox1: string;
-		publicationBannerText: string;
-		publicationBannerPublication: Publication;
-		publicationSeriesText: string;
-		publicationSeriesPublications: Publication[];
-		text2: string;
-		textBox2: string;
 		gallery: ImageCdn[];
 		events: Event[];
 		news: News[];
@@ -427,5 +425,21 @@ export interface SearchItem {
 	itemType: {
 		key: 'news' | 'events' | 'publications' | 'publicationFeatures' | 'eventSeries' | 'videos';
 		label: 'News' | 'Events' | 'Publications' | 'Publication Features' | 'Event Series' | 'Video';
+	};
+}
+
+export interface ContentBlock {
+	fields: {
+		text: string;
+		imageCdn: ImageCdn[];
+		title: string;
+		publications: Publication[];
+	};
+	sys: {
+		contentType: {
+			sys: {
+				id: 'textBoxBlock' | 'textBlock' | 'imageBlock' | 'banners';
+			};
+		};
 	};
 }

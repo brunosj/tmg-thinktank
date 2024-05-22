@@ -7,6 +7,8 @@
 
 	let nbrColumns = 0;
 	$: nbrColumns = publications.length;
+
+	$: console.log(nbrColumns);
 </script>
 
 <section>

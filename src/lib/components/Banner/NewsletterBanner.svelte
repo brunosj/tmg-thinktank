@@ -12,11 +12,7 @@
 	}
 </script>
 
-<section
-	class={landingPage.fields.newsletterBanner.fields.backgroundColor === 'TMG Green'
-		? 'bg-green-normal'
-		: 'bg0-white'}
->
+<section class="bg-green-normal">
 	<div class="container grid grid-cols-1 items-center py-10 lg:grid-cols-3">
 		<div class="col-span-2 pb-10 pt-5 lg:pb-0 lg:pt-0">
 			<div class="pb-5">
