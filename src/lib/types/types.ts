@@ -433,7 +433,10 @@ export interface ContentBlock {
 		text: string;
 		imageCdn: ImageCdn[];
 		title: string;
-		publications: Publication[];
+		subtitle?: string;
+		publications?: Publication[];
+		buttonPath?: string;
+		buttonText?: string;
 	};
 	sys: {
 		contentType: {

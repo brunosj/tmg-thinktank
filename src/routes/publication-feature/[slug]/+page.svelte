@@ -89,11 +89,7 @@
 
 		{#each sectionContent.contentBlocks as item}
 			{#if item.sys.contentType.sys.id === 'banners'}
-				<Banner
-					publications={item.fields.publications}
-					bgColor={feature.fields.color1}
-					bannerText={item.fields.title}
-				/>
+				<Banner {item} bgColor={feature.fields.color1} />
 			{/if}
 		{/each}
 	{/each}
