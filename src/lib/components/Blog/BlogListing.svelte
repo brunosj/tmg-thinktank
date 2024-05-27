@@ -7,6 +7,10 @@
 <section>
 	<div class="grid grid-cols-1 gap-12 py-10 md:grid-cols-3">
 		{#each items as item (item.fields.slug)}
+			{@const image =
+				item.fields.imageCdn?.length > 0
+					? item.fields.imageCdn[0].secure_url
+					: item.fields.image.fields.file.url}
 			<a href={`/blog/${item.fields.slug}`}>
 				<div class="group border pb-5 lg:pb-0">
 					<div
@@ -14,7 +18,7 @@
 					>
 						<img
 							loading="lazy"
-							src={item.fields.image.fields.file.url}
+							src={image}
 							alt={item.fields.title}
 							class=" h-full w-full object-cover"
 						/>
