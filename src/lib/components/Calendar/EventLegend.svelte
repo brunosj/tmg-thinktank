@@ -1,8 +1,8 @@
 <script lang="ts">
 </script>
 
-<section class="pt-6">
-	<div class="flex w-5/6 flex-wrap items-center border-t border-green-normal">
+<section class="pb-3">
+	<div class="flex w-5/6 flex-wrap items-center">
 		<div class="mt-3 flex items-center px-4 text-sm">
 			<div class="h-2 w-2 rounded-full bg-[#CCC9E7] bg-opacity-100 lg:h-4 lg:w-4"></div>
 			<span class="ml-2">Conference</span>

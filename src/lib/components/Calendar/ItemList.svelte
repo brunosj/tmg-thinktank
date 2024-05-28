@@ -3,7 +3,18 @@
 	export let items: CalendarEvent[];
 
 	import type { CalendarEvent } from '$lib/types/types';
+	import CalendarPlus from 'virtual:icons/fa6-regular/calendar-plus';
 
+	import {
+		ensureHttps,
+		isSameDay,
+		formatLocalTimeWithTZ,
+		formatUTCTime,
+		formatDateDayJS,
+		formatTz,
+		generateICalData,
+		downloadICal
+	} from '$utils/utils';
 	let isExternal = false;
 
 	let bgColorClass = (type: string) => {
@@ -47,6 +58,13 @@
 			}
 		});
 
+		itemsByDay.forEach((events, day) => {
+			events.sort(
+				(a: CalendarEvent, b: CalendarEvent) =>
+					new Date(a.start).getTime() - new Date(b.start).getTime()
+			);
+		});
+
 		sortedDays = Array.from(itemsByDay.keys()).sort();
 	}
 </script>
@@ -70,23 +88,59 @@
 					</span>
 				</span>
 			</div>
-			<ul class=" ml-6 py-2">
-				{#each itemsByDay.get(day) as { slug, title, type }}
-					<li class="textHover cursor-pointer">
-						<a
-							href={`/events/${slug}`}
-							target={isExternal ? '_blank' : ''}
-							rel={isExternal ? 'noopener noreferrer' : ''}
-							class="flex flex-row items-center space-x-3"
-						>
-							<div
-								class={`${bgColorClass(
-									type
-								)} h-2 w-2 flex-shrink-0 rounded-full bg-opacity-100 lg:h-3 lg:w-3`}
-							></div>
+			<ul class="space-y-3 py-3 lg:space-y-6 lg:py-6">
+				{#each itemsByDay.get(day) as evt}
+					<li class="grid rounded-md p-2 lg:bg-green-variation lg:p-6">
+						<div class="grid-cols-5 gap-6 lg:grid lg:gap-12">
+							{#if evt.end && isSameDay(evt.start, evt.end)}
+								<div
+									class={`${bgColorClass(evt.type)} col-span-1 hidden h-full flex-col items-center justify-around rounded-md p-2 text-center lg:flex`}
+								>
+									<div>
+										<p class="text-lg font-semibold">
+											{formatLocalTimeWithTZ(evt.start, evt.end)}
+										</p>
+										<p class="text-sm">
+											{formatTz(evt.start)}
+										</p>
+										<p class="pt-2 text-lg font-semibold">
+											{formatUTCTime(evt.start, evt.end)}
+										</p>
+										<p class="text-sm">UTC</p>
+									</div>
+								</div>
+							{/if}
 
-							<p class="py-1">{title}</p>
-						</a>
+							<div class="col-span-3 flex h-full flex-col items-center justify-around space-y-2">
+								<a
+									href={`/events/${evt.slug}`}
+									target={isExternal ? '_blank' : ''}
+									rel={isExternal ? 'noopener noreferrer' : ''}
+									class="flex items-center duration-300 hover:opacity-70"
+								>
+									<div
+										class={`${bgColorClass(
+											evt.type
+										)} mr-3 h-3 w-3 flex-shrink-0 rounded-full bg-opacity-100 lg:hidden `}
+									></div>
+									<p class=" font-semibold duration-300 hover:opacity-70 lg:text-xl">{evt.title}</p>
+								</a>
+								<p class="hidden text-sm lg:block">{evt.subtitle}</p>
+							</div>
+							<div class="hidden items-center justify-end lg:flex">
+								<button
+									class="relative rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-green-normal shadow-sm duration-300 hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-normal"
+									on:click|preventDefault={() => downloadICal(evt)}
+								>
+									<div class="flex items-center space-x-3">
+										<CalendarPlus class="h-6 w-6" />
+										<div>
+											<span> Add to Calendar </span>
+										</div>
+									</div>
+								</button>
+							</div>
+						</div>
 					</li>
 				{/each}
 			</ul>

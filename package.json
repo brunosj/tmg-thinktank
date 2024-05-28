@@ -42,6 +42,7 @@
 		"@fontsource-variable/inter": "^5.0.18",
 		"@typescript-eslint/eslint-plugin": "^7.10.0",
 		"@typescript-eslint/parser": "^7.10.0",
+		"add-to-calendar-button": "^2.6.15",
 		"contentful": "^10.11.1",
 		"dayjs": "^1.11.11",
 		"embla-carousel": "^8.1.3",

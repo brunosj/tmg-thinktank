@@ -1,3 +1,89 @@
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+import type { CalendarEvent, Event } from '$lib/types/types';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(advancedFormat);
+
+// Time
+export function isSameDay(dateStr1: string, dateStr2: string): boolean {
+	const date1 = dayjs(dateStr1).utc();
+	const date2 = dayjs(dateStr2).utc();
+
+	return date1.isSame(date2, 'day');
+}
+
+export function formatDateDayJS(dateStr: string): string {
+	const date = dayjs(dateStr).utc();
+	return date.format('DD.MM.YY');
+}
+
+export function formatLocalTimeWithTZ(startDateStr: string, endDateStr: string): string {
+	const startTime = dayjs(startDateStr).format('HH:mm');
+	const endTime = dayjs(endDateStr).format('HH:mm');
+	return `${startTime} - ${endTime}`;
+}
+
+export function formatUTCTime(startDateStr: string, endDateStr: string): string {
+	const utcStartTime = dayjs(startDateStr).utc().format('HH:mm');
+	const utcEndTime = dayjs(endDateStr).utc().format('HH:mm');
+	return `${utcStartTime} - ${utcEndTime}`;
+}
+
+export function formatTz(date: string) {
+	return dayjs(date).format('zzz');
+}
+
+function isCalendarEvent(event: any): event is CalendarEvent {
+	return 'start' in event && 'end' in event;
+}
+
+export function generateICalData(event: CalendarEvent | Event): string {
+	const dtstart =
+		new Date(isCalendarEvent(event) ? event.start : event.fields.date)
+			.toISOString()
+			.replace(/[-:]/g, '')
+			.split('.')[0] + 'Z';
+	const dtend =
+		new Date(isCalendarEvent(event) ? event.end : event.fields.endDate)
+			.toISOString()
+			.replace(/[-:]/g, '')
+			.split('.')[0] + 'Z';
+	const title = isCalendarEvent(event) ? event.title : event.fields.title;
+	const description = isCalendarEvent(event) ? event.subtitle : event.fields.summary;
+	const location = isCalendarEvent(event)
+		? `https://tmg-thinktank.com/events/${event.slug}`
+		: `https://tmg-thinktank.com/events/${event.fields.slug}`;
+
+	return `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:${title}
+DESCRIPTION:${description}
+LOCATION:${location}
+DTSTART:${dtstart}
+DTEND:${dtend}
+END:VEVENT
+END:VCALENDAR`;
+}
+
+export function downloadICal(evt: CalendarEvent | Event) {
+	const icsData = generateICalData(evt);
+	const blob = new Blob([icsData], { type: 'text/calendar' });
+	const url = URL.createObjectURL(blob);
+	const a = document.createElement('a');
+	a.href = url;
+	a.download = `${isCalendarEvent(evt) ? evt.title : evt.fields.title}.ics`;
+	document.body.appendChild(a);
+	a.click();
+	document.body.removeChild(a);
+	URL.revokeObjectURL(url);
+}
+
+// Contentful
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import * as contentfulTypes from '@contentful/rich-text-types';
 const { BLOCKS, INLINES } = contentfulTypes;

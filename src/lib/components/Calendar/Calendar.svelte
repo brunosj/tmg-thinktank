@@ -74,6 +74,7 @@
 </script>
 
 <CalendarHeader bind:currentMonth monthChange={handleMonthChange} {toggleView} bind:isListView />
+<EventLegend />
 {#if isListView}
 	<ItemList {currentMonth} {items} />
 {:else}
@@ -86,4 +87,3 @@
 		{handleDayMouseLeave}
 	/>
 {/if}
-<EventLegend />
