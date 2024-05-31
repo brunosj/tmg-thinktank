@@ -29,7 +29,9 @@
 	$: image =
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image?.fields.file.url;
+			: item.fields.image?.fields.file.url
+				? item.fields.image?.fields.file.url
+				: 'https://res.cloudinary.com/tmgthinktank/image/upload/v1717147613/Placeholder_image_event_uhiror.jpg';
 
 	$: imageCaption =
 		item.fields.imageCdn?.length > 0
@@ -50,7 +52,7 @@
 		<img
 			src={image}
 			alt={item.fields.title}
-			class="z-10 h-48 w-full object-cover saturate-50 duration-300 group-hover:saturate-100 lg:h-64"
+			class="z-10 aspect-[16/8.5] w-full object-cover saturate-50 duration-300 group-hover:saturate-100"
 			loading="eager"
 		/>
 		<!-- {#if imageCaption}
@@ -60,7 +62,7 @@
 				</span>
 			</div>
 		{/if} -->
-		<div class="space-y-6 p-8 lg:p-12">
+		<div class="space-y-6 p-8 lg:p-10">
 			<div class=" text-xs font-bold lg:text-sm">
 				<span class="rounded-lg bg-gray-900 px-3 py-1.5 duration-200 ease-in-out">
 					{item.fields.type}
