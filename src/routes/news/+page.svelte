@@ -7,7 +7,7 @@
 	import NewsIndex from '$components/News/NewsIndex.svelte';
 	import ItemsFilter from '$components/Filter/ItemsFilter.svelte';
 	import IntersectionObserver from 'svelte-intersection-observer';
-	import { fly, fade } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
 
 	type Page = {
@@ -15,10 +15,9 @@
 	};
 
 	let news = data.entries;
-	let filteredItems: News[] = [];
-	filteredItems = news;
+	let filteredItems: News[] = news;
 
-	function filteredData(event: any) {
+	function filteredData(event: CustomEvent<News[]>) {
 		filteredItems = event.detail;
 	}
 

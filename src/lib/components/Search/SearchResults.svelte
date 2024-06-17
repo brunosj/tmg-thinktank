@@ -27,6 +27,35 @@
 		results.map((result) => result.itemType.label).sort((a, b) => a.localeCompare(b))
 	);
 	$: filterOptions = Array.from(filterOptionsSet);
+
+	function getSingleItemPrefix(type: string) {
+		switch (type) {
+			case 'Blog Post':
+				return 'blog';
+			case 'Publication':
+				return 'publications';
+			case 'Workshop':
+			case 'Discussion':
+			case 'Conference':
+				return 'events';
+			case 'Video':
+				return 'video';
+			default:
+				return 'news';
+		}
+	}
+
+	function getItemUrl(result: SearchItem) {
+		if (result.itemType.key === 'publications') {
+			return `https://${result.link}`;
+		} else if (result.itemType.key === 'videos') {
+			return `/${result.slug}`;
+		} else if (result.itemType.key === 'news') {
+			return `/${getSingleItemPrefix(result.type || result.itemType.key)}/${result.slug}`;
+		} else {
+			return `/${result.itemType.key}/${result.slug}`;
+		}
+	}
 </script>
 
 <section
@@ -66,9 +95,7 @@
 			{#each filteredResults as result}
 				<li class="">
 					<a
-						href={`
-						${result.itemType.key === 'publications' ? `https://${result.link}` : `${result.itemType.key === 'videos' ? `${result.slug}` : `/${result.itemType.key}/${result.slug}`}`}
-						`}
+						href={getItemUrl(result)}
 						class="group flex flex-col space-y-2 rounded-lg bg-white p-4 duration-300 hover:bg-green-variation"
 						on:click={clearSearchTerm}
 						target={result.itemType.key === 'publications' ? '_blank' : '_self'}

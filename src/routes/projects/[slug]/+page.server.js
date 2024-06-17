@@ -1,6 +1,7 @@
 // export const prerender = true;
 
 import { fetchContentfulData } from '$lib/contentfulClient';
+import { transformPublicationToNews, transformVideoToNews } from '$utils/utils';
 
 export async function entries() {
 	const entries = await fetchContentfulData('portfolio');
@@ -19,9 +20,16 @@ export async function load({ params }) {
 		const item = entries.find((p) => p.fields.slug === slug);
 
 		const events = await fetchContentfulData('event');
-		const news = await fetchContentfulData('news');
 		const videos = await fetchContentfulData('video');
+		const videoNewsItems = videos.filter((p) => p.fields.automatedNewsEntry);
+		const transformedVideoNewsItems = videoNewsItems?.map(transformVideoToNews);
+
 		const publications = await fetchContentfulData('publications');
+		const publicationNewsItems = publications.filter((p) => p.fields.automatedNewsEntry);
+		const transformedPublicationNewsItems = publicationNewsItems.map(transformPublicationToNews);
+
+		let news = await fetchContentfulData('news');
+		news = [...news, ...transformedPublicationNewsItems, ...transformedVideoNewsItems];
 
 		if (item) {
 			return { item, events, news, videos, publications };

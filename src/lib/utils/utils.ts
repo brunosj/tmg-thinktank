@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
-import type { CalendarEvent, Event } from '$lib/types/types';
+import type { CalendarEvent, Event, Publication, Video } from '$lib/types/types';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -151,7 +151,7 @@ export function renderRichText(richText) {
 }
 
 //////  Util function to format strings
-export function slugify(text) {
+export function slugify(text: string) {
 	return text
 		.toLowerCase()
 		.replace(/ /g, '-')
@@ -255,4 +255,71 @@ export function formatDateLong(date: string) {
 	const month = formattedDate.toLocaleString('en', { month: 'long' });
 	const year = formattedDate.getFullYear();
 	return `${day} ${month} ${year}`;
+}
+
+export function transformPublicationToNews(publication: Publication) {
+	return {
+		fields: {
+			programme: publication.fields.programme,
+			secondProgramme: null,
+			project: [publication.fields.project],
+			dateFormat: publication.fields.publicationDate,
+			type: 'Publication', // or any default type
+			author: publication.fields.author,
+			authorTmg: publication.fields.authorTmg,
+			title: publication.fields.title,
+			summary: publication.fields.summary,
+			image: publication.fields.thumbnail,
+			imageCdn: publication.fields.thumbnailCdn,
+			descriptionRich: publication.fields.automatedNewsEntry,
+			source: null,
+			sourceUrl: null,
+			publication: publication,
+			publicationReferenceTMG: publication,
+			externalPublicationThumbnail: null,
+			externalPublicationUrl: null,
+			video: null,
+			relatedNews: [],
+			relatedPublications: [],
+			slug: publication.fields.slug
+		}
+	};
+}
+
+export function transformVideoToNews(video: Video) {
+	return {
+		fields: {
+			programme: video.fields.programmes ? video.fields.programmes[0] : null,
+			secondProgramme: video.fields.programmes?.length > 1 ? video.fields.programmes[1] : null,
+			project: video.fields.projects,
+			dateFormat: video.fields.date,
+			type: 'Video',
+			author: null,
+			authorTmg: [],
+			title: video.fields.title,
+			summary: video.fields.summary,
+			image: video.fields.image,
+			imageCdn: video.fields.imageCdn,
+			descriptionRich: video.fields.automatedNewsEntry,
+			source: null,
+			sourceUrl: null,
+			publication: null,
+			publicationReferenceTMG: null,
+			externalPublicationThumbnail: null,
+			externalPublicationUrl: video.fields.url,
+			video: {
+				fields: {
+					videoId: video.fields.videoId,
+					url: video.fields.url,
+					imageCdn: video.fields.imageCdn,
+					image: video.fields.image,
+					summary: video.fields.summary,
+					title: video.fields.title
+				}
+			},
+			relatedNews: [],
+			relatedPublications: [],
+			slug: video.fields.slug || slugify(video.fields.title)
+		}
+	};
 }

@@ -35,16 +35,16 @@
 	<section class="richText w-full py-6 lg:w-2/3 lg:py-12">
 		{@html renderRichText(item.fields.descriptionRich)}
 	</section>
-	<VideoListing videos={item.fields.video} />
+	<VideoListing videos={item.fields.video || []} />
 
-	{#if item.fields.relatedNews}
+	{#if item.fields.relatedNews.length > 0}
 		<div class="pt-6">
 			<div class="text-xl font-semibold lg:text-2xl">Related News</div>
 			<NewsListing items={item.fields.relatedNews} />
 		</div>
 	{/if}
 
-	{#if item.fields.relatedPublications}
+	{#if item.fields.relatedPublications.length > 0}
 		<div class="pt-6">
 			<div class="text-xl font-semibold lg:text-2xl">Related Publications</div>
 			<PublicationListing items={item.fields.relatedPublications} />

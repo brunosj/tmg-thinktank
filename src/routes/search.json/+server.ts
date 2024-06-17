@@ -1,17 +1,32 @@
 import { json } from '@sveltejs/kit';
 import { fetchContentfulData } from '$lib/contentfulClient';
-import type { SearchItem } from '$lib/types/types';
+import { transformPublicationToNews } from '$utils/utils';
+import type {
+	SearchItem,
+	Publication,
+	News,
+	Event,
+	PublicationFeature,
+	EventSeries,
+	Video
+} from '$lib/types/types';
 
 export const prerender = true;
 
 export async function GET() {
 	try {
-		const newsData = await fetchContentfulData('news');
-		const eventsData = await fetchContentfulData('event');
-		const publicationsData = await fetchContentfulData('publications');
-		const publicationFeaturesData = await fetchContentfulData('publicationFeature');
-		const eventSeriesData = await fetchContentfulData('unfssCop26');
-		const videosData = await fetchContentfulData('video');
+		const eventsData: Event[] = await fetchContentfulData('event');
+		const publicationsData: Publication[] = await fetchContentfulData('publications');
+		const publicationFeaturesData: PublicationFeature[] =
+			await fetchContentfulData('publicationFeature');
+		const eventSeriesData: EventSeries[] = await fetchContentfulData('unfssCop26');
+		const videosData: Video[] = await fetchContentfulData('video');
+
+		const publicationNewsItems = publicationsData.filter((p) => p.fields.automatedNewsEntry);
+		const transformedPublicationNewsItems = publicationNewsItems.map(transformPublicationToNews);
+
+		let newsData: News[] = (await fetchContentfulData('news')) || [];
+		newsData = [...newsData, ...transformedPublicationNewsItems];
 
 		const news = newsData.map((item) => ({
 			title: item.fields.title,
@@ -53,7 +68,7 @@ export async function GET() {
 			title: item.fields.title,
 			summary: item.fields.summary,
 			itemType: {
-				key: 'publicationFeatures',
+				key: 'publication-feature',
 				label: 'Publication Feature'
 			},
 			slug: item.fields.slug
@@ -63,7 +78,7 @@ export async function GET() {
 			title: item.fields.title,
 			summary: item.fields.summary,
 			itemType: {
-				key: 'eventSeries',
+				key: 'event-series',
 				label: 'Event Series'
 			},
 			slug: item.fields.slug

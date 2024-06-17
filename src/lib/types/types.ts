@@ -44,6 +44,10 @@ export interface Legal {
 
 // Components
 
+export interface ContentfulEntry {
+	fields: any;
+}
+
 export interface Banner {
 	fields: {
 		title: string;
@@ -65,7 +69,7 @@ export interface LandingPageBanner {
 	};
 }
 
-export interface Event {
+export interface Event extends ContentfulEntry {
 	fields: {
 		programme: Programme;
 		title: string;
@@ -113,7 +117,7 @@ export interface CalendarEvent {
 	category: string;
 }
 
-export interface EventSeries {
+export interface EventSeries extends ContentfulEntry {
 	fields: {
 		featuredOnHomepage: boolean;
 		cutoffDate: string;
@@ -145,7 +149,7 @@ export interface EventSeries {
 	};
 }
 
-export interface FlagshipOutput {
+export interface FlagshipOutput extends ContentfulEntry {
 	fields: {
 		programme: Programme;
 		project: Project;
@@ -163,10 +167,10 @@ export interface FlagshipOutput {
 	};
 }
 
-export interface News {
+export interface News extends ContentfulEntry {
 	fields: {
 		programme: Programme;
-		secondProgramme: Programme;
+		secondProgramme?: Programme | null;
 		project: Project[];
 		dateFormat: string;
 		type: string;
@@ -177,20 +181,20 @@ export interface News {
 		image: Image;
 		imageCdn: ImageCdn[];
 		descriptionRich: string;
-		source: string;
-		sourceUrl: string;
+		source?: string | null;
+		sourceUrl?: string | null;
 		publication: Publication;
 		publicationReferenceTMG: Publication;
-		externalPublicationThumbnail: Image;
-		externalPublicationUrl: string;
-		video: Video;
+		externalPublicationThumbnail: Image | null;
+		externalPublicationUrl: string | null;
+		video: Video | null;
 		relatedNews: News[];
 		relatedPublications: Publication[];
 		slug: string;
 	};
 }
 
-export interface Job {
+export interface Job extends ContentfulEntry {
 	fields: {
 		applicationFile?: {
 			fields: {
@@ -210,7 +214,7 @@ export interface Job {
 	};
 }
 
-export interface Newsletter {
+export interface Newsletter extends ContentfulEntry {
 	fields: {
 		number: number;
 		date: string;
@@ -221,7 +225,7 @@ export interface Newsletter {
 	};
 }
 
-export interface Team {
+export interface Team extends ContentfulEntry {
 	fields: {
 		name: string;
 		position: string;
@@ -235,7 +239,7 @@ export interface Team {
 	};
 }
 
-export interface Publication {
+export interface Publication extends ContentfulEntry {
 	fields: {
 		category: string;
 		programme: Programme;
@@ -247,6 +251,7 @@ export interface Publication {
 		language: string;
 		summary: string;
 		description: string;
+		automatedNewsEntry: string;
 		thumbnail: Image;
 		thumbnailCdn: ImageCdn[];
 		pdf: MediaFile;
@@ -258,7 +263,7 @@ export interface Publication {
 	};
 }
 
-export interface Project {
+export interface Project extends ContentfulEntry {
 	fields: {
 		name: string;
 		summary: string;
@@ -281,7 +286,7 @@ export interface Project {
 	};
 }
 
-export interface Partner {
+export interface Partner extends ContentfulEntry {
 	fields: {
 		partnerOrFunder: string;
 		name: string;
@@ -291,7 +296,7 @@ export interface Partner {
 	};
 }
 
-export interface Programme {
+export interface Programme extends ContentfulEntry {
 	fields: {
 		title: string;
 		subtitle: string;
@@ -310,7 +315,7 @@ export interface Programme {
 	};
 }
 
-export interface PublicationFeature {
+export interface PublicationFeature extends ContentfulEntry {
 	fields: {
 		featuredOnHomepage: boolean;
 		cutoffDate: string;
@@ -336,7 +341,7 @@ export interface PublicationFeature {
 	};
 }
 
-export interface Speaker {
+export interface Speaker extends ContentfulEntry {
 	fields: {
 		name: string;
 		position: string;
@@ -351,7 +356,7 @@ export interface Speaker {
 	};
 }
 
-export interface Topic {
+export interface Topic extends ContentfulEntry {
 	fields: {
 		title: string;
 		summary: string;
@@ -365,11 +370,12 @@ export interface Topic {
 	};
 }
 
-export interface Video {
+export interface Video extends ContentfulEntry {
 	fields: {
 		title: string;
 		date: string;
 		description: string;
+		automatedNewsEntry: string;
 		summary: string;
 		url: string;
 		videoId: string;
@@ -378,6 +384,7 @@ export interface Video {
 		programmes: Programme[];
 		projects: Project[];
 		eventSeries: EventSeries[];
+		slug: string;
 	};
 }
 
@@ -421,9 +428,9 @@ export interface SearchItem {
 	slug?: string;
 	type?: string;
 	date?: string;
-	link?: string;
+	link?: string | null;
 	itemType: {
-		key: 'news' | 'events' | 'publications' | 'publicationFeatures' | 'eventSeries' | 'videos';
+		key: 'news' | 'events' | 'publications' | 'publication-feature' | 'event-series' | 'videos';
 		label: 'News' | 'Events' | 'Publications' | 'Publication Features' | 'Event Series' | 'Video';
 	};
 }

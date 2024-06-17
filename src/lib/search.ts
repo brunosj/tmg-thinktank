@@ -32,7 +32,7 @@ export function searchPostsIndex(searchTerm: string) {
 				link
 			};
 		})
-		.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+		.sort((a, b) => new Date(b.date ?? '').getTime() - new Date(a.date ?? '').getTime());
 }
 
 function replaceTextWithMarker(text: string, match: string) {

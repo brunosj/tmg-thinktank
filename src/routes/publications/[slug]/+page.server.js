@@ -1,5 +1,5 @@
-import { SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN } from '$env/static/private';
 import { fetchContentfulData } from '$lib/contentfulClient';
+import { transformPublicationToNews } from '$utils/utils';
 
 export const config = {
 	isr: {
@@ -11,7 +11,13 @@ export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const entries = await fetchContentfulData('news');
+		const publicationEntries = await fetchContentfulData('publications');
+		const publicationNewsItems = publicationEntries.filter((p) => p.fields.automatedNewsEntry);
+		const transformedPublicationNewsItems = publicationNewsItems.map(transformPublicationToNews);
+
+		let entries = await fetchContentfulData('news');
+		entries = [...entries, ...transformedPublicationNewsItems];
+
 		const item = entries.find((p) => p.fields.slug === slug);
 
 		if (item) {
