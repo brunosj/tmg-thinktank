@@ -1,10 +1,12 @@
 <script lang="ts">
-	export let slides: (News | Event)[];
+	export let slides: (Event | News | PublicationFeature)[];
+	export let isPublicationFeatures = false;
 
-	import type { News, Event } from '$lib/types/types';
+	import type { News, Event, PublicationFeature } from '$lib/types/types';
 	import type { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel';
 	import emblaCarouselSvelte from 'embla-carousel-svelte';
 	import FeaturedSlideV2 from './FeaturedSlideV2.svelte';
+	import PublicationFeatureSlide from './PublicationFeatureSlide.svelte';
 	import PrevButton from './PrevButton.svelte';
 	import NextButton from './NextButton.svelte';
 
@@ -46,6 +48,12 @@
 		}
 	};
 
+	function isPublicationFeature(
+		slide: Event | News | PublicationFeature
+	): slide is PublicationFeature {
+		return (slide as PublicationFeature).fields.featuredOnHomepage !== undefined;
+	}
+
 	const slidesQty = slides.length;
 </script>
 
@@ -58,7 +66,11 @@
 		<ul class="embla__container">
 			{#each slides as slide, i}
 				<li class="news__embla__slide">
-					<FeaturedSlideV2 item={slide} {i} {slidesQty} />
+					{#if isPublicationFeature(slide)}
+						<PublicationFeatureSlide item={slide} {i} {slidesQty} />
+					{:else if !isPublicationFeature(slide)}
+						<FeaturedSlideV2 item={slide} {i} {slidesQty} />
+					{/if}
 				</li>
 			{/each}
 		</ul>

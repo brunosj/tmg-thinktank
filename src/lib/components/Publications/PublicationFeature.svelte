@@ -5,38 +5,31 @@
 </script>
 
 <section>
-	<div class="flex flex-col gap-12 py-10">
+	<div class="grid-auto-rows grid gap-6 overflow-hidden text-center">
 		{#each items as item (item.fields.slug)}
 			{@const image =
 				item.fields.imageCdn?.length > 0
 					? item.fields.imageCdn[0].secure_url
 					: item.fields.image.fields.file.url}
-			<a href={`/publication-feature/${item.fields.slug}`}>
-				<div class="group h-full gap-12 border pb-5 lg:flex lg:pb-0">
-					<div
-						class="mt-auto w-full opacity-100 transition duration-200 ease-in-out group-hover:opacity-90 lg:w-1/3"
-					>
-						<img
-							loading="lazy"
-							src={image}
-							alt={item.fields.title}
-							class=" h-[25vh] w-full object-cover"
-						/>
+			<a href={`/publication-feature/${item.fields.slug}`} class="w-1/2">
+				<div class="relate">
+					<img
+						loading="lazy"
+						src={image}
+						class="-z-10 h-48 w-full object-cover"
+						alt="Programme Banner"
+					/>
+				</div>
+				<div
+					class=" flex h-full flex-col items-center space-y-2 bg-white p-8 duration-300 group-hover:bg-green-variation"
+				>
+					<div class="text-base font-semibold leading-6 text-gray-500">
+						{item.fields.title}
 					</div>
-
-					<div class="my-auto p-4">
-						<h1
-							class="font pt-3 text-xl font-bold leading-tight text-black duration-200 ease-in-out group-hover:text-green-normal lg:text-3xl"
-						>
-							{item.fields.title}
-						</h1>
-						<div class="flex pt-4">
-							<div
-								class="text-md font-light text-black duration-200 ease-in-out group-hover:text-black"
-							>
-								{item.fields.summary}
-							</div>
-						</div>
+					<div
+						class="text-2xl font-semibold leading-none tracking-tight duration-300 group-hover:opacity-70"
+					>
+						{item.fields.title}
 					</div>
 				</div>
 			</a>

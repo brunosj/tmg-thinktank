@@ -15,18 +15,15 @@
 				? item.fields.thumbnailCdn[0].secure_url
 				: item.fields.thumbnail.fields.file.url}
 		{#if item.fields.pdf}
-			<a href={item.fields.pdf.fields.file.url} target="_blank">
-				<div class="group grid grid-cols-1 pb-6 lg:grid-cols-4">
+			<a href={item.fields.pdf.fields.file.url} target="_blank" class="group">
+				<div
+					class="grid grid-cols-1 rounded-lg bg-green-variation p-3 duration-300 group-hover:bg-white lg:grid-cols-4"
+				>
 					{#if image}
 						<div
-							class="group:hover:opacity-80 w-1/3 rounded-full px-2 pb-5 transition duration-300 ease-in-out lg:w-full lg:pb-2"
+							class="w-1/3 rounded-full px-2 pb-5 transition duration-300 ease-in-out lg:w-full lg:pb-2"
 						>
-							<img
-								loading="lazy"
-								src={image}
-								alt={item.fields.title}
-								class="duration-300 hover:opacity-80"
-							/>
+							<img loading="lazy" src={image} alt={item.fields.title} />
 						</div>
 					{/if}
 					<div
@@ -35,7 +32,7 @@
 						<p class="items-center text-sm font-semibold text-green-normal">
 							{item.fields.category}
 						</p>
-						<h4 class="group:hover:text-green-normal font-bold text-black">
+						<h4 class="font-bold text-black duration-300">
 							{item.fields.title}
 						</h4>
 

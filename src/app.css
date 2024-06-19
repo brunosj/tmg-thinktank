@@ -37,7 +37,7 @@
 }
 
 body {
-	@apply overflow-x-hidden bg-white  font-inter leading-relaxed text-gray-800;
+	@apply overflow-x-hidden bg-white font-inter leading-relaxed text-gray-800;
 }
 
 h1 {
@@ -45,15 +45,15 @@ h1 {
 }
 
 h2 {
-	@apply text-xl font-semibold leading-tight  tracking-tight lg:text-4xl;
+	@apply text-xl font-semibold leading-tight tracking-tight lg:text-4xl;
 }
 
 h3 {
-	@apply text-lg font-semibold leading-snug  tracking-tight lg:text-xl;
+	@apply text-lg font-semibold leading-snug tracking-tight lg:text-xl;
 }
 
 h4 {
-	@apply text-lg  leading-snug  tracking-tight lg:text-xl;
+	@apply text-base leading-snug tracking-tight lg:text-lg;
 }
 
 h2 {
@@ -68,7 +68,7 @@ p {
 } */
 
 .container {
-	@apply mx-auto  max-w-7xl sm:px-6 lg:px-8;
+	@apply mx-auto max-w-7xl sm:px-6 lg:px-8;
 }
 
 .sectionPy {
@@ -139,7 +139,7 @@ h2.fromRight:hover:after {
 }
 
 .richText h1 {
-	@apply py-6 text-xl font-semibold  leading-tight lg:text-5xl;
+	@apply py-6 text-xl font-semibold leading-tight lg:text-5xl;
 }
 
 .richText h2 {
@@ -171,7 +171,7 @@ h2.fromRight:hover:after {
 } */
 
 .richText ul {
-	@apply list-disc  pl-6;
+	@apply list-disc pl-6;
 }
 
 mark {
