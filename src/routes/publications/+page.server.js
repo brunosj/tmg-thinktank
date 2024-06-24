@@ -7,11 +7,13 @@ export const config = {
 };
 
 export async function load() {
-	let entries = [];
 	try {
-		entries = await fetchContentfulData('publications');
+		const entries = await fetchContentfulData('publications');
+		const features = await fetchContentfulData('publicationFeature');
+
 		return {
-			entries
+			entries,
+			features
 		};
 	} catch (error) {
 		console.error('Error fetching data:', error);

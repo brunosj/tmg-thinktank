@@ -60,7 +60,7 @@
 
 		<div class="container w-full pt-6 lg:w-3/4 lg:pt-12">
 			<div class="richText">
-				{@html renderRichText(item.fields.automatedNewsEntry)}
+				{item.fields.summary}
 			</div>
 
 			<section class="flex w-full pt-3 lg:pt-6">
