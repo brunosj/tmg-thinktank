@@ -47,8 +47,12 @@
 
 	$: {
 		news = news
-			.filter((news) => {
-				return news.fields.project?.some((item) => item.fields?.name === project.fields?.name);
+			.filter((newsItem) => {
+				if (!newsItem.fields) return false;
+				const hasMatchingProject = newsItem.fields?.project?.some(
+					(item) => item.fields?.name === project.fields?.name
+				);
+				return hasMatchingProject;
 			})
 			.sort((a, b) => {
 				const dateA = new Date(a.fields.dateFormat).getTime();
