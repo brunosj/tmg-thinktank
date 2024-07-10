@@ -114,7 +114,7 @@
 		</button>
 
 		{#if new Date(item.fields.date) >= new Date() && item.fields.eventUrl}
-			<div class="">
+			<div class="pt-3">
 				<Button to={ensureHttps(item.fields.eventUrl)} colors="green">Register here</Button>
 			</div>
 		{/if}
