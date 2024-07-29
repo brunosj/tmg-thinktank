@@ -1,6 +1,5 @@
 <script lang="ts">
 	export let slides: (Event | News | PublicationFeature)[];
-	export let isPublicationFeatures = false;
 
 	import type { News, Event, PublicationFeature } from '$lib/types/types';
 	import type { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel';

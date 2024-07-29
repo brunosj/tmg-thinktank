@@ -1,4 +1,7 @@
 <script lang="ts">
+	import type { CalendarEvent } from '$lib/types/types';
+
+	export let items: CalendarEvent[];
 	export let currentMonth: Date;
 	export let monthChange: (event: CustomEvent<string>) => void;
 	export let toggleView: () => void;
@@ -10,9 +13,16 @@
 	let selectedMonth: string;
 
 	onMount(() => {
-		const currentDate = new Date();
+		if (items.length > 0) {
+			const earliestEvent = items.reduce((earliest, event) => {
+				return event.start < earliest.start ? event : earliest;
+			}, items[0]);
 
-		currentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+			currentMonth = new Date(earliestEvent.start.getFullYear(), earliestEvent.start.getMonth(), 1);
+		} else {
+			const currentDate = new Date();
+			currentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+		}
 
 		const monthsInPast = 3;
 		const monthsInFuture = 6;

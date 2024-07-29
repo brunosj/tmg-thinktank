@@ -40,7 +40,7 @@ export async function listContentTypes() {
 	}
 }
 
-listContentTypes();
+// listContentTypes();
 
 export async function getEntryBySlug<T extends ContentfulEntry>(
 	slug: string,

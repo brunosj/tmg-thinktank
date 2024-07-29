@@ -143,7 +143,7 @@
 			{/if}
 		</div>
 
-		{#if project.fields.team}
+		{#if project.fields.team.length > 0}
 			<div class="col-span-1 col-start-1 ml-0 lg:col-span-3 lg:col-start-7 lg:ml-20">
 				<div class="bg-green-variation pb-5">
 					<div class="px-10 py-6 lg:py-12 lg:pb-10">

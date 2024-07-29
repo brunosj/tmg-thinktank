@@ -90,7 +90,7 @@
 			</div>
 			<ul class="space-y-3 py-3 lg:space-y-6 lg:py-6">
 				{#each itemsByDay.get(day) as evt}
-					<li class="grid rounded-md p-2 lg:bg-green-variation lg:p-6">
+					<li class={` ${bgColorClass(evt.type)} grid rounded-md bg-opacity-20 p-2 lg:p-6`}>
 						<div class="grid-cols-5 gap-6 lg:grid lg:gap-12">
 							{#if evt.end && isSameDay(evt.start, evt.end)}
 								<div

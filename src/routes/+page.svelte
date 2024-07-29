@@ -9,7 +9,8 @@
 		Event,
 		News,
 		PublicationFeature,
-		EventSeries
+		EventSeries,
+		BlogPost
 	} from '$lib/types/types';
 	import HeroV2 from '$components/Hero/HeroV2.svelte';
 	import Hero from '$components/Hero/Hero.svelte';
@@ -31,10 +32,20 @@
 		news: News[];
 		publicationFeatures: PublicationFeature[];
 		eventSeries: EventSeries[];
+		blogPosts: BlogPost[];
 	};
 
 	let landingPage = data.landingPage[0];
-	let { programmes, newsletter, partners, events, news, publicationFeatures, eventSeries } = data;
+	let {
+		programmes,
+		newsletter,
+		partners,
+		events,
+		news,
+		publicationFeatures,
+		eventSeries,
+		blogPosts
+	} = data;
 </script>
 
 <Hero hero={landingPage} />

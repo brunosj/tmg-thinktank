@@ -12,7 +12,7 @@ export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const entries = await fetchContentfulData('news');
+		const entries = await fetchContentfulData('blogPost');
 		const item = entries.find((p) => p.fields.slug === slug);
 
 		if (item) {

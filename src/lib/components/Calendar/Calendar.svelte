@@ -73,7 +73,13 @@
 	};
 </script>
 
-<CalendarHeader bind:currentMonth monthChange={handleMonthChange} {toggleView} bind:isListView />
+<CalendarHeader
+	bind:currentMonth
+	monthChange={handleMonthChange}
+	{toggleView}
+	bind:isListView
+	{items}
+/>
 <EventLegend />
 {#if isListView}
 	<ItemList {currentMonth} {items} />

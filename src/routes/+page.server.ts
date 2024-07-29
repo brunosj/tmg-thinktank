@@ -1,6 +1,6 @@
 import { fetchContentfulData } from '$lib/contentfulClient';
 import { slugify } from '$utils/utils.js';
-import type { Event, News } from '$lib/types/types';
+import type { Event, News, BlogPost } from '$lib/types/types';
 
 export const config = {
 	isr: {
@@ -17,6 +17,7 @@ export async function load() {
 		const newsletter = await fetchContentfulData('newsletter');
 		const partners = await fetchContentfulData('partners');
 		const events = await fetchContentfulData('event');
+		const blogPosts = await fetchContentfulData('blogPost');
 
 		const upcomingEvents = events
 			.filter((event: Event) => {
@@ -31,9 +32,8 @@ export async function load() {
 			.slice(0, 4);
 
 		const news = await fetchContentfulData('news');
-		const latestBlog = news
-			.filter((blog: News) => slugify(blog.fields.type) === 'blog-post')
-			.sort((a: News, b: News) => {
+		const latestBlog = blogPosts
+			.sort((a: BlogPost, b: BlogPost) => {
 				const dateA = new Date(a.fields.dateFormat);
 				const dateB = new Date(b.fields.dateFormat);
 				return dateB.getTime() - dateA.getTime();

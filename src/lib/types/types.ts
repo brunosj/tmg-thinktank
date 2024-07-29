@@ -167,6 +167,33 @@ export interface FlagshipOutput extends ContentfulEntry {
 	};
 }
 
+export interface BlogPost extends ContentfulEntry {
+	fields: {
+		programme: Programme;
+		secondProgramme?: Programme | null;
+		project: Project[];
+		dateFormat: string;
+		type: string;
+		author: string;
+		authorTmg: Team[];
+		title: string;
+		summary: string;
+		image: Image;
+		imageCdn: ImageCdn[];
+		descriptionRich: string;
+		source?: string | null;
+		sourceUrl?: string | null;
+		publication: Publication;
+		publicationReferenceTMG: Publication;
+		externalPublicationThumbnail: Image | null;
+		externalPublicationUrl: string | null;
+		video: Video | null;
+		relatedNews: News[];
+		relatedPublications: Publication[];
+		slug: string;
+	};
+}
+
 export interface News extends ContentfulEntry {
 	fields: {
 		programme: Programme;

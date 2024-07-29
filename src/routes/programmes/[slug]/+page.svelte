@@ -12,13 +12,14 @@
 	import EventListing from '$components/Events/EventListing.svelte';
 	import ButtonLoadMore from '$components/UI/ButtonLoadMore.svelte';
 	import CarouselV2 from '$components/Carousel/CarouselV2.svelte';
-	import type { Programme, Event, Publication, News, Video } from '$lib/types/types';
+	import type { Programme, Event, Publication, News, Video, BlogPost } from '$lib/types/types';
 
 	let programme: Programme;
 	let events: Event[] = [];
 	let publications: Publication[] = [];
 	let news: News[] = [];
 	let videos: Video[] = [];
+	let blogPosts: BlogPost[] = [];
 
 	type Page = {
 		item: Programme;

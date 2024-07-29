@@ -44,6 +44,9 @@ importers:
       flexsearch:
         specifier: ^0.7.43
         version: 0.7.43
+      imurmurhash:
+        specifier: ^0.1.4
+        version: 0.1.4
       prettier-plugin-tailwindcss:
         specifier: ^0.6.5
         version: 0.6.5(prettier-plugin-svelte@3.2.4(prettier@3.3.2)(svelte@4.2.18))(prettier@3.3.2)
