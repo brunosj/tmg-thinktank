@@ -8,7 +8,7 @@ export const config = {
 
 export async function load() {
 	try {
-		const news = await fetchContentfulData('news');
+		const news = await fetchContentfulData('blogPost');
 		return {
 			news
 		};
