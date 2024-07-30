@@ -134,6 +134,8 @@
 	{/if}
 
 	<div class="container pt-6 lg:pt-8">
-		<ButtonArrow to="/team" color="#F4F6F" textColor="#67797B">Team</ButtonArrow>
+		<ButtonArrow to="/team" color="#F4F6F" textColor="#67797B" arrowDirection="left"
+			>Team</ButtonArrow
+		>
 	</div>
 </article>

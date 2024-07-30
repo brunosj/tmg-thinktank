@@ -1,7 +1,11 @@
 export const prerender = true;
 
 import { fetchContentfulData } from '$lib/contentfulClient';
-import { transformPublicationToNews, transformVideoToNews } from '$utils/utils';
+import {
+	transformPublicationToNews,
+	transformVideoToNews,
+	transformBlogPostToNews
+} from '$utils/utils';
 
 export async function entries() {
 	const entries = await fetchContentfulData('program');
@@ -29,8 +33,16 @@ export async function load({ params }) {
 		const publicationNewsItems = publications.filter((p) => p.fields.automatedNewsEntry);
 		const transformedPublicationNewsItems = publicationNewsItems.map(transformPublicationToNews);
 
+		const blogPosts = await fetchContentfulData('blogPost');
+		const transformedBlogPosts = blogPosts?.map(transformBlogPostToNews);
+
 		let news = await fetchContentfulData('news');
-		news = [...news, ...transformedPublicationNewsItems, ...transformedVideoNewsItems];
+		news = [
+			...news,
+			...transformedPublicationNewsItems,
+			...transformedVideoNewsItems,
+			...transformedBlogPosts
+		];
 
 		if (item) {
 			return { item, events, news, videos, publications };

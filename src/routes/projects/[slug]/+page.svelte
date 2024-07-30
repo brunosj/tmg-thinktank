@@ -48,9 +48,9 @@
 	$: {
 		news = news
 			.filter((newsItem) => {
-				if (!newsItem.fields) return false;
-				const hasMatchingProject = newsItem.fields?.project?.some(
-					(item) => item.fields?.name === project.fields?.name
+				if (!newsItem?.fields) return false;
+				const hasMatchingProject = newsItem.fields.project?.some(
+					(item) => item?.fields?.name === project?.fields?.name
 				);
 				return hasMatchingProject;
 			})

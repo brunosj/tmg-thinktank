@@ -31,7 +31,6 @@ export async function load() {
 			})
 			.slice(0, 4);
 
-		const news = await fetchContentfulData('news');
 		const latestBlog = blogPosts
 			.sort((a: BlogPost, b: BlogPost) => {
 				const dateA = new Date(a.fields.dateFormat);

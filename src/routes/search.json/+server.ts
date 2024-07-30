@@ -8,7 +8,8 @@ import type {
 	Event,
 	PublicationFeature,
 	EventSeries,
-	Video
+	Video,
+	BlogPost
 } from '$lib/types/types';
 
 export const prerender = true;
@@ -21,6 +22,7 @@ export async function GET() {
 			await fetchContentfulData('publicationFeature');
 		const eventSeriesData: EventSeries[] = await fetchContentfulData('unfssCop26');
 		const videosData: Video[] = await fetchContentfulData('video');
+		const blogPostsData: BlogPost[] = await fetchContentfulData('blogPost');
 
 		const publicationNewsItems = publicationsData.filter((p) => p.fields.automatedNewsEntry);
 		const transformedPublicationNewsItems = publicationNewsItems.map(transformPublicationToNews);
@@ -37,6 +39,18 @@ export async function GET() {
 				label: 'News'
 			},
 			type: item.fields.type,
+			date: item.fields.dateFormat
+		}));
+
+		const blogPosts = blogPostsData.map((item) => ({
+			title: item.fields.title,
+			summary: item.fields.summary,
+			slug: item.fields.slug,
+			itemType: {
+				key: 'blogPost',
+				label: 'Blog Post'
+			},
+			type: '',
 			date: item.fields.dateFormat
 		}));
 
@@ -96,6 +110,7 @@ export async function GET() {
 
 		const combinedData: SearchItem[] = [
 			...news,
+			...blogPosts,
 			...events,
 			...publications,
 			...publicationFeatures,

@@ -23,7 +23,7 @@
 		} else if (item.fields.type === 'Conference') {
 			itemPrefix = 'events';
 		} else {
-			itemPrefix = 'news';
+			itemPrefix = 'blog';
 		}
 	}
 	$: image =
@@ -65,7 +65,7 @@
 		<div class="space-y-6 p-8 lg:p-10">
 			<div class=" text-xs font-bold lg:text-sm">
 				<span class="rounded-lg bg-gray-900 px-3 py-1.5 duration-200 ease-in-out">
-					{item.fields.type}
+					{item.fields.type || 'Blog Post'}
 				</span>
 			</div>
 

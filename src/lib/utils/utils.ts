@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
-import type { CalendarEvent, Event, Publication, Video } from '$lib/types/types';
+import type { BlogPost, CalendarEvent, Event, Publication, Video } from '$lib/types/types';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -264,7 +264,7 @@ export function transformPublicationToNews(publication: Publication) {
 			secondProgramme: null,
 			project: [publication.fields.project],
 			dateFormat: publication.fields.publicationDate,
-			type: 'Publication', // or any default type
+			type: 'Publication',
 			author: publication.fields.author,
 			authorTmg: publication.fields.authorTmg,
 			title: publication.fields.title,
@@ -282,6 +282,30 @@ export function transformPublicationToNews(publication: Publication) {
 			relatedNews: [],
 			relatedPublications: [],
 			slug: publication.fields.slug
+		}
+	};
+}
+
+export function transformBlogPostToNews(blogPost: BlogPost) {
+	return {
+		fields: {
+			programme: blogPost.fields.programme,
+			secondProgramme: blogPost.fields.secondProgramme,
+			project: [blogPost.fields.project],
+			dateFormat: blogPost.fields.dateFormat,
+			type: 'Blog Post',
+			author: blogPost.fields.author,
+			authorTmg: blogPost.fields.authorTmg,
+			title: blogPost.fields.title,
+			summary: blogPost.fields.summary,
+			image: blogPost.fields.image,
+			imageCdn: blogPost.fields.imageCdn,
+			descriptionRich: blogPost.fields.descriptionRich,
+			source: blogPost.fields.source,
+			sourceUrl: blogPost.fields.sourceUrl,
+			relatedNews: blogPost.fields.relatedNews,
+			relatedPublications: blogPost.fields.relatedPublications,
+			slug: blogPost.fields.slug
 		}
 	};
 }

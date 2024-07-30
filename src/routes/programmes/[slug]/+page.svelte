@@ -19,7 +19,6 @@
 	let publications: Publication[] = [];
 	let news: News[] = [];
 	let videos: Video[] = [];
-	let blogPosts: BlogPost[] = [];
 
 	type Page = {
 		item: Programme;

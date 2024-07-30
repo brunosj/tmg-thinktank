@@ -1,5 +1,9 @@
 import { fetchContentfulData } from '$lib/contentfulClient';
-import { transformPublicationToNews, transformVideoToNews } from '$utils/utils';
+import {
+	transformPublicationToNews,
+	transformVideoToNews,
+	transformBlogPostToNews
+} from '$utils/utils';
 
 export const config = {
 	isr: {
@@ -18,7 +22,15 @@ export async function load() {
 		const transformedVideoNewsItems = videoNewsItems?.map(transformVideoToNews);
 
 		let entries = await fetchContentfulData('news');
-		entries = [...entries, ...transformedPublicationNewsItems, ...transformedVideoNewsItems];
+
+		const blogPosts = await fetchContentfulData('blogPost');
+		const transformedBlogPosts = blogPosts?.map(transformBlogPostToNews);
+		entries = [
+			...entries,
+			...transformedBlogPosts,
+			...transformedPublicationNewsItems,
+			...transformedVideoNewsItems
+		];
 
 		return {
 			entries,

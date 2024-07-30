@@ -173,7 +173,6 @@ export interface BlogPost extends ContentfulEntry {
 		secondProgramme?: Programme | null;
 		project: Project[];
 		dateFormat: string;
-		type: string;
 		author: string;
 		authorTmg: Team[];
 		title: string;
@@ -183,11 +182,6 @@ export interface BlogPost extends ContentfulEntry {
 		descriptionRich: string;
 		source?: string | null;
 		sourceUrl?: string | null;
-		publication: Publication;
-		publicationReferenceTMG: Publication;
-		externalPublicationThumbnail: Image | null;
-		externalPublicationUrl: string | null;
-		video: Video | null;
 		relatedNews: News[];
 		relatedPublications: Publication[];
 		slug: string;
@@ -331,7 +325,7 @@ export interface Programme extends ContentfulEntry {
 		quote: string;
 		quoteAuthor: string;
 		description: string;
-		featuredItems: (News | Event)[];
+		featuredItems: (News | Event | BlogPost)[];
 		topics: Topic[];
 		slug: string;
 		flagshipOutput: FlagshipOutput;

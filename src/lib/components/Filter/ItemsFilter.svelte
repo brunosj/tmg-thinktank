@@ -6,7 +6,7 @@
 	export let allLabel = 'All Publications';
 
 	import { onMount } from 'svelte';
-	import type { News, Publication, Programme } from '$lib/types/types';
+	import type { News, Publication, Programme, BlogPost } from '$lib/types/types';
 	import { Disclosure, DisclosurePanel, DisclosureButton } from '@rgossiaux/svelte-headlessui';
 	import { MinusSmIcon, PlusSmIcon } from '@rgossiaux/svelte-heroicons/outline';
 	import { createEventDispatcher } from 'svelte';
@@ -21,7 +21,7 @@
 		initialize();
 	});
 
-	function getFilters(items: News[] | Publication[], field: string) {
+	function getFilters(items: News[] | Publication[] | BlogPost[], field: string) {
 		let filterItems = items.map((item) => {
 			return item.fields[field as keyof typeof item.fields];
 		});
