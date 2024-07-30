@@ -3,21 +3,19 @@
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import BlogListing from '$components/Blog/BlogListing.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
-	import type { News } from '$lib/types/types';
+	import type { BlogPost, News } from '$lib/types/types';
 
 	type Page = {
-		news: News[];
+		news: BlogPost[];
 	};
 
-	let items: News[];
+	let items: BlogPost[];
 
-	items = data.news
-		.filter((item) => item.fields.type === 'Blog Post')
-		.sort((a, b) => {
-			const dateA = new Date(a.fields.dateFormat).getTime();
-			const dateB = new Date(b.fields.dateFormat).getTime();
-			return dateB - dateA;
-		});
+	items = data.news.sort((a, b) => {
+		const dateA = new Date(a.fields.dateFormat).getTime();
+		const dateB = new Date(b.fields.dateFormat).getTime();
+		return dateB - dateA;
+	});
 </script>
 
 <SEO title="Blog" description="Index of all TMG blog posts" />
