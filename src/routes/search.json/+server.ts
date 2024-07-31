@@ -47,7 +47,7 @@ export async function GET() {
 			summary: item.fields.summary,
 			slug: item.fields.slug,
 			itemType: {
-				key: 'blogPost',
+				key: 'blog',
 				label: 'Blog Post'
 			},
 			type: '',

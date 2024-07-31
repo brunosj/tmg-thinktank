@@ -30,8 +30,10 @@
 
 	function getSingleItemPrefix(type: string) {
 		switch (type) {
-			case 'Blog Post':
-				return 'blog';
+			case 'Media Coverage':
+			case 'Press Release':
+			case 'News':
+				return 'news';
 			case 'Publication':
 				return 'publications';
 			case 'Workshop':
@@ -41,7 +43,7 @@
 			case 'Video':
 				return 'video';
 			default:
-				return 'news';
+				return 'blog';
 		}
 	}
 

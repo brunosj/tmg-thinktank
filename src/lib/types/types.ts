@@ -195,7 +195,7 @@ export interface News extends ContentfulEntry {
 		secondProgramme?: Programme | null;
 		project: Project[];
 		dateFormat: string;
-		type: string;
+		type: 'Media Coverage' | 'Press Release' | 'News' | 'Publication' | 'Video';
 		author: string;
 		authorTmg: Team[];
 		title: string;
