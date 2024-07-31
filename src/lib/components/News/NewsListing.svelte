@@ -42,7 +42,7 @@
 					<span
 						class="rounded-lg bg-gray-900 px-2 py-1 duration-200 ease-in-out group-hover:bg-green-normal"
 					>
-						{item.fields.type}
+						{item.fields.type || 'Blog Post'}
 					</span>
 				</div>
 

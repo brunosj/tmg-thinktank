@@ -1,4 +1,5 @@
 import { fetchContentfulData } from '$lib/contentfulClient';
+import type { Publication } from '$lib/types/types';
 
 export const config = {
 	isr: {
@@ -8,7 +9,14 @@ export const config = {
 
 export async function load() {
 	try {
-		const entries = await fetchContentfulData('publications');
+		let entries: Publication[] = await fetchContentfulData('publications');
+
+		entries = entries.sort((a, b) => {
+			const dateA = new Date(a.fields.publicationDate);
+			const dateB = new Date(b.fields.publicationDate);
+			return dateB.getTime() - dateA.getTime();
+		});
+
 		const features = await fetchContentfulData('publicationFeature');
 
 		return {

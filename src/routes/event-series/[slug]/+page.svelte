@@ -90,7 +90,7 @@
 		/>
 	{/if}
 
-	<section class="sectionPb container">
+	<section class="sectionPy container">
 		<div class="richText m-auto lg:w-3/4">
 			{#if item.fields.description}
 				{@html renderRichText(item.fields.description)}
@@ -175,7 +175,11 @@
 
 	{#if item.fields.relatedDocuments}
 		<section class="">
-			<Heading text="Publications & Articles" bgColor={item.fields.color2} textColor="#ffffff" />
+			<Heading
+				text="Publications & Articles"
+				bgColor={item.fields.color2}
+				textColor={item.fields.color1}
+			/>
 			<PublicationListing items={item.fields.relatedDocuments} />
 		</section>
 	{/if}

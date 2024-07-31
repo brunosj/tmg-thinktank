@@ -1,5 +1,6 @@
 import { fetchContentfulData } from '$lib/contentfulClient';
 import { transformPublicationToNews } from '$utils/utils';
+import type { News, Publication } from '$lib/types/types';
 
 export const config = {
 	isr: {
@@ -11,11 +12,11 @@ export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const publicationEntries = await fetchContentfulData('publications');
+		const publicationEntries: Publication[] = await fetchContentfulData('publications');
 		const publicationNewsItems = publicationEntries.filter((p) => p.fields.automatedNewsEntry);
 		const transformedPublicationNewsItems = publicationNewsItems.map(transformPublicationToNews);
 
-		let entries = await fetchContentfulData('news');
+		let entries: News[] = await fetchContentfulData('news');
 		entries = [...entries, ...transformedPublicationNewsItems];
 
 		const item = entries.find((p) => p.fields.slug === slug);

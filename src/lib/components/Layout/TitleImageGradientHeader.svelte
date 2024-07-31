@@ -34,7 +34,7 @@
 						{title}
 					</h2>
 					<p
-						class="m-auto mt-6 w-full text-lg lg:mt-12 lg:w-2/3 lg:text-2xl"
+						class="m-auto mt-6 w-full text-lg lg:w-2/3 lg:text-2xl"
 						transition:fly={{ y: 50, duration: 500, delay: 500, easing: cubicInOut }}
 					>
 						{subtitle}

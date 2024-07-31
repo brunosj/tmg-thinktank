@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let data: Page;
+
 	import SEO from '$components/SEO/SEO.svelte';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
@@ -58,7 +59,7 @@
 					class="container py-6"
 					transition:fade={{ duration: 500, delay: 500, easing: cubicInOut }}
 				>
-					<CarouselV2 slides={features} isPublicationFeatures={true} />
+					<CarouselV2 slides={features} />
 					<div class="lg:py-6">
 						<PublicationOutNow item={latestPublicationWithNewsEntry} />
 					</div>
