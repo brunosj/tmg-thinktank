@@ -5,7 +5,6 @@
 
 	import type { News, Event } from '$lib/types/types';
 	import { fly } from 'svelte/transition';
-	import { formatDateNews } from '$utils/utils';
 
 	let itemPrefix: string;
 

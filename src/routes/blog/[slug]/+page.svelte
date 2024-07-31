@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let data: Page;
 
-	import type { News } from '$lib/types/types';
+	import type { BlogPost } from '$lib/types/types';
 	import Button from '$components/UI/Button.svelte';
 	import BlogListing from '$components/Blog/BlogListing.svelte';
 	import VideoListing from '$components/Video/VideoListing.svelte';
@@ -12,18 +12,17 @@
 	import { ensureHttps } from '$utils/utils';
 
 	type Page = {
-		item: News;
-		entries: News[];
+		item: BlogPost;
+		entries: BlogPost[];
 	};
 
 	$: item = data.item;
 	$: entries = data.entries;
 
-	let moreBlogItems: News[];
+	let moreBlogItems: BlogPost[];
 
 	$: {
 		moreBlogItems = entries
-			.filter((item) => item.fields.type === 'Blog Post')
 			.sort((a, b) => {
 				return new Date(b.fields.dateFormat).getTime() - new Date(a.fields.dateFormat).getTime();
 			})
@@ -144,9 +143,7 @@
 				</p>
 			</div>
 			<div class="ml-auto py-3 lg:py-0">
-				<a href="/blog">
-					<Button colors="green">View All Blogs</Button>
-				</a>
+				<Button colors="green" to="/blog">View All Blogs</Button>
 			</div>
 		</div>
 	</div>

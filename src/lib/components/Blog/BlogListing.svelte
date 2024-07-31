@@ -1,7 +1,7 @@
 <script lang="ts">
-	export let items: News[];
+	export let items: BlogPost[];
 
-	import type { News } from '$lib/types/types';
+	import type { BlogPost } from '$lib/types/types';
 </script>
 
 <section>

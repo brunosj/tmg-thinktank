@@ -184,6 +184,7 @@ export interface BlogPost extends ContentfulEntry {
 		sourceUrl?: string | null;
 		relatedNews: News[];
 		relatedPublications: Publication[];
+		video: Video | null;
 		slug: string;
 	};
 }
