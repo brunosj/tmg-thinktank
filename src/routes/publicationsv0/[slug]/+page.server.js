@@ -3,7 +3,7 @@ import { transformPublicationToNews } from '$utils/utils';
 
 export const config = {
 	isr: {
-		expiration: 60
+		expiration: false
 	}
 };
 

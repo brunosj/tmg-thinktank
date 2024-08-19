@@ -3,7 +3,7 @@ import type { Publication } from '$lib/types/types';
 
 export const config = {
 	isr: {
-		expiration: 60
+		expiration: false
 	}
 };
 

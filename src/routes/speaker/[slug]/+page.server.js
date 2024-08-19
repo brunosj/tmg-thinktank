@@ -2,7 +2,7 @@ import { fetchContentfulData } from '$lib/contentfulClient';
 
 export const config = {
 	isr: {
-		expiration: 60
+		expiration: false
 	}
 };
 

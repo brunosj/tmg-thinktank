@@ -4,7 +4,7 @@ import type { News, Publication, BlogPost } from '$lib/types/types';
 
 export const config = {
 	isr: {
-		expiration: 60
+		expiration: false
 	}
 };
 
