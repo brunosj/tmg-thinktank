@@ -5,6 +5,7 @@
 	import type { News, LandingPage } from '$lib/types/types';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	import { formatDateNews } from '$utils/utils';
+	import Button from '$components/UI/Button.svelte';
 </script>
 
 <div class="sectionPy bg-white">
@@ -51,5 +52,8 @@
 				</li>
 			{/each}
 		</ul>
+		<div class="pt-6 text-right">
+			<Button to="/blog" colors="green">More articles</Button>
+		</div>
 	</div>
 </div>
