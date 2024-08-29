@@ -23,7 +23,7 @@
 				<div class="absolute inset-0 h-1/2 bg-green-variation" />
 				<div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<div class="mx-auto max-w-4xl">
-						<dl class="rounded-lg bg-white shadow-lg sm:grid sm:grid-cols-2">
+						<dl class="rounded-md bg-white shadow-lg sm:grid sm:grid-cols-2">
 							<div
 								class="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r"
 							>

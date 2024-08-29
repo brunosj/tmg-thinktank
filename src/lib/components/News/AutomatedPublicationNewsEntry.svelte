@@ -25,7 +25,7 @@
 			>
 				<div class="col-span-2 m-auto w-full space-y-6">
 					<div class="font-bold text-white">
-						<span class="rounded-lg bg-gray-900 px-2 py-1">{item.fields.category}</span>
+						<span class="rounded-md bg-gray-900 px-2 py-1">{item.fields.category}</span>
 					</div>
 					<h2 class="font-bold leading-tight text-green-normal">
 						{item.fields.title}
@@ -77,7 +77,7 @@
 					<h1 class="text-base font-light">
 						Originally published at <a
 							href={ensureHttps(item.fields.sourceUrl)}
-							class="font-semibold text-blue-800 hover:text-gray-700"
+							class="font-semibold text-blue-800 hover:text-black"
 							target="_blank">{item.fields.source}</a
 						>
 					</h1>

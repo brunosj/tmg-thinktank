@@ -72,7 +72,7 @@
 	<div class="gril-cols-1 container grid lg:grid-cols-4">
 		<div class="order-2 justify-between pr-0 leading-normal lg:order-1 lg:col-span-3 lg:pr-16">
 			<div class="">
-				<h2 class="font-semibold text-gray-700">
+				<h2 class="font-semibold text-black">
 					{item.fields.name}
 				</h2>
 				<h3 class="pb-4 font-bold text-green-normal">
@@ -80,7 +80,7 @@
 				</h3>
 
 				{#if item.fields.bio}
-					<p class="pb-4 text-base text-gray-700">
+					<p class="pb-4 text-base text-black">
 						{item.fields.bio}
 					</p>
 				{/if}

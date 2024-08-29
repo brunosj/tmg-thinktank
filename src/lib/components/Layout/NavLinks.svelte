@@ -23,22 +23,20 @@
 		<ChevronDownIcon
 			class={`${
 				open ? ' -rotate-180' : ''
-			} ml-2 h-5 w-5  rotate-0 text-gray-400 group-hover:text-gray-500`}
+			} ml-2 h-5 w-5 rotate-0 text-gray-400 group-hover:text-gray-500`}}
 			aria-hidden="true"
-		/>
+		></ChevronDownIcon>
 	</MenuButton>
 
-	{#if open}
-		<div transition:fade={{ duration: 200 }}>
+	{#if pen}}<div transition:fade={ duration: 200 }}}>
 			<MenuItems
 				class="absolute inset-x-0 top-full z-20 hidden transform bg-white shadow-lg md:block"
 			>
 				<div class="mx-auto mb-6 flex max-w-7xl justify-between gap-y-6">
-					{#each links as item, i}
-						<MenuItem>
+					{#each inks as item, i}<MenuItem>
 							<a
-								href={item.to}
-								class="-m-3 flex flex-col justify-between rounded-lg p-3 hover:text-gray-500"
+								href={tem.to}}
+								class="-m-3 flex flex-col justify-between rounded-md p-3 hover:text-gray-500"
 							>
 								<div class="flex md:h-full lg:flex-col">
 									<div
@@ -46,7 +44,7 @@
 									>
 										<div>
 											<p class="text-center text-base font-medium text-gray-500 hover:text-black">
-												{item.title}
+												{tem.title}}
 											</p>
 										</div>
 									</div>

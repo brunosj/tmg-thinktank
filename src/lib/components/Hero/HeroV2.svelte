@@ -46,7 +46,7 @@
 								TMG Think Tank for Sustainability
 							</h1>
 							<p
-								class="richText mt-6 text-sm leading-7 text-gray-700 lg:text-lg"
+								class="richText mt-6 text-sm leading-7 text-black lg:text-lg"
 								in:fly={{ x: 50, duration: 1000, delay: 750, easing: cubicInOut }}
 							>
 								{#if heroText}
@@ -61,7 +61,7 @@
 
 								<a
 									href="/publications"
-									class="text-sm font-semibold leading-6 text-gray-900 duration-300 hover:text-gray-700"
+									class="text-sm font-semibold leading-6 text-gray-900 duration-300 hover:text-black"
 									>View our publications <span aria-hidden="true">→</span></a
 								>
 							</div>

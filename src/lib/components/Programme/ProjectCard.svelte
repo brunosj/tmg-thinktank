@@ -12,7 +12,7 @@
 				: item.fields.thumbnail.fields.file.url}
 		<div class="group w-full pb-2 pr-0 lg:w-1/2 lg:pr-5">
 			<a href={`/projects/${item.fields.slug}`}>
-				<div class="flex h-full overflow-hidden rounded-lg border border-gray-300 bg-white">
+				<div class="flex h-full overflow-hidden rounded-md border border-gray-300 bg-white">
 					<div
 						class="item-center flex w-1/4 flex-shrink-0 border-r-2 opacity-90 transition duration-300 ease-in-out group-hover:opacity-100"
 					>

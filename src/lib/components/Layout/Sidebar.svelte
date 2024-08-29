@@ -43,7 +43,7 @@
 						<li class="list-none">
 							<SidebarDropdownWrapper
 								label={category.category}
-								class="group flex w-full items-center rounded-lg p-1 text-lg font-semibold text-green-normal  transition duration-75 hover:bg-green-variation lg:p-2 lg:text-2xl"
+								class="group flex w-full items-center rounded-md p-1 text-lg font-semibold text-green-normal  transition duration-75 hover:bg-green-variation lg:p-2 lg:text-2xl"
 								isOpen
 							>
 								<ul>
@@ -52,7 +52,7 @@
 											<SidebarDropdownItem
 												label={link.title}
 												href={link.to}
-												class="flex items-center rounded-lg p-1 pl-12 text-sm font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 lg:text-base"
+												class="flex items-center rounded-md p-1 pl-12 text-sm font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 lg:text-base"
 												on:click={toggleSidebar}
 											/>
 										</li>
@@ -64,7 +64,7 @@
 						<li>
 							<SidebarDropdownWrapper
 								label={category.category}
-								class="group flex w-full items-center rounded-lg p-1 text-lg font-semibold text-green-normal  transition duration-75 hover:bg-green-variation lg:p-2 lg:text-2xl"
+								class="group flex w-full items-center rounded-md p-1 text-lg font-semibold text-green-normal  transition duration-75 hover:bg-green-variation lg:p-2 lg:text-2xl"
 							>
 								<ul>
 									{#each category.links as link}
@@ -72,7 +72,7 @@
 											<SidebarDropdownItem
 												label={link.title}
 												href={link.to}
-												class="flex items-center rounded-lg p-1 pl-12 text-sm font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 lg:text-base"
+												class="flex items-center rounded-md p-1 pl-12 text-sm font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 lg:text-base"
 												on:click={() => (sidebarHidden = true)}
 											/>
 										</li>

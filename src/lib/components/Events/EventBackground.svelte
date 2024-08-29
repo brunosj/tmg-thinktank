@@ -7,7 +7,7 @@
 	import { renderRichText } from '$utils/utils';
 </script>
 
-<Disclosure let:open class="rounded-lg bg-green-variation">
+<Disclosure let:open class="rounded-md bg-green-variation">
 	<div>
 		<DisclosureButton class="group relative flex w-full items-center justify-between p-4 text-left">
 			<h3 class="">Background</h3>

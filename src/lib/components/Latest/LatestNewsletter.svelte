@@ -13,13 +13,13 @@
 		<p class="pt-2 lg:pt-0">
 			<a
 				href="https://bit.ly/33JpKMa"
-				class="font-semibold text-blue-800 hover:text-gray-700"
+				class="font-semibold text-blue-800 hover:text-black"
 				target="_blank"
 			>
 				Sign up
 			</a>
 			and read the previous editions
-			<a class="font-semibold text-blue-800 hover:text-gray-700" href="/newsletter"> here. </a>
+			<a class="font-semibold text-blue-800 hover:text-black" href="/newsletter"> here. </a>
 		</p>
 	</div>
 	<div class="mt-6 grid-cols-2 border lg:mt-12 lg:grid">

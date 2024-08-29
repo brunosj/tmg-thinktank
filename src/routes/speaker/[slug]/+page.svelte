@@ -58,7 +58,7 @@
 						</div>
 						{#if speaker.fields.organisationUrl}
 							<a href={ensureHttps(speaker.fields.organisationUrl)} target="_blank">
-								<div class="text-lg font-semibold italic text-blue-800 hover:text-gray-700">
+								<div class="text-lg font-semibold italic text-blue-800 hover:text-black">
 									{speaker.fields.organisation}
 								</div>
 							</a>
@@ -67,7 +67,7 @@
 				{/if}
 
 				{#if speaker.fields.bio}
-					<p class="richText py-4 text-base text-gray-700">
+					<p class="richText py-4 text-base text-black">
 						{speaker.fields.bio}
 					</p>
 				{/if}

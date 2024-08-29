@@ -23,13 +23,13 @@
 		</h1>
 		<div class="grid grid-cols-1 gap-y-3 py-6 lg:grid-cols-3">
 			<div
-				class="rounded-lg opacity-90 transition duration-300 ease-in-out group-hover:opacity-100"
+				class="rounded-md opacity-90 transition duration-300 ease-in-out group-hover:opacity-100"
 			>
 				<img
 					loading="lazy"
 					src={topic.fields.image.fields.file.url}
 					alt={topic.fields.title}
-					class="rounded-lg"
+					class="rounded-md"
 				/>
 			</div>
 			<div class="col-span-2 pl-0 md:pl-10">

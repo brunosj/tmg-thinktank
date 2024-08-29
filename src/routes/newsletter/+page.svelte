@@ -23,7 +23,7 @@
 				Sign up
 				<a
 					href="https://bit.ly/33JpKMa"
-					class="font-semibold text-blue-800 hover:text-gray-700"
+					class="font-semibold text-blue-800 hover:text-black"
 					target="_blank"
 				>
 					here

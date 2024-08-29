@@ -23,7 +23,7 @@
 					<div class="px-5 py-6">
 						<div class="group flex-col">
 							<div class="text-sm font-bold text-white lg:text-base">
-								<span class="rounded-lg bg-green-normal px-3 py-1 duration-200 ease-in-out">
+								<span class="rounded-md bg-green-normal px-3 py-1 duration-200 ease-in-out">
 									{latest.fields.programme.fields.title}
 								</span>
 							</div>
@@ -59,7 +59,7 @@
 						>
 							<div class="group flex-col">
 								<div class="text-xs font-bold text-white lg:text-base">
-									<span class="rounded-lg bg-green-normal px-3 py-1 duration-200 ease-in-out"
+									<span class="rounded-md bg-green-normal px-3 py-1 duration-200 ease-in-out"
 										>{item.fields.programme.fields.title}</span
 									>
 								</div>

@@ -16,19 +16,19 @@
 <section class="container relative">
 	{#if image}
 		<div class=" relative h-full overflow-hidden md:absolute md:left-0 md:h-full md:w-1/3 lg:w-2/3">
-			<div class="md:rounded-lg">
+			<div class="md:rounded-md">
 				<img
 					loading="lazy"
 					src={image}
 					alt={event.fields.title}
-					class="h-full w-full object-contain duration-300 md:rounded-lg"
+					class="h-full w-full object-contain duration-300 md:rounded-md"
 				/>
 			</div>
 		</div>
 	{/if}
 	<div class="relative mx-auto max-w-7xl py-0 md:py-24">
 		<div
-			class="space-y-6 bg-white p-6 text-white md:ml-auto md:w-2/3 md:rounded-lg lg:p-12"
+			class="space-y-6 bg-white p-6 text-white md:ml-auto md:w-2/3 md:rounded-md lg:p-12"
 			style="background-color: {bgColor}"
 		>
 			<p class="font-semibold leading-7 underline">Featured Event</p>

@@ -32,7 +32,7 @@
 						<div class="">
 							<a href={`/team/${item.fields.slug}`}>
 								<p
-									class="text-2xl font-semibold text-gray-700 transition duration-300 ease-in-out hover:text-green-normal"
+									class="text-2xl font-semibold text-black transition duration-300 ease-in-out hover:text-green-normal"
 								>
 									{item.fields.name}
 								</p>
@@ -40,7 +40,7 @@
 							<h1 class="pb-4 text-lg font-bold text-green-normal">{item.fields.position}</h1>
 
 							{#if item.fields.bio}
-								<p class="pb-4 text-base text-gray-700">
+								<p class="pb-4 text-base text-black">
 									{item.fields.bio}
 								</p>
 							{/if}

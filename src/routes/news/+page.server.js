@@ -27,7 +27,7 @@ export async function load() {
 		const transformedBlogPosts = blogPosts?.map(transformBlogPostToNews);
 		entries = [
 			...entries,
-			...transformedBlogPosts,
+			// ...transformedBlogPosts,
 			...transformedPublicationNewsItems,
 			...transformedVideoNewsItems
 		];

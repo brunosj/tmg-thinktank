@@ -113,7 +113,7 @@
 								<div class="ml-3 min-w-0 text-sm">
 									<label
 										for="{filterField}-{index}"
-										class="cursor-pointer select-none font-medium text-gray-700">{filter}</label
+										class="cursor-pointer select-none font-medium text-black">{filter}</label
 									>
 								</div>
 							</button>
@@ -165,7 +165,7 @@
 								<div class="ml-3 min-w-0 text-sm">
 									<label
 										for="programme-{index}"
-										class="cursor-pointer select-none font-medium text-gray-700">{programme}</label
+										class="cursor-pointer select-none font-medium text-black">{programme}</label
 									>
 								</div>
 							</button>

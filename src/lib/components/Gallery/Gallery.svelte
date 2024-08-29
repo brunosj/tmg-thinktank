@@ -11,7 +11,7 @@
 >
 	<svelte:fragment slot="thumbnail">
 		<ul
-			class="relative grid grid-cols-3 items-center justify-between gap-12 rounded-lg p-6 lg:border-4"
+			class="relative grid grid-cols-3 items-center justify-between gap-12 rounded-md p-6 lg:border-4"
 			style="border-color:{borderColor}"
 		>
 			{#each images as image, i}

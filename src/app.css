@@ -64,7 +64,7 @@ p {
 	@apply text-sm leading-normal lg:text-base;
 }
 /* a {
-	@apply font-semibold text-blue-800 duration-300 hover:text-gray-700;
+	@apply font-semibold text-blue-800 duration-300 hover:text-black;
 } */
 
 .container {
@@ -135,7 +135,7 @@ h2.fromRight:hover:after {
 }
 
 .richText a {
-	@apply font-semibold text-blue-800 duration-300 hover:text-gray-700;
+	@apply font-semibold text-blue-800 duration-300 hover:text-black;
 }
 
 .richText h1 {

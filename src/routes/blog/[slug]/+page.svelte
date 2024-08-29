@@ -47,7 +47,7 @@
 		<div class="relative z-0 bg-green-variation py-24 lg:pb-32 lg:pt-40">
 			<div class="container w-full space-y-6 last:pb-12 lg:w-2/3">
 				<div class="font-bold text-white">
-					<span class="rounded-lg bg-gray-900 px-2 py-1">Blog Post</span>
+					<span class="rounded-md bg-gray-900 px-2 py-1">Blog Post</span>
 				</div>
 				<h1 class="text-green-normal">
 					{item.fields.title}
@@ -128,7 +128,7 @@
 						Originally published at
 						<a
 							href={ensureHttps(item.fields.sourceUrl)}
-							class="font-semibold text-blue-800 hover:text-gray-700"
+							class="font-semibold text-blue-800 hover:text-black"
 							target="_blank"
 						>
 							{item.fields.source}

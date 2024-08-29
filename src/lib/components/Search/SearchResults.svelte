@@ -70,7 +70,7 @@
 			</div>
 			<button type="button" on:click={clearSearchTerm}>
 				<XIcon
-					class="h-8 w-8 rounded-lg bg-transparent p-1 text-green-normal duration-300 hover:bg-green-variation"
+					class="h-8 w-8 rounded-md bg-transparent p-1 text-green-normal duration-300 hover:bg-green-variation"
 				/>
 			</button>
 		</div>
@@ -98,7 +98,7 @@
 				<li class="">
 					<a
 						href={getItemUrl(result)}
-						class="group flex flex-col space-y-2 rounded-lg bg-white p-4 duration-300 hover:bg-green-variation"
+						class="group flex flex-col space-y-2 rounded-md bg-white p-4 duration-300 hover:bg-green-variation"
 						on:click={clearSearchTerm}
 						target={result.itemType.key === 'publications' ? '_blank' : '_self'}
 					>
@@ -107,7 +107,7 @@
 								<span class="text-gray-500">{formatDateNews(result.date)}</span>
 							{/if}
 							<span
-								class="relative z-10 rounded-lg bg-green-variation px-3 py-1.5 font-medium duration-300"
+								class="relative z-10 rounded-md bg-green-variation px-3 py-1.5 font-medium duration-300"
 							>
 								<span>
 									{result.itemType.label}

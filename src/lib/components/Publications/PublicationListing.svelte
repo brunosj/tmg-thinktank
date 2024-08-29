@@ -17,7 +17,7 @@
 		{#if item.fields.pdf}
 			<a href={item.fields.pdf.fields.file.url} target="_blank" class="group">
 				<div
-					class="grid grid-cols-1 rounded-lg bg-green-variation p-3 duration-300 group-hover:bg-white lg:grid-cols-4"
+					class="grid grid-cols-1 rounded-md bg-green-variation p-3 duration-300 group-hover:bg-white lg:grid-cols-4"
 				>
 					{#if image}
 						<div
@@ -36,19 +36,19 @@
 							{item.fields.title}
 						</h4>
 
-						<p class=" text-xs text-gray-700 sm:text-xs">
+						<p class=" text-xs text-black sm:text-xs">
 							{item.fields.summary}
 						</p>
 
 						{#if item.fields.author}
-							<p class="text-xs text-gray-700">
+							<p class="text-xs text-black">
 								Written by{' '}
 								<span class="font-semibold">
 									{item.fields.author}
 								</span>
 							</p>
 						{/if}
-						<p class="text-xs text-gray-700">
+						<p class="text-xs text-black">
 							Published on{' '}
 							<span class="font-semibold">
 								{formatDateNews(item.fields.publicationDate)}

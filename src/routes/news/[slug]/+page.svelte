@@ -33,7 +33,7 @@
 	<section class="mt-6 border-b border-green-normal lg:mt-12">
 		<div class="space-y-6 overflow-hidden">
 			<div class="font-bold text-white">
-				<span class="rounded-lg bg-gray-900 px-2 py-1">{item.fields.type}</span>
+				<span class="rounded-md bg-gray-900 px-2 py-1">{item.fields.type}</span>
 			</div>
 			<h2 class="font-bold leading-tight text-green-normal">
 				{item.fields.title}
@@ -92,7 +92,7 @@
 					<div class="pb-6">
 						Originally published at <a
 							href={item.fields.sourceUrl}
-							class="font-semibold text-blue-800 hover:text-gray-700"
+							class="font-semibold text-blue-800 hover:text-black"
 							target="_blank">{item.fields.source}</a
 						>
 					</div>

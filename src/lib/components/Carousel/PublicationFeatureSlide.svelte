@@ -47,7 +47,7 @@
 		{/if} -->
 		<div class="grid grid-rows-2 space-y-3 p-8 lg:p-10">
 			<!-- <div class=" text-xs font-bold lg:text-sm">
-					<span class="rounded-lg bg-gray-900 px-3 py-1.5 duration-200 ease-in-out">
+					<span class="rounded-md bg-gray-900 px-3 py-1.5 duration-200 ease-in-out">
 						{item.fields.title}
 						</span>
 						</div> -->

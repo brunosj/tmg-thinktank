@@ -7,7 +7,7 @@
 </script>
 
 {#each events as event, i}
-	<div class="rounded-lg bg-white p-4 duration-300 hover:bg-green-variation">
+	<div class="rounded-md bg-white p-4 duration-300 hover:bg-green-variation">
 		<a href={`/events/${event.fields.slug}`}>
 			<div class="group">
 				<div class="grid grid-cols-7 duration-200 ease-in-out">
@@ -48,7 +48,7 @@
 								<p class="text-sm font-semibold text-gray-500">{event.fields.type}</p>
 								<a
 									href={`/programmes/${event.fields.programme.fields.slug}`}
-									class="relative z-10 hidden rounded-lg bg-green-variation px-3 py-1.5 text-xs font-medium text-gray-600 duration-300 group-hover:bg-white lg:block"
+									class="relative z-10 hidden rounded-md bg-green-variation px-3 py-1.5 text-xs font-medium text-gray-600 duration-300 group-hover:bg-white lg:block"
 								>
 									{event.fields.programme.fields.title}
 								</a>

@@ -19,11 +19,11 @@
 
 <SEO title={item.fields.title} description={item.fields.summary} {image} />
 
-<div class="rounded-lg bg-white p-5">
+<div class="rounded-md bg-white p-5">
 	<div class="py-6 lg:py-12">
 		<div class="container w-full lg:w-3/4">
 			<div class="pb-6 text-xs font-bold lg:text-sm">
-				<span class="rounded-lg bg-green-normal px-3 py-1.5 text-white duration-200 ease-in-out">
+				<span class="rounded-md bg-green-normal px-3 py-1.5 text-white duration-200 ease-in-out">
 					Out Now!
 				</span>
 			</div>

@@ -12,10 +12,7 @@
 
 <section class="grid grid-cols-1 gap-5 py-4 lg:grid-cols-2 lg:py-8">
 	{#each events as event (event.fields.slug)}
-		<div
-			class="group scale-100 transform rounded-lg border-2 group-hover:scale-110"
-			style="border-color: {color1}"
-		>
+		<div class="group transform rounded-md border-2" style="border-color: {color1}">
 			<div style="background-color: {bgColor}">
 				<a href={`/events/${event.fields.slug}`}>
 					<div>
@@ -51,7 +48,7 @@
 								</div>
 							</div>
 							<div
-								class="transform text-white duration-300 group-hover:scale-105"
+								class="transform text-white duration-300 hover:rounded-md group-hover:scale-105"
 								style="background-color: {color1}"
 							>
 								<div class="group flex-col p-5 text-center">

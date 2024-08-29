@@ -22,16 +22,16 @@
 				<li>
 					<a
 						href={`/blog/${item.fields.slug}`}
-						class="group flex max-w-xl flex-col items-start justify-between rounded-lg bg-white p-4 duration-300 hover:bg-green-variation"
+						class="group flex max-w-xl flex-col items-start justify-between rounded-md bg-green-variation p-4 duration-300 hover:bg-opacity-50"
 					>
 						<div class="flex items-center gap-x-4 text-xs">
-							<span class="text-gray-500">{formatDateNews(item.fields.dateFormat)}</span>
 							<a
 								href={`/programmes/${item.fields.programme.fields.slug}`}
-								class="relative z-10 rounded-lg bg-green-variation px-3 py-1.5 font-medium text-gray-600 duration-300 group-hover:bg-white"
+								class="relative z-10 rounded-md bg-white px-3 py-1.5 font-medium text-gray-600 duration-300"
 							>
 								{item.fields.programme.fields.title}
 							</a>
+							<span class="text-gray-500">{formatDateNews(item.fields.dateFormat)}</span>
 						</div>
 						<div class=" relative">
 							<h3 class="mt-3 text-lg font-semibold leading-6 duration-300">

@@ -16,7 +16,7 @@
 	<div class="container grid grid-cols-1 items-center py-10 lg:grid-cols-3">
 		<div class="col-span-2 pb-10 pt-5 lg:pb-0 lg:pt-0">
 			<div class="pb-5">
-				<p class="rounded-lg text-lg font-semibold leading-tight text-white lg:text-4xl">
+				<p class="rounded-md text-lg font-semibold leading-tight text-white lg:text-4xl">
 					{landingPage.fields.newsletterBanner.fields.title}
 				</p>
 			</div>
