@@ -23,30 +23,29 @@
 				<li>
 					<a
 						href={`/blog/${item.fields.slug}`}
-						class="group flex max-w-xl flex-col items-start justify-between rounded-md bg-green-variation p-4 duration-300 hover:bg-opacity-50"
+						class="group flex max-w-xl flex-col items-start justify-between rounded-md bg-white duration-300 hover:bg-green-variation"
 					>
-						<div class="flex items-center gap-x-4 text-xs">
-							<a
-								href={`/programmes/${item.fields.programme.fields.slug}`}
-								class="relative z-10 rounded-md bg-white px-3 py-1.5 font-medium text-gray-600 duration-300"
-							>
-								{item.fields.programme.fields.title}
-							</a>
-							<span class="text-gray-500">{formatDateNews(item.fields.dateFormat)}</span>
-						</div>
-						<div class=" relative">
-							<h3 class="mt-3 text-lg font-semibold leading-6 duration-300">
-								<span class="absolute inset-0"></span>
+						<div class="my-3 space-y-3 p-4">
+							<div class="flex w-full items-center justify-between gap-x-4 text-xs">
+								<a
+									href={`/programmes/${item.fields.programme.fields.slug}`}
+									class="relative z-10 rounded-md bg-white px-3 py-1.5 font-medium text-gray-600 duration-300"
+								>
+									{item.fields.programme.fields.title}
+								</a>
+								<span class="text-gray-500">{formatDateNews(item.fields.dateFormat)}</span>
+							</div>
+							<h3 class=" text-lg font-semibold leading-6 duration-300">
 								{item.fields.title}
 							</h3>
-							<p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
+							<p class="line-clamp-3 text-sm leading-6 text-gray-600">
 								{item.fields.summary}
 							</p>
-						</div>
-						<div class="relative mt-6 flex items-center gap-x-4">
-							<p class="text-sm font-semibold">
-								{item.fields.author}
-							</p>
+							<div class="relative flex items-center gap-x-4">
+								<p class="text-sm font-semibold">
+									{item.fields.author}
+								</p>
+							</div>
 						</div>
 					</a>
 				</li>

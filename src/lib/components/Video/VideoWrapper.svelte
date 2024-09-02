@@ -72,7 +72,7 @@
 				}}
 				style="cursor: pointer;"
 			>
-				<img src={videoImage} alt={videoTitle} class="w-full" />
+				<img src={videoImage} alt={videoTitle} class="w-full rounded-t-md" />
 			</button>
 			{#if showPlayIcon}
 				<div

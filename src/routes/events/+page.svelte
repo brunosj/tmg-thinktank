@@ -7,6 +7,7 @@
 	import EventListing from '$components/Events/EventListing.svelte';
 	import ButtonLoadMore from '$components/UI/ButtonLoadMore.svelte';
 	import Calendar from '$components/Calendar/Calendar.svelte';
+	import EventSeriesCard from '$components/Events/EventSeriesCard.svelte';
 
 	type Page = {
 		eventSeries: EventSeries[];
@@ -67,22 +68,7 @@
 	<div class="bg-green-variation">
 		<div class="container">
 			<div class="pt-6 text-3xl font-bold lg:pt-12">Event Series</div>
-			<div class="grid grid-cols-1 items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-				{#each eventSeries as item (item.fields.slug)}
-					{@const image =
-						item.fields.imageCdn?.length > 0
-							? item.fields.imageCdn[0].secure_url
-							: item.fields.image.fields.file.url}
-					<a href={`/event-series/${item.fields.slug}`}>
-						<img
-							loading="lazy"
-							src={image}
-							alt={item.fields.title}
-							class="duration-300 hover:opacity-80"
-						/>
-					</a>
-				{/each}
-			</div>
+			<EventSeriesCard items={eventSeries} />
 		</div>
 	</div>
 {/if}
