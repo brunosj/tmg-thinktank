@@ -29,7 +29,7 @@
 							<div class="flex w-full items-center justify-between gap-x-4 text-xs">
 								<a
 									href={`/programmes/${item.fields.programme.fields.slug}`}
-									class="relative z-10 rounded-md bg-white px-3 py-1.5 font-medium text-gray-600 duration-300"
+									class="relative z-10 rounded-md bg-green-variation px-3 py-1.5 font-medium text-gray-600 duration-300"
 								>
 									{item.fields.programme.fields.title}
 								</a>
