@@ -5,12 +5,6 @@ import {
 	transformBlogPostToNews
 } from '$utils/utils';
 
-export const config = {
-	isr: {
-		expiration: false
-	}
-};
-
 export async function load() {
 	try {
 		const publicationEntries = await fetchContentfulData('publications');

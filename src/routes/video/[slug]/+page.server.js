@@ -1,12 +1,6 @@
 import { fetchContentfulData } from '$lib/contentfulClient';
 import { transformVideoToNews, transformBlogPostToNews } from '$utils/utils';
 
-export const config = {
-	isr: {
-		expiration: false
-	}
-};
-
 export async function load({ params }) {
 	const { slug } = params;
 

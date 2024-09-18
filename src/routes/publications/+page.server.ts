@@ -1,12 +1,6 @@
 import { fetchContentfulData } from '$lib/contentfulClient';
 import type { Publication } from '$lib/types/types';
 
-export const config = {
-	isr: {
-		expiration: false
-	}
-};
-
 export async function load() {
 	try {
 		let entries: Publication[] = await fetchContentfulData('publications');

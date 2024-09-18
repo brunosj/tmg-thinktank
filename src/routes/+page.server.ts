@@ -2,12 +2,6 @@ import { fetchContentfulData } from '$lib/contentfulClient';
 import { slugify } from '$utils/utils.js';
 import type { Event, News, BlogPost } from '$lib/types/types';
 
-export const config = {
-	isr: {
-		expiration: false
-	}
-};
-
 export async function load() {
 	try {
 		const today = new Date();

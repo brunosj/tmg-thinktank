@@ -1,12 +1,6 @@
 import { fetchContentfulData } from '$lib/contentfulClient';
 import type { Newsletter } from '$lib/types/types';
 
-export const config = {
-	isr: {
-		expiration: false
-	}
-};
-
 export async function load() {
 	try {
 		let newsletter: Newsletter[] = await fetchContentfulData('newsletter');

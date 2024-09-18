@@ -1,11 +1,5 @@
 import { fetchContentfulData } from '$lib/contentfulClient';
 
-export const config = {
-	isr: {
-		expiration: false
-	}
-};
-
 export async function load() {
 	try {
 		const entries = await fetchContentfulData('unfssCop26');

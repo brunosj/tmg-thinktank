@@ -2,12 +2,6 @@ import { fetchContentfulData } from '$lib/contentfulClient';
 import { transformPublicationToNews, transformBlogPostToNews } from '$utils/utils';
 import type { News, Publication, BlogPost } from '$lib/types/types';
 
-export const config = {
-	isr: {
-		expiration: false
-	}
-};
-
 export async function load({ params }) {
 	const { slug } = params;
 

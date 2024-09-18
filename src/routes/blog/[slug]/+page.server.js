@@ -1,11 +1,5 @@
 // export const prerender = 'true';
 
-export const config = {
-	isr: {
-		expiration: false
-	}
-};
-
 import { fetchContentfulData } from '$lib/contentfulClient';
 
 export async function load({ params }) {
