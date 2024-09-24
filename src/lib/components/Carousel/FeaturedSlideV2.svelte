@@ -15,12 +15,18 @@
 			itemPrefix = 'blog';
 		} else if (item.fields.type === 'Publication') {
 			itemPrefix = 'publications';
+		} else if (item.fields.type === 'Media Coverage') {
+			itemPrefix = 'news';
+		} else if (item.fields.type === 'Press Release') {
+			itemPrefix = 'news';
 		} else if (item.fields.type === 'Workshop') {
 			itemPrefix = 'events';
 		} else if (item.fields.type === 'Discussion') {
 			itemPrefix = 'events';
 		} else if (item.fields.type === 'Conference') {
 			itemPrefix = 'events';
+		} else if (item.fields.type === 'Video') {
+			itemPrefix = 'video';
 		} else {
 			itemPrefix = 'blog';
 		}

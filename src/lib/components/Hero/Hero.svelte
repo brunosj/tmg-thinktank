@@ -15,21 +15,21 @@
 </script>
 
 <div
-	class="relative m-auto flex items-start overflow-hidden align-middle lg:h-[50vh] lg:items-center"
+	class="relative m-auto flex items-start overflow-hidden align-middle lg:min-h-[50vh] lg:items-center"
 	bind:this={element}
 >
 	<IntersectionObserver {element} bind:intersecting once>
-		{#if intersecting}
-			<div class="absolute inset-0 z-0">
-				<img
-					loading="eager"
-					src={heroPicture[0].secure_url}
-					alt="TMG Think Tank"
-					class="object-cover"
-					decoding="async"
-				/>
-			</div>
-			<div class="container z-10">
+		<div class="absolute inset-0 z-0">
+			<img
+				loading="eager"
+				src={heroPicture[0].secure_url}
+				alt="TMG Think Tank"
+				class="object-cover"
+				decoding="async"
+			/>
+		</div>
+		<div class="container z-10">
+			{#if intersecting}
 				<div class="grid min-h-fit grid-cols-1 pb-6 pt-12 md:grid-cols-2 lg:pb-0">
 					<div class="flex h-full w-full flex-1 items-start align-middle lg:items-center">
 						<div class="m-auto w-1/4 lg:w-1/2">
@@ -87,7 +87,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		{/if}
+			{/if}
+		</div>
 	</IntersectionObserver>
 </div>
