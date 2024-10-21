@@ -1,7 +1,6 @@
 <script lang="ts">
 	export let event: Event;
 	export let bgColor: string = '#67797B';
-	export let textColor: string = '#ffffff';
 
 	import type { Event } from '$lib/types/types';
 
