@@ -1,11 +1,18 @@
 export const siteMetadata = {
 	locale: 'en',
 	title: `TMG Think Tank for Sustainability`,
+	siteTitle: `TMG Think Tank`,
+	siteShortTitle: `TMG Think Tank`,
+	siteDescription: `TMG Think Tank for Sustainability is a global think tank for sustainability that works on the interface of science, policy and practice.`,
 	description: `Enabling Sustainability`,
 	author: `@brunosj`,
+	ogLanguage: `en`,
+	siteLanguage: `en`,
 	siteUrl: 'https://tmg-thinktank.com/',
 	image: '/tmg-seo.jpg',
 	imageUrl: 'https://tmg-thinktank.com/tmg-seo.jpg',
+	siteImage: 'https://tmg-thinktank.com/tmg-seo.jpg',
+	githubPage: 'brunosj/tmg-thinktank',
 	limitMonthInTheFuture: 12,
 	programmes: {
 		prog1: 'Food Systems',
