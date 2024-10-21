@@ -17,12 +17,12 @@
 >
 	<IntersectionObserver {element} bind:intersecting once threshold={0.3}>
 		{#if intersecting}
-			<h2
+			<h1
 				class="text-3xl font-bold tracking-tight sm:text-4xl"
 				transition:fade={{ duration: 500, delay: 250, easing: cubicInOut }}
 			>
 				{title}
-			</h2>
+			</h1>
 
 			<p
 				class="mt-2 text-base lg:text-lg"

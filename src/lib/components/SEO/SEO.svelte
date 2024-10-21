@@ -56,8 +56,14 @@
 	{/if}
 
 	{#if description}
-		<meta name="description" content={description} />
-		<meta property="og:description" content={description} />
+		<meta
+			name="description"
+			content={`${description} - sustainability, food systems, land governance, research, governance, think tank`}
+		/>
+		<meta
+			property="og:description"
+			content={`${description} - sustainability, food systems, land governance, research, governance, think tank`}
+		/>
 	{/if}
 	{#if image}
 		<meta property="og:image" content={imageSeo || 'https://tmg-thinktank.com/tmg-seo.jpg'} />
@@ -67,5 +73,6 @@
 	{/if}
 	<meta property="og:type" content={ogType} />
 	<link rel="canonical" href={`https://tmg-thinktank.com${$page.url.pathname}`} />
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 </svelte:head>
 <SchemaOrg {...schemaOrgProps} />
