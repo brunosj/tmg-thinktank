@@ -65,9 +65,7 @@
 			content={`${description} - sustainability, food systems, land governance, research, governance, think tank`}
 		/>
 	{/if}
-	{#if image}
-		<meta property="og:image" content={imageSeo || 'https://tmg-thinktank.com/tmg-seo.jpg'} />
-	{/if}
+	<meta property="og:image" content={imageSeo || 'https://tmg-thinktank.com/tmg-seo.jpg'} />
 	{#if tags.length > 0}
 		<meta name="keywords" content={tags.join(',')} />
 	{/if}

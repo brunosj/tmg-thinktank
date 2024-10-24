@@ -1,8 +1,8 @@
 export const siteMetadata = {
 	locale: 'en',
 	title: `TMG Think Tank for Sustainability`,
-	siteTitle: `TMG Think Tank`,
-	siteShortTitle: `TMG Think Tank`,
+	siteTitle: `TMG Think Tank for Sustainability`,
+	siteShortTitle: `TMG Think Tank for Sustainability`,
 	siteDescription: `TMG Think Tank for Sustainability is a global think tank for sustainability that works on the interface of science, policy and practice.`,
 	description: `Enabling Sustainability`,
 	author: `@brunosj`,

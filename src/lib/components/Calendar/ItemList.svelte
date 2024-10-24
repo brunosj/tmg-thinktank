@@ -111,7 +111,7 @@
 								</div>
 							{/if}
 
-							<div class="col-span-3 flex h-full flex-col items-center justify-around space-y-2">
+							<div class="col-span-4 flex h-full flex-col justify-around space-y-3">
 								<a
 									href={`/events/${evt.slug}`}
 									target={isExternal ? '_blank' : ''}
@@ -126,19 +126,19 @@
 									<p class=" font-semibold duration-300 hover:opacity-70 lg:text-xl">{evt.title}</p>
 								</a>
 								<p class="hidden text-sm lg:block">{evt.subtitle}</p>
-							</div>
-							<div class=" col-span-2 hidden items-center justify-center lg:flex">
-								<button
-									class="relative rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-green-normal shadow-sm duration-300 hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-normal"
-									on:click|preventDefault={() => downloadICal(evt)}
-								>
-									<div class="flex items-center space-x-3">
-										<CalendarPlus class="h-6 w-6" />
-										<div>
-											<span> Add to Calendar </span>
+								<div class=" hidden items-center lg:flex">
+									<button
+										class="relative rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-green-normal shadow-sm duration-300 hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-normal"
+										on:click|preventDefault={() => downloadICal(evt)}
+									>
+										<div class="flex items-center space-x-3">
+											<CalendarPlus class="h-6 w-6" />
+											<div>
+												<span> Add to Calendar </span>
+											</div>
 										</div>
-									</div>
-								</button>
+									</button>
+								</div>
 							</div>
 						</div>
 					</li>

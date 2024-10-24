@@ -36,6 +36,10 @@
 	-webkit-text-size-adjust: 100%;
 }
 
+/* * {
+	outline: gray solid 1px;
+} */
+
 body {
 	@apply overflow-x-hidden bg-white font-inter leading-relaxed text-gray-800;
 }

@@ -4,19 +4,26 @@ import { SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN } from '$env
 import { PUBLIC_CONTENTFUL_HOST } from '$env/static/public';
 import pkg from 'contentful';
 
-const { createClient } = pkg;
+// const { createClient } = pkg;
 
-const client = () => {
-	return createClient({
-		accessToken: SECRET_CONTENTFUL_ACCESS_TOKEN,
-		host: PUBLIC_CONTENTFUL_HOST,
-		space: SECRET_CONTENTFUL_SPACE_ID
-	});
-};
+// const client = () => {
+// 	return createClient({
+// 		accessToken: SECRET_CONTENTFUL_ACCESS_TOKEN,
+// 		host: PUBLIC_CONTENTFUL_HOST,
+// 		space: SECRET_CONTENTFUL_SPACE_ID
+// 	});
+// };
+
+import contentful from 'contentful';
+const client = contentful.createClient({
+	accessToken: SECRET_CONTENTFUL_ACCESS_TOKEN,
+	host: PUBLIC_CONTENTFUL_HOST,
+	space: SECRET_CONTENTFUL_SPACE_ID
+});
 
 export async function fetchContentfulData<T>(contentType: string): Promise<T[]> {
 	try {
-		const response = await client().getEntries({
+		const response = await client.getEntries({
 			content_type: contentType,
 			limit: 1000,
 			include: 10
@@ -30,7 +37,7 @@ export async function fetchContentfulData<T>(contentType: string): Promise<T[]> 
 
 export async function listContentTypes() {
 	try {
-		const response = await client().getContentTypes();
+		const response = await client.getContentTypes();
 		console.log('Content Types:');
 		response.items.forEach((contentType) => {
 			console.log(`- ${contentType.name} (ID: ${contentType.sys.id})`);
