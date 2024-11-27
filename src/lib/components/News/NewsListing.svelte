@@ -25,7 +25,6 @@
 	}
 
 	const gridClass = `grid grid-cols-1 gap-5 py-6 md:grid-cols-${nbrColumns} lg:py-12`;
-	console.log(items);
 </script>
 
 <div class={gridClass}>

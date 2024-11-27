@@ -59,7 +59,7 @@
 		<img
 			src={image}
 			alt={item.fields.title}
-			class="z-10 aspect-[16/8.5] w-full object-cover saturate-50 duration-300 group-hover:saturate-100"
+			class="z-10 aspect-video w-full object-contain pt-3 saturate-50 duration-300 group-hover:saturate-100"
 			loading="eager"
 		/>
 		<!-- {#if imageCaption}
