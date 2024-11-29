@@ -115,6 +115,8 @@ export interface CalendarEvent {
 	isMultiDay: boolean;
 	type: string;
 	category: string;
+	rawStart: string;
+	rawEnd: string;
 }
 
 export interface EventSeries extends ContentfulEntry {

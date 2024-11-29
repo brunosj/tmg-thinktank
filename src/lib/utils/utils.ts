@@ -33,8 +33,37 @@ export function formatUTCTime(startDateStr: string, endDateStr: string): string 
 	return `${utcStartTime} - ${utcEndTime}`;
 }
 
-export function formatTz(date: string) {
-	return dayjs(date).format('zzz');
+// Mapping of timezone offsets to acronyms
+const timezoneAcronyms: { [key: string]: string } = {
+	'+00:00': 'UTC',
+	'+01:00': 'CET', // Central European Time
+	'+02:00': 'EET', // Eastern European Time
+	'+03:00': 'MSK', // Moscow Standard Time
+	'+04:00': 'GST', // Gulf Standard Time
+	'+05:00': 'PKT', // Pakistan Standard Time
+	'+06:00': 'BST', // Bangladesh Standard Time
+	'+07:00': 'ICT', // Indochina Time
+	'+08:00': 'SGT', // Singapore Time
+	'+09:00': 'JST', // Japan Standard Time
+	'+10:00': 'AEST', // Australian Eastern Standard Time
+	'+11:00': 'AEDT', // Australian Eastern Daylight Time
+	'+12:00': 'NZST', // New Zealand Standard Time
+	'-01:00': 'AZOT', // Azores Standard Time
+	'-02:00': 'GST', // South Georgia Time
+	'-03:00': 'ART', // Argentina Time
+	'-04:00': 'AST', // Atlantic Standard Time
+	'-05:00': 'EST', // Eastern Standard Time
+	'-06:00': 'CST', // Central Standard Time
+	'-07:00': 'MST', // Mountain Standard Time
+	'-08:00': 'PST', // Pacific Standard Time
+	'-09:00': 'AKST', // Alaska Standard Time
+	'-10:00': 'HST', // Hawaii-Aleutian Standard Time
+	'-11:00': 'SST' // Samoa Standard Time
+};
+
+export function formatTz(date: string): string {
+	const offset = dayjs(date).format('Z'); // Get the timezone offset
+	return timezoneAcronyms[offset] || offset; // Return the acronym or the offset if not found
 }
 
 function isCalendarEvent(event: any): event is CalendarEvent {
@@ -88,39 +117,39 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import * as contentfulTypes from '@contentful/rich-text-types';
 const { BLOCKS, INLINES } = contentfulTypes;
 
-export function renderRichText(richText) {
+export function renderRichText(richText: any) {
 	const renderNode = {
-		[BLOCKS.PARAGRAPH]: (node, next) => {
+		[BLOCKS.PARAGRAPH]: (node: any, next: any) => {
 			return `<p>${next(node.content)}</p>`;
 		},
-		[BLOCKS.HEADING_1]: (node, next) => {
+		[BLOCKS.HEADING_1]: (node: any, next: any) => {
 			return `<h1>${next(node.content)}</h1>`;
 		},
-		[BLOCKS.HEADING_2]: (node, next) => {
+		[BLOCKS.HEADING_2]: (node: any, next: any) => {
 			return `<h2>${next(node.content)}</h2>`;
 		},
-		[BLOCKS.HEADING_3]: (node, next) => {
+		[BLOCKS.HEADING_3]: (node: any, next: any) => {
 			return `<h3>${next(node.content)}</h3>`;
 		},
-		[BLOCKS.HEADING_4]: (node, next) => {
+		[BLOCKS.HEADING_4]: (node: any, next: any) => {
 			return `<h4>${next(node.content)}</h4>`;
 		},
-		[BLOCKS.HEADING_5]: (node, next) => {
+		[BLOCKS.HEADING_5]: (node: any, next: any) => {
 			return `<h5>${next(node.content)}</h5>`;
 		},
-		[BLOCKS.HEADING_6]: (node, next) => {
+		[BLOCKS.HEADING_6]: (node: any, next: any) => {
 			return `<h6>${next(node.content)}</h6>`;
 		},
-		[BLOCKS.LIST_ITEM]: (node, next) => {
+		[BLOCKS.LIST_ITEM]: (node: any, next: any) => {
 			return `<li>${next(node.content)}</li>`;
 		},
-		[BLOCKS.UL_LIST]: (node, next) => {
+		[BLOCKS.UL_LIST]: (node: any, next: any) => {
 			return `<ul>${next(node.content)}</ul>`;
 		},
-		[BLOCKS.QUOTE]: (node, next) => {
+		[BLOCKS.QUOTE]: (node: any, next: any) => {
 			return `<blockquote>${next(node.content)}</blockquote>`;
 		},
-		[BLOCKS.EMBEDDED_ASSET]: (node) => {
+		[BLOCKS.EMBEDDED_ASSET]: (node: any) => {
 			if (node.data.target.fields.file.contentType === 'application/pdf') {
 				const title = node.data.target.fields.title;
 				const fileUrl = node.data.target.fields.file.url;
@@ -136,9 +165,9 @@ export function renderRichText(richText) {
 				const imgCaption = altText ? altText : '';
 				return `<img loading='lazy' src="${assetUrl}" alt="${altText}" /><h6 style="text-align:right; font-style:italic;" >${imgCaption}</h6>`;
 			}
+			return '';
 		},
-
-		[INLINES.HYPERLINK]: (node) => {
+		[INLINES.HYPERLINK]: (node: any) => {
 			const url = node.data.uri;
 			const text = node.content[0].value;
 			const isExternalLink = url.includes('http') || url.includes('https') || url.includes('www');
@@ -159,13 +188,18 @@ export function slugify(text: string) {
 }
 
 //////  Util function to intersect and render transitions conditionally
-export function observeIntersection(targetSelector, callback, threshold = 0.5, margin = '0px') {
+export function observeIntersection(
+	targetSelector: string,
+	callback: () => void,
+	threshold = 0.5,
+	margin = '0px'
+) {
 	const options = {
 		rootMargin: margin,
 		threshold: threshold
 	};
 
-	const handleIntersection = (entries) => {
+	const handleIntersection = (entries: IntersectionObserverEntry[]) => {
 		entries.forEach((entry) => {
 			if (entry.isIntersecting) {
 				callback();
@@ -188,7 +222,7 @@ export function observeIntersection(targetSelector, callback, threshold = 0.5, m
 }
 
 //////  Util function to process Markdown links
-export function processMarkdownLinks(markdownRef) {
+export function processMarkdownLinks(markdownRef: HTMLElement) {
 	const links = markdownRef.querySelectorAll('a[href^="http://"],a[href^="https://"]');
 	links.forEach((link) => {
 		link.setAttribute('target', '_blank');
@@ -346,4 +380,25 @@ export function transformVideoToNews(video: Video) {
 			slug: video.fields.slug || slugify(video.fields.title)
 		}
 	};
+}
+
+export function formatEventLocalTime(startDateStr: string, endDateStr: string): string {
+	// Extract the time from the start date string
+	const startTime = startDateStr.slice(11, 16); // Get HH:mm from "2024-12-06T11:00+03:00"
+
+	// Extract the timezone from the start date string
+	const startTz = startDateStr.slice(19); // Get the timezone from "+03:00"
+
+	// Extract the time from the end date string
+	const endTime = endDateStr.slice(11, 16); // Get HH:mm from "2024-12-06T13:00+03:00"
+
+	// Extract the timezone from the end date string (assuming it's the same)
+	const endTz = endDateStr.slice(16, 17) + endDateStr.slice(17, 19); // Get the timezone from "+03:00"
+
+	const formattedEndTz = `${endTz.charAt(0)}${endTz.charAt(1) === '0' ? '' : endTz.charAt(1)}${endTz.slice(2)}`;
+
+	// Format the timezone for display
+	const formattedTz = `UTC${formattedEndTz}`; // Keep the colon for display
+
+	return `${startTime} - ${endTime} (${formattedTz})`;
 }

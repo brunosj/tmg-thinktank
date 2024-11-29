@@ -90,7 +90,7 @@
 		/>
 	{/if}
 
-	<section class="sectionPy container">
+	<section class="sectionPb container lg:pt-12">
 		<div class="richText m-auto lg:w-3/4">
 			{#if item.fields.description}
 				{@html renderRichText(item.fields.description)}

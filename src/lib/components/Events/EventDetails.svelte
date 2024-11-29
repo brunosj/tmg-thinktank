@@ -8,7 +8,8 @@
 		formatUTCTime,
 		formatDateDayJS,
 		formatTz,
-		downloadICal
+		downloadICal,
+		formatEventLocalTime
 	} from '$utils/utils';
 	import dayjs from 'dayjs';
 	import utc from 'dayjs/plugin/utc';
@@ -62,16 +63,17 @@
 				{#if item.fields.endDate && isSameDay(item.fields.date, item.fields.endDate)}
 					<div>
 						<p class="pb-1 pt-5 font-bold">Time</p>
-						<p>
+						<!-- <p>
 							{formatLocalTimeWithTZ(item.fields.date, item.fields.endDate)}
 						</p>
 						<p class="text-sm">
+							Your local time
 							{formatTz(item.fields.date)}
+						</p> -->
+						<p class="">
+							{formatEventLocalTime(item.fields.date, item.fields.endDate)}
 						</p>
-						<p class="pt-2">
-							{formatUTCTime(item.fields.date, item.fields.endDate)}
-						</p>
-						<p class="text-sm">UTC</p>
+						<!-- <p class="text-sm">Event location local time</p> -->
 					</div>
 				{/if}
 			</div>

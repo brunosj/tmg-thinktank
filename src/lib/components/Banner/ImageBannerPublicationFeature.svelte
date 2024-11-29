@@ -13,16 +13,12 @@
 </script>
 
 {#if featuredItem}
-	<a class="h-full w-full" href={`publication-feature/${featuredItem.fields.slug}`}>
-		<div class="justify-center">
-			<div class="z-0 m-auto">
-				<img
-					loading="lazy"
-					src={featuredItem.fields.pageBannerCdn[0].secure_url}
-					alt={featuredItem.fields.title}
-					class="h-full w-full object-cover lg:h-[60vh]"
-				/>
-			</div>
-		</div>
+	<a class="" href={`publication-feature/${featuredItem.fields.slug}`}>
+		<img
+			loading="lazy"
+			src={featuredItem.fields.pageBannerCdn[0].secure_url}
+			alt={featuredItem.fields.title}
+			class="h-full w-full object-cover"
+		/>
 	</a>
 {/if}

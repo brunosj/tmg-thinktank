@@ -40,7 +40,8 @@
 			return {
 				start,
 				end,
-				// allDay: event.eventDuration === 'allDay',
+				rawStart: event.fields.date,
+				rawEnd: event.fields.endDate || event.fields.date,
 				title: event.fields.title,
 				subtitle: event.fields.summary,
 				slug: event.fields.slug,

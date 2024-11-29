@@ -25,7 +25,7 @@
 
 	<IntersectionObserver {element} bind:intersecting once>
 		{#if intersecting}
-			<div class="relative mx-auto -mt-24 max-w-7xl px-4 pb-6 sm:px-6 lg:px-8 lg:pb-12">
+			<div class="relative mx-auto -mt-24 max-w-6xl px-4 pb-6 sm:px-6 lg:px-8 lg:pb-12">
 				<div class="mx-auto text-center">
 					<h2
 						class=" text-3xl font-extrabold leading-tight tracking-tight lg:text-6xl"

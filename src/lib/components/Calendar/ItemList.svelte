@@ -13,7 +13,8 @@
 		formatDateDayJS,
 		formatTz,
 		generateICalData,
-		downloadICal
+		downloadICal,
+		formatEventLocalTime
 	} from '$utils/utils';
 	let isExternal = false;
 
@@ -36,14 +37,14 @@
 	$: {
 		itemsByDay.clear();
 		let startOfMonthDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
-
 		let endOfMonthDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
 
 		let itemsInCurrentMonth = items?.filter(
-			(event) => event.start >= startOfMonthDate && event.end <= endOfMonthDate
+			(event) => new Date(event.start) >= startOfMonthDate && new Date(event.end) <= endOfMonthDate
 		);
 
 		itemsInCurrentMonth?.forEach((event) => {
+			console.log(event.start, event.end);
 			let startDate = new Date(event.start);
 			let endDate = new Date(event.end);
 			let currentDate = new Date(startDate);
@@ -53,7 +54,11 @@
 				if (!itemsByDay.has(dayKey)) {
 					itemsByDay.set(dayKey, []);
 				}
-				itemsByDay.get(dayKey).push(event);
+				itemsByDay.get(dayKey).push({
+					...event,
+					rawStart: String(event.rawStart),
+					rawEnd: String(event.rawEnd)
+				});
 				currentDate.setDate(currentDate.getDate() + 1);
 			}
 		});
@@ -66,6 +71,7 @@
 		});
 
 		sortedDays = Array.from(itemsByDay.keys()).sort();
+		console.log(itemsByDay);
 	}
 </script>
 
@@ -98,15 +104,15 @@
 								>
 									<div>
 										<p class="text-lg font-semibold">
-											{formatLocalTimeWithTZ(evt.start, evt.end)}
+											{formatEventLocalTime(evt.rawStart, evt.rawEnd)}
 										</p>
-										<p class="text-sm">
-											{formatTz(evt.start)}
+										<!-- <p class="text-sm">
+											{formatTz(evt.rawStart)}
 										</p>
 										<p class="pt-2 text-lg font-semibold">
-											{formatUTCTime(evt.start, evt.end)}
-										</p>
-										<p class="text-sm">UTC</p>
+											{formatUTCTime(evt.rawStart, evt.rawEnd)}
+										</p> -->
+										<!-- <p class="text-sm">UTC</p> -->
 									</div>
 								</div>
 							{/if}
