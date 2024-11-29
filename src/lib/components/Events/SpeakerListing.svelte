@@ -28,9 +28,11 @@
 							>
 								{item.fields.name}
 							</div>
-							<div class="text-sm font-light text-black">
-								{item.fields.position}
-							</div>
+							{#if item.fields.position}
+								<div class="text-sm font-light text-black">
+									{item.fields.position}
+								</div>
+							{/if}
 							{#if item.fields.organisationUrl}
 								<a href={ensureHttps(item.fields.organisationUrl)} target="_blank">
 									<span class="text-sm font-light italic leading-none text-black">

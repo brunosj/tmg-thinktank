@@ -47,28 +47,18 @@
 </script>
 
 <div
-	class={`group relative h-full w-full overflow-hidden border-r-[0.1px] border-green-variation bg-green-normal text-white ${
+	class={`group relative h-full w-full overflow-hidden border-r-[0.1px] border-green-variation bg-green-normal bg-opacity-90 text-white duration-300 hover:bg-opacity-100 ${
 		i === 0 ? 'rounded-l-xl' : ''
 	} ${i === slidesQty - 1 ? 'rounded-r-xl' : ''}`}
 	in:fly={{ y: 200, duration: 300 }}
 >
-	<div
-		class="pointer-events-none absolute inset-0 z-20 h-full bg-green-variation bg-opacity-[0.05] duration-300 group-hover:bg-opacity-0"
-	></div>
 	<a href={`/${itemPrefix}/${item.fields.slug}`}>
 		<img
 			src={image}
 			alt={item.fields.title}
-			class="z-10 aspect-video w-full object-contain pt-3 saturate-50 duration-300 group-hover:saturate-100"
+			class="z-10 aspect-video w-full object-cover saturate-50 duration-300 group-hover:saturate-100"
 			loading="eager"
 		/>
-		<!-- {#if imageCaption}
-			<div class="flex">
-				<span class="ml-auto pt-2 text-sm font-normal italic text-black">
-					{imageCaption}
-				</span>
-			</div>
-		{/if} -->
 		<div class="space-y-6 p-8 lg:p-10">
 			<div class=" text-xs font-bold lg:text-sm">
 				<span class="rounded-md bg-gray-900 px-3 py-1.5 duration-200 ease-in-out">
