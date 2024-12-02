@@ -76,6 +76,7 @@ export interface Event extends ContentfulEntry {
 		secondLanguage: string;
 		titleSecondLanguage: string;
 		summary: string;
+		keywords: string[];
 		tmgMainOrganizer: boolean;
 		organiser: string[];
 		type: string;
@@ -125,6 +126,7 @@ export interface EventSeries extends ContentfulEntry {
 		cutoffDate: string;
 		title: string;
 		summary: string;
+		keywords: string[];
 		description: string;
 		quoteText: string;
 		quotePerson: string;
@@ -179,6 +181,7 @@ export interface BlogPost extends ContentfulEntry {
 		authorTmg: Team[];
 		title: string;
 		summary: string;
+		keywords: string[];
 		image: Image;
 		imageCdn: ImageCdn[];
 		descriptionRich: string;
@@ -202,6 +205,7 @@ export interface News extends ContentfulEntry {
 		authorTmg: Team[];
 		title: string;
 		summary: string;
+		keywords: string[];
 		image: Image;
 		imageCdn: ImageCdn[];
 		descriptionRich: string;
@@ -274,6 +278,7 @@ export interface Publication extends ContentfulEntry {
 		publicationDate: string;
 		language: string;
 		summary: string;
+		keywords: string[];
 		description: string;
 		automatedNewsEntry: string;
 		thumbnail: Image;
@@ -345,6 +350,7 @@ export interface PublicationFeature extends ContentfulEntry {
 		cutoffDate: string;
 		title: string;
 		summary: string;
+		keywords: string[];
 		sections: {
 			fields: {
 				contentBlocks: ContentBlock[];
@@ -401,6 +407,7 @@ export interface Video extends ContentfulEntry {
 		description: string;
 		automatedNewsEntry: string;
 		summary: string;
+		keywords: string[];
 		url: string;
 		videoId: string;
 		image: Image;

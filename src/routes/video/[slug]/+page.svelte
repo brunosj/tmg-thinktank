@@ -22,7 +22,12 @@
 			: item.fields.image.fields.file.url;
 </script>
 
-<SEO title={item.fields.title} description={item.fields.summary} {image} />
+<SEO
+	title={item.fields.title}
+	description={item.fields.summary}
+	{image}
+	keywords={item.fields.keywords}
+/>
 <article class="overflow-hidden pt-16 lg:pt-32">
 	<section class="container space-y-6 border-b border-green-normal pb-6 lg:pb-12">
 		<h3 class="font-semibold leading-relaxed text-black">{item.fields.type}</h3>

@@ -20,6 +20,14 @@ export const siteMetadata = {
 		prog3: 'Nature-based Solutions',
 		prog4: 'Urban Food Futures'
 	},
+	siteKeywords: [
+		'sustainability',
+		'food systems',
+		'land governance',
+		'research',
+		'governance',
+		'think tank'
+	],
 	links: {
 		facebook: 'https://www.facebook.com/globalsoilweek',
 		instagram: 'https://instagram.com/global.soil.week/',

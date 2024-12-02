@@ -30,7 +30,12 @@
 			: item.fields.image?.fields.description;
 </script>
 
-<SEO title={item.fields.title} description={item.fields.summary} {image} />
+<SEO
+	title={item.fields.title}
+	description={item.fields.summary}
+	{image}
+	keywords={item.fields.keywords}
+/>
 <article>
 	<div class="overflow-hidden pt-16 lg:pt-32">
 		<EventHeader {item} />

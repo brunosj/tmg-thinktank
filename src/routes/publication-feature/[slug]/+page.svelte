@@ -37,7 +37,12 @@
 </script>
 
 {#if seoReady}
-	<SEO title={feature.fields.title} description={feature.fields.summary} {image} />
+	<SEO
+		title={feature.fields.title}
+		description={feature.fields.summary}
+		{image}
+		keywords={feature.fields.keywords}
+	/>
 {/if}
 <article class="py-10 lg:py-16">
 	<section class="h-full w-full">

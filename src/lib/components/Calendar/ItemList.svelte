@@ -44,7 +44,6 @@
 		);
 
 		itemsInCurrentMonth?.forEach((event) => {
-			console.log(event.start, event.end);
 			let startDate = new Date(event.start);
 			let endDate = new Date(event.end);
 			let currentDate = new Date(startDate);
@@ -71,7 +70,6 @@
 		});
 
 		sortedDays = Array.from(itemsByDay.keys()).sort();
-		console.log(itemsByDay);
 	}
 </script>
 

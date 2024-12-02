@@ -21,7 +21,12 @@
 		item.fields.publication?.fields.pdf.fields.file.url || item.fields.externalPublicationUrl;
 </script>
 
-<SEO title={item.fields.title} description={item.fields.summary} {image} />
+<SEO
+	title={item.fields.title}
+	description={item.fields.summary}
+	{image}
+	keywords={item.fields.keywords}
+/>
 <div class="bg-green-light">
 	<div class="overflow-hidden">
 		<section class="bg-green-variation">

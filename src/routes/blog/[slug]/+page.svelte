@@ -40,7 +40,12 @@
 			: item.fields.image.fields.description;
 </script>
 
-<SEO title={item.fields.title} description={item.fields.summary} {image} />
+<SEO
+	title={item.fields.title}
+	description={item.fields.summary}
+	{image}
+	keywords={item.fields.keywords}
+/>
 
 <article class="bg-green-light">
 	<section>

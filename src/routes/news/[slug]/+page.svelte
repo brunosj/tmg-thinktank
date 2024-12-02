@@ -28,7 +28,12 @@
 			: item.fields.image.fields.description;
 </script>
 
-<SEO title={item.fields.title} description={item.fields.summary} {image} />
+<SEO
+	title={item.fields.title}
+	description={item.fields.summary}
+	{image}
+	keywords={item.fields.keywords}
+/>
 <div class="container overflow-hidden pt-16 lg:pt-32">
 	<section class="mt-6 border-b border-green-normal lg:mt-12">
 		<div class="space-y-6 overflow-hidden">

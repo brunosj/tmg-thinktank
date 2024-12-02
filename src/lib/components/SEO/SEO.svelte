@@ -5,6 +5,7 @@
 	export let image: string = '';
 	export let tags = ['development', 'foodsystems', 'thinktank', 'Berlin'];
 	export let ogType = 'website';
+	export let keywords: string[] = [];
 
 	import { siteMetadata } from '$data/siteMetadata';
 	import { page } from '$app/stores';
@@ -19,7 +20,8 @@
 		siteDescription,
 		siteUrl,
 		githubPage,
-		siteImage
+		siteImage,
+		siteKeywords
 	} = siteMetadata;
 
 	const schemaOrgProps = {
@@ -44,9 +46,12 @@
 		siteUrl,
 		title: title,
 		url: siteUrl,
-		githubPage
+		githubPage,
+		keywords
 	};
 	let imageSeo = image?.startsWith('//') ? 'https:' + image : image;
+
+	let seoKeywords = keywords.length > 0 ? keywords.join(', ') : siteKeywords.join(', ');
 </script>
 
 <svelte:head>
@@ -56,14 +61,8 @@
 	{/if}
 
 	{#if description}
-		<meta
-			name="description"
-			content={`${description} - sustainability, food systems, land governance, research, governance, think tank`}
-		/>
-		<meta
-			property="og:description"
-			content={`${description} - sustainability, food systems, land governance, research, governance, think tank`}
-		/>
+		<meta name="description" content={`${description} - ${keywords.join(', ')}`} />
+		<meta property="og:description" content={`${description} - ${keywords.join(', ')}`} />
 	{/if}
 	<meta property="og:image" content={imageSeo || 'https://tmg-thinktank.com/tmg-seo.jpg'} />
 	{#if tags.length > 0}

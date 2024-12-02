@@ -72,7 +72,12 @@
 			: item.fields.pageBanner.fields.file.url;
 </script>
 
-<SEO title={item.fields.title} description={item.fields.summary} {image} />
+<SEO
+	title={item.fields.title}
+	description={item.fields.summary}
+	{image}
+	keywords={item.fields.keywords}
+/>
 
 <article>
 	<TitleImageGradientHeader
