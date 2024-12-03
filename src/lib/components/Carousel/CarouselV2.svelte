@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let slides: (Event | News | PublicationFeature)[];
 
-	import type { News, Event, PublicationFeature } from '$lib/types/types';
+	import type { News, Event, PublicationFeature, Video } from '$lib/types/types';
 	import type { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel';
 	import emblaCarouselSvelte from 'embla-carousel-svelte';
 	import FeaturedSlideV2 from './FeaturedSlideV2.svelte';
@@ -48,7 +48,7 @@
 	};
 
 	function isPublicationFeature(
-		slide: Event | News | PublicationFeature
+		slide: Event | News | PublicationFeature | Video
 	): slide is PublicationFeature {
 		return (slide as PublicationFeature).fields.featuredOnHomepage !== undefined;
 	}

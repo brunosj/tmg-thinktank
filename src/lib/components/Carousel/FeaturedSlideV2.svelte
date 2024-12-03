@@ -1,9 +1,9 @@
 <script lang="ts">
-	export let item: News | Event;
+	export let item: News | Event | BlogPost | Video;
 	export let slidesQty: number;
 	export let i: number;
 
-	import type { News, Event } from '$lib/types/types';
+	import type { News, Event, Video, BlogPost } from '$lib/types/types';
 	import { fly } from 'svelte/transition';
 
 	let itemPrefix: string;
@@ -11,24 +11,28 @@
 	$: item = item;
 	$: {
 		itemPrefix;
-		if (item.fields.type === 'Blog Post') {
-			itemPrefix = 'blog';
-		} else if (item.fields.type === 'Publication') {
-			itemPrefix = 'publications';
-		} else if (item.fields.type === 'Media Coverage') {
-			itemPrefix = 'news';
-		} else if (item.fields.type === 'Press Release') {
-			itemPrefix = 'news';
-		} else if (item.fields.type === 'News') {
-			itemPrefix = 'news';
-		} else if (item.fields.type === 'Workshop') {
-			itemPrefix = 'events';
-		} else if (item.fields.type === 'Discussion') {
-			itemPrefix = 'events';
-		} else if (item.fields.type === 'Conference') {
-			itemPrefix = 'events';
-		} else if (item.fields.type === 'Video') {
+		if ('videoId' in item.fields) {
 			itemPrefix = 'video';
+		} else if ('type' in item.fields) {
+			if (item.fields.type === 'Blog Post') {
+				itemPrefix = 'blog';
+			} else if (item.fields.type === 'Publication') {
+				itemPrefix = 'publications';
+			} else if (item.fields.type === 'Media Coverage') {
+				itemPrefix = 'news';
+			} else if (item.fields.type === 'Press Release') {
+				itemPrefix = 'news';
+			} else if (item.fields.type === 'News') {
+				itemPrefix = 'news';
+			} else if (item.fields.type === 'Workshop') {
+				itemPrefix = 'events';
+			} else if (item.fields.type === 'Discussion') {
+				itemPrefix = 'events';
+			} else if (item.fields.type === 'Conference') {
+				itemPrefix = 'events';
+			} else {
+				itemPrefix = 'blog';
+			}
 		} else {
 			itemPrefix = 'blog';
 		}
@@ -62,7 +66,11 @@
 		<div class="space-y-6 p-8 lg:p-10">
 			<div class=" text-xs font-bold lg:text-sm">
 				<span class="rounded-md bg-gray-900 px-3 py-1.5 duration-200 ease-in-out">
-					{item.fields.type || 'Blog Post'}
+					{'videoId' in item.fields && item.fields.videoId.length > 0
+						? 'Video'
+						: 'type' in item.fields
+							? item.fields.type
+							: 'Blog Post'}
 				</span>
 			</div>
 

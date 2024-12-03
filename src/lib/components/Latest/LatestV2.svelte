@@ -1,10 +1,10 @@
 <script lang="ts">
 	export let landingPage: LandingPage;
 
-	import type { LandingPage, Event, News, BlogPost } from '$lib/types/types';
+	import type { LandingPage, Event, News, BlogPost, Video } from '$lib/types/types';
 	import CarouselV2 from '$components/Carousel/CarouselV2.svelte';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
-	let slides: (News | Event | BlogPost)[] = [];
+	let slides: (News | Event | BlogPost | Video)[] = [];
 	let selected = false;
 
 	$: slides = landingPage.fields.featuredItems;
