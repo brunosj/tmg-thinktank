@@ -9,7 +9,8 @@
 	import Footer from '$components/Layout/Footer.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Header from '$components/Layout/Header.svelte';
-	let { data, children } = $props();
+	
+	let { data, children }: LayoutProps = $props();
 
 	let pathname = $derived(data.pathname);
 
@@ -26,10 +27,11 @@
 </script>
 
 <SEO />
-<Header />
+
+<Header programmes={data.programmes} />
 {#key pathname}
 	<main in:fade={{ easing: cubicOut, duration: 400, delay: 200 }}>
 		{@render children?.()}
-		<Footer />
+		<Footer programmes={data.programmes} />
 	</main>
 {/key}

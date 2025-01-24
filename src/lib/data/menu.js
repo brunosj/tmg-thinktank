@@ -1,14 +1,4 @@
 export const headerMenu = [
-	
-	{
-		category: 'Programmes',
-		links: [
-			{ title: 'Food Systems', to: '/programmes/food-systems' },
-			{ title: 'Land Governance', to: '/programmes/land-governance' },
-			{ title: 'Nature-based Solutions', to: '/programmes/nature-based-solutions' },
-			{ title: 'Urban Food Futures', to: '/programmes/urban-food-futures' }
-		]
-	},
 	{
 		category: 'Outreach',
 		links: [
@@ -32,15 +22,6 @@ export const headerMenu = [
 ];
 
 export const footerMenu = [
-	{
-		category: 'Programmes',
-		links: [
-			{ title: 'Food Systems', to: '/programmes/food-systems' },
-			{ title: 'Land Governance', to: '/programmes/land-governance' },
-			{ title: 'Nature-based Solutions', to: '/programmes/nature-based-solutions' },
-			{ title: 'Urban Food Futures', to: '/programmes/urban-food-futures' }
-		]
-	},
 	{
 		category: 'Outreach',
 		links: [

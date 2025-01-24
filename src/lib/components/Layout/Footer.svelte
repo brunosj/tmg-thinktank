@@ -2,6 +2,11 @@
 	import { footerMenu } from '$data/menu.js';
 	import LearnMore from '$components/LearnMore/LearnMore.svelte';
 	import Button from '$components/UI/Button.svelte';
+	import { generateProgrammeLinks } from '$utils/utils';
+
+	let {programmes} = $props();
+
+	const programmeLinks = generateProgrammeLinks(programmes);
 </script>
 
 <div class="bgGradientBR overflow-hidden">
@@ -12,6 +17,22 @@
 			class="container grid grid-cols-2 pb-6 pt-6 text-center text-white lg:grid-cols-6 lg:text-left"
 		>
 			<ul class="col-span-4 grid grid-cols-2 gap-6 lg:grid-cols-4">
+					<li class="list-none">
+						<div class="mb-3 text-xs font-extrabold uppercase text-white lg:mb-6">
+							Programmes
+						</div>
+						<ul class="space-y-3">
+							{#each programmeLinks as programme}
+								<li>
+									<a
+										href={programme.to}
+										class="block text-xs font-medium duration-300 hover:text-green-variation hover:underline lg:text-sm"
+										>{programme.title}</a
+									>
+								</li>
+							{/each}
+						</ul>
+					</li>
 				{#each footerMenu as category}
 					<li class="list-none">
 						<div class="mb-3 text-xs font-extrabold uppercase text-white lg:mb-6">

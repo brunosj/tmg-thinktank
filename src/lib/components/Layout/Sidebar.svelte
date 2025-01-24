@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Programme } from '$lib/types/types';
 
 	import { headerMenu } from '$data/menu.js';
 	import {
@@ -12,11 +13,14 @@
 	} from 'flowbite-svelte';
 	import { sineIn } from 'svelte/easing';
 	import { generateProgrammeLinks } from '$utils/utils';
+
 	interface Props {
 		sidebarHidden?: boolean;
+		programmes: Programme[];
 	}
 
-	let { sidebarHidden = $bindable(true) }: Props = $props();
+	
+	let { sidebarHidden = $bindable(true), programmes }: Props = $props();
 
 	let transitionParamsRight = {
 		x: 320,
@@ -27,6 +31,8 @@
 	let toggleSidebar = $derived(() => {
 		sidebarHidden = !sidebarHidden;
 	});
+
+	const programmeLinks = generateProgrammeLinks(programmes);
 </script>
 
 <Drawer
@@ -43,8 +49,30 @@
 	<Sidebar class=" z-50 w-full">
 		<SidebarWrapper class="overflow-y-auto bg-white py-6 lg:py-12">
 			<SidebarGroup class="flex h-full flex-col justify-between">
+				<!-- Dynamic Programmes Section -->
+				<li class="list-none">
+					<SidebarDropdownWrapper
+						label="Programmes"
+						class="group flex w-full items-center rounded-md p-1 text-lg font-semibold text-green-normal transition duration-75 hover:bg-green-variation lg:p-2 lg:text-2xl" isOpen
+					>
+						<ul>
+							{#each programmeLinks as programme}
+								<li>
+									<SidebarDropdownItem
+										label={programme.title}
+										href={programme.to}
+										class="flex items-center rounded-md p-1 pl-12 text-sm font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 lg:text-base"
+										on:click={() => (sidebarHidden = true)}
+									/>
+								</li>
+							{/each}
+						</ul>
+					</SidebarDropdownWrapper>
+				</li>
+
+				<!-- Other Menu Categories -->
 				{#each headerMenu as category, i}
-					{#if i === 0 || i === 1}
+					{#if i === 0 }
 						<li class="list-none">
 							<SidebarDropdownWrapper
 								label={category.category}

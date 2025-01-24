@@ -10,6 +10,9 @@
 	import SidebarComponent from '$components/Layout/Sidebar.svelte';
 	import type { SearchItem } from '$lib/types/types';
 
+
+	let {programmes} = $props();
+
 	let search: 'loading' | 'ready' = $state('loading');
 	let searchTerm = $state('');
 	let results: SearchItem[] = $state([]);
@@ -102,7 +105,7 @@
 	<SearchResults {results} bind:searchTerm bind:showSearchInput />
 {/if}
 
-<SidebarComponent bind:sidebarHidden />
+<SidebarComponent bind:sidebarHidden programmes={programmes} />
 
 <style>
 	input {

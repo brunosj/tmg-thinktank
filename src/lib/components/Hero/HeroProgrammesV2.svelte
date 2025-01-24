@@ -8,8 +8,10 @@
 
 	let { heroProgrammes }: Props = $props();
 
-	let numberOfColumns = Math.min(heroProgrammes.length, 6);
+	let numberOfColumns = Math.min(heroProgrammes.length, 5);
 	let gridClass = `grid grid-cols-1 gap-1 text-center sm:grid-cols-2 lg:grid-cols-${numberOfColumns}`;
+
+
 </script>
 
 <div class="bgGradientBR relative">
