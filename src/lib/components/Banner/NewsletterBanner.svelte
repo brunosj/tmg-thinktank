@@ -1,9 +1,13 @@
 <script lang="ts">
-	export let newsletter: Newsletter[];
-	export let landingPage: LandingPage;
 
 	import type { Newsletter, LandingPage } from '$lib/types/types';
 	import Button from '$components/UI/Button.svelte';
+	interface Props {
+		newsletter: Newsletter[];
+		landingPage: LandingPage;
+	}
+
+	let { newsletter, landingPage }: Props = $props();
 
 	function getImage(newsletter: Newsletter) {
 		return newsletter.fields.thumbnailCdn?.length > 0

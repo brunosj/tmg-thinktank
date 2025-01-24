@@ -1,8 +1,12 @@
 <script lang="ts">
-	export let items: News[];
 
 	import type { News } from '$lib/types/types';
 	import { formatDateLong } from '$lib/utils/utils';
+	interface Props {
+		items: News[];
+	}
+
+	let { items }: Props = $props();
 
 	function getSingleItemPrefix(type: string) {
 		switch (type) {

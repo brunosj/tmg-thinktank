@@ -1,5 +1,4 @@
 <script lang="ts">
-	export let sidebarHidden = true;
 
 	import { headerMenu } from '$data/menu.js';
 	import {
@@ -13,6 +12,11 @@
 	} from 'flowbite-svelte';
 	import { sineIn } from 'svelte/easing';
 	import { generateProgrammeLinks } from '$utils/utils';
+	interface Props {
+		sidebarHidden?: boolean;
+	}
+
+	let { sidebarHidden = $bindable(true) }: Props = $props();
 
 	let transitionParamsRight = {
 		x: 320,
@@ -20,9 +24,9 @@
 		easing: sineIn
 	};
 
-	$: toggleSidebar = () => {
+	let toggleSidebar = $derived(() => {
 		sidebarHidden = !sidebarHidden;
-	};
+	});
 </script>
 
 <Drawer

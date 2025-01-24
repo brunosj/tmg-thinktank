@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let data: Page;
+	import { run } from 'svelte/legacy';
+
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
@@ -8,19 +9,28 @@
 	import EventListing from '$components/Events/EventListing.svelte';
 	import { ensureHttps } from '$utils/utils';
 	import type { Event, Speaker } from '$lib/types/types';
+	interface Props {
+		data: Page;
+	}
+
+	let { data }: Props = $props();
 
 	type Page = {
 		events: Event[];
 		item: Speaker;
 	};
 
-	let events: Event[];
-	let speaker: Speaker;
+	let events: Event[] = $state();
+	let speaker: Speaker = $state();
 
-	$: events = data.events;
-	$: speaker = data.item;
+	run(() => {
+		events = data.events;
+	});
+	run(() => {
+		speaker = data.item;
+	});
 
-	$: {
+	run(() => {
 		events = events
 			.filter((events) => {
 				if (events.fields.speakers && speaker.fields.name) {
@@ -35,12 +45,12 @@
 				const dateB = new Date(b.fields.date);
 				return dateB.getTime() - dateA.getTime();
 			});
-	}
+	});
 
-	$: image =
-		speaker.fields.pictureCdn?.length > 0
+	let image =
+		$derived(speaker.fields.pictureCdn?.length > 0
 			? speaker.fields.pictureCdn[0].secure_url
-			: speaker.fields.picture.fields.file.url;
+			: speaker.fields.picture.fields.file.url);
 </script>
 
 <SEO title={speaker.fields.name} {image} />

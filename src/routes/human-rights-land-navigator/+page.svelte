@@ -1,18 +1,18 @@
 <script lang="ts">
-	export let data;
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import { renderRichText } from '$utils/utils';
 	import QuoteBanner from '$components/Banner/QuoteBanner.svelte';
 	import TitleImageGradientHeader from '$components/Layout/TitleImageGradientHeader.svelte';
 	import VideoBanner from '$components/Banner/VideoBanner.svelte';
+	let { data } = $props();
 
-	$: item = data;
+	let item = $derived(data);
 
-	$: image =
-		item.fields.imageCdn?.length > 0
+	let image =
+		$derived(item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image.fields.file.url;
+			: item.fields.image.fields.file.url);
 </script>
 
 <SEO title={item.fields.title} description={item.fields.subtitle} {image} />

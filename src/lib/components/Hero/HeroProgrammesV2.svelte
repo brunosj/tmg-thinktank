@@ -1,8 +1,12 @@
 <script lang="ts">
-	export let heroProgrammes: Programme[];
 
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	import type { Programme } from '$lib/types/types';
+	interface Props {
+		heroProgrammes: Programme[];
+	}
+
+	let { heroProgrammes }: Props = $props();
 
 	let numberOfColumns = Math.min(heroProgrammes.length, 6);
 	let gridClass = `grid grid-cols-1 gap-1 text-center sm:grid-cols-2 lg:grid-cols-${numberOfColumns}`;

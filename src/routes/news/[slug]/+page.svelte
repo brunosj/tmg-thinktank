@@ -1,5 +1,4 @@
 <script lang="ts">
-	export let data: Page;
 
 	import type { News } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
@@ -10,22 +9,27 @@
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
 	import { slugify } from '$utils/utils';
 	import Tag from '$components/UI/Tag.svelte';
+	interface Props {
+		data: Page;
+	}
+
+	let { data }: Props = $props();
 
 	type Page = {
 		item: News;
 	};
 
-	$: item = data.item;
+	let item = $derived(data.item);
 
-	$: image =
-		item.fields.imageCdn?.length > 0
+	let image =
+		$derived(item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image.fields.file.url;
+			: item.fields.image.fields.file.url);
 
-	$: imageCaption =
-		item.fields.imageCdn?.length > 0
+	let imageCaption =
+		$derived(item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].context?.custom.caption
-			: item.fields.image.fields.description;
+			: item.fields.image.fields.description);
 </script>
 
 <SEO

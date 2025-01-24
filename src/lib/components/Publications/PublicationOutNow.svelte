@@ -1,20 +1,28 @@
 <script lang="ts">
-	export let item: Publication;
+	import { run } from 'svelte/legacy';
+
 	import type { Publication } from '$lib/types/types';
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import { renderRichText } from '$utils/utils';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
 	import { ensureHttps } from '$utils/utils';
+	interface Props {
+		item: Publication;
+	}
 
-	$: item = item;
+	let { item = $bindable() }: Props = $props();
 
-	$: image =
-		item.fields.thumbnailCdn?.length > 0
+	run(() => {
+		item = item;
+	});
+
+	let image =
+		$derived(item.fields.thumbnailCdn?.length > 0
 			? item.fields.thumbnailCdn[0].secure_url
-			: item.fields.thumbnail.fields.file.url;
+			: item.fields.thumbnail.fields.file.url);
 
-	$: link = item.fields.pdf.fields.file.url;
+	let link = $derived(item.fields.pdf.fields.file.url);
 </script>
 
 <SEO title={item.fields.title} description={item.fields.summary} {image} />

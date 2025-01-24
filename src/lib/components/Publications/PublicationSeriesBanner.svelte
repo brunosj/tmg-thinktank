@@ -1,12 +1,20 @@
 <script lang="ts">
-	export let publications: Publication[];
-	export let bgColor: string;
-	export let bannerText: string;
+	import { run } from 'svelte/legacy';
+
 
 	import type { Publication } from '$lib/types/types';
+	interface Props {
+		publications: Publication[];
+		bgColor: string;
+		bannerText: string;
+	}
 
-	let nbrColumns = 0;
-	$: nbrColumns = publications.length;
+	let { publications, bgColor, bannerText }: Props = $props();
+
+	let nbrColumns = $state(0);
+	run(() => {
+		nbrColumns = publications.length;
+	});
 </script>
 
 <section>

@@ -1,8 +1,12 @@
 <script lang="ts">
-	export let bgColor: string;
 
-	export let item: ContentBlock;
 	import type { Publication, ContentBlock } from '$lib/types/types';
+	interface Props {
+		bgColor: string;
+		item: ContentBlock;
+	}
+
+	let { bgColor, item }: Props = $props();
 
 	const generateNbrColumnsClass = (nbrColumns: number) => {
 		return `grid-cols-${nbrColumns}`;

@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let data: Page;
+	import { run } from 'svelte/legacy';
+
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import ProgrammeHeader from '$components/Programme/ProgrammeHeader.svelte';
@@ -13,12 +14,17 @@
 	import ButtonLoadMore from '$components/UI/ButtonLoadMore.svelte';
 	import CarouselV2 from '$components/Carousel/CarouselV2.svelte';
 	import type { Programme, Event, Publication, News, Video, BlogPost } from '$lib/types/types';
+	interface Props {
+		data: Page;
+	}
 
-	let programme: Programme;
-	let events: Event[] = [];
-	let publications: Publication[] = [];
-	let news: News[] = [];
-	let videos: Video[] = [];
+	let { data }: Props = $props();
+
+	let programme: Programme = $state();
+	let events: Event[] = $state([]);
+	let publications: Publication[] = $state([]);
+	let news: News[] = $state([]);
+	let videos: Video[] = $state([]);
 
 	type Page = {
 		item: Programme;
@@ -28,13 +34,23 @@
 		videos: Video[];
 	};
 
-	$: events = data.events;
-	$: news = data.news;
-	$: publications = data.publications;
-	$: videos = data.videos;
-	$: programme = data.item;
+	run(() => {
+		events = data.events;
+	});
+	run(() => {
+		news = data.news;
+	});
+	run(() => {
+		publications = data.publications;
+	});
+	run(() => {
+		videos = data.videos;
+	});
+	run(() => {
+		programme = data.item;
+	});
 
-	$: {
+	run(() => {
 		events = events
 			.filter((event) => event.fields.programme?.fields.title === programme.fields?.title)
 			.sort((a, b) => {
@@ -42,9 +58,9 @@
 				const dateB = new Date(b.fields.date).getTime();
 				return dateB - dateA;
 			});
-	}
+	});
 
-	$: {
+	run(() => {
 		publications = publications
 			.filter(
 				(publication) => publication.fields.programme?.fields.title === programme.fields?.title
@@ -54,9 +70,9 @@
 				const dateB = new Date(b.fields.publicationDate).getTime();
 				return dateB - dateA;
 			});
-	}
+	});
 
-	$: {
+	run(() => {
 		news = news
 			.filter((news) => news.fields.programme?.fields.title === programme.fields?.title)
 			.sort((a, b) => {
@@ -64,9 +80,9 @@
 				const dateB = new Date(b.fields.dateFormat).getTime();
 				return dateB - dateA;
 			});
-	}
+	});
 
-	$: {
+	run(() => {
 		videos = videos
 			.filter((video) => {
 				return video.fields.programmes?.some(
@@ -78,14 +94,14 @@
 				const dateB = new Date(b.fields.date).getTime();
 				return dateB - dateA;
 			});
-	}
+	});
 
-	$: slides = programme.fields.featuredItems;
+	let slides = $derived(programme.fields.featuredItems);
 
 	//// Load more functionality
-	let newsCount = 6;
-	let eventsCount = 6;
-	let publicationsCount = 6;
+	let newsCount = $state(6);
+	let eventsCount = $state(6);
+	let publicationsCount = $state(6);
 
 	// Function to load more news
 	function loadMoreNews() {

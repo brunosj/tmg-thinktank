@@ -1,15 +1,23 @@
 <script lang="ts">
-	export let event: Event;
-	export let bgColor: string = '#67797B';
+	import { run } from 'svelte/legacy';
+
 
 	import type { Event } from '$lib/types/types';
+	interface Props {
+		event: Event;
+		bgColor?: string;
+	}
 
-	let image: string = '';
+	let { event, bgColor = '#67797B' }: Props = $props();
 
-	$: image =
-		event.fields.imageCdn?.length > 0
-			? event.fields.imageCdn[0].secure_url
-			: event.fields.image?.fields.file.url;
+	let image: string = $state('');
+
+	run(() => {
+		image =
+			event.fields.imageCdn?.length > 0
+				? event.fields.imageCdn[0].secure_url
+				: event.fields.image?.fields.file.url;
+	});
 </script>
 
 <section class="container relative">

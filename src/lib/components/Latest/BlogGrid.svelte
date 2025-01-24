@@ -1,8 +1,12 @@
 <script lang="ts">
-	export let latest: News;
-	export let recent: News[];
 
 	import type { News } from '$lib/types/types';
+	interface Props {
+		latest: News;
+		recent: News[];
+	}
+
+	let { latest, recent }: Props = $props();
 </script>
 
 <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">

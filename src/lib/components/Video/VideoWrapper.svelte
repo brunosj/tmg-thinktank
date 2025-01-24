@@ -1,17 +1,29 @@
 <script lang="ts">
-	export let videoSrcURL: string;
-	export let videoTitle: string;
-	export let videoWidth: string;
-	export let videoHeight: string;
-	export let videoImage: string;
+	import { preventDefault } from 'svelte/legacy';
+
 
 	import PlayCircle from 'virtual:icons/fa6-regular/circle-play';
 	import { fade } from 'svelte/transition';
+	interface Props {
+		videoSrcURL: string;
+		videoTitle: string;
+		videoWidth: string;
+		videoHeight: string;
+		videoImage: string;
+	}
 
-	let showVideoPlayer = false;
+	let {
+		videoSrcURL,
+		videoTitle,
+		videoWidth,
+		videoHeight,
+		videoImage
+	}: Props = $props();
+
+	let showVideoPlayer = $state(false);
 	let youtubeApiLoaded = false;
 
-	let showPlayIcon = false;
+	let showPlayIcon = $state(false);
 
 	function togglePlayIcon(value: boolean) {
 		showPlayIcon = value;
@@ -45,8 +57,8 @@
 
 <div
 	class="left-0 top-0 w-full"
-	on:mouseenter={() => togglePlayIcon(true)}
-	on:mouseleave={() => togglePlayIcon(false)}
+	onmouseenter={() => togglePlayIcon(true)}
+	onmouseleave={() => togglePlayIcon(false)}
 	role="button"
 	tabindex="0"
 >
@@ -59,17 +71,17 @@
 			allowfullscreen
 			width={videoWidth}
 			height={videoHeight}
-		/>
+		></iframe>
 	{:else}
 		<div style="position: relative;">
 			<button
 				class="w-full"
-				on:click={loadYoutubeVideo}
-				on:keydown|preventDefault={(event) => {
+				onclick={loadYoutubeVideo}
+				onkeydown={preventDefault((event) => {
 					if (event.key === 'Enter' || event.key === ' ') {
 						loadYoutubeVideo();
 					}
-				}}
+				})}
 				style="cursor: pointer;"
 			>
 				<img src={videoImage} alt={videoTitle} class="w-full rounded-t-md" />

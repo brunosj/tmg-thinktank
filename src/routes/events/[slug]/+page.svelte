@@ -1,5 +1,4 @@
 <script lang="ts">
-	export let data: Event;
 
 	import type { Event } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
@@ -16,18 +15,23 @@
 	import EventFacilitators from '$components/Events/EventFacilitators.svelte';
 	import RelatedItems from '$components/Events/RelatedItems.svelte';
 	import VideoListing from '$components/Video/VideoListing.svelte';
+	interface Props {
+		data: Event;
+	}
 
-	$: item = data;
+	let { data }: Props = $props();
 
-	$: image =
-		item.fields.imageCdn?.length > 0
+	let item = $derived(data);
+
+	let image =
+		$derived(item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image?.fields.file.url;
+			: item.fields.image?.fields.file.url);
 
-	$: imageCaption =
-		item.fields.imageCdn?.length > 0
+	let imageCaption =
+		$derived(item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].context?.custom.caption
-			: item.fields.image?.fields.description;
+			: item.fields.image?.fields.description);
 </script>
 
 <SEO

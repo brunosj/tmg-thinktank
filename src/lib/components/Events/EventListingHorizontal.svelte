@@ -1,9 +1,13 @@
 <script lang="ts">
-	export let events: Event[];
-	export let color: string = '#67797B';
 
 	import type { Event } from '$lib/types/types';
 	import { formatTime, formatDay, formatMonth, formatYear } from '$utils/utils';
+	interface Props {
+		events: Event[];
+		color?: string;
+	}
+
+	let { events, color = '#67797B' }: Props = $props();
 </script>
 
 <ul class="divide-y divide-gray-200">

@@ -1,9 +1,13 @@
 <script lang="ts">
-	export let data: Page;
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import BlogListing from '$components/Blog/BlogListing.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 	import type { BlogPost, News } from '$lib/types/types';
+	interface Props {
+		data: Page;
+	}
+
+	let { data }: Props = $props();
 
 	type Page = {
 		news: BlogPost[];
@@ -17,10 +21,10 @@
 		return dateB - dateA;
 	});
 
-	let filteredItems: BlogPost[] = items;
+	let filteredItems: BlogPost[] = $state(items);
 
 	let filterOptions = Array.from(new Set(items.map((item) => item.fields.programme)));
-	let selectedFilter: string = 'All';
+	let selectedFilter: string = $state('All');
 
 	function applyFilter(option: string) {
 		selectedFilter = option;
@@ -50,7 +54,7 @@
 					type="radio"
 					bind:group={selectedFilter}
 					value="All"
-					on:change={() => applyFilter('All')}
+					onchange={() => applyFilter('All')}
 				/>
 				<span class="cursor-pointer select-none text-xs font-medium text-black lg:text-base"
 					>All</span
@@ -63,7 +67,7 @@
 						type="radio"
 						bind:group={selectedFilter}
 						value={option.fields.title}
-						on:change={() => applyFilter(option.fields.title)}
+						onchange={() => applyFilter(option.fields.title)}
 					/>
 					<span class="cursor-pointer select-none text-xs font-medium text-black lg:text-base"
 						>{option.fields.title}</span

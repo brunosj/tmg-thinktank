@@ -1,8 +1,12 @@
 <script lang="ts">
-	export let pictures: Image[];
 
 	import type { Image } from '$lib/types/types';
 	import HeadingAbout from '$components/About/HeadingAbout.svelte';
+	interface Props {
+		pictures: Image[];
+	}
+
+	let { pictures }: Props = $props();
 
 	const guidingPrinciples = [
 		{

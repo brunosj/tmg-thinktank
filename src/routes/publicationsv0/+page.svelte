@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let data: Page;
+	import { run } from 'svelte/legacy';
+
 	import SEO from '$components/SEO/SEO.svelte';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
@@ -9,23 +10,30 @@
 	import { fly, fade } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
 	import type { Publication } from '$lib/types/types';
+	interface Props {
+		data: Page;
+	}
+
+	let { data }: Props = $props();
 
 	type Page = {
 		entries: Publication[];
 	};
 
-	let element;
-	let intersecting = false;
+	let element = $state();
+	let intersecting = $state(false);
 	let items = data.entries;
-	let filteredItems: Publication[] = [];
+	let filteredItems: Publication[] = $state([]);
 
-	$: filteredItems = items;
+	run(() => {
+		filteredItems = items;
+	});
 
 	function filteredData(event: CustomEvent<Publication[]>) {
 		filteredItems = event.detail;
 	}
 
-	let itemsCount = 12;
+	let itemsCount = $state(12);
 
 	function loadMoreItems() {
 		itemsCount += 12;

@@ -1,13 +1,22 @@
 <script lang="ts">
-	export let quoteText: string;
-	export let quoteAuthor: string;
-	export let flagshipOutput: FlagshipOutputType;
-	export let description: string;
 
 	import type { FlagshipOutput as FlagshipOutputType } from '$lib/types/types';
 	import { renderRichText } from '$utils/utils';
 	import ProgrammeQuote from '$components/Programme/ProgrammeQuote.svelte';
 	import FlagshipOutput from '$components/Programme/FlagshipOutput.svelte';
+	interface Props {
+		quoteText: string;
+		quoteAuthor: string;
+		flagshipOutput: FlagshipOutputType;
+		description: string;
+	}
+
+	let {
+		quoteText,
+		quoteAuthor,
+		flagshipOutput,
+		description
+	}: Props = $props();
 </script>
 
 <section class="container pb-6 lg:pb-12">

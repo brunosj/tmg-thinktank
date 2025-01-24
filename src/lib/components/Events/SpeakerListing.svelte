@@ -1,8 +1,12 @@
 <script lang="ts">
-	export let items: Speaker[];
 
 	import type { Speaker } from '$lib/types/types';
 	import { ensureHttps } from '$utils/utils';
+	interface Props {
+		items: Speaker[];
+	}
+
+	let { items }: Props = $props();
 </script>
 
 <div class="grid grid-cols-1 gap-x-6 lg:grid-cols-2">

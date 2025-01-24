@@ -1,14 +1,18 @@
 <script lang="ts">
-	export let image: string;
-	export let title: string;
-	export let subtitle: string;
 
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
+	interface Props {
+		image: string;
+		title: string;
+		subtitle: string;
+	}
 
-	let element;
-	let intersecting = false;
+	let { image, title, subtitle }: Props = $props();
+
+	let element = $state();
+	let intersecting = $state(false);
 </script>
 
 <section bind:this={element} class="pb-0 lg:pb-0">

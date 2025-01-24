@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { preventDefault } from 'svelte/legacy';
+
 	import type { Event } from '$lib/types/types';
 	import Button from '$components/UI/Button.svelte';
 	import {
@@ -21,9 +23,13 @@
 	dayjs.extend(timezone);
 	dayjs.extend(advancedFormat);
 
-	export let item: Event;
+	interface Props {
+		item: Event; // function isSameDay(dateStr1: string, dateStr2: string): boolean {
+	}
 
-	// function isSameDay(dateStr1: string, dateStr2: string): boolean {
+	let { item }: Props = $props();
+
+	
 	// 	const date1 = dayjs(dateStr1).utc();
 	// 	const date2 = dayjs(dateStr2).utc();
 
@@ -105,7 +111,7 @@
 
 		<button
 			class="relative rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-green-normal shadow-sm duration-300 hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-normal"
-			on:click|preventDefault={() => downloadICal(item)}
+			onclick={preventDefault(() => downloadICal(item))}
 		>
 			<div class="flex items-center space-x-3">
 				<CalendarPlus class="h-6 w-6" />

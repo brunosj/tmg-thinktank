@@ -1,5 +1,4 @@
 <script lang="ts">
-	export let data;
 
 	import type { Programme } from '$lib/types/types';
 	import type { LayoutProps } from './$types';
@@ -10,8 +9,9 @@
 	import Footer from '$components/Layout/Footer.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Header from '$components/Layout/Header.svelte';
+	let { data, children } = $props();
 
-	$: pathname = data.pathname;
+	let pathname = $derived(data.pathname);
 
 	const duration = 100;
 	const delay = duration + 100;
@@ -29,7 +29,7 @@
 <Header />
 {#key pathname}
 	<main in:fade={{ easing: cubicOut, duration: 400, delay: 200 }}>
-		<slot />
+		{@render children?.()}
 		<Footer />
 	</main>
 {/key}

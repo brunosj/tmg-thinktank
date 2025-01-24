@@ -1,11 +1,16 @@
 <script lang="ts">
-	export let scrollNext: () => void;
-	export let enabled: boolean;
+
+	interface Props {
+		scrollNext: () => void;
+		enabled: boolean;
+	}
+
+	let { scrollNext, enabled }: Props = $props();
 </script>
 
 <button
 	class="embla__button embla__button--next"
-	on:click|preventDefault={scrollNext}
+	onclick={(scrollNext)}
 	disabled={!enabled}
 	aria-label="Next slide"
 >
@@ -41,9 +46,7 @@
 	}
 
 	@media (max-width: 1024px) {
-		.embla__button--prev {
-			left: 0.5rem;
-		}
+
 		.embla__button--next {
 			right: 0.5rem;
 		}

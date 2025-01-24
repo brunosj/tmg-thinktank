@@ -1,7 +1,11 @@
 <script lang="ts">
-	export let items: PublicationFeature[];
 
 	import type { PublicationFeature } from '$lib/types/types';
+	interface Props {
+		items: PublicationFeature[];
+	}
+
+	let { items }: Props = $props();
 </script>
 
 <section>

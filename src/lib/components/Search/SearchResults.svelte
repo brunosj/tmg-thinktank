@@ -1,32 +1,40 @@
 <script lang="ts">
-	export let results: SearchItem[];
-	export let searchTerm: string;
-	export let showSearchInput: boolean;
+	import { run } from 'svelte/legacy';
+
 
 	import { XIcon } from '@rgossiaux/svelte-heroicons/outline';
 	import type { SearchItem } from '$lib/types/types';
 	import { formatDateNews } from '$utils/utils';
+	interface Props {
+		results: SearchItem[];
+		searchTerm: string;
+		showSearchInput: boolean;
+	}
+
+	let { results, searchTerm = $bindable(), showSearchInput = $bindable() }: Props = $props();
 
 	const clearSearchTerm = () => {
 		searchTerm = '';
 		showSearchInput = false;
 	};
 
-	let selectedFilter: string = '';
-	let filteredResults: SearchItem[] = [];
+	let selectedFilter: string = $state('');
+	let filteredResults: SearchItem[] = $state([]);
 
-	$: filteredResults = results.filter(
-		(result) => selectedFilter === '' || result.itemType.label === selectedFilter
-	);
+	run(() => {
+		filteredResults = results.filter(
+			(result) => selectedFilter === '' || result.itemType.label === selectedFilter
+		);
+	});
 
 	const applyFilter = (filter: string) => {
 		selectedFilter = filter;
 	};
 
-	$: filterOptionsSet = new Set(
+	let filterOptionsSet = $derived(new Set(
 		results.map((result) => result.itemType.label).sort((a, b) => a.localeCompare(b))
-	);
-	$: filterOptions = Array.from(filterOptionsSet);
+	));
+	let filterOptions = $derived(Array.from(filterOptionsSet));
 
 	function getSingleItemPrefix(type: string) {
 		switch (type) {
@@ -68,7 +76,7 @@
 			<div class="flex flex-col space-y-1">
 				<h2 class="text-lg font-bold">Search Results</h2>
 			</div>
-			<button type="button" on:click={clearSearchTerm}>
+			<button type="button" onclick={clearSearchTerm}>
 				<XIcon
 					class="h-8 w-8 rounded-md bg-transparent p-1 text-green-normal duration-300 hover:bg-green-variation"
 				/>
@@ -84,7 +92,7 @@
 							type="radio"
 							bind:group={selectedFilter}
 							value={option}
-							on:change={() => applyFilter(option)}
+							onchange={() => applyFilter(option)}
 						/>
 						<span class="cursor-pointer select-none text-xs font-medium text-white lg:text-sm"
 							>{option}</span
@@ -99,7 +107,7 @@
 					<a
 						href={getItemUrl(result)}
 						class="group flex flex-col space-y-2 rounded-md bg-white p-4 duration-300 hover:bg-green-variation"
-						on:click={clearSearchTerm}
+						onclick={clearSearchTerm}
 						target={result.itemType.key === 'publications' ? '_blank' : '_self'}
 					>
 						<div class="flex items-center gap-x-4 text-xs">

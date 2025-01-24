@@ -1,10 +1,10 @@
 <script lang="ts">
-	export let data;
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import { renderRichText } from '$utils/utils';
 	import SEO from '$components/SEO/SEO.svelte';
+	let { data } = $props();
 
-	$: item = data;
+	let item = $derived(data);
 </script>
 
 <SEO title={item.fields.title} />

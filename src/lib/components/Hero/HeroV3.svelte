@@ -1,5 +1,4 @@
 <script lang="ts">
-	export let hero;
 
 	import { renderRichText } from '$utils/utils';
 	import logo from '$assets/TMG_logo_white.png';
@@ -8,9 +7,10 @@
 	import { cubicInOut } from 'svelte/easing';
 	import Button from '$components/UI/Button.svelte';
 	import { onMount } from 'svelte';
+	let { hero } = $props();
 
 	let element;
-	let intersecting = true;
+	let intersecting = $state(true);
 
 	let { heroPicture, heroText } = hero.fields;
 

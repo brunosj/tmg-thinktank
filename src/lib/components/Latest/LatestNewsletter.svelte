@@ -1,7 +1,11 @@
 <script lang="ts">
-	export let newsletter: Newsletter[];
 
 	import type { Newsletter } from '$lib/types/types';
+	interface Props {
+		newsletter: Newsletter[];
+	}
+
+	let { newsletter }: Props = $props();
 </script>
 
 <section class="pb-6 pt-3 text-base lg:pb-3 lg:pt-12 lg:text-lg">

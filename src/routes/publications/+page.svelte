@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let data: Page;
+	import { run } from 'svelte/legacy';
+
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
@@ -13,35 +14,42 @@
 	import Heading from '$components/Layout/Heading.svelte';
 	import CarouselV2 from '$components/Carousel/CarouselV2.svelte';
 	import PublicationOutNow from '$components/Publications/PublicationOutNow.svelte';
+	interface Props {
+		data: Page;
+	}
+
+	let { data }: Props = $props();
 
 	type Page = {
 		entries: Publication[];
 		features: PublicationFeature[];
 	};
 
-	let element;
-	let intersecting = false;
+	let element = $state();
+	let intersecting = $state(false);
 	let items = data.entries;
 	let features = data.features;
-	let filteredItems: Publication[] = [];
-	let latestPublicationWithNewsEntry;
-
-	$: filteredItems = items;
-
-	$: latestPublicationWithNewsEntry = items
+	let filteredItems: Publication[] = $state([]);
+	let latestPublicationWithNewsEntry = $derived(items
 		.filter((item) => item.fields.automatedNewsEntry)
 		.sort((a, b) => {
 			const dateA = new Date(a.fields.publicationDate).getTime();
 			const dateB = new Date(b.fields.publicationDate).getTime();
 			return dateB - dateA;
 		})
-		.slice(0, 1)[0];
+		.slice(0, 1)[0]);
+
+	run(() => {
+		filteredItems = items;
+	});
+
+	
 
 	function filteredData(event: CustomEvent<Publication[]>) {
 		filteredItems = event.detail;
 	}
 
-	let itemsCount = 12;
+	let itemsCount = $state(12);
 
 	function loadMoreItems() {
 		itemsCount += 12;

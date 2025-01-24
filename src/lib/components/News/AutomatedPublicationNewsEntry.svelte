@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let item: Publication;
+	import { run } from 'svelte/legacy';
+
 
 	import type { Publication } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
@@ -10,10 +11,17 @@
 	import { slugify } from '$utils/utils';
 	import Tag from '$components/UI/Tag.svelte';
 	import { formatDateNews } from '$utils/utils';
+	interface Props {
+		item: Publication;
+	}
 
-	$: item = item;
-	$: image = item.fields.thumbnail.fields.file.url;
-	$: link = item.fields.pdf.fields.file.url;
+	let { item = $bindable() }: Props = $props();
+
+	run(() => {
+		item = item;
+	});
+	let image = $derived(item.fields.thumbnail.fields.file.url);
+	let link = $derived(item.fields.pdf.fields.file.url);
 </script>
 
 <SEO title={item.fields.title} description={item.fields.summary} {image} />

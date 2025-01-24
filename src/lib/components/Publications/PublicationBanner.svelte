@@ -1,9 +1,13 @@
 <script lang="ts">
-	export let publication: Publication;
-	export let bgColor: string;
-	export let bannerText: string;
 
 	import type { Publication } from '$lib/types/types';
+	interface Props {
+		publication: Publication;
+		bgColor: string;
+		bannerText: string;
+	}
+
+	let { publication, bgColor, bannerText }: Props = $props();
 </script>
 
 <section>

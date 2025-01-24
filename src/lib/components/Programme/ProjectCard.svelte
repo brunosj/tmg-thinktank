@@ -1,7 +1,11 @@
 <script lang="ts">
-	export let items: Project[];
 
 	import type { Project } from '$lib/types/types';
+	interface Props {
+		items: Project[];
+	}
+
+	let { items }: Props = $props();
 </script>
 
 <div class="flex flex-wrap">

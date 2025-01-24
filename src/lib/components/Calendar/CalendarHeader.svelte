@@ -1,16 +1,26 @@
 <script lang="ts">
 	import type { CalendarEvent } from '$lib/types/types';
 
-	export let items: CalendarEvent[];
-	export let currentMonth: Date;
-	export let monthChange: (event: CustomEvent<string>) => void;
-	export let toggleView: () => void;
-	export let isListView: boolean;
 
 	import { onMount } from 'svelte';
+	interface Props {
+		items: CalendarEvent[];
+		currentMonth: Date;
+		monthChange: (event: CustomEvent<string>) => void;
+		toggleView: () => void;
+		isListView: boolean;
+	}
 
-	let monthOptions: { value: string; label: string }[] = [];
-	let selectedMonth: string;
+	let {
+		items,
+		currentMonth = $bindable(),
+		monthChange,
+		toggleView,
+		isListView
+	}: Props = $props();
+
+	let monthOptions: { value: string; label: string }[] = $state([]);
+	let selectedMonth: string = $state();
 
 	onMount(() => {
 		if (items.length > 0) {
@@ -45,14 +55,14 @@
 <div class="mb-4 flex items-center justify-between">
 	<select
 		bind:value={selectedMonth}
-		on:change={() => monthChange(new CustomEvent('change', { detail: selectedMonth }))}
+		onchange={() => monthChange(new CustomEvent('change', { detail: selectedMonth }))}
 	>
 		{#each monthOptions as { value, label }}
 			<option {value}>{label}</option>
 		{/each}
 	</select>
 	<button
-		on:click={toggleView}
+		onclick={toggleView}
 		class="bgGradientBR hidden rounded px-4 py-2 font-bold text-white md:block"
 	>
 		{#if isListView}

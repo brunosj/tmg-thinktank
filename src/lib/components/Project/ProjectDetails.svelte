@@ -1,8 +1,12 @@
 <script lang="ts">
-	export let item: Project;
 
 	import type { Project } from '$lib/types/types';
 	import ProjectPartners from '$components/Project/ProjectPartners.svelte';
+	interface Props {
+		item: Project;
+	}
+
+	let { item }: Props = $props();
 </script>
 
 <div class="grid grid-cols-1 gap-x-10 gap-y-0 py-6 lg:grid-cols-2 lg:gap-y-3">

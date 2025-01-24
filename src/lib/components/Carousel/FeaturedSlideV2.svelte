@@ -1,15 +1,23 @@
 <script lang="ts">
-	export let item: News | Event | BlogPost | Video;
-	export let slidesQty: number;
-	export let i: number;
+	import { run } from 'svelte/legacy';
+
 
 	import type { News, Event, Video, BlogPost } from '$lib/types/types';
 	import { fly } from 'svelte/transition';
+	interface Props {
+		item: News | Event | BlogPost | Video;
+		slidesQty: number;
+		i: number;
+	}
 
-	let itemPrefix: string;
+	let { item = $bindable(), slidesQty, i }: Props = $props();
 
-	$: item = item;
-	$: {
+	let itemPrefix: string = $state();
+
+	run(() => {
+		item = item;
+	});
+	run(() => {
 		itemPrefix;
 		if ('videoId' in item.fields) {
 			itemPrefix = 'video';
@@ -36,18 +44,18 @@
 		} else {
 			itemPrefix = 'blog';
 		}
-	}
-	$: image =
-		item.fields.imageCdn?.length > 0
+	});
+	let image =
+		$derived(item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
 			: item.fields.image?.fields.file.url
 				? item.fields.image?.fields.file.url
-				: 'https://res.cloudinary.com/tmgthinktank/image/upload/v1717147613/Placeholder_image_event_uhiror.jpg';
+				: 'https://res.cloudinary.com/tmgthinktank/image/upload/v1717147613/Placeholder_image_event_uhiror.jpg');
 
-	$: imageCaption =
-		item.fields.imageCdn?.length > 0
+	let imageCaption =
+		$derived(item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].context?.custom.caption
-			: item.fields.image?.fields.description;
+			: item.fields.image?.fields.description);
 </script>
 
 <div

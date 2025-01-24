@@ -1,5 +1,4 @@
 <script lang="ts">
-	export let slides: (Event | News | PublicationFeature)[];
 
 	import type { News, Event, PublicationFeature, Video } from '$lib/types/types';
 	import type { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel';
@@ -8,6 +7,11 @@
 	import PublicationFeatureSlide from './PublicationFeatureSlide.svelte';
 	import PrevButton from './PrevButton.svelte';
 	import NextButton from './NextButton.svelte';
+	interface Props {
+		slides: (Event | News | PublicationFeature)[];
+	}
+
+	let { slides }: Props = $props();
 
 	let emblaApi: EmblaCarouselType;
 	let options = {
@@ -17,8 +21,8 @@
 	} as const;
 	let selectedIndex = 0;
 	let scrollSnaps = [];
-	let prevBtnEnabled = false;
-	let nextBtnEnabled = false;
+	let prevBtnEnabled = $state(false);
+	let nextBtnEnabled = $state(false);
 
 	const onInit = (event: any) => {
 		emblaApi = event.detail;
@@ -60,7 +64,7 @@
 	<div
 		class="carousel__embla__viewport"
 		use:emblaCarouselSvelte={{ options, plugins: [] }}
-		on:emblaInit={onInit}
+		onemblaInit={onInit}
 	>
 		<ul class="embla__container">
 			{#each slides as slide, i}

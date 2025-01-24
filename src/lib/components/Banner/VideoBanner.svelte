@@ -1,12 +1,22 @@
 <script lang="ts">
-	export let video: Video;
-	export let bgColor: string;
-	export let text: string;
-	export let order = 'order-last';
-	export let textAlignment = 'text-left';
 
 	import type { Video } from '$lib/types/types';
 	import VideoWrapper from '$components/Video/VideoWrapper.svelte';
+	interface Props {
+		video: Video;
+		bgColor: string;
+		text: string;
+		order?: string;
+		textAlignment?: string;
+	}
+
+	let {
+		video,
+		bgColor,
+		text,
+		order = 'order-last',
+		textAlignment = 'text-left'
+	}: Props = $props();
 </script>
 
 <section class="">

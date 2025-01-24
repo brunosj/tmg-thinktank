@@ -1,11 +1,16 @@
 <!-- Icon.svelte -->
 <script lang="ts">
-	export let icon: any;
-	export let label: string;
-	export let classes: string = '';
+	interface Props {
+		icon: any;
+		label: string;
+		classes?: string;
+	}
+
+	let { icon, label, classes = '' }: Props = $props();
 </script>
 
 <span class="sr-only">{label}</span>
 {#if icon}
-	<svelte:component this={icon} class={classes} />
+	{@const SvelteComponent = icon}
+	<SvelteComponent class={classes} />
 {/if}

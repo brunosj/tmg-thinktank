@@ -1,12 +1,16 @@
 <script lang="ts">
-	export let events: Event[];
-	export let landingPage: LandingPage;
 
 	import type { Event, LandingPage } from '$lib/types/types';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	import EventListing from '$components/Events/EventListing.svelte';
+	interface Props {
+		events: Event[];
+		landingPage: LandingPage;
+	}
 
-	$: shouldDisplay = events.length >= 1;
+	let { events, landingPage }: Props = $props();
+
+	let shouldDisplay = $derived(events.length >= 1);
 </script>
 
 {#if shouldDisplay}

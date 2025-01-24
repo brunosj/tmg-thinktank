@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let data: Page;
+	import { run } from 'svelte/legacy';
+
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import { slugify } from '$utils/utils';
@@ -13,6 +14,11 @@
 	import ProjectTeam from '$components/Project/ProjectTeam.svelte';
 	import ProjectDetails from '../../../lib/components/Project/ProjectDetails.svelte';
 	import type { Project, Event, Publication, News, Video } from '$lib/types/types';
+	interface Props {
+		data: Page;
+	}
+
+	let { data }: Props = $props();
 
 	type Page = {
 		item: Project;
@@ -22,20 +28,30 @@
 		videos: Video[];
 	};
 
-	let project: Project;
-	let events: Event[] = [];
-	let publications: Publication[] = [];
-	let news: News[] = [];
-	let videos: Video[] = [];
-	let image: string;
+	let project: Project = $state();
+	let events: Event[] = $state([]);
+	let publications: Publication[] = $state([]);
+	let news: News[] = $state([]);
+	let videos: Video[] = $state([]);
+	let image: string = $state();
 
-	$: project = data.item;
-	$: events = data.events;
-	$: publications = data.publications;
-	$: news = data.news;
-	$: videos = data.videos;
+	run(() => {
+		project = data.item;
+	});
+	run(() => {
+		events = data.events;
+	});
+	run(() => {
+		publications = data.publications;
+	});
+	run(() => {
+		news = data.news;
+	});
+	run(() => {
+		videos = data.videos;
+	});
 
-	$: {
+	run(() => {
 		publications = publications
 			.filter((publication) => publication.fields.project?.fields.name === project.fields?.name)
 			.sort((a, b) => {
@@ -43,9 +59,9 @@
 				const dateB = new Date(b.fields.publicationDate).getTime();
 				return dateB - dateA;
 			});
-	}
+	});
 
-	$: {
+	run(() => {
 		news = news
 			.filter((newsItem) => {
 				if (!newsItem?.fields) return false;
@@ -59,9 +75,9 @@
 				const dateB = new Date(b.fields.dateFormat).getTime();
 				return dateB - dateA;
 			});
-	}
+	});
 
-	$: {
+	run(() => {
 		videos = videos
 			.filter((video) =>
 				video.fields.projects?.some((item) => item.fields?.name === project.fields?.name)
@@ -71,11 +87,11 @@
 				const dateB = new Date(b.fields.date).getTime();
 				return dateB - dateA;
 			});
-	}
+	});
 
 	//// Load more functionality
-	let newsCount = 6;
-	let publicationsCount = 6;
+	let newsCount = $state(6);
+	let publicationsCount = $state(6);
 
 	// Function to load more news
 	function loadMoreNews() {
@@ -87,8 +103,10 @@
 		publicationsCount += 12;
 	}
 
-	$: image =
-		project.fields.thumbnailCdn?.length > 0 ? project.fields.thumbnailCdn[0].secure_url : image;
+	run(() => {
+		image =
+			project.fields.thumbnailCdn?.length > 0 ? project.fields.thumbnailCdn[0].secure_url : image;
+	});
 </script>
 
 <SEO title={project.fields.name} description={project.fields.summary} {image} />

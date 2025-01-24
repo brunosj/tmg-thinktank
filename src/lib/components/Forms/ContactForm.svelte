@@ -1,10 +1,14 @@
 <script lang="ts">
-	export let form: HTMLFormElement;
 
 	import { enhance } from '$app/forms';
 	import Button from '$components/UI/Button.svelte';
 	import { elasticOut } from 'svelte/easing';
 	import { fade } from 'svelte/transition';
+	interface Props {
+		form: HTMLFormElement;
+	}
+
+	let { form }: Props = $props();
 
 	interface SpinParams {
 		delay: number;
@@ -13,8 +17,8 @@
 
 	interface SvelteNode extends Element {}
 
-	let action_result: any;
-	let success = false;
+	let action_result: any = $state();
+	let success = $state(false);
 	let message_type = 'error';
 
 	const handle_result = (result: any) => {
@@ -86,7 +90,7 @@
 					<textarea
 						name="message"
 						class="focus:shadow-outline h-full w-full appearance-none rounded-md border border-gray-400 bg-white px-5 py-6 leading-snug text-black placeholder-gray-600 transition duration-300 ease-in-out focus:border-blue-300 focus:outline-none"
-					/>
+					></textarea>
 				</div>
 				<div class="">
 					{#if form?.missing}<p class="error">The email field is required</p>{/if}

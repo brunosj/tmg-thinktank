@@ -1,5 +1,4 @@
 <script lang="ts">
-	export let data: Page;
 
 	import type {
 		LandingPage,
@@ -22,6 +21,11 @@
 	import EventsHomepage from '$components/Events/EventsHomepage.svelte';
 	import ImageBannerPublicationFeature from '$components/Banner/ImageBannerPublicationFeature.svelte';
 	import ImageBannerEventSeries from '$components/Banner/ImageBannerEventSeries.svelte';
+	interface Props {
+		data: Page;
+	}
+
+	let { data }: Props = $props();
 
 	type Page = {
 		landingPage: LandingPage[];

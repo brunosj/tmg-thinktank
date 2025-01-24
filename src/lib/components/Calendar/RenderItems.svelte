@@ -1,12 +1,22 @@
 <script lang="ts">
-	export let items: CalendarEvent[];
-	export let day: Date;
-	export let hoveredDay: Date | null;
-	export let handleDayMouseEnter: (date: Date) => void;
-	export let handleDayMouseLeave: () => void;
 
 	import ItemToolTip from './ItemTooltip.svelte';
 	import type { CalendarEvent } from '$lib/types/types';
+	interface Props {
+		items: CalendarEvent[];
+		day: Date;
+		hoveredDay: Date | null;
+		handleDayMouseEnter: (date: Date) => void;
+		handleDayMouseLeave: () => void;
+	}
+
+	let {
+		items,
+		day,
+		hoveredDay,
+		handleDayMouseEnter,
+		handleDayMouseLeave
+	}: Props = $props();
 
 	let sortedItems = items.slice().sort((a, b) => {
 		if (a.isMultiDay === b.isMultiDay) {
@@ -44,8 +54,8 @@
 		{#each truncatedItems as event (event)}
 			<li
 				class={`${event.isMultiDay ? 'rounded-md' : ''} relative my-1 px-2 text-xs`}
-				on:mouseenter={() => handleDayMouseEnter(day)}
-				on:mouseleave={handleDayMouseLeave}
+				onmouseenter={() => handleDayMouseEnter(day)}
+				onmouseleave={handleDayMouseLeave}
 			>
 				<span class="">
 					{#if event.title.length > 10}

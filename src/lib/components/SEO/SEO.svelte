@@ -1,15 +1,25 @@
 <script lang="ts">
-	export let title: string = 'TMG Think Tank for Sustainability';
-	export let description: string =
-		'A Berlin-based organization working on sustainability transformations in the areas of food systems, land governance, nature-based solutions and urban foodscapes';
-	export let image: string = '';
-	export let tags = ['development', 'foodsystems', 'thinktank', 'Berlin'];
-	export let ogType = 'website';
-	export let keywords: string[] = [];
 
 	import { siteMetadata } from '$data/siteMetadata';
 	import { page } from '$app/stores';
 	import SchemaOrg from './SchemaOrg.svelte';
+	interface Props {
+		title?: string;
+		description?: string;
+		image?: string;
+		tags?: any;
+		ogType?: string;
+		keywords?: string[];
+	}
+
+	let {
+		title = 'TMG Think Tank for Sustainability',
+		description = 'A Berlin-based organization working on sustainability transformations in the areas of food systems, land governance, nature-based solutions and urban foodscapes',
+		image = '',
+		tags = ['development', 'foodsystems', 'thinktank', 'Berlin'],
+		ogType = 'website',
+		keywords = []
+	}: Props = $props();
 
 	const {
 		author,

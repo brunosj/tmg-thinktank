@@ -1,12 +1,16 @@
 <script lang="ts">
-	export let text: string;
 
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
+	interface Props {
+		text: string;
+	}
 
-	let element;
-	let intersecting = false;
+	let { text }: Props = $props();
+
+	let element = $state();
+	let intersecting = $state(false);
 </script>
 
 <div class="my-auto pb-12 text-3xl leading-none lg:pb-0 lg:text-6xl" bind:this={element}>

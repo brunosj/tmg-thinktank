@@ -1,5 +1,4 @@
 <script lang="ts">
-	export let data;
 
 	import type { AboutPage } from '$lib/types/types';
 	import ContactForm from '$components/Forms/ContactForm.svelte';
@@ -8,6 +7,7 @@
 	import Team from '$components/About/Team.svelte';
 	import Description from '$components/About/Description.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
+	let { data } = $props();
 
 	let about: AboutPage = data.about[0];
 </script>

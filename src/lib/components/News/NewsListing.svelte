@@ -1,9 +1,13 @@
 <script lang="ts">
-	export let items: News[];
-	export let nbrColumns: number = 3;
 
 	import type { News } from '$lib/types/types';
 	import { formatDateNews } from '$utils/utils';
+	interface Props {
+		items: News[];
+		nbrColumns?: number;
+	}
+
+	let { items, nbrColumns = 3 }: Props = $props();
 
 	function getSingleItemPrefix(type: string) {
 		switch (type) {

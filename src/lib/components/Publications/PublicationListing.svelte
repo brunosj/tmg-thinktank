@@ -1,9 +1,13 @@
 <script lang="ts">
-	export let items: Publication[];
-	export let container: boolean = true;
 
 	import type { Publication } from '$lib/types/types';
 	import { formatDateNews } from '$utils/utils';
+	interface Props {
+		items: Publication[];
+		container?: boolean;
+	}
+
+	let { items, container = true }: Props = $props();
 </script>
 
 <div

@@ -1,9 +1,9 @@
 <script lang="ts">
-	export let data;
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import TeamListing from '$components/Team/TeamListing.svelte';
+	let { data } = $props();
 
 	let team = data.entries;
 </script>

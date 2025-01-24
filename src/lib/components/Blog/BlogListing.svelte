@@ -1,3 +1,5 @@
+<!-- @migration-task Error while migrating Svelte code: `<a>` cannot be a descendant of `<a>`. The browser will 'repair' the HTML (by moving, removing, or inserting elements) which breaks Svelte's assumptions about the structure of your components.
+https://svelte.dev/e/node_invalid_placement -->
 <script lang="ts">
 	export let items: BlogPost[];
 	export let reverseBackground: boolean = false;
@@ -33,12 +35,11 @@
 					</div>
 					<div class="my-3 space-y-3 p-4">
 						<div class="flex w-full items-center justify-between gap-x-4 text-xs">
-							<a
-								href={`/programmes/${item.fields.programme.fields.slug}`}
+							<div
 								class={`relative z-10 rounded-md ${reverseBackground ? 'bg-green-variation' : 'bg-white'} px-3 py-1.5 font-medium text-gray-600 duration-300`}
 							>
 								{item.fields.programme.fields.title}
-							</a>
+							</div>
 							<span class="text-gray-500">{formatDateNews(item.fields.dateFormat)}</span>
 						</div>
 						<h3 class=" text-lg font-semibold leading-6 duration-300">

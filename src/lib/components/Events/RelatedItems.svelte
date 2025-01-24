@@ -1,11 +1,15 @@
 <script lang="ts">
-	export let item: Event;
 
 	import type { Event } from '$lib/types/types';
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import VideoListing from '$components/Video/VideoListing.svelte';
 	import EventListing from '$components/Events/EventListing.svelte';
+	interface Props {
+		item: Event;
+	}
+
+	let { item }: Props = $props();
 </script>
 
 {#if item.fields.relatedVideos}

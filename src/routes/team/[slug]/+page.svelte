@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let data: Page;
+	import { run } from 'svelte/legacy';
+
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
@@ -12,6 +13,11 @@
 	import ButtonArrow from '$components/UI/ButtonArrow.svelte';
 	import { ensureHttps } from '$utils/utils';
 	import type { Team, News, Publication } from '$lib/types/types';
+	interface Props {
+		data: Page;
+	}
+
+	let { data }: Props = $props();
 
 	type Page = {
 		item: Team;
@@ -19,14 +25,18 @@
 		publications: Publication[];
 	};
 
-	let publications: Publication[] = [];
-	let news: News[] = [];
+	let publications: Publication[] = $state([]);
+	let news: News[] = $state([]);
 
-	$: item = data.item;
-	$: news = data.news;
-	$: publications = data.publications;
+	let item = $derived(data.item);
+	run(() => {
+		news = data.news;
+	});
+	run(() => {
+		publications = data.publications;
+	});
 
-	$: {
+	run(() => {
 		publications = publications
 			.filter((publication) => {
 				if (publication.fields.authorTmg && item.fields.name) {
@@ -41,9 +51,9 @@
 				const dateB = new Date(b.fields.publicationDate).getTime();
 				return dateB - dateA;
 			});
-	}
+	});
 
-	$: {
+	run(() => {
 		news = news
 			.filter((newsItem) => {
 				if (newsItem.fields.authorTmg && item.fields.name) {
@@ -58,12 +68,12 @@
 				const dateB = new Date(b.fields.dateFormat).getTime();
 				return dateB - dateA;
 			});
-	}
+	});
 
-	$: image =
-		item.fields.pictureCdn?.length > 0
+	let image =
+		$derived(item.fields.pictureCdn?.length > 0
 			? item.fields.pictureCdn[0].secure_url
-			: item.fields.picture.fields.file.url;
+			: item.fields.picture.fields.file.url);
 </script>
 
 <SEO title={item.fields.name} {image} />

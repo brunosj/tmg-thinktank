@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let map: string;
+	interface Props {
+		map: string;
+	}
+
+	let { map }: Props = $props();
 </script>
 
 <div class="bg-green-variation">

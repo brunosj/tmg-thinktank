@@ -1,7 +1,11 @@
 <script lang="ts">
-	export let item: FlagshipOutput;
 
 	import type { FlagshipOutput } from '$lib/types/types';
+	interface Props {
+		item: FlagshipOutput;
+	}
+
+	let { item }: Props = $props();
 
 	let image =
 		item.fields.imageCdn?.length > 0

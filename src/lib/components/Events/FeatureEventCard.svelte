@@ -1,13 +1,23 @@
 <script lang="ts">
-	export let events: Event[];
-	export let titleTextColor: string = '';
-	export let color1: string = '#67797B';
-	export let color2: string;
-	export let bgColor: string = '';
 
 	import type { Event } from '$lib/types/types';
 	import { formatTime, formatDay, formatMonth, formatYear } from '$utils/utils';
 	import { ensureHttps } from '$utils/utils';
+	interface Props {
+		events: Event[];
+		titleTextColor?: string;
+		color1?: string;
+		color2: string;
+		bgColor?: string;
+	}
+
+	let {
+		events,
+		titleTextColor = '',
+		color1 = '#67797B',
+		color2,
+		bgColor = ''
+	}: Props = $props();
 </script>
 
 <section class="grid grid-cols-1 gap-5 py-4 lg:grid-cols-2 lg:py-8">

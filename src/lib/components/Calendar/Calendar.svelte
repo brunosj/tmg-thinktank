@@ -1,5 +1,4 @@
 <script lang="ts">
-	export let events: Event[];
 
 	import type { Event, CalendarEvent } from '$lib/types/types';
 	import { onMount, onDestroy } from 'svelte';
@@ -8,13 +7,19 @@
 	import MonthGrid from '$components/Calendar/MonthGrid.svelte';
 	import { browser } from '$app/environment';
 	import EventLegend from './EventLegend.svelte';
+	interface Props {
+		events: Event[];
+	}
 
-	let currentMonth = new Date();
-	let hoveredDay: Date | null = null;
-	let selectedDate = new Date();
-	let items: CalendarEvent[] = [];
+	let { events }: Props = $props();
 
-	$: isListView = true;
+	let currentMonth = $state(new Date());
+	let hoveredDay: Date | null = $state(null);
+	let selectedDate = $state(new Date());
+	let items: CalendarEvent[] = $state([]);
+
+	let isListView = $state(true);
+	
 
 	if (browser) {
 		const isMobile = window.innerWidth < 768;

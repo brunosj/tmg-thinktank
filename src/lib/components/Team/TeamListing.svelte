@@ -1,5 +1,4 @@
 <script lang="ts">
-	export let items: Team[];
 
 	import type { Team } from '$lib/types/types';
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
@@ -7,6 +6,11 @@
 	import FaMail from 'virtual:icons/fa6-regular/envelope';
 	import Icon from '$components/UI/Icon.svelte';
 	import { ensureHttps } from '$utils/utils';
+	interface Props {
+		items: Team[];
+	}
+
+	let { items }: Props = $props();
 </script>
 
 <div>

@@ -1,35 +1,41 @@
 <script lang="ts">
-	export let images: ImageCdn[];
-	export let borderColor: string = '#000';
 
 	import { Lightbox, LightboxGallery, GalleryThumbnail, GalleryImage } from 'svelte-lightbox';
 	import type { ImageCdn } from '$lib/types/types';
+	interface Props {
+		images: ImageCdn[];
+		borderColor?: string;
+	}
+
+	let { images, borderColor = '#000' }: Props = $props();
 </script>
 
 <LightboxGallery
 	arrowsConfig={{ color: 'transparent', character: 'loop', enableKeyboardControl: true }}
 >
-	<svelte:fragment slot="thumbnail">
-		<ul
-			class="relative grid grid-cols-3 items-center justify-between gap-12 rounded-md p-6 lg:border-4"
-			style="border-color:{borderColor}"
-		>
-			{#each images as image, i}
-				<div class="w-full opacity-100 duration-300 hover:opacity-90">
-					<GalleryThumbnail title="name" id={i}>
-						<img src={image.secure_url} alt={''} class="aspect-square object-contain" />
-					</GalleryThumbnail>
-				</div>
-			{/each}
-			<!-- {#each images as image, i}
+	{#snippet thumbnail()}
+	
+			<ul
+				class="relative grid grid-cols-3 items-center justify-between gap-12 rounded-md p-6 lg:border-4"
+				style="border-color:{borderColor}"
+			>
+				{#each images as image, i}
 					<div class="w-full opacity-100 duration-300 hover:opacity-90">
 						<GalleryThumbnail title="name" id={i}>
 							<img src={image.secure_url} alt={''} class="aspect-square object-contain" />
 						</GalleryThumbnail>
 					</div>
-				{/each} -->
-		</ul>
-	</svelte:fragment>
+				{/each}
+				<!-- {#each images as image, i}
+						<div class="w-full opacity-100 duration-300 hover:opacity-90">
+							<GalleryThumbnail title="name" id={i}>
+								<img src={image.secure_url} alt={''} class="aspect-square object-contain" />
+							</GalleryThumbnail>
+						</div>
+					{/each} -->
+			</ul>
+		
+	{/snippet}
 
 	{#each images as image}
 		<div class="image-container">

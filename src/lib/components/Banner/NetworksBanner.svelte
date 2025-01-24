@@ -1,10 +1,14 @@
 <script lang="ts">
-	export let partners: Partner[];
-	export let landingPage: LandingPage;
 
 	import type { Partner, LandingPage } from '$lib/types/types';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	import PartnersLogo from '$components/Partners/PartnersLogo.svelte';
+	interface Props {
+		partners: Partner[];
+		landingPage: LandingPage;
+	}
+
+	let { partners, landingPage }: Props = $props();
 
 	const networks = partners
 		.filter((partner) => partner.fields.partnerOrFunder === 'Network')

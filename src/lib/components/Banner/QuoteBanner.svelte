@@ -1,9 +1,19 @@
 <script lang="ts">
-	export let image: string = '';
-	export let text: string;
-	export let person: string;
-	export let organisation: string;
-	export let bgColor: string = '#67797B';
+	interface Props {
+		image?: string;
+		text: string;
+		person: string;
+		organisation: string;
+		bgColor?: string;
+	}
+
+	let {
+		image = '',
+		text,
+		person,
+		organisation,
+		bgColor = '#67797B'
+	}: Props = $props();
 </script>
 
 <section>

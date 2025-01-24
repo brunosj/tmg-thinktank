@@ -1,11 +1,15 @@
 <script lang="ts">
-	export let items: EventSeries[];
 
 	import type { EventSeries } from '$lib/types/types';
+	interface Props {
+		items: EventSeries[];
+	}
+
+	let { items }: Props = $props();
 
 	const today = new Date();
 
-	let featuredItem: EventSeries | undefined;
+	let featuredItem: EventSeries | undefined = $state();
 
 	featuredItem = items.find((item) => {
 		return item.fields.featuredOnHomepage === true && new Date(item.fields.cutoffDate) > today;

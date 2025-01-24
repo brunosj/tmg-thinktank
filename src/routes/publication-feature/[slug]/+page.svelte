@@ -1,5 +1,4 @@
 <script lang="ts">
-	export let data: Page;
 
 	import type { PublicationFeature as PublicationFeatureType } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
@@ -11,29 +10,32 @@
 	import PartnersLogo from '$components/Partners/PartnersLogo.svelte';
 	import ImageGallery from '$components/Gallery/ImageGallery.svelte';
 	import Banner from '$components/Banner/Banner.svelte';
+	interface Props {
+		data: Page;
+	}
+
+	let { data }: Props = $props();
 
 	type Page = {
 		item: PublicationFeatureType;
 	};
 
-	let feature: PublicationFeatureType;
+	let feature: PublicationFeatureType = $derived(data.item);
 
-	$: {
-		feature = data.item;
-	}
+	
 
-	$: sectionsWithContentBlocks = feature.fields.sections.map((section) => {
+	let sectionsWithContentBlocks = $derived(feature.fields.sections.map((section) => {
 		return {
 			contentBlocks: section.fields.contentBlocks
 		};
-	});
+	}));
 
-	$: image =
-		feature.fields.pageBannerCdn?.length > 0
+	let image =
+		$derived(feature.fields.pageBannerCdn?.length > 0
 			? feature.fields.pageBannerCdn[0].secure_url
-			: feature.fields.pageBanner.fields.file.url;
+			: feature.fields.pageBanner.fields.file.url);
 
-	$: seoReady = !!feature;
+	let seoReady = $derived(!!feature);
 </script>
 
 {#if seoReady}

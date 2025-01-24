@@ -1,13 +1,17 @@
 <script lang="ts">
-	export let text: string;
-	export let author: string;
 
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
+	interface Props {
+		text: string;
+		author: string;
+	}
 
-	let element;
-	let intersecting = false;
+	let { text, author }: Props = $props();
+
+	let element = $state();
+	let intersecting = $state(false);
 </script>
 
 <section class="pb-6 text-green-normal" bind:this={element}>

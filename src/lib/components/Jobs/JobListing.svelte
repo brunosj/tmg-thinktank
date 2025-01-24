@@ -1,9 +1,13 @@
 <script lang="ts">
-	export let item: Job;
 
 	import type { Job } from '$lib/types/types';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
 	import { formatDateNews } from '$utils/utils';
+	interface Props {
+		item: Job;
+	}
+
+	let { item }: Props = $props();
 </script>
 
 <li>

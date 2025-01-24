@@ -1,6 +1,11 @@
 <script lang="ts">
-	export let to: string;
-	export let textColor = 'white';
+	interface Props {
+		to: string;
+		textColor?: string;
+		children?: import('svelte').Snippet;
+	}
+
+	let { to, textColor = 'white', children }: Props = $props();
 </script>
 
 <a href={to}>
@@ -12,7 +17,7 @@
 				class="bgGradientBR rounded-md px-3 py-1 font-bold leading-snug"
 				style="color: {textColor}"
 			>
-				<slot />
+				{@render children?.()}
 			</div>
 		</div>
 	</button>

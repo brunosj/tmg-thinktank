@@ -2,7 +2,6 @@ import type { Publication, ContentfulEntry } from '$lib/types/types';
 
 import { SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN } from '$env/static/private';
 import { PUBLIC_CONTENTFUL_HOST } from '$env/static/public';
-import pkg from 'contentful';
 
 // const { createClient } = pkg;
 
@@ -14,7 +13,7 @@ import pkg from 'contentful';
 // 	});
 // };
 
-import contentful from 'contentful';
+import * as contentful from 'contentful';
 const client = contentful.createClient({
 	accessToken: SECRET_CONTENTFUL_ACCESS_TOKEN,
 	host: PUBLIC_CONTENTFUL_HOST,

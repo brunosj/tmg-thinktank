@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import logo from '$assets/TMG_logo_transparent.png';
 	import { MenuIcon, SearchIcon } from '@rgossiaux/svelte-heroicons/outline';
 
@@ -8,12 +10,12 @@
 	import SidebarComponent from '$components/Layout/Sidebar.svelte';
 	import type { SearchItem } from '$lib/types/types';
 
-	let search: 'loading' | 'ready' = 'loading';
-	let searchTerm = '';
-	let results: SearchItem[] = [];
+	let search: 'loading' | 'ready' = $state('loading');
+	let searchTerm = $state('');
+	let results: SearchItem[] = $state([]);
 	let posts: SearchItem[] = [];
-	let showSearchInput = false;
-	let sidebarHidden = true;
+	let showSearchInput = $state(false);
+	let sidebarHidden = $state(true);
 
 	onMount(async () => {
 		try {
@@ -30,9 +32,11 @@
 		document.addEventListener('keydown', handleKeyDown);
 	});
 
-	$: if (search === 'ready') {
-		results = searchPostsIndex(searchTerm);
-	}
+	run(() => {
+		if (search === 'ready') {
+			results = searchPostsIndex(searchTerm);
+		}
+	});
 
 	const toggleSearch = () => {
 		showSearchInput = !showSearchInput;
@@ -78,13 +82,13 @@
 					</div>
 				{/if}
 				{#if !showSearchInput}
-					<button type="button" aria-label="menu" on:click={toggleSearch}>
+					<button type="button" aria-label="menu" onclick={toggleSearch}>
 						<SearchIcon
 							class="h-8 w-8 rounded-md bg-transparent p-1 text-green-normal duration-300 hover:bg-green-variation"
 						/>
 					</button>
 				{/if}
-				<button type="button" aria-label="menu" on:click={toggleSidebar}>
+				<button type="button" aria-label="menu" onclick={toggleSidebar}>
 					<MenuIcon
 						class="h-8 w-8 rounded-md bg-transparent p-1 text-green-normal duration-300 hover:bg-green-variation"
 					/>

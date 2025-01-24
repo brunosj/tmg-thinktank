@@ -1,6 +1,6 @@
 <script lang="ts">
-	export let currentMonth: Date;
-	export let items: CalendarEvent[];
+	import { run, preventDefault } from 'svelte/legacy';
+
 
 	import type { CalendarEvent } from '$lib/types/types';
 	import CalendarPlus from 'virtual:icons/fa6-regular/calendar-plus';
@@ -16,6 +16,12 @@
 		downloadICal,
 		formatEventLocalTime
 	} from '$utils/utils';
+	interface Props {
+		currentMonth: Date;
+		items: CalendarEvent[];
+	}
+
+	let { currentMonth, items }: Props = $props();
 	let isExternal = false;
 
 	let bgColorClass = (type: string) => {
@@ -32,9 +38,9 @@
 	};
 
 	let itemsByDay = new Map();
-	let sortedDays: string[] = [];
+	let sortedDays: string[] = $state([]);
 
-	$: {
+	run(() => {
 		itemsByDay.clear();
 		let startOfMonthDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
 		let endOfMonthDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
@@ -70,7 +76,7 @@
 		});
 
 		sortedDays = Array.from(itemsByDay.keys()).sort();
-	}
+	});
 </script>
 
 <div>
@@ -131,7 +137,7 @@
 								<div class=" hidden items-center lg:flex">
 									<button
 										class="relative rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-green-normal shadow-sm duration-300 hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-normal"
-										on:click|preventDefault={() => downloadICal(evt)}
+										onclick={preventDefault(() => downloadICal(evt))}
 									>
 										<div class="flex items-center space-x-3">
 											<CalendarPlus class="h-6 w-6" />

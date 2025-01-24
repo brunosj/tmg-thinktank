@@ -1,10 +1,14 @@
 <script lang="ts">
-	export let data: Page;
 
 	import type { Job } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import JobListing from '$components/Jobs/JobListing.svelte';
+	interface Props {
+		data: Page;
+	}
+
+	let { data }: Props = $props();
 
 	type Page = {
 		entries: Job[];

@@ -1,11 +1,15 @@
 <script lang="ts">
-	export let items: PublicationFeatureType[];
 
 	import type { PublicationFeature as PublicationFeatureType } from '$lib/types/types';
+	interface Props {
+		items: PublicationFeatureType[];
+	}
+
+	let { items }: Props = $props();
 
 	const today = new Date();
 
-	let featuredItem: PublicationFeatureType | undefined;
+	let featuredItem: PublicationFeatureType | undefined = $state();
 
 	featuredItem = items.find((item) => {
 		return item.fields.featuredOnHomepage === true && new Date(item.fields.cutoffDate) > today;

@@ -1,10 +1,21 @@
 <script lang="ts">
-	export let to: string;
-	export let color: string;
-	export let textColor: string;
-	export let arrowDirection: string = 'right';
 
 	import { ArrowLeftIcon, ArrowRightIcon } from '@rgossiaux/svelte-heroicons/outline';
+	interface Props {
+		to: string;
+		color: string;
+		textColor: string;
+		arrowDirection?: string;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		to,
+		color,
+		textColor,
+		arrowDirection = 'right',
+		children
+	}: Props = $props();
 </script>
 
 <a href={to}>
@@ -29,7 +40,7 @@
 				class="py-1 pl-0 pr-3 font-bold leading-snug md:py-3 md:pl-2 md:pr-5"
 				style="color: {textColor}"
 			>
-				<slot />
+				{@render children?.()}
 			</div>
 		</div>
 	</div>

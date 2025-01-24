@@ -1,8 +1,6 @@
 <script lang="ts">
-	export let data: {
-		item: EventSeries;
-		videos: Video[];
-	};
+	import { run } from 'svelte/legacy';
+
 
 	import type { EventSeries, Video, Speaker, Event } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
@@ -15,16 +13,28 @@
 	import SpeakersAvatars from '$components/Speakers/SpeakersAvatars.svelte';
 	import VideoBanner from '$components/Banner/VideoBanner.svelte';
 	import EventListing from '$components/Events/EventListing.svelte';
+	interface Props {
+		data: {
+		item: EventSeries;
+		videos: Video[];
+	};
+	}
 
-	let videos: Video[] = [];
-	let speakers: Speaker[] = [];
-	let events: Event[] = [];
-	let item: EventSeries;
+	let { data }: Props = $props();
 
-	$: item = data.item;
-	$: videos = data.videos;
+	let videos: Video[] = $state([]);
+	let speakers: Speaker[] = $state([]);
+	let events: Event[] = $state([]);
+	let item: EventSeries = $state();
 
-	$: {
+	run(() => {
+		item = data.item;
+	});
+	run(() => {
+		videos = data.videos;
+	});
+
+	run(() => {
 		videos = videos
 			.filter((video) => {
 				return video.fields.eventSeries?.some((series) => series.fields.slug === item.fields.slug);
@@ -34,9 +44,9 @@
 				const dateB = new Date(b.fields.date);
 				return dateB.getTime() - dateA.getTime();
 			});
-	}
+	});
 
-	$: {
+	run(() => {
 		events = item.fields.events;
 		events?.forEach((event) => {
 			event.fields.speakers?.forEach((speaker) => {
@@ -58,12 +68,12 @@
 			}
 			return 0;
 		});
-	}
+	});
 
-	$: image =
-		item.fields.pageBannerCdn?.length > 0
+	let image =
+		$derived(item.fields.pageBannerCdn?.length > 0
 			? item.fields.pageBannerCdn[0].secure_url
-			: item.fields.pageBanner.fields.file.url;
+			: item.fields.pageBanner.fields.file.url);
 </script>
 
 <SEO title={item.fields.title} description={item.fields.summary} {image} />

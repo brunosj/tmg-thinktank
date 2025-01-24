@@ -1,3 +1,5 @@
+<!-- @migration-task Error while migrating Svelte code: `<a>` cannot be a descendant of `<a>`. The browser will 'repair' the HTML (by moving, removing, or inserting elements) which breaks Svelte's assumptions about the structure of your components.
+https://svelte.dev/e/node_invalid_placement -->
 <script lang="ts">
 	export let events: Event[];
 	export let color: string = '#67797B';
@@ -46,12 +48,11 @@
 						<div class="group flex-col space-y-2">
 							<div class="flex items-center gap-x-4">
 								<p class="text-sm font-semibold text-gray-500">{event.fields.type}</p>
-								<a
-									href={`/programmes/${event.fields.programme.fields.slug}`}
+								<div
 									class="relative z-10 hidden rounded-md bg-green-variation px-3 py-1.5 text-xs font-medium text-gray-600 duration-300 group-hover:bg-white lg:block"
 								>
 									{event.fields.programme.fields.title}
-								</a>
+								</div>
 							</div>
 
 							<div class="text-grey-900 text-base font-semibold lg:text-lg">

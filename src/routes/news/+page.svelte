@@ -1,5 +1,4 @@
 <script lang="ts">
-	export let data: Page;
 
 	import type { News } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
@@ -12,6 +11,11 @@
 	import CarouselV2 from '$components/Carousel/CarouselV2.svelte';
 	import Heading from '$components/Layout/Heading.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
+	interface Props {
+		data: Page;
+	}
+
+	let { data }: Props = $props();
 
 	type Page = {
 		entries: News[];
@@ -22,7 +26,7 @@
 		const dateB = new Date(b.fields.dateFormat).getTime();
 		return dateB - dateA;
 	});
-	let filteredItems: News[] = news.slice(5);
+	let filteredItems: News[] = $state(news.slice(5));
 
 	function filteredData(event: CustomEvent<News[]>) {
 		const filtered = event.detail;
@@ -33,8 +37,8 @@
 		}
 	}
 
-	let element;
-	let intersecting = false;
+	let element = $state();
+	let intersecting = $state(false);
 </script>
 
 <SEO title="News" description="News from TMG and its partners" />

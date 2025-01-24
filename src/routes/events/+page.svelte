@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let data: Page;
+	import { run } from 'svelte/legacy';
+
 
 	import type { Event, EventSeries } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
@@ -8,26 +9,34 @@
 	import ButtonLoadMore from '$components/UI/ButtonLoadMore.svelte';
 	import Calendar from '$components/Calendar/Calendar.svelte';
 	import EventSeriesCard from '$components/Events/EventSeriesCard.svelte';
+	interface Props {
+		data: Page;
+	}
+
+	let { data }: Props = $props();
 
 	type Page = {
 		eventSeries: EventSeries[];
 		events: Event[];
 	};
 
-	$: eventSeries = data.eventSeries.sort((a, b) => {
+	let eventSeries = $derived(data.eventSeries.sort((a, b) => {
 		const dateA = new Date(a.fields.cutoffDate);
 		const dateB = new Date(b.fields.cutoffDate);
 		return Number(dateB) - Number(dateA);
+	}));
+
+	let events;
+	run(() => {
+		events = data.events;
 	});
 
-	$: events = data.events;
-
-	let eventsFuture: Event[];
-	let eventsPast: Event[];
+	let eventsFuture: Event[] = $state();
+	let eventsPast: Event[] = $state();
 
 	const today = new Date();
 
-	$: {
+	run(() => {
 		events = data.events;
 		eventsFuture = events
 			.filter((event) => {
@@ -43,10 +52,10 @@
 			const date = new Date(event.fields.date);
 			return date < today;
 		});
-	}
+	});
 
 	//// Load more functionality
-	let eventsCount = 12;
+	let eventsCount = $state(12);
 
 	// Function to load more news
 	function loadMoreEvents() {

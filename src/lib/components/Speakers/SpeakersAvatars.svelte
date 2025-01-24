@@ -1,8 +1,12 @@
 <script lang="ts">
-	export let speakers: Speaker[];
-	export let color: string = '#67797B';
 
 	import type { Speaker } from '$lib/types/types';
+	interface Props {
+		speakers: Speaker[];
+		color?: string;
+	}
+
+	let { speakers, color = '#67797B' }: Props = $props();
 </script>
 
 <ul

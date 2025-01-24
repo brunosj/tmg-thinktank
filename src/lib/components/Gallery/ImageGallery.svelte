@@ -1,9 +1,13 @@
 <script lang="ts">
-	export let images: ImageCdn[];
-	export let borderColor: string = '#000';
 
 	import type { ImageCdn } from '$lib/types/types';
 	import Gallery from './Gallery.svelte';
+	interface Props {
+		images: ImageCdn[];
+		borderColor?: string;
+	}
+
+	let { images, borderColor = '#000' }: Props = $props();
 </script>
 
 <section class="sectionPy container grid-cols-3 lg:grid">
@@ -14,7 +18,7 @@
 		>
 			Image Gallery
 		</h2>
-		<div class="ml-auto w-1/4 lg:border-2" style="border-color:{borderColor}" />
+		<div class="ml-auto w-1/4 lg:border-2" style="border-color:{borderColor}"></div>
 	</div>
 	<div class="col-span-2">
 		<Gallery {images} {borderColor} />

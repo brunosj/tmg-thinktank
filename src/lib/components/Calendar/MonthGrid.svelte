@@ -1,13 +1,24 @@
 <script lang="ts">
-	export let currentMonth: Date;
-	export let items: CalendarEvent[];
-	export let hoveredDay: Date | null;
-	export let handleDayMouseEnter: (date: Date) => void;
-	export let handleDayMouseLeave: () => void;
-	export let selectedDate: Date;
 
 	import ItemTooltip from './ItemTooltip.svelte';
 	import type { CalendarEvent } from '$lib/types/types';
+	interface Props {
+		currentMonth: Date;
+		items: CalendarEvent[];
+		hoveredDay: Date | null;
+		handleDayMouseEnter: (date: Date) => void;
+		handleDayMouseLeave: () => void;
+		selectedDate: Date;
+	}
+
+	let {
+		currentMonth,
+		items,
+		hoveredDay,
+		handleDayMouseEnter,
+		handleDayMouseLeave,
+		selectedDate
+	}: Props = $props();
 
 	let rows = [];
 
@@ -133,8 +144,8 @@
 															event.isMultiDay ? multiDayClass(event, date) : ''
 														} 
 													relative my-1 px-2 text-xs`}
-														on:mouseenter={() => handleDayMouseEnter(date)}
-														on:mouseleave={handleDayMouseLeave}
+														onmouseenter={() => handleDayMouseEnter(date)}
+														onmouseleave={handleDayMouseLeave}
 													>
 														<span class="">
 															{#if event.title.length > 10}

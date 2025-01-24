@@ -1,12 +1,16 @@
 <script lang="ts">
-	export let videos: Video[] | Video;
-	export let showTitle: boolean = true;
 
 	import type { Video } from '$lib/types/types';
 	import VideoWrapper from '$components/Video/VideoWrapper.svelte';
 	import { formatDateNews } from '$utils/utils';
+	interface Props {
+		videos: Video[] | Video;
+		showTitle?: boolean;
+	}
 
-	$: videosArray = Array.isArray(videos) ? videos : [videos];
+	let { videos, showTitle = true }: Props = $props();
+
+	let videosArray = $derived(Array.isArray(videos) ? videos : [videos]);
 </script>
 
 <div class="">

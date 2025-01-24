@@ -1,17 +1,27 @@
 <!-- ProgrammeBanner.svelte -->
 <script lang="ts">
-	export let image: string;
-	export let intro: string;
-	export let title: string;
-	export let to: string;
-	export let key: number;
 
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
+	interface Props {
+		image: string;
+		intro: string;
+		title: string;
+		to: string;
+		key: number;
+	}
 
-	let element;
-	let intersecting = false;
+	let {
+		image,
+		intro,
+		title,
+		to,
+		key
+	}: Props = $props();
+
+	let element = $state();
+	let intersecting = $state(false);
 
 	const isTextRight = key === 0 || key === 2;
 </script>

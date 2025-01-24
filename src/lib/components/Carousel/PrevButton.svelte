@@ -1,11 +1,16 @@
 <script lang="ts">
-	export let scrollPrev: () => void;
-	export let enabled: boolean;
+
+	interface Props {
+		scrollPrev: () => void;
+		enabled: boolean;
+	}
+
+	let { scrollPrev, enabled }: Props = $props();
 </script>
 
 <button
 	class="embla__button embla__button--prev"
-	on:click|preventDefault={scrollPrev}
+	onclick={(scrollPrev)}
 	disabled={!enabled}
 	aria-label="Previous slide"
 >
@@ -44,10 +49,6 @@
 		.embla__button--prev {
 			left: 0.5rem;
 		}
-		.embla__button--next {
-			right: 0.5rem;
-		}
-
 		.embla__button {
 			top: 65%;
 			transform: translateY(-140%);

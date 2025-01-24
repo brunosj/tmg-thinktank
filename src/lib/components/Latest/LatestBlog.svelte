@@ -1,13 +1,19 @@
 <script lang="ts">
-	export let news: News[];
+	import { run } from 'svelte/legacy';
+
 
 	import type { News } from '$lib/types/types';
 	import { slugify } from '$utils/utils';
 	import BlogGrid from '$components/Latest/BlogGrid.svelte';
+	interface Props {
+		news: News[];
+	}
 
-	let blogs: News[] = [];
+	let { news }: Props = $props();
 
-	$: {
+	let blogs: News[] = $state([]);
+
+	run(() => {
 		blogs = news
 			.filter((blogs) => {
 				return slugify(blogs.fields.type) === 'blog-post';
@@ -18,7 +24,7 @@
 				return dateA.getTime() - dateB.getTime();
 			})
 			.slice(0, 4);
-	}
+	});
 </script>
 
 <section class="pb-6 pt-3 lg:pb-3 lg:pt-12">

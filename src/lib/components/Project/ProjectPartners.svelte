@@ -1,8 +1,12 @@
 <script lang="ts">
-	export let items: Partner[];
 
 	import type { Partner } from '$lib/types/types';
 	import { ensureHttps } from '$utils/utils';
+	interface Props {
+		items: Partner[];
+	}
+
+	let { items }: Props = $props();
 </script>
 
 {#each items as item (item.fields.name)}

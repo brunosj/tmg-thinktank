@@ -1,9 +1,13 @@
 <script lang="ts">
-	export let heroProgrammes: Programme[];
 
 	import type { Programme } from '$lib/types/types';
 	import ProgrammeBanner from '$components/Banner/ProgrammeBanner.svelte';
 	import Heading from '$components/Layout/Heading.svelte';
+	interface Props {
+		heroProgrammes: Programme[];
+	}
+
+	let { heroProgrammes }: Props = $props();
 
 	function getIntro(slug: string) {
 		switch (slug) {

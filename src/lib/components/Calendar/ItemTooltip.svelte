@@ -1,8 +1,12 @@
 <script lang="ts">
-	export let hoveredDay: Date;
-	export let items: CalendarEvent[];
 
 	import type { CalendarEvent } from '$lib/types/types';
+	interface Props {
+		hoveredDay: Date;
+		items: CalendarEvent[];
+	}
+
+	let { hoveredDay, items }: Props = $props();
 
 	let isExternal = false;
 
@@ -60,7 +64,7 @@
 	}
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <button class="absolute left-6 top-12 z-10 w-64">
 	<div class="rounded-t-md border-b-[3px] border-green-normal bg-white px-4 py-2 text-sm font-bold">
 		<div>{getFormattedDate(hoveredDay)}</div>

@@ -1,14 +1,18 @@
 <script lang="ts">
-	export let topics: Topic[];
 
 	import type { Topic } from '$lib/types/types';
 	import { createEventDispatcher } from 'svelte';
 	import { renderRichText } from '$utils/utils';
 	import ProjectCard from '$components/Programme/ProjectCard.svelte';
+	interface Props {
+		topics: Topic[];
+	}
+
+	let { topics }: Props = $props();
 
 	const dispatch = createEventDispatcher();
 
-	let topicStates = topics.map(() => ({ descriptionMore: false, viewButton: true }));
+	let topicStates = $state(topics.map(() => ({ descriptionMore: false, viewButton: true })));
 
 	const handleDescriptionMore = (index: number) => {
 		topicStates[index].descriptionMore = true;
@@ -46,7 +50,7 @@
 				</div>
 				{#if topic.fields.description && topicStates[i].viewButton}
 					<div class="flex py-3">
-						<button class="w-full lg:w-1/3" on:click={() => handleDescriptionMore(i)}>
+						<button class="w-full lg:w-1/3" onclick={() => handleDescriptionMore(i)}>
 							<div
 								class="focus:shadow-outline hover:bgGradientBR group flex items-center justify-around rounded-md border border-green-normal bg-white align-middle text-sm text-green-normal transition duration-300 ease-in-out hover:text-white focus:outline-none md:text-base"
 							>

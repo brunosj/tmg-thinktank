@@ -1,28 +1,44 @@
 <script>
   // @ts-ignore
   import hash from 'object-hash';
-  export let author;
 
-  /**
-   * @type {{ name: string; slug: string }[]}
-   */
-  export let breadcrumbs;
-  export let entity;
-  export let featuredImage;
-  export let metaDescription;
-  export let siteLanguage;
-  export let siteTitle;
-  export let siteTitleAlt;
-  // @ts-ignore
-  export let siteUrl;
-  export let title;
-  export let url;
-  export let githubPage;
+  
+  
 
+  
   /**
-   * @type {{ url: string; faviconWidth: number; faviconHeight: number } | null}
+   * @typedef {Object} Props
+   * @property {any} author
+   * @property {{ name: string; slug: string }[]} breadcrumbs
+   * @property {any} entity
+   * @property {any} featuredImage
+   * @property {any} metaDescription
+   * @property {any} siteLanguage
+   * @property {any} siteTitle
+   * @property {any} siteTitleAlt
+   * @property {any} siteUrl
+   * @property {any} title
+   * @property {any} url
+   * @property {any} githubPage
+   * @property {{ url: string; faviconWidth: number; faviconHeight: number } | null} [entityMeta]
    */
-  export let entityMeta = null;
+
+  /** @type {Props} */
+  let {
+    author,
+    breadcrumbs,
+    entity,
+    featuredImage,
+    metaDescription,
+    siteLanguage,
+    siteTitle,
+    siteTitleAlt,
+    siteUrl,
+    title,
+    url,
+    githubPage,
+    entityMeta = null
+  } = $props();
 
   const entityHash = hash({ author }, { algorithm: 'md5' });
 

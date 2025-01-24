@@ -1,12 +1,16 @@
 <script lang="ts">
-	export let item: Partner;
 
 	import type { Partner } from '$lib/types/types';
+	interface Props {
+		item: Partner;
+	}
 
-	$: image =
-		item.fields.logoCdn?.length > 0
+	let { item }: Props = $props();
+
+	let image =
+		$derived(item.fields.logoCdn?.length > 0
 			? item.fields.logoCdn[0].secure_url
-			: item.fields.logo.fields.file.url;
+			: item.fields.logo.fields.file.url);
 </script>
 
 {#if image}

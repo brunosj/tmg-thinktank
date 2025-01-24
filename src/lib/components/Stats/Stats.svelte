@@ -1,13 +1,27 @@
 <script lang="ts">
-	export let title: string;
-	export let subtitle: string;
-	export let item1: string;
-	export let number1: number;
-	export let item2: string;
-	export let number2: number;
-	export let item3: string;
-	export let number3: number;
-	export let color: string = '#089b61';
+	interface Props {
+		title: string;
+		subtitle: string;
+		item1: string;
+		number1: number;
+		item2: string;
+		number2: number;
+		item3: string;
+		number3: number;
+		color?: string;
+	}
+
+	let {
+		title,
+		subtitle,
+		item1,
+		number1,
+		item2,
+		number2,
+		item3,
+		number3,
+		color = '#089b61'
+	}: Props = $props();
 </script>
 
 <section class="">
@@ -20,7 +34,7 @@
 		</div>
 		<div class="mt-10 bg-white pb-12 sm:pb-16">
 			<div class="relative">
-				<div class="absolute inset-0 h-1/2 bg-green-variation" />
+				<div class="absolute inset-0 h-1/2 bg-green-variation"></div>
 				<div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<div class="mx-auto max-w-4xl">
 						<dl class="rounded-md bg-white shadow-lg sm:grid sm:grid-cols-2">

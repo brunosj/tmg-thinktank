@@ -1,7 +1,7 @@
 <script lang="ts">
-	export let data;
 	import SEO from '$components/SEO/SEO.svelte';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
+	let { data } = $props();
 
 	let { newsletter } = data;
 </script>

@@ -1,12 +1,20 @@
 <script lang="ts">
-	export let landingPage: LandingPage;
+	import { run } from 'svelte/legacy';
+
 
 	import type { LandingPage, Event, News, BlogPost, Video } from '$lib/types/types';
 	import CarouselV2 from '$components/Carousel/CarouselV2.svelte';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
-	let slides: (News | Event | BlogPost | Video)[] = [];
+	interface Props {
+		landingPage: LandingPage;
+	}
 
-	$: slides = landingPage.fields.featuredItems;
+	let { landingPage }: Props = $props();
+	let slides: (News | Event | BlogPost | Video)[] = $state([]);
+
+	run(() => {
+		slides = landingPage.fields.featuredItems;
+	});
 </script>
 
 <div class="sectionPy bg-green-variation">

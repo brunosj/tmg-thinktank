@@ -1,5 +1,4 @@
 <script lang="ts">
-	export let data: Page;
 
 	import type { BlogPost } from '$lib/types/types';
 	import Button from '$components/UI/Button.svelte';
@@ -10,34 +9,37 @@
 	import Tag from '$components/UI/Tag.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 	import { ensureHttps } from '$utils/utils';
+	interface Props {
+		data: Page;
+	}
+
+	let { data }: Props = $props();
 
 	type Page = {
 		item: BlogPost;
 		entries: BlogPost[];
 	};
 
-	$: item = data.item;
-	$: entries = data.entries;
+	let item = $derived(data.item);
+	let entries = $derived(data.entries);
 
-	let moreBlogItems: BlogPost[];
-
-	$: {
-		moreBlogItems = entries
+	let moreBlogItems: BlogPost[] = $derived(entries
 			.sort((a, b) => {
 				return new Date(b.fields.dateFormat).getTime() - new Date(a.fields.dateFormat).getTime();
 			})
-			.slice(0, 3);
-	}
+			.slice(0, 3));
 
-	$: image =
-		item.fields.imageCdn?.length > 0
+	
+
+	let image =
+		$derived(item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image.fields.file.url;
+			: item.fields.image.fields.file.url);
 
-	$: imageCaption =
-		item.fields.imageCdn?.length > 0
+	let imageCaption =
+		$derived(item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].context?.custom.caption
-			: item.fields.image.fields.description;
+			: item.fields.image.fields.description);
 </script>
 
 <SEO

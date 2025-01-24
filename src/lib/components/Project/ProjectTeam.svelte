@@ -1,7 +1,11 @@
 <script lang="ts">
-	export let items: Team[];
 
 	import type { Team } from '$lib/types/types';
+	interface Props {
+		items: Team[];
+	}
+
+	let { items }: Props = $props();
 </script>
 
 {#each items as item}

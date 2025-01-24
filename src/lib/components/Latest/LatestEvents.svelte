@@ -1,12 +1,18 @@
 <script lang="ts">
-	export let events: Event[] = [];
+	import { run } from 'svelte/legacy';
+
 
 	import type { Event } from '$lib/types/types';
 	import EventListing from '$components/Events/EventListing.svelte';
+	interface Props {
+		events?: Event[];
+	}
+
+	let { events = $bindable([]) }: Props = $props();
 
 	const today = new Date();
 
-	$: {
+	run(() => {
 		events = events
 			.filter((event) => {
 				const eventDate = new Date(event.fields.date);
@@ -18,9 +24,9 @@
 				return dateA.getTime() - dateB.getTime();
 			})
 			.slice(0, 5);
-	}
+	});
 
-	$: shouldDisplay = events.length >= 1;
+	let shouldDisplay = $derived(events.length >= 1);
 </script>
 
 {#if shouldDisplay}

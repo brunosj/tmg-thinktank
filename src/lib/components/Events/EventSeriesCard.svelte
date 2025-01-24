@@ -1,8 +1,12 @@
 <script lang="ts">
-	export let items: EventSeries[];
 
 	import type { Event, EventSeries } from '$lib/types/types';
 	import Button from '$components/UI/Button.svelte';
+	interface Props {
+		items: EventSeries[];
+	}
+
+	let { items }: Props = $props();
 </script>
 
 <ul class="space-y-12 py-6 lg:py-12">

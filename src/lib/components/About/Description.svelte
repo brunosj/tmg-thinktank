@@ -1,16 +1,20 @@
 <script lang="ts">
-	export let quotePicture: Image | ImageCdn;
 
 	import type { Image, ImageCdn } from '$lib/types/types';
 	import logo from '$assets/TMG_logo_white.png';
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
+	interface Props {
+		quotePicture: Image | ImageCdn;
+	}
 
-	let element;
-	let intersecting = false;
+	let { quotePicture }: Props = $props();
 
-	let imageUrl: string | undefined;
+	let element = $state();
+	let intersecting = $state(false);
+
+	let imageUrl: string | undefined = $state();
 	if (
 		'fields' in quotePicture &&
 		'file' in quotePicture.fields &&
