@@ -16,3 +16,44 @@
 		/>
 	</svg>
 </button>
+
+<style>
+	.embla__button {
+		z-index: 1;
+		position: relative;
+		background-color: transparent;
+		border-radius: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		width: 3.5rem;
+		height: 3.5rem;
+	}
+
+	.embla__button:disabled {
+		opacity: 0.3;
+	}
+	.embla__button__svg {
+		width: 65%;
+		height: 45%;
+		fill: #67797b;
+	}
+
+	@media (max-width: 1024px) {
+		.embla__button--prev {
+			left: 0.5rem;
+		}
+		.embla__button--next {
+			right: 0.5rem;
+		}
+
+		.embla__button {
+			top: 65%;
+			transform: translateY(-140%);
+			cursor: pointer;
+			width: 2rem;
+			height: 2rem;
+		}
+	}
+</style>

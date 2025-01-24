@@ -15,9 +15,7 @@
 			<div class="p-4">
 				<div>
 					<div class="pt-2 text-sm font-bold text-white lg:text-lg">
-						<span
-							class="bg-gray-900 px-2 py-1 duration-200 ease-in-out group-hover:bg-green-normal"
-						>
+						<span class="group-hover:bgGradientBR bg-gray-900 px-2 py-1 duration-200 ease-in-out">
 							Flagship Output
 						</span>
 					</div>

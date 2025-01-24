@@ -51,7 +51,7 @@
 				const isEventDay = day.toDateString() === selectedDate.toDateString();
 				const isCurrentMonth = day.getMonth() === monthStart.getMonth();
 				const isWeekend = day.getDay() === 6 || day.getDay() === 0;
-				const weekendClass = isWeekend ? 'bg-green-normal bg-opacity-20' : '';
+				const weekendClass = isWeekend ? 'bgGradientBR bg-opacity-20' : '';
 
 				let sortedItems = items.slice().sort((a, b) => {
 					if (a.isMultiDay === b.isMultiDay) {

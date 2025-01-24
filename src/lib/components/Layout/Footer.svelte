@@ -4,10 +4,10 @@
 	import Button from '$components/UI/Button.svelte';
 </script>
 
-<div class="overflow-hidden">
+<div class="bgGradientBR overflow-hidden">
 	<LearnMore />
 
-	<section class="bg-green-normal">
+	<section class="">
 		<div
 			class="container grid grid-cols-2 pb-6 pt-6 text-center text-white lg:grid-cols-6 lg:text-left"
 		>

@@ -22,7 +22,7 @@
 	}
 </script>
 
-<div class="bg-green-normal" bind:this={element}>
+<div class="bgGradientBR" bind:this={element}>
 	<div class="container pt-32 font-normal text-white lg:pb-16 lg:pt-48 lg:font-semibold">
 		<IntersectionObserver {element} bind:intersecting once>
 			{#if intersecting}

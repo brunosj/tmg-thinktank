@@ -1,13 +1,16 @@
 <script lang="ts">
+	export let data;
+
+	import type { Programme } from '$lib/types/types';
+	import type { LayoutProps } from './$types';
+
 	import '../app.css';
-	import '$styles/carousel.css';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicIn, cubicOut } from 'svelte/easing';
 	import Footer from '$components/Layout/Footer.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Header from '$components/Layout/Header.svelte';
 
-	export let data;
 	$: pathname = data.pathname;
 
 	const duration = 100;

@@ -16,7 +16,7 @@
 	];
 </script>
 
-<div class="bg-green-normal">
+<div class="">
 	<div class="container text-center lg:text-left">
 		<div class="pb-6 pt-10">
 			<div>

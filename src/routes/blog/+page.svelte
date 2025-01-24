@@ -34,7 +34,7 @@
 
 <SEO title="Blog" description="Index of all TMG blog posts" />
 
-<SectionHeaderLow title="Blog" background="bg-green-normal" />
+<SectionHeaderLow title="Blog" background="bgGradientBR" />
 <article class="relative">
 	<section class="container py-6 font-light text-black lg:py-12 lg:text-xl">
 		<h3 class="font-normal">

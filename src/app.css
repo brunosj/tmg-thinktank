@@ -194,3 +194,11 @@ em {
 b {
 	@apply font-semibold;
 }
+
+.bgGradientBR {
+	@apply bg-gradient-to-br from-black/70 via-green-normal to-green-normal/100;
+}
+
+.bgGradientTL {
+	@apply bg-gradient-to-tl from-black/70 via-green-normal to-green-normal/100;
+}

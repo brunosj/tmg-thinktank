@@ -12,6 +12,7 @@
 		SidebarWrapper
 	} from 'flowbite-svelte';
 	import { sineIn } from 'svelte/easing';
+	import { generateProgrammeLinks } from '$utils/utils';
 
 	let transitionParamsRight = {
 		x: 320,

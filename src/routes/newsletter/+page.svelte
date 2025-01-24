@@ -8,7 +8,7 @@
 
 <SEO title="Newsletter" />
 <section>
-	<SectionHeaderLow title="Newsletter" background="bg-green-normal" />
+	<SectionHeaderLow title="Newsletter" background="bgGradientBR" />
 	<article class="container pb-6 pt-12 text-base font-light text-black lg:pt-24 lg:text-xl">
 		<section>
 			<p>

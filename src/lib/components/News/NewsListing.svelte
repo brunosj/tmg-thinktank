@@ -49,7 +49,7 @@
 			<div class="p-4">
 				<div class="flex items-center justify-between gap-x-4 pt-2 text-white">
 					<span
-						class="rounded-md bg-black px-2 py-1 text-xs font-bold duration-300 ease-in-out group-hover:bg-green-normal"
+						class="group-hover:bgGradientBR rounded-md bg-black px-2 py-1 text-xs font-bold duration-300 ease-in-out"
 					>
 						{item.fields.type || 'Blog Post'}
 					</span>

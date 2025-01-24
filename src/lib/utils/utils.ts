@@ -402,3 +402,14 @@ export function formatEventLocalTime(startDateStr: string, endDateStr: string): 
 
 	return `${startTime} - ${endTime} (${formattedTz})`;
 }
+
+import type { Programme } from '$lib/types/types';
+
+export function generateProgrammeLinks(programmes: Programme[]) {
+	return programmes
+		.sort((a, b) => (a.fields.title || '').localeCompare(b.fields.title || ''))
+		.map((programme) => ({
+			title: programme.fields.title,
+			to: `/programmes/${programme.fields.slug}`
+		}));
+}

@@ -55,7 +55,7 @@
 </script>
 
 <SEO title="Events" description="Events from TMG and its partners" />
-<SectionHeaderLow title="Events" background="bg-green-normal" subtitle="" />
+<SectionHeaderLow title="Events" background="bgGradientBR" subtitle="" />
 <div class="bg-white">
 	<div class="container">
 		<div class="sectionPy">

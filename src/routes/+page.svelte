@@ -49,7 +49,6 @@
 </script>
 
 <Hero hero={landingPage} />
-<!-- <HeroV2 hero={landingPage} heroProgrammes={programmes} /> -->
 <LatestV2 {landingPage} />
 <ImageBannerEventSeries items={eventSeries} />
 <EventsHomepage {events} {landingPage} />

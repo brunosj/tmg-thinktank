@@ -23,7 +23,7 @@
 <SEO title="Videos" />
 
 <article>
-	<SectionHeaderLow title="Videos" background="bg-green-normal" />
+	<SectionHeaderLow title="Videos" background="bgGradientBR" />
 	<div class="container">
 		<VideoListing {videos} />
 	</div>

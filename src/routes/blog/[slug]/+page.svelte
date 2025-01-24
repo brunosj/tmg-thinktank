@@ -114,7 +114,7 @@
 				<VideoListing videos={item.fields.video} />
 			</section>
 		{/if}
-		<section class="border-t border-gray-300">
+		<section class="border-t border-gray-300 pb-12">
 			<div class="pt-6 text-xl font-semibold lg:text-2xl">Recent Blogs</div>
 			<BlogListing items={moreBlogItems} />
 		</section>

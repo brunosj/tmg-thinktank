@@ -26,7 +26,7 @@
 </script>
 
 <SEO title="Job Opportunities" description="Join our team!" />
-<SectionHeaderLow title="Opportunities at TMG" background="bg-green-normal" />
+<SectionHeaderLow title="Opportunities at TMG" background="bgGradientBR" />
 <div class="container flex flex-col gap-2 pb-6 lg:pb-12">
 	<div class="">
 		{#if jobOffers.length > 0}

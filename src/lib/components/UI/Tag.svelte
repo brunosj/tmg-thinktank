@@ -9,7 +9,7 @@
 			class="focus:shadow-outline group flex items-center rounded-md align-middle text-sm transition duration-300 ease-in-out focus:outline-none"
 		>
 			<div
-				class="rounded-md bg-green-normal px-3 py-1 font-bold leading-snug"
+				class="bgGradientBR rounded-md px-3 py-1 font-bold leading-snug"
 				style="color: {textColor}"
 			>
 				<slot />

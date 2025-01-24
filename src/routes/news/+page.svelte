@@ -38,7 +38,7 @@
 </script>
 
 <SEO title="News" description="News from TMG and its partners" />
-<SectionHeaderLow title="News" background="bg-green-normal" />
+<SectionHeaderLow title="News" background="bgGradientBR" />
 <article class="bg-green-variation" bind:this={element}>
 	<IntersectionObserver {element} bind:intersecting once>
 		{#if intersecting}

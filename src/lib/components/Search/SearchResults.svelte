@@ -75,7 +75,7 @@
 			</button>
 		</div>
 
-		<div class="bg-green-normal py-2">
+		<div class="bgGradientBR py-2">
 			<div class="container flex flex-wrap gap-x-6 gap-y-3 space-x-0 lg:space-x-12">
 				{#each filterOptions as option, index}
 					<label class="flex items-center space-x-2">

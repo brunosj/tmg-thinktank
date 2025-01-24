@@ -92,7 +92,7 @@
 </script>
 
 <SEO title={project.fields.name} description={project.fields.summary} {image} />
-<div class="bg-green-normal">
+<div class="bgGradientBR">
 	<div class="container pb-16 pt-24 lg:pt-32">
 		<div class="mb-5 text-sm text-green-light">
 			<a href="/" class="transition duration-200 hover:text-white hover:underline">Home</a>

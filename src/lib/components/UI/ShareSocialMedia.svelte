@@ -15,7 +15,7 @@
 <div class="">
 	<ul class="flex gap-3 text-sm">
 		<li
-			class="group flex items-center justify-center rounded-md bg-green-variation duration-300 ease-in-out hover:bg-green-normal"
+			class="hover:bgGradientBR group flex items-center justify-center rounded-md bg-green-variation duration-300 ease-in-out"
 		>
 			<a
 				href={twitterShareUrl}
@@ -29,7 +29,7 @@
 			</a>
 		</li>
 		<li
-			class="group flex items-center justify-center rounded-md bg-green-variation duration-300 ease-in-out hover:bg-green-normal"
+			class="hover:bgGradientBR group flex items-center justify-center rounded-md bg-green-variation duration-300 ease-in-out"
 		>
 			<a
 				href={linkedInShareUrl}

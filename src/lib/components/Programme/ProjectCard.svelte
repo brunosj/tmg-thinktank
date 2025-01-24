@@ -19,7 +19,7 @@
 						<img loading="lazy" src={image} alt={item.fields.name} class="w-full object-cover" />
 					</div>
 					<div
-						class="flex flex-grow items-center justify-center p-5 text-center text-base font-bold text-black transition duration-300 ease-in-out group-hover:bg-green-normal group-hover:text-green-light"
+						class="group-hover:bgGradientBR flex flex-grow items-center justify-center p-5 text-center text-base font-bold text-black transition duration-300 ease-in-out group-hover:text-green-light"
 					>
 						{item.fields.name}
 					</div>

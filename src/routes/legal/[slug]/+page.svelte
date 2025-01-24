@@ -8,7 +8,7 @@
 </script>
 
 <SEO title={item.fields.title} />
-<SectionHeaderLow title={item.fields.title} background="bg-green-normal" />
+<SectionHeaderLow title={item.fields.title} background="bgGradientBR" />
 <div class="bg-green-light">
 	<div class="container py-12 lg:pb-16">
 		<div class="richText px-0 lg:px-32">

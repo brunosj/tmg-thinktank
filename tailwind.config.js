@@ -5,7 +5,7 @@ const config = {
 		'./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'
 	],
 	safelist: ['grid-cols-4', 'grid-cols-5', 'grid-cols-6', 'grid-cols-7', 'grid-cols-8'],
-	plugins: [require('flowbite/plugin')],
+	plugins: [require('flowbite/plugin'), require('@tailwindcss/typography')],
 	theme: {
 		container: {
 			center: true,

@@ -49,7 +49,7 @@
 </script>
 
 <SEO title="Publications" />
-<SectionHeaderLow title="Publications" background="bg-green-normal" />
+<SectionHeaderLow title="Publications" background="bgGradientBR" />
 <article class=" bg-green-variation" bind:this={element}>
 	<IntersectionObserver {element} bind:intersecting once>
 		{#if intersecting}

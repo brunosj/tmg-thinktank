@@ -5,7 +5,6 @@
 	import CarouselV2 from '$components/Carousel/CarouselV2.svelte';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	let slides: (News | Event | BlogPost | Video)[] = [];
-	let selected = false;
 
 	$: slides = landingPage.fields.featuredItems;
 </script>

@@ -10,17 +10,17 @@
 	import NextButton from './NextButton.svelte';
 
 	let emblaApi: EmblaCarouselType;
-	let options: EmblaOptionsType = {
+	let options = {
 		slidesToScroll: 'auto',
 		containScroll: 'trimSnaps',
 		startIndex: 0
-	};
+	} as const;
 	let selectedIndex = 0;
 	let scrollSnaps = [];
 	let prevBtnEnabled = false;
 	let nextBtnEnabled = false;
 
-	const onInit = (event: CustomEvent<EmblaCarouselType>) => {
+	const onInit = (event: any) => {
 		emblaApi = event.detail;
 
 		const onSelect = () => {
@@ -56,15 +56,15 @@
 	const slidesQty = slides.length;
 </script>
 
-<div class="news__embla relative">
+<div class="carousel__embla relative">
 	<div
-		class="news__embla__viewport"
+		class="carousel__embla__viewport"
 		use:emblaCarouselSvelte={{ options, plugins: [] }}
 		on:emblaInit={onInit}
 	>
 		<ul class="embla__container">
 			{#each slides as slide, i}
-				<li class="news__embla__slide">
+				<li class="carousel__embla__slide">
 					{#if isPublicationFeature(slide)}
 						<PublicationFeatureSlide item={slide} {i} {slidesQty} />
 					{:else if !isPublicationFeature(slide)}
@@ -81,3 +81,52 @@
 		<NextButton {scrollNext} enabled={nextBtnEnabled} />
 	</div>
 </div>
+
+<style>
+	.carousel__embla {
+		--slide-spacing: 1rem;
+		--slide-size: 30%;
+		/* --slide-height: 19rem;
+	height: 100%;
+	width: 35%; */
+	}
+
+	.carousel__embla__slide {
+		flex: 0 0 var(--slide-size);
+		min-width: 0;
+		/* padding-left: var(--slide-spacing); */
+		position: relative;
+	}
+
+	.embla__container {
+		backface-visibility: hidden;
+		display: flex;
+		touch-action: pan-y;
+	}
+
+	@media (max-width: 1024px) {
+		.carousel__embla {
+			--slide-spacing: 1rem;
+			--slide-size: 66%;
+			/* --slide-height: 19rem;
+		height: 100%;
+		width: 35%; */
+		}
+		/* .carousel__embla__viewport {
+			overflow: scroll;
+		} */
+	}
+
+	@media (max-width: 768px) {
+		.carousel__embla {
+			--slide-spacing: 1rem;
+			--slide-size: 90%;
+			/* --slide-height: 19rem;
+		height: 100%;
+		width: 35%; */
+		}
+		/* .carousel__embla__viewport {
+			overflow: scroll;
+		} */
+	}
+</style>

@@ -20,7 +20,7 @@
 </script>
 
 <SEO title="Contact" />
-<SectionHeaderLow title="Contact" background="bg-green-normal" />
+<SectionHeaderLow title="Contact" background="bgGradientBR" />
 
 <div class="bg-white">
 	<div class="container py-12">

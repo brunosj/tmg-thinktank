@@ -8,7 +8,7 @@
 <Disclosure defaultOpen let:open class="text-white">
 	<div>
 		<DisclosureButton
-			class="group relative flex w-full items-center justify-between rounded-md bg-green-normal p-4 text-left"
+			class="bgGradientBR group relative flex w-full items-center justify-between rounded-md p-4 text-left"
 		>
 			<h3 class="">{heading}</h3>
 			<span class="ml-6 flex items-center">

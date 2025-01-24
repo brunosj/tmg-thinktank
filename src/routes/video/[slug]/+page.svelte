@@ -36,7 +36,7 @@
 		</h1>
 		<p class="text-xl">{item.fields.summary}</p>
 	</section>
-	<section class="m-auto w-full bg-green-normal">
+	<section class="bgGradientBR m-auto w-full">
 		<div class="container m-auto py-6 lg:w-2/3">
 			<VideoListing videos={item.fields.video || []} showTitle={false} />
 		</div>

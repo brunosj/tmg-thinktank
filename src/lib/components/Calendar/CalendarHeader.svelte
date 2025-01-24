@@ -53,7 +53,7 @@
 	</select>
 	<button
 		on:click={toggleView}
-		class="hidden rounded bg-green-normal px-4 py-2 font-bold text-white md:block"
+		class="bgGradientBR hidden rounded px-4 py-2 font-bold text-white md:block"
 	>
 		{#if isListView}
 			Month view

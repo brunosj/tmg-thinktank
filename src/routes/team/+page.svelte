@@ -9,5 +9,5 @@
 </script>
 
 <SEO title="Team" />
-<SectionHeaderLow title="Team" background="bg-green-normal" />
+<SectionHeaderLow title="Team" background="bgGradientBR" />
 <TeamListing items={team} />

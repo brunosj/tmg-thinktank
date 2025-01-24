@@ -17,7 +17,7 @@
 <SEO title="Publication Features" />
 
 <article>
-	<SectionHeaderLow title="Publication Features" background="bg-green-normal" />
+	<SectionHeaderLow title="Publication Features" background="bgGradientBR" />
 	<div class="container">
 		<PublicationFeature {items} />
 	</div>

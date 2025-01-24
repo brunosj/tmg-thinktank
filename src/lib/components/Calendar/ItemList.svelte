@@ -80,9 +80,7 @@
 
 	{#each sortedDays as day (day)}
 		<div>
-			<div
-				class="my-auto flex items-center rounded-md bg-green-normal px-6 py-2 font-bold text-white"
-			>
+			<div class="bgGradientBR my-auto flex items-center rounded-md px-6 py-2 font-bold text-white">
 				<span>
 					{new Date(day).toLocaleString('en-UK', { weekday: 'long' })},{' '}
 					<span>

@@ -328,6 +328,7 @@ export interface Partner extends ContentfulEntry {
 export interface Programme extends ContentfulEntry {
 	fields: {
 		title: string;
+		actionVerb: string;
 		subtitle: string;
 		bannerPicture: ImageCdn[];
 		quote: string;
@@ -455,7 +456,7 @@ export interface ImageCdn {
 
 export interface SearchItem {
 	title: string;
-	summary: string;
+	summary: string[];
 	slug?: string;
 	type?: string;
 	date?: string;

@@ -32,7 +32,7 @@
 	];
 </script>
 
-<div class="bg-green-normal">
+<div class="bgGradientBR">
 	<div class="container pt-12 font-bold text-white lg:pb-16 lg:pt-24">
 		<HeadingAbout text="Our Guiding Principles" />
 
