@@ -16,33 +16,29 @@
 	];
 </script>
 
-<div class="">
-	<div class="container text-center lg:text-left">
-		<div class="pb-6 pt-10">
-			<div>
-				<h3 class="text-lg font-semibold text-green-light lg:text-4xl">
-					Learn more about our activities
-				</h3>
-			</div>
-			<div class="px-5 pt-2 lg:px-0">
-				<p class="text-sm font-light text-green-light lg:text-xl">
-					Check out our different channels where we publish articles, videos, and analyses of global
-					and local debates
-				</p>
-				<ul class="flex justify-center gap-12 pt-6 lg:justify-start">
-					{#each socialLinks as link (link.label)}
-						<li class="mr-0 inline-block lg:mr-5">
-							<a
-								href={link.link}
-								target="_blank"
-								class="text-green-light transition duration-300 ease-in-out hover:text-gray-800"
-							>
-								<Icon icon={link.icon} label={link.label} />
-							</a>
-						</li>
-					{/each}
-				</ul>
-			</div>
+<div class="backdrop-blur-sm">
+	<div class="container py-16">
+		<div class="max-w-3xl">
+			<h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-green-light tracking-tight">
+				Learn more about our activities
+			</h3>
+			<p class="mt-4 text-base md:text-lg text-green-light/90 font-normal">
+				Check out our different channels where we publish articles, videos, and analyses of global
+				and local debates
+			</p>
+			<ul class="flex gap-8 mt-8">
+				{#each socialLinks as link (link.label)}
+					<li>
+						<a
+							href={link.link}
+							target="_blank"
+							class="block p-3 text-green-light hover:text-green-variation transform transition-all duration-300 hover:scale-110 "
+						>
+							<Icon icon={link.icon} label={link.label}  />
+						</a>
+					</li>
+				{/each}
+			</ul>
 		</div>
 	</div>
 </div>

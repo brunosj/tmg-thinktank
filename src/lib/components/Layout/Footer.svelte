@@ -9,74 +9,77 @@
 	const programmeLinks = generateProgrammeLinks(programmes);
 </script>
 
-<div class="bgGradientBR overflow-hidden">
+<footer class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden">
 	<LearnMore />
 
-	<section class="">
-		<div
-			class="container grid grid-cols-2 pb-6 pt-6 text-center text-white lg:grid-cols-6 lg:text-left"
-		>
-			<ul class="col-span-4 grid grid-cols-2 gap-6 lg:grid-cols-4">
-					<li class="list-none">
-						<div class="mb-3 text-xs font-extrabold uppercase text-white lg:mb-6">
+	<div class="container pt-0 pb-8 lg:pt-16 lg:pb-8">
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
+			<div class="lg:col-span-4">
+				<div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+					<div>
+						<h4 class="text-sm font-bold uppercase tracking-wider text-white mb-6">
 							Programmes
-						</div>
-						<ul class="space-y-3">
+						</h4>
+						<ul class="space-y-4">
 							{#each programmeLinks as programme}
 								<li>
 									<a
 										href={programme.to}
-										class="block text-xs font-medium duration-300 hover:text-green-variation hover:underline lg:text-sm"
-										>{programme.title}</a
-									>
+										class="text-gray-300 hover:text-white transition-colors duration-200 text-sm"
+									>{programme.title}</a>
 								</li>
 							{/each}
 						</ul>
-					</li>
-				{#each footerMenu as category}
-					<li class="list-none">
-						<div class="mb-3 text-xs font-extrabold uppercase text-white lg:mb-6">
-							{category.category}
-						</div>
-						<ul class="space-y-3">
-							{#each category.links as link}
-								<li>
-									<a
-										href={link.to}
-										class="block text-xs font-medium duration-300 hover:text-green-variation hover:underline lg:text-sm"
-										>{link.title}</a
-									>
-								</li>
-							{/each}
-						</ul>
-					</li>
-				{/each}
-			</ul>
+					</div>
 
-			<div class="col-span-2 pt-3 lg:pt-0">
-				<div class="mb-6 text-xs font-extrabold uppercase text-white">Stay in touch</div>
-				<h3 class="block text-xs font-medium text-white lg:text-sm">
-					Hear about our latest events and research
-				</h3>
-				<div class="mt-5">
-					<Button to="https://bit.ly/34L0mFV" colors="white">Sign up to our newsletter</Button>
+					{#each footerMenu as category}
+						<div>
+							<h4 class="text-sm font-bold uppercase tracking-wider text-white mb-6">
+								{category.category}
+							</h4>
+							<ul class="space-y-4">
+								{#each category.links as link}
+									<li>
+										<a
+											href={link.to}
+											class="text-gray-300 hover:text-white transition-colors duration-200 text-sm"
+										>{link.title}</a>
+									</li>
+								{/each}
+							</ul>
+						</div>
+					{/each}
 				</div>
+			</div>
+
+			<div class="lg:col-span-2">
+				<h4 class="text-sm font-bold uppercase tracking-wider text-white mb-6">
+					Stay in touch
+				</h4>
+				<p class="text-gray-300 text-sm mb-6">
+					Hear about our latest events and research
+				</p>
+				<Button 
+					to="https://bit.ly/34L0mFV" 
+					colors="white"
+				>
+					Sign up to our newsletter
+				</Button>
 			</div>
 		</div>
 
-		<div class="container m-auto flex flex-col text-center text-xs text-white md:flex-row">
-			<div class="border-t border-white pb-6 pt-6">
+		<div class="mt-16 pt-8 border-t border-gray-800">
+			<p class="text-gray-400 text-xs leading-relaxed">
 				TMG Think Tank for Sustainability consists of TMG Research gGmbH, an independent,
 				non-partisan, non-for-profit organization registered in Berlin (District Court
 				Charlottenburg, HRB 186018 B, USt.-ID: DE311653675) and TMG - Töpfer, Müller, Gaßner GmbH, a
 				private company registered in Berlin (District Court Charlottenburg, HRB 177576 B USt.-ID:
 				DE306832549).
-				<br />
-				<br />
+				<br /><br />
 				Our main address is EUREF Campus 6-9, 10829 Berlin, Germany.
-				<br />
-				<br />© {new Date().getFullYear()} TMG Think Tank for Sustainability. All Rights Reserved.
-			</div>
+				<br /><br />
+				© {new Date().getFullYear()} TMG Think Tank for Sustainability. All Rights Reserved.
+			</p>
 		</div>
-	</section>
-</div>
+	</div>
+</footer>

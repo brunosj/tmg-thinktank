@@ -1,5 +1,5 @@
 <script lang="ts">
-
+	import { onMount } from 'svelte';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	import type { Programme } from '$lib/types/types';
 	interface Props {
@@ -8,10 +8,16 @@
 
 	let { heroProgrammes }: Props = $props();
 
-	let numberOfColumns = Math.min(heroProgrammes.length, 5);
-	let gridClass = `grid grid-cols-1 gap-1 text-center sm:grid-cols-2 lg:grid-cols-${numberOfColumns}`;
-
-
+	let numberOfColumns = $derived(Math.min(heroProgrammes.length, 6));
+	let gridClass = $derived(`grid grid-cols-1 gap-1 text-center sm:grid-cols-2 ${
+		numberOfColumns === 2 ? 'lg:grid-cols-2' :
+		numberOfColumns === 3 ? 'lg:grid-cols-3' :
+		numberOfColumns === 4 ? 'lg:grid-cols-4' :
+		numberOfColumns === 5 ? 'lg:grid-cols-5' :
+		numberOfColumns === 6 ? 'lg:grid-cols-3' :
+		'lg:grid-cols-6'
+	}`);
+	
 </script>
 
 <div class="bgGradientBR relative">
