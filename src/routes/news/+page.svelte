@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { News } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
@@ -11,6 +10,7 @@
 	import CarouselV2 from '$components/Carousel/CarouselV2.svelte';
 	import Heading from '$components/Layout/Heading.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
+
 	interface Props {
 		data: Page;
 	}
@@ -21,23 +21,28 @@
 		entries: News[];
 	};
 
-	let news = data.entries.sort((a, b) => {
-		const dateA = new Date(a.fields.dateFormat).getTime();
-		const dateB = new Date(b.fields.dateFormat).getTime();
-		return dateB - dateA;
-	});
+	let news = $state(
+		data.entries.sort((a, b) => {
+			const dateA = new Date(a.fields.dateFormat).getTime();
+			const dateB = new Date(b.fields.dateFormat).getTime();
+			return dateB - dateA;
+		})
+	);
+
 	let filteredItems: News[] = $state(news.slice(5));
 
-	function filteredData(event: CustomEvent<News[]>) {
-		const filtered = event.detail;
-		if (filtered.length === news.length) {
-			filteredItems = news;
-		} else {
-			filteredItems = filtered;
+	$effect(() => {
+		if (news) {
+			filteredItems = news.slice(5);
 		}
+	});
+
+	function handleFilteredData(items: News[]) {
+		const filtered = items.length === news.length ? [...items] : [...items];
+		filteredItems = filtered.slice(5);
 	}
 
-	let element = $state();
+	let element = $state<HTMLElement | null>(null);
 	let intersecting = $state(false);
 </script>
 
@@ -63,7 +68,7 @@
 							items={news}
 							filterField="type"
 							allLabel="All News"
-							on:filteredData={filteredData}
+							onFilteredData={handleFilteredData}
 						/>
 					</div>
 

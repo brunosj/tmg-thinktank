@@ -72,9 +72,6 @@ importers:
       '@iconify-json/fa6-regular':
         specifier: ^1.2.3
         version: 1.2.3
-      '@rgossiaux/svelte-headlessui':
-        specifier: ^2.0.0
-        version: 2.0.0(svelte@5.19.2)
       '@rgossiaux/svelte-heroicons':
         specifier: ^0.1.2
         version: 0.1.2(svelte@5.19.2)
@@ -456,11 +453,6 @@ packages:
 
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
-
-  '@rgossiaux/svelte-headlessui@2.0.0':
-    resolution: {integrity: sha512-ksh245HqMM8yqkzd/OyAK2FCHZYOSA3ldLIHab7C9S60FmifqT24JFVgi8tZpsDEMk3plbfQvfah93n5IEi8sg==}
-    peerDependencies:
-      svelte: ^3.47.0
 
   '@rgossiaux/svelte-heroicons@0.1.2':
     resolution: {integrity: sha512-c5Ep1QDvBo9HD/P0AxbXItDbn6x77fldCjjL0aBjNseUntV4fkdHkBde1IaLr8i0kmrhTSovjkIen8W83jUPzg==}
@@ -2384,10 +2376,6 @@ snapshots:
   '@polka/url@1.0.0-next.28': {}
 
   '@popperjs/core@2.11.8': {}
-
-  '@rgossiaux/svelte-headlessui@2.0.0(svelte@5.19.2)':
-    dependencies:
-      svelte: 5.19.2
 
   '@rgossiaux/svelte-heroicons@0.1.2(svelte@5.19.2)':
     dependencies:

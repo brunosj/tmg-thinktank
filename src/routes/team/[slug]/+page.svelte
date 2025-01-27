@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
-
+	import { Accordion, AccordionItem } from 'flowbite-svelte';
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
 	import FaLinkedin from 'virtual:icons/fa6-brands/linkedin-in';
 	import FaMail from 'virtual:icons/fa6-regular/envelope';
 	import Icon from '$components/UI/Icon.svelte';
-	import DisclosureOpen from '$components/UI/DisclosureOpen.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import ButtonArrow from '$components/UI/ButtonArrow.svelte';
@@ -29,14 +28,16 @@
 	let news: News[] = $state([]);
 
 	let item = $derived(data.item);
-	run(() => {
+
+	$effect(() => {
 		news = data.news;
 	});
-	run(() => {
+
+	$effect(() => {
 		publications = data.publications;
 	});
 
-	run(() => {
+	$effect(() => {
 		publications = publications
 			.filter((publication) => {
 				if (publication.fields.authorTmg && item.fields.name) {
@@ -53,7 +54,7 @@
 			});
 	});
 
-	run(() => {
+	$effect(() => {
 		news = news
 			.filter((newsItem) => {
 				if (newsItem.fields.authorTmg && item.fields.name) {
@@ -70,10 +71,11 @@
 			});
 	});
 
-	let image =
-		$derived(item.fields.pictureCdn?.length > 0
+	let image = $derived(
+		item.fields.pictureCdn?.length > 0
 			? item.fields.pictureCdn[0].secure_url
-			: item.fields.picture.fields.file.url);
+			: item.fields.picture.fields.file.url
+	);
 </script>
 
 <SEO title={item.fields.name} {image} />
@@ -129,17 +131,15 @@
 
 	{#if news.length >= 1}
 		<section class="container pt-6">
-			<DisclosureOpen heading="News">
-				<NewsListing items={news} />
-			</DisclosureOpen>
+			<span class="text-lg font-bold lg:text-xl">News</span>
+			<NewsListing items={news} />
 		</section>
 	{/if}
 
 	{#if publications.length >= 1}
 		<section class="container pt-6">
-			<DisclosureOpen heading="Publications">
-				<PublicationListing items={publications} />
-			</DisclosureOpen>
+			<span class="text-lg font-bold lg:text-xl">Publications</span>
+			<PublicationListing items={publications} />
 		</section>
 	{/if}
 
