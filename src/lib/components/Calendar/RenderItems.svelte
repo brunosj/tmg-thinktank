@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import ItemToolTip from './ItemTooltip.svelte';
 	import type { CalendarEvent } from '$lib/types/types';
 	interface Props {
@@ -10,13 +9,7 @@
 		handleDayMouseLeave: () => void;
 	}
 
-	let {
-		items,
-		day,
-		hoveredDay,
-		handleDayMouseEnter,
-		handleDayMouseLeave
-	}: Props = $props();
+	let { items, day, hoveredDay, handleDayMouseEnter, handleDayMouseLeave }: Props = $props();
 
 	let sortedItems = items.slice().sort((a, b) => {
 		if (a.isMultiDay === b.isMultiDay) {
@@ -68,7 +61,7 @@
 		{/each}
 
 		{#if additionalEventCount > 0}
-			<li class="dark:text-ateneTaupe-100 py-1 text-xs text-neutral-900">
+			<li class="d py-1 text-xs text-neutral-900">
 				+ {additionalEventCount} event{additionalEventCount > 1 ? 's' : ''}
 			</li>
 		{/if}

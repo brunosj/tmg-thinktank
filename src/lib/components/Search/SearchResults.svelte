@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
 
-
 	import { XIcon } from '@rgossiaux/svelte-heroicons/outline';
 	import type { SearchItem } from '$lib/types/types';
 	import { formatDateNews } from '$utils/utils';
@@ -31,9 +30,9 @@
 		selectedFilter = filter;
 	};
 
-	let filterOptionsSet = $derived(new Set(
-		results.map((result) => result.itemType.label).sort((a, b) => a.localeCompare(b))
-	));
+	let filterOptionsSet = $derived(
+		new Set(results.map((result) => result.itemType.label).sort((a, b) => a.localeCompare(b)))
+	);
 	let filterOptions = $derived(Array.from(filterOptionsSet));
 
 	function getSingleItemPrefix(type: string) {
@@ -83,7 +82,7 @@
 			</button>
 		</div>
 
-		<div class="bgGradientBR py-2">
+		<div class="bg-green-normal py-2">
 			<div class="container flex flex-wrap gap-x-6 gap-y-3 space-x-0 lg:space-x-12">
 				{#each filterOptions as option, index}
 					<label class="flex items-center space-x-2">

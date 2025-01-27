@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { CalendarEvent } from '$lib/types/types';
 
-
 	import { onMount } from 'svelte';
 	interface Props {
 		items: CalendarEvent[];
@@ -11,16 +10,10 @@
 		isListView: boolean;
 	}
 
-	let {
-		items,
-		currentMonth = $bindable(),
-		monthChange,
-		toggleView,
-		isListView
-	}: Props = $props();
+	let { items, currentMonth = $bindable(), monthChange, toggleView, isListView }: Props = $props();
 
 	let monthOptions: { value: string; label: string }[] = $state([]);
-	let selectedMonth: string = $state();
+	let selectedMonth: string = $state('');
 
 	onMount(() => {
 		if (items.length > 0) {
@@ -34,7 +27,7 @@
 			currentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
 		}
 
-		const monthsInPast = 3;
+		const monthsInPast = 0;
 		const monthsInFuture = 6;
 
 		monthOptions = [...Array(monthsInPast + monthsInFuture)].map((_, index) => {

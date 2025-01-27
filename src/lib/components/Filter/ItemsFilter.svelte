@@ -79,77 +79,67 @@
 	}
 </script>
 
-<div>
-	<div class="bg-white p-5">
-		<h1 class="pb-6 pt-3 text-lg font-bold lg:text-xl">Filter results</h1>
+<div class="bg-white p-5">
+	<h1 class="pb-6 pt-3 text-lg font-bold lg:text-xl">Filter results</h1>
 
-		<div class="w-full">
-			<Accordion flush class="w-full bg-white">
-				<AccordionItem activeClass="bg-white ">
-					<span slot="header" class="text-sm font-medium">Filter by {filterField}</span>
-					<div slot="arrowup">
-						<MinusSmIcon class="block h-6 w-6 text-green-normal group-hover:text-black" />
+	<Accordion flush class="w-full">
+		<AccordionItem open tag="div">
+			<span slot="header" class="flex text-sm font-bold">Filter by {filterField}</span>
+			<div slot="arrowup">
+				<MinusSmIcon class="block h-6 w-6 text-right text-green-normal group-hover:text-black" />
+			</div>
+			<div slot="arrowdown">
+				<PlusSmIcon class="block h-6 w-6 text-right text-gray-400 group-hover:text-gray-500" />
+			</div>
+			{#each filters as filter, index (filter)}
+				<button class="relative flex items-center py-2" onclick={() => handleFilters(filter)}>
+					<div class="flex h-5 items-center">
+						<input
+							id="{filterField}-{index}"
+							name="filter"
+							type="radio"
+							checked={selectedFilter === filter}
+							class="h-4 w-4 cursor-pointer text-green-normal focus:ring-green-normal"
+						/>
 					</div>
-					<div slot="arrowdown">
-						<PlusSmIcon class="block h-6 w-6 text-gray-400 group-hover:text-gray-500" />
-					</div>
-					{#each filters as filter, index (filter)}
-						<button class="relative flex items-center py-2" onclick={() => handleFilters(filter)}>
-							<div class="flex h-5 items-center">
-								<input
-									id="{filterField}-{index}"
-									name="filter"
-									type="radio"
-									checked={selectedFilter === filter}
-									class="h-4 w-4 cursor-pointer text-green-normal focus:ring-green-normal"
-								/>
-							</div>
-							<div class="ml-3 min-w-0 text-sm">
-								<label
-									for="{filterField}-{index}"
-									class="cursor-pointer select-none font-medium text-black">{filter}</label
-								>
-							</div>
-						</button>
-					{/each}
-				</AccordionItem>
-			</Accordion>
-		</div>
-
-		<div class="">
-			<Accordion flush class="w-full  bg-white" activeClass="bg-white">
-				<AccordionItem activeClass="bg-white ">
-					<span slot="header" class="text-sm font-medium">Filter by Programmes</span>
-					<div slot="arrowup">
-						<MinusSmIcon class="block h-6 w-6 text-green-normal group-hover:text-black" />
-					</div>
-					<div slot="arrowdown">
-						<PlusSmIcon class="block h-6 w-6 text-gray-400 group-hover:text-gray-500" />
-					</div>
-					{#each programmes as programme, index (index)}
-						<button
-							class="relative flex items-center py-2"
-							onclick={() => handleProgrammes(programme)}
+					<div class="ml-3 min-w-0 text-sm">
+						<label
+							for="{filterField}-{index}"
+							class="cursor-pointer select-none font-medium text-black">{filter}</label
 						>
-							<div class="flex h-5 items-center">
-								<input
-									id="programme-{index}"
-									name="programme"
-									type="radio"
-									checked={selectedProgramme === programme}
-									class="h-4 w-4 cursor-pointer text-green-normal focus:ring-green-normal"
-								/>
-							</div>
-							<div class="ml-3 min-w-0 text-sm">
-								<label
-									for="programme-{index}"
-									class="cursor-pointer select-none font-medium text-black">{programme}</label
-								>
-							</div>
-						</button>
-					{/each}
-				</AccordionItem>
-			</Accordion>
-		</div>
-	</div>
+					</div>
+				</button>
+			{/each}
+		</AccordionItem>
+	</Accordion>
+
+	<Accordion flush>
+		<AccordionItem tag="div">
+			<span slot="header" class="text-sm font-bold">Filter by Programmes</span>
+			<div slot="arrowup">
+				<MinusSmIcon class="block h-6 w-6 text-green-normal group-hover:text-black" />
+			</div>
+			<div slot="arrowdown">
+				<PlusSmIcon class="block h-6 w-6 text-gray-400 group-hover:text-gray-500" />
+			</div>
+			{#each programmes as programme, index (index)}
+				<button class="relative flex items-center py-2" onclick={() => handleProgrammes(programme)}>
+					<div class="flex h-5 items-center">
+						<input
+							id="programme-{index}"
+							name="programme"
+							type="radio"
+							checked={selectedProgramme === programme}
+							class="h-4 w-4 cursor-pointer text-green-normal focus:ring-green-normal"
+						/>
+					</div>
+					<div class="ml-3 min-w-0 text-sm">
+						<label for="programme-{index}" class="cursor-pointer select-none font-medium text-black"
+							>{programme}</label
+						>
+					</div>
+				</button>
+			{/each}
+		</AccordionItem>
+	</Accordion>
 </div>

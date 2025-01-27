@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-	import { Accordion, AccordionItem } from 'flowbite-svelte';
-
 	import SEO from '$components/SEO/SEO.svelte';
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
 	import FaLinkedin from 'virtual:icons/fa6-brands/linkedin-in';

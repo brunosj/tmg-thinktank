@@ -12,7 +12,7 @@
 </script>
 
 <Accordion class="rounded-md bg-green-variation">
-	<AccordionItem open>
+	<AccordionItem open tag="div">
 		<span slot="header" class="text-lg">Background</span>
 		<div slot="arrowup">
 			<MinusSmIcon class="block h-6 w-6 text-green-normal group-hover:text-black" />

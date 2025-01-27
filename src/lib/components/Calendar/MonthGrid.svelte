@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import ItemTooltip from './ItemTooltip.svelte';
 	import type { CalendarEvent } from '$lib/types/types';
 	interface Props {
@@ -62,7 +61,7 @@
 				const isEventDay = day.toDateString() === selectedDate.toDateString();
 				const isCurrentMonth = day.getMonth() === monthStart.getMonth();
 				const isWeekend = day.getDay() === 6 || day.getDay() === 0;
-				const weekendClass = isWeekend ? 'bgGradientBR bg-opacity-20' : '';
+				const weekendClass = isWeekend ? 'bg-black bg-opacity-10' : '';
 
 				let sortedItems = items.slice().sort((a, b) => {
 					if (a.isMultiDay === b.isMultiDay) {
