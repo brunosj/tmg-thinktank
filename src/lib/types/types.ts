@@ -476,6 +476,8 @@ export interface ContentBlock {
 		publications?: Publication[];
 		buttonPath?: string;
 		buttonText?: string;
+		iFrameCode?: string;
+		embedContent?: boolean;
 	};
 	sys: {
 		contentType: {

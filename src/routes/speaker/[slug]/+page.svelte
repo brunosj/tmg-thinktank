@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
 
-
 	import SEO from '$components/SEO/SEO.svelte';
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
 	import Icon from '$components/UI/Icon.svelte';
@@ -20,8 +19,8 @@
 		item: Speaker;
 	};
 
-	let events: Event[] = $state();
-	let speaker: Speaker = $state();
+	let events: Event[] = $state(data.events);
+	let speaker: Speaker = $state(data.item);
 
 	run(() => {
 		events = data.events;
@@ -47,10 +46,11 @@
 			});
 	});
 
-	let image =
-		$derived(speaker.fields.pictureCdn?.length > 0
+	let image = $derived(
+		speaker.fields.pictureCdn?.length > 0
 			? speaker.fields.pictureCdn[0].secure_url
-			: speaker.fields.picture.fields.file.url);
+			: speaker.fields.picture.fields.file.url
+	);
 </script>
 
 <SEO title={speaker.fields.name} {image} />

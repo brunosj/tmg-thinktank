@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
 
-
 	import type { EventSeries, Video, Speaker, Event } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import { renderRichText } from '$utils/utils';
@@ -15,9 +14,9 @@
 	import EventListing from '$components/Events/EventListing.svelte';
 	interface Props {
 		data: {
-		item: EventSeries;
-		videos: Video[];
-	};
+			item: EventSeries;
+			videos: Video[];
+		};
 	}
 
 	let { data }: Props = $props();
@@ -25,7 +24,7 @@
 	let videos: Video[] = $state([]);
 	let speakers: Speaker[] = $state([]);
 	let events: Event[] = $state([]);
-	let item: EventSeries = $state();
+	let item: EventSeries = $state(data.item);
 
 	run(() => {
 		item = data.item;
@@ -70,10 +69,11 @@
 		});
 	});
 
-	let image =
-		$derived(item.fields.pageBannerCdn?.length > 0
+	let image = $derived(
+		item.fields.pageBannerCdn?.length > 0
 			? item.fields.pageBannerCdn[0].secure_url
-			: item.fields.pageBanner.fields.file.url);
+			: item.fields.pageBanner.fields.file.url
+	);
 </script>
 
 <SEO title={item.fields.title} description={item.fields.summary} {image} />

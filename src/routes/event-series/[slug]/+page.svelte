@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
 
-
 	import type { EventSeries, Video, Speaker, Event } from '$lib/types/types';
 	import { renderRichText } from '$utils/utils';
 	import SEO from '$components/SEO/SEO.svelte';
@@ -17,69 +16,57 @@
 	import EventFeaturedBanner from '$components/Events/EventFeaturedBanner.svelte';
 	interface Props {
 		data: {
-		item: EventSeries;
-		videos: Video[];
-	};
+			item: EventSeries;
+			videos: Video[];
+		};
 	}
 
-	let { data }: Props = $props();
+	let { data } = $props();
 
-	let videos: Video[] = $state([]);
-	let speakers: Speaker[] = $state([]);
-	let events: Event[] = $state([]);
-	let item: EventSeries = $state();
+	let item = $derived(data.item);
 
-	run(() => {
-		item = data.item;
-	});
-	run(() => {
-		videos = data.videos;
-	});
-
-	run(() => {
-		videos = videos
+	let videos = $derived(
+		data.videos
 			.filter((video) => {
-				return video.fields.eventSeries?.some((series) => series.fields.slug === item.fields.slug);
+				return video.fields.eventSeries?.some(
+					(series: EventSeries) => series.fields.slug === item.fields.slug
+				);
 			})
 			.sort((a, b) => {
 				const dateA = new Date(a.fields.date);
 				const dateB = new Date(b.fields.date);
 				return dateB.getTime() - dateA.getTime();
-			});
-	});
-	run(() => {
-		events = item.fields.events;
-		events?.forEach((event) => {
-			event.fields.speakers?.forEach((speaker) => {
+			})
+	);
+
+	let speakers = $derived(() => {
+		const events = item.fields.events;
+		const newSpeakers: Speaker[] = [];
+		events?.forEach((event: Event) => {
+			event.fields.speakers?.forEach((speaker: Speaker) => {
 				if (
-					!speakers.some((existingSpeaker) => existingSpeaker.fields.slug === speaker.fields.slug)
+					!newSpeakers.some(
+						(existingSpeaker: Speaker) => existingSpeaker.fields.slug === speaker.fields.slug
+					)
 				) {
-					speakers.push(speaker);
+					newSpeakers.push(speaker);
 				}
 			});
 		});
-		speakers = speakers?.sort((a, b) => {
-			const nameA = a.fields.name;
-			const nameB = b.fields.name;
-			if (nameA < nameB) {
-				return -1;
-			}
-			if (nameA > nameB) {
-				return 1;
-			}
-			return 0;
-		});
+		return newSpeakers.sort((a, b) => a.fields.name.localeCompare(b.fields.name));
 	});
 
-	let image =
-		$derived(item.fields.imageCdn?.length > 0
+	let image = $derived(
+		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image.fields.file.url);
+			: item.fields.image.fields.file.url
+	);
 
-	let banner =
-		$derived(item.fields.pageBannerCdn?.length > 0
+	let banner = $derived(
+		item.fields.pageBannerCdn?.length > 0
 			? item.fields.pageBannerCdn[0].secure_url
-			: item.fields.pageBanner.fields.file.url);
+			: item.fields.pageBanner.fields.file.url
+	);
 </script>
 
 <SEO
@@ -136,7 +123,7 @@
 
 		{#if speakers.length > 0}
 			<section>
-				<SpeakersAvatars {speakers} color={item.fields.color2} />
+				<SpeakersAvatars speakers={speakers()} color={item.fields.color2} />
 			</section>
 		{/if}
 	</section>

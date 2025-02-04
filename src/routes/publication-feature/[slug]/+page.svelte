@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { PublicationFeature as PublicationFeatureType } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import { renderRichText } from '$utils/utils';
@@ -10,6 +9,8 @@
 	import PartnersLogo from '$components/Partners/PartnersLogo.svelte';
 	import ImageGallery from '$components/Gallery/ImageGallery.svelte';
 	import Banner from '$components/Banner/Banner.svelte';
+	import ResponsiveIFrame from '$lib/components/IFrame/ResponsiveIFrame.svelte';
+
 	interface Props {
 		data: Page;
 	}
@@ -22,18 +23,19 @@
 
 	let feature: PublicationFeatureType = $derived(data.item);
 
-	
+	let sectionsWithContentBlocks = $derived(
+		feature.fields.sections.map((section) => {
+			return {
+				contentBlocks: section.fields.contentBlocks
+			};
+		})
+	);
 
-	let sectionsWithContentBlocks = $derived(feature.fields.sections.map((section) => {
-		return {
-			contentBlocks: section.fields.contentBlocks
-		};
-	}));
-
-	let image =
-		$derived(feature.fields.pageBannerCdn?.length > 0
+	let image = $derived(
+		feature.fields.pageBannerCdn?.length > 0
 			? feature.fields.pageBannerCdn[0].secure_url
-			: feature.fields.pageBanner.fields.file.url);
+			: feature.fields.pageBanner.fields.file.url
+	);
 
 	let seoReady = $derived(!!feature);
 </script>
@@ -67,43 +69,58 @@
 		</div>
 	</section>
 
-	{#each sectionsWithContentBlocks as sectionContent, index}
-		<div class="container grid grid-cols-1 gap-6 py-6 lg:grid-cols-3 lg:gap-12 lg:py-12">
-			<div class="col-span-2 {index % 2 === 1 ? 'order-last' : 'order-first'}">
-				{#each sectionContent.contentBlocks as item}
-					{#if item.sys.contentType.sys.id === 'textBlock' || item.sys.contentType.sys.id === 'imageBlock'}
-						<div class="richText">
-							{#if item.sys.contentType.sys.id === 'textBlock'}
-								{@html renderRichText(item.fields.text)}
-							{:else if item.sys.contentType.sys.id === 'imageBlock'}
+	{#if sectionsWithContentBlocks.length > 0}
+		{#each sectionsWithContentBlocks as sectionContent, index}
+			<div class="container grid grid-cols-1 gap-6 py-6 lg:grid-cols-3 lg:gap-12 lg:py-12">
+				<div class="col-span-2 {index % 2 === 1 ? 'order-last' : 'order-first'}">
+					{#each sectionContent.contentBlocks as item}
+						{#if item.sys.contentType.sys.id === 'textBlock'}
+							{#if item.fields.embedContent}
+								<div class="w-full">
+									<ResponsiveIFrame iframeCode={item.fields.iFrameCode || ''} />
+								</div>
+							{:else}
+								<div class="richText">
+									{@html renderRichText(item.fields.text)}
+								</div>
+							{/if}
+						{:else if item.sys.contentType.sys.id === 'imageBlock'}
+							<div class="richText">
 								<img
 									loading="lazy"
 									src={item.fields.imageCdn[0].secure_url}
 									alt={''}
 									class="w-full"
 								/>
+							</div>
+						{/if}
+					{/each}
+				</div>
+				<div class="col-span-1 flex items-center border-b lg:border-none">
+					{#each sectionContent.contentBlocks as item}
+						{#if item.sys.contentType.sys.id === 'textBoxBlock'}
+							{#if item.fields.embedContent}
+								<div class="w-full">
+									{@html item.fields.iFrameCode}
+								</div>
+							{:else}
+								<div class="richText bg-green-variation p-8 text-center text-black">
+									{@html renderRichText(item.fields.text)}
+								</div>
 							{/if}
-						</div>
-					{/if}
-				{/each}
+						{/if}
+					{/each}
+				</div>
 			</div>
-			<div class="col-span-1 flex items-center border-b lg:border-none">
-				{#each sectionContent.contentBlocks as item}
-					{#if item.sys.contentType.sys.id === 'textBoxBlock'}
-						<div class="richText bg-green-variation p-8 text-center text-black">
-							{@html renderRichText(item.fields.text)}
-						</div>
-					{/if}
-				{/each}
-			</div>
-		</div>
 
-		{#each sectionContent.contentBlocks as item}
-			{#if item.sys.contentType.sys.id === 'banners'}
-				<Banner {item} bgColor={feature.fields.color1} />
-			{/if}
+			{#each sectionContent.contentBlocks as item}
+				{#if item.sys.contentType.sys.id === 'banners'}
+					<Banner {item} bgColor={feature.fields.color1} />
+				{/if}
+			{/each}
 		{/each}
-	{/each}
+	{/if}
+
 	{#if feature.fields.gallery && feature.fields.gallery.length > 0}
 		<ImageGallery images={feature.fields.gallery} borderColor={feature.fields.color1} />
 	{/if}

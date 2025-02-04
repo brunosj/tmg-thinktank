@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Publication } from '$lib/types/types';
 	import { formatDateNews } from '$utils/utils';
 	interface Props {
@@ -8,12 +7,19 @@
 	}
 
 	let { items, container = true }: Props = $props();
+
+	// Create a derived value for sorted items instead of a reactive statement
+	let sortedItems = $derived(
+		[...items].sort(
+			(a, b) => +new Date(b.fields.publicationDate) - +new Date(a.fields.publicationDate)
+		)
+	);
 </script>
 
 <div
 	class={`${container ? 'container' : ' '} grid grid-cols-1 pb-6 pt-6 lg:grid-cols-2 lg:gap-5 lg:pt-12`}
 >
-	{#each items.sort((a, b) => +new Date(b.fields.publicationDate) - +new Date(a.fields.publicationDate)) as item, i (item.fields.title)}
+	{#each sortedItems as item, i (item.fields.title)}
 		{@const image =
 			item.fields.thumbnailCdn?.length > 0
 				? item.fields.thumbnailCdn[0].secure_url

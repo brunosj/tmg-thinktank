@@ -1,6 +1,6 @@
 <script lang="ts">
-
 	import type { Speaker } from '$lib/types/types';
+
 	interface Props {
 		speakers: Speaker[];
 		color?: string;
