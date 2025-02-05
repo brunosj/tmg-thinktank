@@ -47,9 +47,9 @@
 						<div class="richText m-auto pb-12 text-base lg:pb-0 lg:text-lg">
 							{@html renderRichText(description)}
 						</div>
-						<div class="ml-auto mr-auto h-1/2 w-1/2 lg:mr-0">
+						<!-- <div class="ml-auto mr-auto h-1/2 w-1/2 lg:mr-0">
 							<img loading="lazy" src={logo} alt="TMG Think Tank" class="" />
-						</div>
+						</div> -->
 					</div>
 				</div>
 			{/if}
