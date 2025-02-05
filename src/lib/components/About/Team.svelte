@@ -1,6 +1,12 @@
 <script lang="ts">
 	import Button from '$components/UI/Button.svelte';
 	import HeadingAbout from '$components/About/HeadingAbout.svelte';
+
+	interface Props {
+		teamSectionText: string;
+	}
+
+	let { teamSectionText }: Props = $props();
 </script>
 
 <div class="bg-white font-bold text-green-normal">
@@ -9,8 +15,7 @@
 		<div>
 			<div class="text-lg font-semibold lg:text-2xl">
 				<div class="pb-6">
-					We are a diverse and multinational team of dedicated professionals covering a broad range
-					of thematic fields.
+					{teamSectionText}
 				</div>
 				<div class="pb-6">Visit our team page to meet our staff.</div>
 			</div>

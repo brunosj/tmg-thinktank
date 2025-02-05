@@ -1,16 +1,15 @@
 // Pages
 
 export interface AboutPage {
-	title: string;
-	description: string;
-	slug: string;
-	quote: string;
-	quoteAuthor: string;
-	quotePicture: Image;
-	image: Image;
-	imageCdn: ImageCdn[];
-	map: Image;
-	pictures: Image[];
+	fields: {
+		title: string;
+		description: string;
+		teamSectionText: string;
+		slug: string;
+		quote: string;
+		quoteAuthor: string;
+		quotePicture: Image;
+	};
 }
 
 export interface LandingPage {
