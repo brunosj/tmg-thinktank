@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
 
-
 	import type { News } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Button from '$components/UI/Button.svelte';
@@ -22,11 +21,13 @@
 		item = item;
 	});
 
-	let image =
-		$derived(item.fields.publication?.fields.thumbnail.fields.file.url || item.fields.image.fields.file.url);
+	let image = $derived(
+		item.fields.publication?.fields.thumbnail.fields.file.url || item.fields.image.fields.file.url
+	);
 
-	let link =
-		$derived(item.fields.publication?.fields.pdf.fields.file.url || item.fields.externalPublicationUrl);
+	let link = $derived(
+		item.fields.publication?.fields.pdf.fields.file.url || item.fields.externalPublicationUrl
+	);
 </script>
 
 <SEO
@@ -100,16 +101,14 @@
 						>
 					</h1>
 				{/if}
-				<p class="pt-2 text-sm font-bold">
+				<div class="pt-2 text-sm font-bold">
 					More: <Tag to={`/programmes/${slugify(item.fields.programme.fields.title)}#news`}
 						>{item.fields.programme.fields.title}</Tag
 					>
-				</p>
+				</div>
 			</div>
 			<div class="py-12">
-				<a href="/publications">
-					<Button colors="green">View All Publications</Button>
-				</a>
+				<Button colors="green" to="/publications">View All Publications</Button>
 			</div>
 		</div>
 	</div>

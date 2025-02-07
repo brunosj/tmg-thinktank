@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
 
-
 	import type { Publication } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Button from '$components/UI/Button.svelte';
@@ -90,11 +89,11 @@
 						>
 					</h1>
 				{/if} -->
-				<p class="pt-2 text-sm font-bold">
+				<div class="pt-2 text-sm font-bold">
 					More: <Tag to={`/programmes/${slugify(item.fields.programme.fields.title)}#news`}
 						>{item.fields.programme.fields.title}</Tag
 					>
-				</p>
+				</div>
 			</div>
 			<div class="py-12">
 				<a href="/publications">

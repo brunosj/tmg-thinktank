@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { News } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Button from '$components/UI/Button.svelte';
@@ -21,15 +20,17 @@
 
 	let item = $derived(data.item);
 
-	let image =
-		$derived(item.fields.imageCdn?.length > 0
+	let image = $derived(
+		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image.fields.file.url);
+			: item.fields.image.fields.file.url
+	);
 
-	let imageCaption =
-		$derived(item.fields.imageCdn?.length > 0
+	let imageCaption = $derived(
+		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].context?.custom.caption
-			: item.fields.image.fields.description);
+			: item.fields.image.fields.description
+	);
 </script>
 
 <SEO
@@ -106,17 +107,15 @@
 						>
 					</div>
 				{/if}
-				<p class="text-sm font-bold">
+				<div class="text-sm font-bold">
 					More:
 					<Tag to={`/programmes/${slugify(item.fields.programme.fields.title)}#news`}
 						>{item.fields.programme.fields.title}</Tag
 					>
-				</p>
+				</div>
 			</div>
 			<div class="col-span-1 my-auto ml-auto">
-				<a href="/news">
-					<Button colors="green">View All News</Button>
-				</a>
+				<Button colors="green" to="/news">View All News</Button>
 			</div>
 		</div>
 	</div>

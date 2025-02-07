@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Event } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Button from '$components/UI/Button.svelte';
@@ -23,15 +22,17 @@
 
 	let item = $derived(data);
 
-	let image =
-		$derived(item.fields.imageCdn?.length > 0
+	let image = $derived(
+		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image?.fields.file.url);
+			: item.fields.image?.fields.file.url
+	);
 
-	let imageCaption =
-		$derived(item.fields.imageCdn?.length > 0
+	let imageCaption = $derived(
+		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].context?.custom.caption
-			: item.fields.image?.fields.description);
+			: item.fields.image?.fields.description
+	);
 </script>
 
 <SEO
@@ -105,12 +106,12 @@
 
 			{#if item.fields.programme.fields.title}
 				<div class="border-b border-t border-gray-300 py-6 leading-loose">
-					<p class="text-sm font-bold">
+					<div class="text-sm font-bold">
 						More:
 						<Tag to={`/programmes/${slugify(item.fields.programme.fields.title)}#events`}
 							>{item.fields.programme.fields.title}</Tag
 						>
-					</p>
+					</div>
 				</div>
 			{/if}
 

@@ -1,21 +1,16 @@
 <script lang="ts">
-
 	import { ArrowLeftIcon, ArrowRightIcon } from '@rgossiaux/svelte-heroicons/outline';
+	import type { Snippet } from 'svelte';
+
 	interface Props {
 		to: string;
 		color: string;
 		textColor: string;
 		arrowDirection?: string;
-		children?: import('svelte').Snippet;
+		children?: Snippet;
 	}
 
-	let {
-		to,
-		color,
-		textColor,
-		arrowDirection = 'right',
-		children
-	}: Props = $props();
+	let { to, color, textColor, arrowDirection = 'right', children }: Props = $props();
 </script>
 
 <a href={to}>

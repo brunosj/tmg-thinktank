@@ -1,17 +1,14 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
+
 	interface Props {
 		to?: string;
 		colors: 'green' | 'white';
 		submit?: boolean;
-		children?: import('svelte').Snippet;
+		children?: Snippet;
 	}
 
-	let {
-		to = '',
-		colors,
-		submit = false,
-		children
-	}: Props = $props();
+	let { to = '', colors, submit = false, children }: Props = $props();
 </script>
 
 <a
@@ -28,4 +25,3 @@
 		{@render children?.()}
 	</button>
 </a>
-

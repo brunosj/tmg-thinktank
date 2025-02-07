@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
 	import FaLinkedin from 'virtual:icons/fa6-brands/linkedin-in';
 	let { text, url } = $props();
@@ -14,7 +13,7 @@
 <div class="">
 	<ul class="flex gap-3 text-sm">
 		<li
-			class="hover:bgGradientBR group flex items-center justify-center rounded-md bg-green-variation duration-300 ease-in-out"
+			class="group flex items-center justify-center rounded-md bg-green-variation duration-300 ease-in-out hover:bg-green-normal"
 		>
 			<a
 				href={twitterShareUrl}
@@ -28,7 +27,7 @@
 			</a>
 		</li>
 		<li
-			class="hover:bgGradientBR group flex items-center justify-center rounded-md bg-green-variation duration-300 ease-in-out"
+			class="group flex items-center justify-center rounded-md bg-green-variation duration-300 ease-in-out hover:bg-green-normal"
 		>
 			<a
 				href={linkedInShareUrl}

@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { News } from '$lib/types/types';
 	import { formatDateNews } from '$utils/utils';
 	interface Props {
@@ -53,7 +52,7 @@
 			<div class="p-4">
 				<div class="flex items-center justify-between gap-x-4 pt-2 text-white">
 					<span
-						class="group-hover:bgGradientBR rounded-md bg-black px-2 py-1 text-xs font-bold duration-300 ease-in-out"
+						class="rounded-md bg-black px-2 py-1 text-xs font-bold duration-300 ease-in-out group-hover:bg-green-normal"
 					>
 						{item.fields.type || 'Blog Post'}
 					</span>

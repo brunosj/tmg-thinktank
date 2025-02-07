@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { BlogPost } from '$lib/types/types';
 	import Button from '$components/UI/Button.svelte';
 	import BlogListing from '$components/Blog/BlogListing.svelte';
@@ -23,23 +22,25 @@
 	let item = $derived(data.item);
 	let entries = $derived(data.entries);
 
-	let moreBlogItems: BlogPost[] = $derived(entries
+	let moreBlogItems: BlogPost[] = $derived(
+		entries
 			.sort((a, b) => {
 				return new Date(b.fields.dateFormat).getTime() - new Date(a.fields.dateFormat).getTime();
 			})
-			.slice(0, 3));
+			.slice(0, 3)
+	);
 
-	
-
-	let image =
-		$derived(item.fields.imageCdn?.length > 0
+	let image = $derived(
+		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image.fields.file.url);
+			: item.fields.image.fields.file.url
+	);
 
-	let imageCaption =
-		$derived(item.fields.imageCdn?.length > 0
+	let imageCaption = $derived(
+		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].context?.custom.caption
-			: item.fields.image.fields.description);
+			: item.fields.image.fields.description
+	);
 </script>
 
 <SEO
@@ -142,12 +143,12 @@
 						</a>
 					</div>
 				{/if}
-				<p class="pt-2 font-bold">
+				<div class="pt-2 font-bold">
 					More:
 					<Tag to={`/programmes/${slugify(item.fields.programme.fields.title)}#news`}>
 						{item.fields.programme.fields.title}</Tag
 					>
-				</p>
+				</div>
 			</div>
 			<div class="ml-auto py-3 lg:py-0">
 				<Button colors="green" to="/blog">View All Blogs</Button>

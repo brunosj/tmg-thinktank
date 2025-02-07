@@ -1,8 +1,10 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
+
 	interface Props {
 		to: string;
 		textColor?: string;
-		children?: import('svelte').Snippet;
+		children?: Snippet;
 	}
 
 	let { to, textColor = 'white', children }: Props = $props();

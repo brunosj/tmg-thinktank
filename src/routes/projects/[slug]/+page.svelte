@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
 
-
 	import SEO from '$components/SEO/SEO.svelte';
 	import { slugify } from '$utils/utils';
 	import Heading from '$components/Layout/Heading.svelte';

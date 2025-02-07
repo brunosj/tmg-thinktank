@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
 
-
 	import SEO from '$components/SEO/SEO.svelte';
 	import ProgrammeHeader from '$components/Programme/ProgrammeHeader.svelte';
 	import ProgrammeDescription from '$components/Programme/ProgrammeDescription.svelte';

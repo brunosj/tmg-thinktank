@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { FlagshipOutput } from '$lib/types/types';
 	interface Props {
 		item: FlagshipOutput;
@@ -19,7 +18,9 @@
 			<div class="p-4">
 				<div>
 					<div class="pt-2 text-sm font-bold text-white lg:text-lg">
-						<span class="group-hover:bgGradientBR bg-gray-900 px-2 py-1 duration-200 ease-in-out">
+						<span
+							class="bg-gray-900 px-2 py-1 duration-200 ease-in-out group-hover:bg-green-normal"
+						>
 							Flagship Output
 						</span>
 					</div>
