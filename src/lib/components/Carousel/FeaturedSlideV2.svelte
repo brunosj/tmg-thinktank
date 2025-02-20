@@ -1,9 +1,7 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
-
 	import type { News, Event, Video, BlogPost } from '$lib/types/types';
 	import { fly } from 'svelte/transition';
+
 	interface Props {
 		item: News | Event | BlogPost | Video;
 		slidesQty: number;
@@ -12,50 +10,48 @@
 
 	let { item = $bindable(), slidesQty, i }: Props = $props();
 
-	let itemPrefix: string = $state();
+	let prefix = $state('blog');
 
-	run(() => {
-		item = item;
-	});
-	run(() => {
-		itemPrefix;
-		if ('videoId' in item.fields) {
-			itemPrefix = 'video';
-		} else if ('type' in item.fields) {
-			if (item.fields.type === 'Blog Post') {
-				itemPrefix = 'blog';
-			} else if (item.fields.type === 'Publication') {
-				itemPrefix = 'publications';
-			} else if (item.fields.type === 'Media Coverage') {
-				itemPrefix = 'news';
-			} else if (item.fields.type === 'Press Release') {
-				itemPrefix = 'news';
-			} else if (item.fields.type === 'News') {
-				itemPrefix = 'news';
-			} else if (item.fields.type === 'Workshop') {
-				itemPrefix = 'events';
-			} else if (item.fields.type === 'Discussion') {
-				itemPrefix = 'events';
-			} else if (item.fields.type === 'Conference') {
-				itemPrefix = 'events';
-			} else {
-				itemPrefix = 'blog';
-			}
-		} else {
-			itemPrefix = 'blog';
+	if ('videoId' in item.fields) {
+		prefix = 'video';
+	} else if ('type' in item.fields) {
+		switch (item.fields.type) {
+			case 'Blog Post':
+				prefix = 'blog';
+				break;
+			case 'Publication':
+				prefix = 'publications';
+				break;
+			case 'Media Coverage':
+			case 'Press Release':
+			case 'News':
+				prefix = 'news';
+				break;
+			case 'Workshop':
+			case 'Discussion':
+			case 'Conference':
+				prefix = 'events';
+				break;
+			default:
+				prefix = 'blog';
 		}
-	});
-	let image =
-		$derived(item.fields.imageCdn?.length > 0
+	}
+
+	let imageSource = $state(
+		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
 			: item.fields.image?.fields.file.url
-				? item.fields.image?.fields.file.url
-				: 'https://res.cloudinary.com/tmgthinktank/image/upload/v1717147613/Placeholder_image_event_uhiror.jpg');
+				? item.fields.image.fields.file.url
+				: 'https://res.cloudinary.com/tmgthinktank/image/upload/v1717147613/Placeholder_image_event_uhiror.jpg'
+	);
+	let image = $derived(imageSource);
 
-	let imageCaption =
-		$derived(item.fields.imageCdn?.length > 0
+	let captionSource = $state(
+		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].context?.custom.caption
-			: item.fields.image?.fields.description);
+			: item.fields.image?.fields.description
+	);
+	let imageCaption = $derived(captionSource);
 </script>
 
 <div
@@ -64,7 +60,7 @@
 	} ${i === slidesQty - 1 ? 'rounded-r-xl' : ''}`}
 	in:fly={{ y: 200, duration: 300 }}
 >
-	<a href={`/${itemPrefix}/${item.fields.slug}`}>
+	<a href={`/${prefix}/${item.fields.slug}`}>
 		<img
 			src={image}
 			alt={item.fields.title}

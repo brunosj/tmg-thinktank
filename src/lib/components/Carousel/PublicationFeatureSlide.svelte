@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
-
 	import type { PublicationFeature as PublicationFeatureType } from '$lib/types/types';
 	import { fly } from 'svelte/transition';
 	import { formatDateNews } from '$utils/utils';
@@ -14,23 +11,19 @@
 
 	let { item = $bindable(), slidesQty, i }: Props = $props();
 
-	let itemPrefix: string;
-
-	run(() => {
-		item = item;
-	});
-
-	let image =
-		$derived(item.fields.imageCdn?.length > 0
+	let image = $derived(
+		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
 			: item.fields.image?.fields.file.url
 				? item.fields.image?.fields.file.url
-				: 'https://res.cloudinary.com/tmgthinktank/image/upload/v1717147613/Placeholder_image_event_uhiror.jpg');
+				: 'https://res.cloudinary.com/tmgthinktank/image/upload/v1717147613/Placeholder_image_event_uhiror.jpg'
+	);
 
-	let imageCaption =
-		$derived(item.fields.imageCdn?.length > 0
+	let imageCaption = $derived(
+		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].context?.custom.caption
-			: item.fields.image?.fields.description);
+			: item.fields.image?.fields.description
+	);
 </script>
 
 <div
@@ -53,7 +46,7 @@
 				</span>
 			</div>
 		{/if} -->
-		<div class="grid grid-rows-2 space-y-3 p-8 lg:p-10">
+		<div class="grid space-y-8 p-8 lg:p-10">
 			<!-- <div class=" text-xs font-bold lg:text-sm">
 					<span class="rounded-md bg-gray-900 px-3 py-1.5 duration-200 ease-in-out">
 						{item.fields.title}

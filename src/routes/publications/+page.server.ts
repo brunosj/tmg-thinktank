@@ -1,5 +1,5 @@
 import { fetchContentfulData } from '$lib/contentfulClient';
-import type { Publication } from '$lib/types/types';
+import type { Publication, PublicationFeature } from '$lib/types/types';
 
 export async function load() {
 	try {
@@ -11,7 +11,12 @@ export async function load() {
 			return dateB.getTime() - dateA.getTime();
 		});
 
-		const features = await fetchContentfulData('publicationFeature');
+		let features: PublicationFeature[] = await fetchContentfulData('publicationFeature');
+		features = features.sort((a, b) => {
+			const dateA = new Date(a.sys.updatedAt);
+			const dateB = new Date(b.sys.updatedAt);
+			return dateB.getTime() - dateA.getTime();
+		});
 
 		return {
 			entries,

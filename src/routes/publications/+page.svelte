@@ -13,6 +13,7 @@
 	import Heading from '$components/Layout/Heading.svelte';
 	import CarouselV2 from '$components/Carousel/CarouselV2.svelte';
 	import PublicationOutNow from '$components/Publications/PublicationOutNow.svelte';
+
 	interface Props {
 		data: Page;
 	}
@@ -28,7 +29,10 @@
 	let intersecting = $state(false);
 	let items = data.entries;
 	let features = data.features;
-	let filteredItems: Publication[] = $state([]);
+	let filterCriteria = $state<Publication[]>(items);
+	let filteredItems = $derived(filterCriteria);
+	let itemsCount = $state(12);
+
 	let latestPublicationWithNewsEntry = $derived(
 		items
 			.filter((item) => item.fields.automatedNewsEntry)
@@ -40,15 +44,9 @@
 			.slice(0, 1)[0]
 	);
 
-	run(() => {
-		filteredItems = items;
-	});
-
 	function handleFilteredData(items: Publication[]) {
-		filteredItems = items;
+		filterCriteria = items;
 	}
-
-	let itemsCount = $state(12);
 
 	function loadMoreItems() {
 		itemsCount += 12;

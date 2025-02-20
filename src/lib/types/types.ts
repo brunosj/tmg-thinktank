@@ -369,6 +369,11 @@ export interface PublicationFeature extends ContentfulEntry {
 		color1: string;
 		color2: string;
 	};
+	sys: {
+		id: string;
+		createdAt: string;
+		updatedAt: string;
+	};
 }
 
 export interface Speaker extends ContentfulEntry {
