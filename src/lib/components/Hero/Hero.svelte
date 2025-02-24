@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import { renderRichText } from '$utils/utils';
 	import logo from '$assets/TMG_logo_white.png';
 	import IntersectionObserver from 'svelte-intersection-observer';
@@ -9,7 +8,7 @@
 	import { onMount } from 'svelte';
 	let { hero } = $props();
 
-	let element = $state();
+	let element: HTMLDivElement | null = $state(null);
 	let intersecting = $state(false);
 
 	let { heroPicture, heroText } = hero.fields;
@@ -35,7 +34,7 @@
 				decoding="async"
 			/>
 		</div>
-		<div class="container relative z-10">
+		<div class="layout relative z-10">
 			{#if intersecting}
 				<div
 					class="grid grid-cols-1 gap-8 py-8 md:grid-cols-2"

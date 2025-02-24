@@ -7,13 +7,7 @@
 		bgColor?: string;
 	}
 
-	let {
-		image = '',
-		text,
-		person,
-		organisation,
-		bgColor = '#67797B'
-	}: Props = $props();
+	let { image = '', text, person, organisation, bgColor = '#67797B' }: Props = $props();
 </script>
 
 <section>
@@ -24,7 +18,7 @@
 			<div class="absolute inset-0 opacity-50 mix-blend-multiply saturate-0 filter">
 				<!-- <img loading="lazy" src={image} class="h-full w-full object-cover" alt="" /> -->
 			</div>
-			<div class="container relative col-span-3">
+			<div class="layout relative col-span-3">
 				<blockquote class="mt-6 text-white">
 					<h2 class="">{text}</h2>
 					<div class="mt-6 flex flex-col text-sm font-light">

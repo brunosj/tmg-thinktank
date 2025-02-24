@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Publication, ContentBlock } from '$lib/types/types';
 	interface Props {
 		bgColor: string;
@@ -17,7 +16,7 @@
 
 <section>
 	<div style="background-color: {bgColor}">
-		<div class="container grid grid-cols-2 items-center py-10 lg:py-24">
+		<div class="layout grid grid-cols-2 items-center py-10 lg:py-24">
 			<div>
 				<div
 					class="pb-10 pt-5 text-left text-2xl font-extrabold leading-tight text-black lg:pb-0 lg:pt-0 lg:text-5xl"

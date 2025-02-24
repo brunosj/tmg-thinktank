@@ -19,7 +19,7 @@
 </script>
 
 <div class="bg-green-variation p-5 lg:p-24">
-	<div class="container rounded-md bg-green-light p-10">
+	<div class="layout rounded-md bg-green-light p-10">
 		<h2
 			class="pb-10 text-3xl font-extrabold leading-tight tracking-tight text-green-normal sm:text-4xl"
 		>

@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Image } from '$lib/types/types';
 	import SectionHeader from '$components/Layout/SectionHeader.svelte';
 	import IntersectionObserver from 'svelte-intersection-observer';
@@ -12,7 +11,7 @@
 
 	let { title, image }: Props = $props();
 
-	let element = $state();
+	let element: HTMLDivElement | null = $state(null);
 	let intersecting = $state(false);
 </script>
 
@@ -27,7 +26,7 @@
 		{#if intersecting}
 			<div class="absolute bottom-0 mx-auto w-full">
 				<div
-					class="container"
+					class="layout"
 					transition:fly={{ x: -50, duration: 500, delay: 250, easing: cubicInOut }}
 				>
 					<SectionHeader {title} />

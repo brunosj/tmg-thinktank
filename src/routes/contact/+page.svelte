@@ -23,7 +23,7 @@
 <SectionHeaderLow title="Contact" background="bgGradientBR" />
 
 <div class="bg-white">
-	<div class="container py-12">
+	<div class="layout py-12">
 		<div class="pb-10 text-left">
 			Our central office is located at:<br /><br />
 			EUREF Campus 6-9<br />

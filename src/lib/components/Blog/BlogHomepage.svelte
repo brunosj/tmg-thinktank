@@ -9,7 +9,7 @@
 </script>
 
 <div class="sectionPy bg-white">
-	<div class="mx-auto max-w-7xl px-6 lg:px-8">
+	<div class="layout mx-auto">
 		<HeadingV2
 			title={landingPage.fields.blogSectionTitle}
 			subtitle={landingPage.fields.blogSectionSubtitle}

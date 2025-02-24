@@ -1,6 +1,5 @@
 <!-- ProgrammeBanner.svelte -->
 <script lang="ts">
-
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
@@ -12,15 +11,9 @@
 		key: number;
 	}
 
-	let {
-		image,
-		intro,
-		title,
-		to,
-		key
-	}: Props = $props();
+	let { image, intro, title, to, key }: Props = $props();
 
-	let element = $state();
+	let element: HTMLDivElement | null = $state(null);
 	let intersecting = $state(false);
 
 	const isTextRight = key === 0 || key === 2;
@@ -40,7 +33,7 @@
 					class="absolute bottom-6 w-full lg:bottom-12"
 					transition:fade={{ duration: 500, delay: key * 200, easing: cubicInOut }}
 				>
-					<div class="group container m-auto {isTextRight ? 'text-right' : ''}">
+					<div class="layout group m-auto {isTextRight ? 'text-right' : ''}">
 						<div>
 							<div
 								class="rounded-2xl bg-opacity-50 font-bold leading-tight tracking-tight text-white group-hover:bg-opacity-80"

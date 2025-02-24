@@ -92,7 +92,7 @@
 		/>
 	{/if}
 
-	<section class="sectionPb container lg:pt-12">
+	<section class="sectionPb layout lg:pt-12">
 		<div class="richText m-auto lg:w-3/4">
 			{#if item.fields.description}
 				{@html renderRichText(item.fields.description)}
@@ -114,7 +114,7 @@
 		/>
 	{/if}
 
-	<section class="container">
+	<section class="layout">
 		{#if item.fields.events}
 			<div class="m-auto">
 				<EventListing events={item.fields.events} color={item.fields.color2} />
@@ -129,7 +129,7 @@
 	</section>
 
 	{#if item.fields.text2}
-		<section class="container pb-6 pt-6 lg:pb-12 lg:pt-0">
+		<section class="layout pb-6 pt-6 lg:pb-12 lg:pt-0">
 			<div class="gap-x-12 lg:grid lg:grid-cols-3">
 				<div class=" col-span-2 col-start-2 pt-8 lg:pt-0">
 					<div class="richText">
@@ -147,7 +147,7 @@
 	{/if}
 
 	{#if item.fields.text3}
-		<section class="container pb-6 pt-6 lg:pb-12 lg:pt-0">
+		<section class="layout pb-6 pt-6 lg:pb-12 lg:pt-0">
 			<div class="gap-x-12 lg:grid lg:grid-cols-3">
 				<div class=" col-span-2 col-start-1 pt-8 lg:pt-0">
 					<div class="richText">
@@ -165,7 +165,7 @@
 				bgColor={item.fields.color2}
 				textColor={item.fields.color1}
 			/>
-			<div class="container">
+			<div class="layout">
 				<VideoListing {videos} />
 			</div>
 		</section>
@@ -193,7 +193,7 @@
 				bgColor={item.fields.color2}
 				textColor={item.fields.color1}
 			/>
-			<div class="container py-6">
+			<div class="layout py-6">
 				<NewsListing items={item.fields.news} />
 			</div>
 		</section>
@@ -206,7 +206,7 @@
 				bgColor={item.fields.color2}
 				textColor={item.fields.color1}
 			/>
-			<div class="container grid grid-cols-1 py-6 lg:grid-cols-2">
+			<div class="layout grid grid-cols-1 py-6 lg:grid-cols-2">
 				<EventListing events={item.fields.additionalEvents} color={item.fields.color2} />
 			</div>
 		</section>

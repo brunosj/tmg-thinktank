@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type {
 		LandingPage,
 		Programme,
@@ -11,8 +10,9 @@
 		EventSeries,
 		BlogPost
 	} from '$lib/types/types';
-	import HeroV2 from '$components/Hero/HeroV2.svelte';
+
 	import Hero from '$components/Hero/Hero.svelte';
+	import HeroV4 from '$components/Hero/HeroV4.svelte';
 	import HeroProgrammesV2 from '$components/Hero/HeroProgrammesV2.svelte';
 	import LatestV2 from '$components/Latest/LatestV2.svelte';
 	import NewsletterBanner from '$components/Banner/NewsletterBanner.svelte';
@@ -52,7 +52,8 @@
 	} = data;
 </script>
 
-<Hero hero={landingPage} />
+<!-- <Hero hero={landingPage} /> -->
+<HeroV4 hero={landingPage} />
 <LatestV2 {landingPage} />
 <ImageBannerEventSeries items={eventSeries} />
 <EventsHomepage {events} {landingPage} />

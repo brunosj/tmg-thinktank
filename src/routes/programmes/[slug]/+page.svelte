@@ -138,7 +138,7 @@
 
 	{#if slides.length > 0}
 		<Heading text="Latest" bgColor="#F4F6F6" textColor="#67797B" />
-		<div class="container mx-auto mt-12">
+		<div class="layout mx-auto mt-12">
 			<CarouselV2 {slides} />
 		</div>
 	{/if}
@@ -148,11 +148,11 @@
 	{#if news.length >= 1}
 		<section id="news">
 			<Heading text="News & Blog Posts" bgColor="#F4F6F6" textColor="#67797B" />
-			<div class="container">
+			<div class="layout">
 				<NewsListing items={news.slice(0, newsCount)} />
 			</div>
 			{#if news.length > newsCount}
-				<div class="container flex justify-evenly pb-6 lg:pb-12">
+				<div class="layout flex justify-evenly pb-6 lg:pb-12">
 					<ButtonLoadMore onClick={loadMoreNews}>Load More News</ButtonLoadMore>
 				</div>
 			{:else}
@@ -166,7 +166,7 @@
 			<Heading text="Publications" bgColor="#F4F6F6" textColor="#67797B" />
 			<PublicationListing items={publications.slice(0, publicationsCount)} />
 			{#if publications.length > publicationsCount}
-				<div class="container flex justify-evenly pb-6 lg:pb-12">
+				<div class="layout flex justify-evenly pb-6 lg:pb-12">
 					<ButtonLoadMore onClick={loadMorePublications}>Load More Publications</ButtonLoadMore>
 				</div>
 			{:else}
@@ -178,7 +178,7 @@
 	{#if videos.length >= 1}
 		<section id="videos">
 			<Heading text="Videos" bgColor="#F4F6F6" textColor="#67797B" />
-			<div class="container">
+			<div class="layout">
 				<VideoListing {videos} />
 			</div>
 		</section>
@@ -187,11 +187,11 @@
 	{#if events.length >= 1}
 		<section id="events">
 			<Heading text="Events" bgColor="#F4F6F6" textColor="#67797B" />
-			<div class="container grid grid-cols-1 py-6 lg:grid-cols-2 lg:py-12">
+			<div class="layout grid grid-cols-1 py-6 lg:grid-cols-2 lg:py-12">
 				<EventListing events={events.slice(0, eventsCount)} />
 			</div>
 			{#if events.length > eventsCount}
-				<div class="container flex justify-evenly pb-6 lg:pb-12">
+				<div class="layout flex justify-evenly pb-6 lg:pb-12">
 					<ButtonLoadMore onClick={loadMoreEvents}>Load More Events</ButtonLoadMore>
 				</div>
 			{:else}

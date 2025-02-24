@@ -45,7 +45,7 @@
 	<div class="overflow-hidden pt-16 lg:pt-32">
 		<EventHeader {item} />
 		{#if image && item.fields.imagePosition === 'Top'}
-			<div class="container w-full py-6 lg:py-12">
+			<div class="layout w-full py-6 lg:py-12">
 				<img loading="lazy" src={image} alt={item.fields.title} />
 				{#if imageCaption}
 					<div class="flex">
@@ -56,7 +56,7 @@
 				{/if}
 			</div>
 		{/if}
-		<div class="container grid grid-cols-1 gap-0 pb-6 pt-6 lg:grid-cols-3 lg:gap-12">
+		<div class="layout grid grid-cols-1 gap-0 pb-6 pt-6 lg:grid-cols-3 lg:gap-12">
 			<div class="col-span-2 space-y-12">
 				<ShareSocialMedia
 					text={item.fields.title}
@@ -78,7 +78,7 @@
 			<EventDetails {item} />
 		</div>
 
-		<section class="container space-y-6 py-6 lg:py-12">
+		<section class="layout space-y-6 py-6 lg:py-12">
 			{#if item.fields.speakers}
 				<EventSpeakers {item} />
 			{/if}
@@ -90,7 +90,7 @@
 			{/if}
 		</section>
 
-		<section class="container">
+		<section class="layout">
 			{#if image && item.fields.imagePosition !== 'Top'}
 				<div class="w-full pb-6">
 					<img loading="lazy" src={image} alt={item.fields.title} />

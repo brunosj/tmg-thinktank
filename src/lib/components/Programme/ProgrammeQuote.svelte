@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
@@ -10,7 +9,7 @@
 
 	let { text, author }: Props = $props();
 
-	let element = $state();
+	let element: HTMLDivElement | null = $state(null);
 	let intersecting = $state(false);
 </script>
 

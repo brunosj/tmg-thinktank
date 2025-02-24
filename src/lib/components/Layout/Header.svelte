@@ -10,8 +10,7 @@
 	import SidebarComponent from '$components/Layout/Sidebar.svelte';
 	import type { SearchItem } from '$lib/types/types';
 
-
-	let {programmes} = $props();
+	let { programmes } = $props();
 
 	let search: 'loading' | 'ready' = $state('loading');
 	let searchTerm = $state('');
@@ -64,8 +63,8 @@
 </script>
 
 <header class="fixed top-0 z-50 w-full bg-white bg-opacity-90 shadow-lg">
-	<div class="border-t-4 border-green-normal">
-		<div class="container mx-auto flex items-center justify-between py-1">
+	<div class="border-t-4 border-navyBlue">
+		<div class="layout mx-auto flex items-center justify-between py-1">
 			<div>
 				<a href="/" class="m-0 flex h-8 w-16 md:m-auto lg:h-12 lg:w-24">
 					<img src={logo} alt="TMG Think Tank for Sustainability" loading="eager" />
@@ -105,7 +104,7 @@
 	<SearchResults {results} bind:searchTerm bind:showSearchInput />
 {/if}
 
-<SidebarComponent bind:sidebarHidden programmes={programmes} />
+<SidebarComponent bind:sidebarHidden {programmes} />
 
 <style>
 	input {

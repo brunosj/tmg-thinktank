@@ -71,7 +71,7 @@
 	class="fixed right-0 top-12 z-50 ml-auto max-h-full w-full overflow-scroll overflow-y-scroll bg-white shadow-lg lg:top-16 lg:max-h-[60vh]"
 >
 	<div class=" space-y-3 pb-3 pt-6">
-		<div class="container flex items-center justify-between">
+		<div class="layout flex items-center justify-between">
 			<div class="flex flex-col space-y-1">
 				<h2 class="text-lg font-bold">Search Results</h2>
 			</div>
@@ -83,7 +83,7 @@
 		</div>
 
 		<div class="bg-green-normal py-2">
-			<div class="container flex flex-wrap gap-x-6 gap-y-3 space-x-0 lg:space-x-12">
+			<div class="layout flex flex-wrap gap-x-6 gap-y-3 space-x-0 lg:space-x-12">
 				{#each filterOptions as option, index}
 					<label class="flex items-center space-x-2">
 						<input
@@ -100,7 +100,7 @@
 				{/each}
 			</div>
 		</div>
-		<ul class="container gap-6 md:grid md:grid-cols-2 lg:grid-cols-3">
+		<ul class="layout gap-6 md:grid md:grid-cols-2 lg:grid-cols-3">
 			{#each filteredResults as result}
 				<li class="">
 					<a

@@ -20,7 +20,7 @@
 </script>
 
 {#each topics as topic, i}
-	<section id={topic.fields.slug} class="container border-b border-t py-6">
+	<section id={topic.fields.slug} class="layout border-b border-t py-6">
 		<h1 class="py-0 text-center text-2xl font-bold lg:py-6 lg:text-left lg:text-3xl">
 			{topic.fields.title}
 		</h1>

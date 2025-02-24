@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Image } from '$lib/types/types';
 	import HeadingAbout from '$components/About/HeadingAbout.svelte';
 	interface Props {
@@ -37,7 +36,7 @@
 </script>
 
 <div class="bgGradientBR">
-	<div class="container pt-12 font-bold text-white lg:pb-16 lg:pt-24">
+	<div class="layout pt-12 font-bold text-white lg:pb-16 lg:pt-24">
 		<HeadingAbout text="Our Guiding Principles" />
 
 		<div class="grid grid-cols-3 py-6 lg:py-12">

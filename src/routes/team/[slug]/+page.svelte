@@ -78,7 +78,7 @@
 <SEO title={item.fields.name} {image} />
 
 <article class="pb-6 pt-24 lg:pb-16 lg:pt-48">
-	<div class="gril-cols-1 container grid lg:grid-cols-4">
+	<div class="gril-cols-1 layout grid lg:grid-cols-4">
 		<div class="order-2 justify-between pr-0 leading-normal lg:order-1 lg:col-span-3 lg:pr-16">
 			<div class="">
 				<h2 class="font-semibold text-black">
@@ -127,20 +127,20 @@
 	</div>
 
 	{#if news.length >= 1}
-		<section class="container pt-6">
+		<section class="layout pt-6">
 			<span class="text-lg font-bold lg:text-xl">News</span>
 			<NewsListing items={news} />
 		</section>
 	{/if}
 
 	{#if publications.length >= 1}
-		<section class="container pt-6">
+		<section class="layout pt-6">
 			<span class="text-lg font-bold lg:text-xl">Publications</span>
 			<PublicationListing items={publications} />
 		</section>
 	{/if}
 
-	<div class="container pt-6 lg:pt-8">
+	<div class="layout pt-6 lg:pt-8">
 		<ButtonArrow to="/team" color="#F4F6F" textColor="#67797B" arrowDirection="left"
 			>Team</ButtonArrow
 		>

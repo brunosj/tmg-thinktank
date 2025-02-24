@@ -26,7 +26,7 @@
 
 <section class="">
 	<div class="bg-green-variation pt-12 sm:pt-16">
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="layout mx-auto">
 			<div class="mx-auto max-w-4xl text-center">
 				<h2 class="text-3xl font-extrabold sm:text-4xl" style="color: {color}">{title}</h2>
 				<p class="mt-3 text-base text-cop1 sm:mt-4 lg:text-xl">{subtitle}</p>
@@ -35,7 +35,7 @@
 		<div class="mt-10 bg-white pb-12 sm:pb-16">
 			<div class="relative">
 				<div class="absolute inset-0 h-1/2 bg-green-variation"></div>
-				<div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+				<div class="layout mx-auto">
 					<div class="mx-auto max-w-4xl">
 						<dl class="rounded-md bg-white shadow-lg sm:grid sm:grid-cols-2">
 							<div

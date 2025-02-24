@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Team } from '$lib/types/types';
 	import FaTwitter from 'virtual:icons/fa6-brands/x-twitter';
 	import FaLinkedin from 'virtual:icons/fa6-brands/linkedin-in';
@@ -15,7 +14,7 @@
 
 <div>
 	<ul class="bg-green-light">
-		<div class="container grid grid-cols-1 gap-8 pt-16 md:grid-cols-2 lg:gap-16">
+		<div class="layout grid grid-cols-1 gap-8 pt-16 md:grid-cols-2 lg:gap-16">
 			{#each items.sort( (a, b) => (a.fields.name || '').localeCompare(b.fields.name || '') ) as item (item.fields.name)}
 				<li class=" grid grid-cols-1 pb-6 lg:grid-cols-4 lg:pb-10">
 					{#if item.fields.picture}

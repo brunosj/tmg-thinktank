@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Event } from '$lib/types/types';
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
@@ -62,7 +61,7 @@
 				<span></span>
 			{/if}
 		</div>
-		<PublicationListing items={item.fields.relatedDocuments} container={false} />
+		<PublicationListing items={item.fields.relatedDocuments} layout={false} />
 	</div>
 {/if}
 {#if item.fields.relatedEvents}

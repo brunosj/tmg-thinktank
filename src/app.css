@@ -1,10 +1,12 @@
 @import '@fontsource-variable/inter';
+@import '@fontsource-variable/inter/wght.css';
+@import '@fontsource-variable/inter/wght-italic.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
+/* @font-face {
 	font-family: 'Inter';
 	font-style: italic;
 	font-weight: 400;
@@ -26,7 +28,7 @@
 	font-weight: 600;
 	font-display: swap;
 	src: url('/fonts/Inter-SemiBoldItalic.woff2') format('woff2');
-}
+} */
 
 :root {
 	font-synthesis: none;
@@ -71,8 +73,16 @@ p {
 	@apply font-semibold text-blue-800 duration-300 hover:text-black;
 } */
 
-.container {
-	@apply mx-auto max-w-7xl sm:px-6 lg:px-8;
+.layout {
+	@apply mx-auto px-6 lg:px-12 xl:px-24 2xl:px-48;
+}
+
+.layoutRight {
+	@apply mx-auto px-6 lg:pr-12 xl:pr-16 2xl:pr-48;
+}
+
+.layoutLeft {
+	@apply mx-auto px-6 lg:pl-12 xl:pl-16 2xl:pl-48;
 }
 
 .sectionPy {
@@ -201,4 +211,12 @@ b {
 
 .bgGradientTL {
 	@apply bg-gradient-to-tl from-black/70 via-green-normal to-green-normal/100;
+}
+
+.bgGradientBRBlue {
+	@apply from-navyBlue bg-gradient-to-br to-gray-800/100;
+}
+
+.bgGradientTLBlue {
+	@apply from-navyBlue bg-gradient-to-tl to-gray-800/100;
 }

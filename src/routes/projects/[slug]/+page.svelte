@@ -110,7 +110,7 @@
 
 <SEO title={project.fields.name} description={project.fields.summary} {image} />
 <div class="bgGradientBR">
-	<div class="container pb-16 pt-24 lg:pt-32">
+	<div class="layout pb-16 pt-24 lg:pt-32">
 		<div class="mb-5 text-sm text-green-light">
 			<a href="/" class="transition duration-200 hover:text-white hover:underline">Home</a>
 			<span> {' > '} </span>
@@ -131,7 +131,7 @@
 		</div>
 	</div>
 </div>
-<div class="container">
+<div class="layout">
 	<div class="grid grid-cols-1 lg:grid-cols-9">
 		<div class="col-span-1 py-6 lg:col-span-6 lg:py-12">
 			{#if project.fields.quote}
@@ -180,11 +180,11 @@
 {#if news.length >= 1}
 	<section id="news">
 		<Heading text="News & Blog Posts" bgColor="#F4F6F6" textColor="#67797B" />
-		<div class="container">
+		<div class="layout">
 			<NewsListing items={news.slice(0, newsCount)} />
 		</div>
 		{#if news.length > newsCount}
-			<div class="container flex justify-evenly pb-6 lg:pb-12">
+			<div class="layout flex justify-evenly pb-6 lg:pb-12">
 				<ButtonLoadMore onClick={loadMoreNews}>Load More News</ButtonLoadMore>
 			</div>
 		{:else}
@@ -198,7 +198,7 @@
 		<Heading text="Publications" bgColor="#F4F6F6" textColor="#67797B" />
 		<PublicationListing items={publications.slice(0, publicationsCount)} />
 		{#if publications.length > publicationsCount}
-			<div class="container flex justify-evenly pb-6 lg:pb-12">
+			<div class="layout flex justify-evenly pb-6 lg:pb-12">
 				<ButtonLoadMore onClick={loadMorePublications}>Load More Publications</ButtonLoadMore>
 			</div>
 		{:else}
@@ -210,7 +210,7 @@
 {#if videos.length >= 1}
 	<section id="videos">
 		<Heading text="Videos" bgColor="#F4F6F6" textColor="#67797B" />
-		<div class="container">
+		<div class="layout">
 			<VideoListing {videos} />
 		</div>
 	</section>

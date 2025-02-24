@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Event, LandingPage } from '$lib/types/types';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	import EventListing from '$components/Events/EventListing.svelte';
@@ -15,7 +14,7 @@
 
 {#if shouldDisplay}
 	<div class="sectionPy bg-white">
-		<div class="container">
+		<div class="layout">
 			<HeadingV2
 				title={landingPage.fields.eventSectionTitle}
 				subtitle={landingPage.fields.eventSectionSubtitle}

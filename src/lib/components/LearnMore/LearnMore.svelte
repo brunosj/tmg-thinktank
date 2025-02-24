@@ -17,24 +17,24 @@
 </script>
 
 <div class="backdrop-blur-sm">
-	<div class="container py-16">
+	<div class="layout py-16">
 		<div class="max-w-3xl">
-			<h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-green-light tracking-tight">
+			<h3 class="text-2xl font-bold tracking-tight text-green-light md:text-3xl lg:text-4xl">
 				Learn more about our activities
 			</h3>
-			<p class="mt-4 text-base md:text-lg text-green-light/90 font-normal">
+			<p class="mt-4 text-base font-normal text-green-light/90 md:text-lg">
 				Check out our different channels where we publish articles, videos, and analyses of global
 				and local debates
 			</p>
-			<ul class="flex gap-8 mt-8">
+			<ul class="mt-8 flex gap-8">
 				{#each socialLinks as link (link.label)}
 					<li>
 						<a
 							href={link.link}
 							target="_blank"
-							class="block p-3 text-green-light hover:text-green-variation transform transition-all duration-300 hover:scale-110 "
+							class="block transform p-3 text-green-light transition-all duration-300 hover:scale-110 hover:text-green-variation"
 						>
-							<Icon icon={link.icon} label={link.label}  />
+							<Icon icon={link.icon} label={link.label} />
 						</a>
 					</li>
 				{/each}

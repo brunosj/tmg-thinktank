@@ -40,14 +40,14 @@
 
 <SectionHeaderLow title="Blog" background="bgGradientBR" />
 <article class="relative">
-	<section class="container py-6 font-light text-black lg:py-12 lg:text-xl">
+	<section class="layout py-6 font-light text-black lg:py-12 lg:text-xl">
 		<h3 class="font-normal">
 			Here on the TMG blog our team and collaborators share our latest research, comment on current
 			political events, and engage with debates in the many fields in which we work.
 		</h3>
 	</section>
 	<section class="top-16 z-10 w-full bg-green-variation py-4 lg:sticky">
-		<div class="container flex flex-wrap justify-between gap-x-6 gap-y-3 space-x-0 lg:space-x-12">
+		<div class="layout flex flex-wrap justify-between gap-x-6 gap-y-3 space-x-0 lg:space-x-12">
 			<label class="flex items-center space-x-2">
 				<input
 					class="h-4 w-4 cursor-pointer border-gray-300 text-green-normal focus:ring-green-normal"
@@ -76,7 +76,7 @@
 			{/each}
 		</div>
 	</section>
-	<section class="container">
+	<section class="layout">
 		<BlogListing items={filteredItems} nbrColumns={2} />
 	</section>
 </article>

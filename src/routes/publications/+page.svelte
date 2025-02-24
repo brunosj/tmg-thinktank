@@ -61,7 +61,7 @@
 			<section>
 				<Heading text="Featured Publications" textColor="" bgColor="white" />
 				<div
-					class="container py-6"
+					class="layout py-6"
 					transition:fade={{ duration: 500, delay: 500, easing: cubicInOut }}
 				>
 					<CarouselV2 slides={features} />
@@ -72,7 +72,7 @@
 			</section>
 			<Heading text="All Publications" textColor="" bgColor="white" />
 
-			<div class="container grid-cols-4 gap-6 bg-green-variation align-top lg:grid">
+			<div class="layout grid-cols-4 gap-6 bg-green-variation align-top lg:grid">
 				<div
 					class="sticky top-6 col-span-1 mx-auto hidden w-full self-start py-12 lg:block"
 					transition:fly={{ x: -100, duration: 500, delay: 500, easing: cubicInOut }}
@@ -90,7 +90,7 @@
 				>
 					<PublicationListing items={filteredItems.slice(0, itemsCount)} />
 					{#if items.length > itemsCount}
-						<div class="container flex justify-evenly pb-6 lg:pb-12">
+						<div class="layout flex justify-evenly pb-6 lg:pb-12">
 							<ButtonLoadMore onClick={loadMoreItems}>Load More Publications</ButtonLoadMore>
 						</div>
 					{:else}

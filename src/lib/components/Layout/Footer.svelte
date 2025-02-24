@@ -4,29 +4,28 @@
 	import Button from '$components/UI/Button.svelte';
 	import { generateProgrammeLinks } from '$utils/utils';
 
-	let {programmes} = $props();
+	let { programmes } = $props();
 
 	const programmeLinks = generateProgrammeLinks(programmes);
 </script>
 
-<footer class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden">
+<footer class="overflow-hidden bg-gradient-to-br from-navyBlue to-gray-800">
 	<LearnMore />
 
-	<div class="container pt-0 pb-8 lg:pt-16 lg:pb-8">
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
+	<div class="layout pb-8 pt-0 lg:pb-8 lg:pt-16">
+		<div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-6">
 			<div class="lg:col-span-4">
-				<div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+				<div class="grid grid-cols-2 gap-8 lg:grid-cols-4">
 					<div>
-						<h4 class="text-sm font-bold uppercase tracking-wider text-white mb-6">
-							Programmes
-						</h4>
+						<h4 class="mb-6 text-sm font-bold uppercase tracking-wider text-white">Programmes</h4>
 						<ul class="space-y-4">
 							{#each programmeLinks as programme}
 								<li>
 									<a
 										href={programme.to}
-										class="text-gray-300 hover:text-white transition-colors duration-200 text-sm"
-									>{programme.title}</a>
+										class="text-sm text-gray-300 transition-colors duration-200 hover:text-white"
+										>{programme.title}</a
+									>
 								</li>
 							{/each}
 						</ul>
@@ -34,7 +33,7 @@
 
 					{#each footerMenu as category}
 						<div>
-							<h4 class="text-sm font-bold uppercase tracking-wider text-white mb-6">
+							<h4 class="mb-6 text-sm font-bold uppercase tracking-wider text-white">
 								{category.category}
 							</h4>
 							<ul class="space-y-4">
@@ -42,8 +41,9 @@
 									<li>
 										<a
 											href={link.to}
-											class="text-gray-300 hover:text-white transition-colors duration-200 text-sm"
-										>{link.title}</a>
+											class="text-sm text-gray-300 transition-colors duration-200 hover:text-white"
+											>{link.title}</a
+										>
 									</li>
 								{/each}
 							</ul>
@@ -53,23 +53,14 @@
 			</div>
 
 			<div class="lg:col-span-2">
-				<h4 class="text-sm font-bold uppercase tracking-wider text-white mb-6">
-					Stay in touch
-				</h4>
-				<p class="text-gray-300 text-sm mb-6">
-					Hear about our latest events and research
-				</p>
-				<Button 
-					to="https://bit.ly/34L0mFV" 
-					colors="white"
-				>
-					Sign up to our newsletter
-				</Button>
+				<h4 class="mb-6 text-sm font-bold uppercase tracking-wider text-white">Stay in touch</h4>
+				<p class="mb-6 text-sm text-gray-300">Hear about our latest events and research</p>
+				<Button to="https://bit.ly/34L0mFV" colors="white">Sign up to our newsletter</Button>
 			</div>
 		</div>
 
-		<div class="mt-16 pt-8 border-t border-gray-800">
-			<p class="text-gray-400 text-xs leading-relaxed">
+		<div class="mt-16 border-t border-gray-800 pt-8">
+			<p class="text-xs leading-relaxed text-gray-400">
 				TMG Think Tank for Sustainability consists of TMG Research gGmbH, an independent,
 				non-partisan, non-for-profit organization registered in Berlin (District Court
 				Charlottenburg, HRB 186018 B, USt.-ID: DE311653675) and TMG - Töpfer, Müller, Gaßner GmbH, a

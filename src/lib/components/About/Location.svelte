@@ -7,7 +7,7 @@
 </script>
 
 <div class="bg-green-variation">
-	<div class="container pb-12 pt-12 font-bold lg:pb-24">
+	<div class="layout pb-12 pt-12 font-bold lg:pb-24">
 		<div class="py-6 lg:py-12">
 			<img loading="lazy" src={map} alt="Image1" />
 		</div>

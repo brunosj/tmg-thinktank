@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Event } from '$lib/types/types';
 	interface Props {
 		item: Event;
@@ -8,7 +7,7 @@
 	let { item }: Props = $props();
 </script>
 
-<section class="container border-b border-green-normal">
+<section class="layout border-b border-green-normal">
 	<h1 class="pb-6 text-base font-bold text-white lg:text-lg">
 		<span class="rounded-md bg-gray-900 px-2 py-1 duration-200 ease-in-out">
 			{item.fields.type}

@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { ImageCdn } from '$lib/types/types';
 	import Gallery from './Gallery.svelte';
 	interface Props {
@@ -10,7 +9,7 @@
 	let { images, borderColor = '#000' }: Props = $props();
 </script>
 
-<section class="sectionPy container grid-cols-3 lg:grid">
+<section class="sectionPy layout grid-cols-3 lg:grid">
 	<div class="relative col-span-1 my-auto flex items-center pt-6 lg:pt-0">
 		<h2
 			class="text-2xl font-extrabold leading-tight tracking-tight lg:text-4xl"

@@ -9,19 +9,25 @@
 	let { heroProgrammes }: Props = $props();
 
 	let numberOfColumns = $derived(Math.min(heroProgrammes.length, 6));
-	let gridClass = $derived(`grid grid-cols-1 gap-1 text-center sm:grid-cols-2 ${
-		numberOfColumns === 2 ? 'lg:grid-cols-2' :
-		numberOfColumns === 3 ? 'lg:grid-cols-3' :
-		numberOfColumns === 4 ? 'lg:grid-cols-4' :
-		numberOfColumns === 5 ? 'lg:grid-cols-5' :
-		numberOfColumns === 6 ? 'lg:grid-cols-3' :
-		'lg:grid-cols-6'
-	}`);
-	
+	let gridClass = $derived(
+		`grid grid-cols-1 gap-1 text-center sm:grid-cols-2 ${
+			numberOfColumns === 2
+				? 'lg:grid-cols-2'
+				: numberOfColumns === 3
+					? 'lg:grid-cols-3'
+					: numberOfColumns === 4
+						? 'lg:grid-cols-4'
+						: numberOfColumns === 5
+							? 'lg:grid-cols-5'
+							: numberOfColumns === 6
+								? 'lg:grid-cols-3'
+								: 'lg:grid-cols-6'
+		}`
+	);
 </script>
 
-<div class="bgGradientBR relative">
-	<div class="sectionPy container mx-auto hidden lg:block lg:px-8">
+<div class="bgGradientTLBlue relative">
+	<div class="sectionPy layout mx-auto hidden lg:block">
 		<HeadingV2 title="We work towards" textColor="light" />
 
 		<div class="mx-auto mt-12 max-w-2xl lg:max-w-none">
@@ -43,7 +49,7 @@
 							class=" flex h-full flex-col items-center space-y-2 rounded-b-lg bg-white p-4 duration-300 group-hover:bg-green-variation lg:p-6"
 						>
 							<div class="flex h-full flex-col justify-around space-y-2">
-								<div class="text-base font-semibold leading-6 text-gray-500">
+								<div class="text-base font-semibold leading-6 text-navyBlue">
 									{programme.fields.actionVerb}
 								</div>
 								<div

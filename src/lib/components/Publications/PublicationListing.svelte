@@ -3,10 +3,10 @@
 	import { formatDateNews } from '$utils/utils';
 	interface Props {
 		items: Publication[];
-		container?: boolean;
+		layout?: boolean;
 	}
 
-	let { items, container = true }: Props = $props();
+	let { items, layout = true }: Props = $props();
 
 	// Create a derived value for sorted items instead of a reactive statement
 	let sortedItems = $derived(
@@ -17,7 +17,7 @@
 </script>
 
 <div
-	class={`${container ? 'container' : ' '} grid grid-cols-1 pb-6 pt-6 lg:grid-cols-2 lg:gap-5 lg:pt-12`}
+	class={`${layout ? 'layout' : ' '} grid grid-cols-1 pb-6 pt-6 lg:grid-cols-2 lg:gap-5 lg:pt-12`}
 >
 	{#each sortedItems as item, i (item.fields.title)}
 		{@const image =

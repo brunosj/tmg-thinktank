@@ -62,7 +62,7 @@
 		</div>
 	</section>
 
-	<section class="pt container pt-6 lg:pt-12">
+	<section class="pt layout pt-6 lg:pt-12">
 		<div>
 			<h1>{feature.fields.title}</h1>
 			<h3>{feature.fields.summary}</h3>
@@ -71,7 +71,7 @@
 
 	{#if sectionsWithContentBlocks.length > 0}
 		{#each sectionsWithContentBlocks as sectionContent, index}
-			<div class="container grid grid-cols-1 gap-6 py-6 lg:grid-cols-3 lg:gap-12 lg:py-12">
+			<div class="layout grid grid-cols-1 gap-6 py-6 lg:grid-cols-3 lg:gap-12 lg:py-12">
 				<div class="col-span-2 {index % 2 === 1 ? 'order-last' : 'order-first'}">
 					{#each sectionContent.contentBlocks as item}
 						{#if item.sys.contentType.sys.id === 'textBlock'}
@@ -128,7 +128,7 @@
 	{#if feature.fields.events}
 		<section class="py-6">
 			<Heading text="Related Events" textColor={feature.fields.color1} bgColor="#F4F6F6" />
-			<div class="container py-6">
+			<div class="layout py-6">
 				<FeatureEventCard
 					events={feature.fields.events}
 					color1={feature.fields.color2}
@@ -148,7 +148,7 @@
 	{#if feature.fields.news}
 		<section>
 			<Heading text="News & Blog Posts" bgColor="#F4F6F6" textColor={feature.fields.color1} />
-			<div class="container py-6">
+			<div class="layout py-6">
 				<NewsListing items={feature.fields.news} />
 			</div>
 		</section>
@@ -157,7 +157,7 @@
 	{#if feature.fields.partnersLogos}
 		<section>
 			<Heading text="In collaboration with" bgColor="#F4F6F6" textColor={feature.fields.color1} />
-			<div class="container py-6">
+			<div class="layout py-6">
 				<ul class="flex flex-wrap items-center justify-around px-5 lg:px-0">
 					{#each feature.fields.partnersLogos as item (item.fields.url)}
 						<li>

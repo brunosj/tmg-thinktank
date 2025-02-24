@@ -17,10 +17,11 @@
 		item = item;
 	});
 
-	let image =
-		$derived(item.fields.thumbnailCdn?.length > 0
+	let image = $derived(
+		item.fields.thumbnailCdn?.length > 0
 			? item.fields.thumbnailCdn[0].secure_url
-			: item.fields.thumbnail.fields.file.url);
+			: item.fields.thumbnail.fields.file.url
+	);
 
 	let link = $derived(item.fields.pdf.fields.file.url);
 </script>
@@ -29,7 +30,7 @@
 
 <div class="rounded-md bg-white p-5">
 	<div class="py-6 lg:py-12">
-		<div class="container w-full lg:w-3/4">
+		<div class="layout w-full lg:w-3/4">
 			<div class="pb-6 text-xs font-bold lg:text-sm">
 				<span class="bgGradientBR rounded-md px-3 py-1.5 text-white duration-200 ease-in-out">
 					Out Now!
@@ -66,7 +67,7 @@
 			</div>
 		</div>
 
-		<div class="container w-full pt-6 lg:w-3/4 lg:pt-12">
+		<div class="layout w-full pt-6 lg:w-3/4 lg:pt-12">
 			<div class="richText">
 				{item.fields.summary}
 			</div>

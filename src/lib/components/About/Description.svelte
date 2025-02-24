@@ -32,7 +32,7 @@
 </script>
 
 <div class="bgGradientBR" bind:this={element}>
-	<div class="container pt-32 font-normal text-white lg:pb-16 lg:pt-48">
+	<div class="layout pt-32 font-normal text-white lg:pb-16 lg:pt-48">
 		<IntersectionObserver {element} bind:intersecting once>
 			{#if intersecting}
 				<div class="pb-12">

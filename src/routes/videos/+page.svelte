@@ -30,7 +30,7 @@
 
 <article>
 	<SectionHeaderLow title="Videos" background="bgGradientBR" />
-	<div class="container">
+	<div class="layout">
 		<VideoListing {videos} />
 	</div>
 </article>

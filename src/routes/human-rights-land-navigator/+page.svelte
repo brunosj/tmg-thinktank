@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import SEO from '$components/SEO/SEO.svelte';
 	import { renderRichText } from '$utils/utils';
 	import QuoteBanner from '$components/Banner/QuoteBanner.svelte';
@@ -9,10 +8,11 @@
 
 	let item = $derived(data);
 
-	let image =
-		$derived(item.fields.imageCdn?.length > 0
+	let image = $derived(
+		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image.fields.file.url);
+			: item.fields.image.fields.file.url
+	);
 </script>
 
 <SEO title={item.fields.title} description={item.fields.subtitle} {image} />
@@ -20,7 +20,7 @@
 <article class="pb-6 text-cop1 lg:pb-12">
 	<TitleImageGradientHeader {image} title={item.fields.title} subtitle={item.fields.subtitle} />
 
-	<section class="sectionPy container">
+	<section class="sectionPy layout">
 		<div class="grid grid-cols-1 gap-x-12 lg:grid-cols-3">
 			<div class="richText col-span-2">
 				{#if item.fields.text1}
@@ -44,7 +44,7 @@
 		organisation="Senior Policy Officer, FAO"
 		bgColor="#089b61"
 	/>
-	<section class="container grid grid-cols-1 gap-x-12 pb-6 pt-6 lg:grid-cols-3 lg:pb-12 lg:pt-12">
+	<section class="layout grid grid-cols-1 gap-x-12 pb-6 pt-6 lg:grid-cols-3 lg:pb-12 lg:pt-12">
 		<div class="richText col-span-2">
 			{#if item.fields.text2}
 				{@html renderRichText(item.fields.text2)}

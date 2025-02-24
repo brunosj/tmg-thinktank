@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Job } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
@@ -31,7 +30,7 @@
 
 <SEO title="Job Opportunities" description="Join our team!" />
 <SectionHeaderLow title="Opportunities at TMG" background="bgGradientBR" />
-<div class="container flex flex-col gap-2 pb-6 lg:pb-12">
+<div class="layout flex flex-col gap-2 pb-6 lg:pb-12">
 	<div class="">
 		{#if jobOffers.length > 0}
 			<h2 class="py-6 text-2xl font-bold underline lg:py-12">Jobs</h2>

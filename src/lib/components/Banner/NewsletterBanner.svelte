@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Newsletter, LandingPage } from '$lib/types/types';
 	import Button from '$components/UI/Button.svelte';
 	interface Props {
@@ -17,7 +16,7 @@
 </script>
 
 <section class="bgGradientTL">
-	<div class="container relative px-4 py-16 lg:py-24">
+	<div class="layout relative px-4 py-16 lg:py-24">
 		<div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-3">
 			<div class="col-span-2 space-y-6">
 				<h2 class="max-w-2xl text-2xl font-bold leading-tight text-white md:text-3xl lg:text-5xl">

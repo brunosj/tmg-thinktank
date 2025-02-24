@@ -53,7 +53,7 @@
 <article class="bg-green-light">
 	<section>
 		<div class="relative z-0 bg-green-variation py-24 lg:pb-32 lg:pt-40">
-			<div class="container w-full space-y-6 last:pb-12 lg:w-2/3">
+			<div class="layout w-full space-y-6 last:pb-12 lg:w-2/3">
 				<div class="font-bold text-white">
 					<span class="rounded-md bg-gray-900 px-2 py-1">Blog Post</span>
 				</div>
@@ -71,7 +71,7 @@
 			</div>
 		</div>
 
-		<div class="container relative -bottom-24 -top-24 z-20 h-full w-2/3">
+		<div class="layout relative -bottom-24 -top-24 z-20 h-full w-2/3">
 			<div
 				class="mt-auto h-[30vh] opacity-100 transition duration-300 ease-in-out group-hover:opacity-90 lg:h-[50vh]"
 			>
@@ -92,7 +92,7 @@
 		</div>
 	</section>
 
-	<div class="container relative -top-12">
+	<div class="layout relative -top-12">
 		<div class="mx-auto lg:w-2/3">
 			<section class="pb-6">
 				<ShareSocialMedia
@@ -106,7 +106,7 @@
 		</div>
 	</div>
 
-	<div class="container w-full pb-6 lg:pb-12">
+	<div class="layout w-full pb-6 lg:pb-12">
 		{#if item.fields.video}
 			<section class="border-t border-gray-300">
 				<div class="pt-6 text-xl font-semibold lg:text-2xl">

@@ -11,8 +11,8 @@
 	description={item.fields.summary}
 	image={item.fields.thumbnail.fields.file.url}
 />
-<div class="container pb-12 pt-24 lg:pb-16 lg:pt-40">
-	<div class="gril-cols-1 container grid pb-10 lg:grid-cols-4">
+<div class="layout pb-12 pt-24 lg:pb-16 lg:pt-40">
+	<div class="gril-cols-1 layout grid pb-10 lg:grid-cols-4">
 		{#if item.fields.thumbnail?.fields}
 			<div
 				class="w-1/3 rounded-full px-2 pb-5 transition duration-150 ease-in-out group-hover:opacity-75 lg:w-full lg:pb-2"

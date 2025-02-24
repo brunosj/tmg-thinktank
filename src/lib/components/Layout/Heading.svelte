@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
@@ -11,12 +10,12 @@
 
 	let { text, textColor, bgColor }: Props = $props();
 
-	let element = $state();
+	let element: HTMLDivElement | null = $state(null);
 	let intersecting = $state(false);
 </script>
 
 <div style="background-color: {bgColor ? bgColor : '#F4F6F6'}">
-	<div class="container py-8 lg:py-12" bind:this={element}>
+	<div class="layout py-8 lg:py-12" bind:this={element}>
 		<IntersectionObserver {element} bind:intersecting once threshold={0.3}>
 			{#if intersecting}
 				<h2

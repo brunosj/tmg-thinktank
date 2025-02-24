@@ -85,7 +85,7 @@
 		subtitle={item.fields.summary}
 	/>
 
-	<section class="container pb-6 pt-6 lg:pb-24 lg:pt-12">
+	<section class="layout pb-6 pt-6 lg:pb-24 lg:pt-12">
 		<div class="grid grid-cols-1 gap-x-12 lg:grid-cols-3">
 			<div class="richText col-span-2">
 				{@html renderRichText(item.fields.description)}
@@ -112,7 +112,7 @@
 		color="#6f62b1"
 	/>
 
-	<section class="container pb-6 pt-6 lg:pb-12 lg:pt-0">
+	<section class="layout pb-6 pt-6 lg:pb-12 lg:pt-0">
 		<div class="gap-x-12 lg:grid lg:grid-cols-3">
 			<div class=" col-span-2 col-start-2 pt-8 lg:pt-0">
 				<div class="richText">
@@ -132,13 +132,13 @@
 	<VideoBanner video={videos[0]} bgColor="#202f46" text="Watch the recap video" />
 
 	<div class="sectionPy">
-		<section class="container grid grid-cols-1 gap-x-12 lg:grid-cols-3">
+		<section class="layout grid grid-cols-1 gap-x-12 lg:grid-cols-3">
 			<div class="richText col-span-2 col-start-1">
 				{@html renderRichText(item.fields.text3)}
 			</div>
 		</section>
 
-		<section class="sectionPt container grid grid-cols-1 gap-x-12 lg:grid-cols-3">
+		<section class="sectionPt layout grid grid-cols-1 gap-x-12 lg:grid-cols-3">
 			<div class="richText col-span-2 col-start-2">
 				{@html renderRichText(item.fields.text4)}
 			</div>
@@ -148,7 +148,7 @@
 	{#if item.fields.relatedDocuments}
 		<section class="">
 			<Heading text="Publications & Articles" bgColor="#202f46" textColor="#ffffff" />
-			<div class="container">
+			<div class="layout">
 				<PublicationListing items={item.fields.relatedDocuments} />
 			</div>
 		</section>

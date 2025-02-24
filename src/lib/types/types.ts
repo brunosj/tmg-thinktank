@@ -15,8 +15,13 @@ export interface AboutPage {
 export interface LandingPage {
 	fields: {
 		title: string;
+		heroTitle: string;
 		heroPicture: ImageCdn[];
+		heroPictureAspectRatio: boolean;
 		heroText: string;
+		heroSubtitle: string;
+		heroLink: string;
+		heroBackgroundColor: string;
 		latestSectionTitle: string;
 		latestSectionSubtitle: string;
 		featuredItems: (News | Event)[];

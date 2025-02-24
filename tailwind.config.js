@@ -7,10 +7,10 @@ const config = {
 	safelist: ['grid-cols-4', 'grid-cols-5', 'grid-cols-6', 'grid-cols-7', 'grid-cols-8'],
 	plugins: [require('flowbite/plugin'), require('@tailwindcss/typography')],
 	theme: {
-		container: {
-			center: true,
-			padding: '1.25rem'
-		},
+		// container: {
+		// 	center: true,
+		// 	padding: '1.25rem'
+		// },
 		screens: {
 			xs: '375px',
 			sm: '640px',
@@ -93,7 +93,9 @@ const config = {
 				atlasYellow: '#F0B83F',
 				cop1: '#202f46',
 				cop2: '#6f62b1',
-				cop3: '#089b61'
+				cop3: '#089b61',
+				petrol15: '#d9e3e2',
+				navyBlue: '#2e2d51'
 			}
 		}
 	}

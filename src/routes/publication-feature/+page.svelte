@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { PublicationFeature as PublicationFeatureType } from '$lib/types/types';
 
 	import SEO from '$components/SEO/SEO.svelte';
@@ -22,7 +21,7 @@
 
 <article>
 	<SectionHeaderLow title="Publication Features" background="bgGradientBR" />
-	<div class="container">
+	<div class="layout">
 		<PublicationFeature {items} />
 	</div>
 </article>

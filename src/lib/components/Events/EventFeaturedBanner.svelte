@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
 
-
 	import type { Event } from '$lib/types/types';
 	interface Props {
 		event: Event;
@@ -20,7 +19,7 @@
 	});
 </script>
 
-<section class="container relative">
+<section class="layout relative">
 	{#if image}
 		<div class=" relative h-full overflow-hidden md:absolute md:left-0 md:h-full md:w-1/3 lg:w-2/3">
 			<div class="md:rounded-md">
@@ -33,7 +32,7 @@
 			</div>
 		</div>
 	{/if}
-	<div class="relative mx-auto max-w-7xl py-0 md:py-24">
+	<div class="layout relative mx-auto py-0 md:py-24">
 		<div
 			class="space-y-6 bg-white p-6 text-white md:ml-auto md:w-2/3 md:rounded-md lg:p-12"
 			style="background-color: {bgColor}"

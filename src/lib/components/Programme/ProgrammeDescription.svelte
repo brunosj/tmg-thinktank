@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { FlagshipOutput as FlagshipOutputType } from '$lib/types/types';
 	import { renderRichText } from '$utils/utils';
 	import ProgrammeQuote from '$components/Programme/ProgrammeQuote.svelte';
@@ -11,15 +10,10 @@
 		description: string;
 	}
 
-	let {
-		quoteText,
-		quoteAuthor,
-		flagshipOutput,
-		description
-	}: Props = $props();
+	let { quoteText, quoteAuthor, flagshipOutput, description }: Props = $props();
 </script>
 
-<section class="container pb-6 lg:pb-12">
+<section class="layout pb-6 lg:pb-12">
 	<div class="flex w-2/3">
 		<ProgrammeQuote text={quoteText} author={quoteAuthor} />
 	</div>

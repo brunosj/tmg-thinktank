@@ -28,7 +28,7 @@
 	<div class="overflow-hidden">
 		<section class="bg-green-variation">
 			<div
-				class="container grid grid-cols-1 overflow-hidden pb-6 pt-24 lg:grid-cols-3 lg:pb-12 lg:pt-32"
+				class="layout grid grid-cols-1 overflow-hidden pb-6 pt-24 lg:grid-cols-3 lg:pb-12 lg:pt-32"
 			>
 				<div class="col-span-2 m-auto w-full space-y-6">
 					<div class="font-bold text-white">
@@ -58,7 +58,7 @@
 			</div>
 		</section>
 
-		<div class="container grid grid-cols-1 pt-12 lg:grid-cols-3">
+		<div class="layout grid grid-cols-1 pt-12 lg:grid-cols-3">
 			<div class="col-span-2">
 				<section class="pb-6">
 					<ShareSocialMedia
@@ -78,7 +78,7 @@
 			</div>
 		</div>
 
-		<div class="container">
+		<div class="layout">
 			<div class="border-b border-t border-gray-300 py-6 leading-relaxed">
 				<!-- {#if item.fields.source && item.fields.sourceUrl}
 					<h1 class="text-base font-light">

@@ -55,7 +55,7 @@
 
 <SEO title={speaker.fields.name} {image} />
 <article class="pb-6 pt-32 lg:pb-12 lg:pt-48">
-	<div class="container grid grid-cols-1 lg:grid-cols-4">
+	<div class="layout grid grid-cols-1 lg:grid-cols-4">
 		<div class="order-2 justify-between pr-0 leading-normal lg:order-1 lg:col-span-3 lg:pr-16">
 			<div>
 				<p class="text-2xl font-bold text-black lg:text-4xl">
@@ -107,7 +107,7 @@
 	{#if events}
 		<section class="pt-6 lg:pt-12">
 			<Heading text="Events" bgColor="#F4F6F6" textColor="#67797B" />
-			<div class="container grid grid-cols-1 py-6 lg:grid-cols-2 lg:py-12">
+			<div class="layout grid grid-cols-1 py-6 lg:grid-cols-2 lg:py-12">
 				<EventListing {events} />
 			</div>
 		</section>

@@ -54,12 +54,12 @@
 			<section>
 				<Heading text="Latest News" textColor="" bgColor="white" />
 				<div
-					class="container py-6"
+					class="layout py-6"
 					transition:fade={{ duration: 500, delay: 500, easing: cubicInOut }}
 				>
 					<CarouselV2 slides={news.slice(0, 5)} />
 				</div>
-				<div class="container grid-cols-4 gap-6 align-top lg:grid">
+				<div class="layout grid-cols-4 gap-6 align-top lg:grid">
 					<div
 						class="sticky top-0 col-span-1 mx-auto hidden w-full self-start py-12 lg:block"
 						transition:fly={{ x: -100, duration: 500, delay: 500, easing: cubicInOut }}

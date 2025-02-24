@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import SEO from '$components/SEO/SEO.svelte';
 	import Button from '$components/UI/Button.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
@@ -20,10 +19,11 @@
 
 	let item = $derived(data.item);
 
-	let image =
-		$derived(item.fields.imageCdn?.length > 0
+	let image = $derived(
+		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image.fields.file.url);
+			: item.fields.image.fields.file.url
+	);
 </script>
 
 <SEO
@@ -33,7 +33,7 @@
 	keywords={item.fields.keywords}
 />
 <article class="overflow-hidden pt-16 lg:pt-32">
-	<section class="container space-y-6 border-b border-green-normal pb-6 lg:pb-12">
+	<section class="layout space-y-6 border-b border-green-normal pb-6 lg:pb-12">
 		<h3 class="font-semibold leading-relaxed text-black">{item.fields.type}</h3>
 		<h1 class="font-bold leading-tight text-green-normal">
 			{item.fields.title}
@@ -41,12 +41,12 @@
 		<p class="text-xl">{item.fields.summary}</p>
 	</section>
 	<section class="bgGradientBR m-auto w-full">
-		<div class="container m-auto py-6 lg:w-2/3">
+		<div class="layout m-auto py-6 lg:w-2/3">
 			<VideoListing videos={item.fields.video || []} showTitle={false} />
 		</div>
 	</section>
 
-	<section class="richText container w-full py-6 lg:w-2/3 lg:py-12">
+	<section class="richText layout w-full py-6 lg:w-2/3 lg:py-12">
 		{@html renderRichText(item.fields.descriptionRich)}
 		{#if item.fields.relatedNews.length > 0}
 			<div class="pt-6">

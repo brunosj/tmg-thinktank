@@ -10,7 +10,7 @@
 </script>
 
 <div class="bg-white font-bold text-green-normal">
-	<div class="container grid grid-cols-1 py-12 lg:grid-cols-2">
+	<div class="layout grid grid-cols-1 py-12 lg:grid-cols-2">
 		<HeadingAbout text="Our Team" />
 		<div>
 			<div class="text-lg font-semibold lg:text-2xl">

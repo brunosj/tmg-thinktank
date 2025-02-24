@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
 
-
 	import type { LandingPage, Event, News, BlogPost, Video } from '$lib/types/types';
 	import CarouselV2 from '$components/Carousel/CarouselV2.svelte';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
@@ -17,8 +16,8 @@
 	});
 </script>
 
-<div class="sectionPy bg-green-variation overflow-hidden">
-	<div class="container">
+<div class="sectionPy overflow-hidden bg-green-variation">
+	<div class="layout">
 		<HeadingV2
 			title={landingPage.fields.latestSectionTitle}
 			subtitle={landingPage.fields.latestSectionSubtitle}
