@@ -25,21 +25,21 @@
 </script>
 
 <div
-	class="relative h-screen w-full overflow-hidden"
+	class="relative w-full overflow-hidden"
 	bind:this={element}
 	style={`background-color: ${heroBackgroundColor};`}
 >
 	<IntersectionObserver {element} bind:intersecting once threshold={0.2}>
 		{#if intersecting}
-			<div class={` flex h-full ${heroPictureAspectRatio ? 'flex-col lg:flex-row' : ''}`}>
+			<div class="grid min-h-[500px] grid-cols-1 lg:grid-cols-4">
 				<!-- Content Section -->
 				<div
-					class={` flex flex-1 items-center ${!heroPictureAspectRatio ? 'lg:w-1/2' : ''}`}
+					class="col-span-1 flex items-center lg:col-span-3"
 					in:fade={{ duration: 800, easing: cubicInOut }}
 				>
-					<div class="layout space-y-8 pb-12 pt-20 text-white lg:py-0">
+					<div class="layoutRight space-y-8 py-12 text-white lg:py-16">
 						<h1
-							class=" text-3xl font-semibold leading-tight tracking-tight lg:text-7xl"
+							class="text-3xl font-semibold leading-tight tracking-tight lg:text-7xl"
 							transition:fly={{ x: -50, duration: 500, delay: 250, easing: cubicInOut }}
 						>
 							{heroTitle}
@@ -57,16 +57,12 @@
 				</div>
 
 				<!-- Image Section -->
-				<div
-					class={`relative flex items-center  backdrop-blur-sm ${
-						heroPictureAspectRatio ? 'h-full' : 'lg:w-1/2'
-					}`}
-				>
+				<div class="col-span-1 flex items-center justify-center backdrop-blur-sm">
 					<img
 						loading="eager"
 						src={heroImage}
 						alt={heroTitle}
-						class={`w-full object-contain  ${heroPictureAspectRatio ? 'h-full' : 'h-auto'}`}
+						class="h-auto w-full object-contain"
 						transition:fly={{ x: 50, duration: 500, delay: 250, easing: cubicInOut }}
 					/>
 				</div>
