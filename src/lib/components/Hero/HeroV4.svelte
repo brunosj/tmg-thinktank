@@ -25,19 +25,19 @@
 </script>
 
 <div
-	class="relative w-full overflow-hidden"
+	class="relative mt-12 w-full overflow-hidden lg:mt-16"
 	bind:this={element}
 	style={`background-color: ${heroBackgroundColor};`}
 >
 	<IntersectionObserver {element} bind:intersecting once threshold={0.2}>
 		{#if intersecting}
-			<div class="grid min-h-[500px] grid-cols-1 lg:grid-cols-4">
+			<div class="grid grid-cols-1 lg:grid-cols-4">
 				<!-- Content Section -->
 				<div
 					class="col-span-1 flex items-center lg:col-span-3"
 					in:fade={{ duration: 800, easing: cubicInOut }}
 				>
-					<div class="layoutRight space-y-8 py-16 text-white">
+					<div class="layoutRight space-y-8 py-12 text-white">
 						<h1
 							class="text-3xl font-semibold leading-tight tracking-tight lg:text-7xl"
 							transition:fly={{ x: -50, duration: 500, delay: 250, easing: cubicInOut }}

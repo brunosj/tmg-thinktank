@@ -14,7 +14,7 @@
 	let intersecting = $state(false);
 </script>
 
-<section bind:this={element}>
+<div bind:this={element}>
 	<IntersectionObserver {element} bind:intersecting once>
 		{#if intersecting}
 			<div class={background}>
@@ -36,4 +36,4 @@
 			</div>
 		{/if}
 	</IntersectionObserver>
-</section>
+</div>
