@@ -37,7 +37,7 @@
 					class="col-span-1 flex items-center lg:col-span-3"
 					in:fade={{ duration: 800, easing: cubicInOut }}
 				>
-					<div class="layoutRight space-y-8 py-12 text-white lg:py-16">
+					<div class="layoutRight space-y-8 py-16 text-white">
 						<h1
 							class="text-3xl font-semibold leading-tight tracking-tight lg:text-7xl"
 							transition:fly={{ x: -50, duration: 500, delay: 250, easing: cubicInOut }}
