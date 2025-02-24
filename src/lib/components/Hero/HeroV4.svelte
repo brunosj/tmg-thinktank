@@ -16,20 +16,22 @@
 	let intersecting = $state(false);
 
 	// Derive values from hero.fields
-	let heroImage = $derived(hero.fields.heroPicture[1]?.secure_url || '');
+	let heroImage = $derived(hero.fields.heroPicture[0]?.secure_url || '');
 	let heroTitle = $derived(hero.fields.heroTitle);
-	let heroText = $derived(hero.fields.heroText);
 	let heroSubtitle = $derived(hero.fields.heroSubtitle);
 	let heroLink = $derived(hero.fields.heroLink);
 	let heroPictureAspectRatio = $derived(hero.fields.heroPictureAspectRatio);
+	let heroBackgroundColor = $derived(hero.fields.heroBackgroundColor);
 </script>
 
-<div class="relative h-screen w-full overflow-hidden" bind:this={element}>
+<div
+	class="relative h-screen w-full overflow-hidden"
+	bind:this={element}
+	style={`background-color: ${heroBackgroundColor};`}
+>
 	<IntersectionObserver {element} bind:intersecting once threshold={0.2}>
 		{#if intersecting}
-			<div
-				class={` bgGradientBRBlue flex h-full ${heroPictureAspectRatio ? 'flex-col lg:flex-row' : ''}`}
-			>
+			<div class={` flex h-full ${heroPictureAspectRatio ? 'flex-col lg:flex-row' : ''}`}>
 				<!-- Content Section -->
 				<div
 					class={` flex flex-1 items-center ${!heroPictureAspectRatio ? 'lg:w-1/2' : ''}`}
