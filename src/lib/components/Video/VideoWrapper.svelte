@@ -1,24 +1,13 @@
 <script lang="ts">
-	import { preventDefault } from 'svelte/legacy';
-
-
 	import PlayCircle from 'virtual:icons/fa6-regular/circle-play';
 	import { fade } from 'svelte/transition';
 	interface Props {
 		videoSrcURL: string;
 		videoTitle: string;
-		videoWidth: string;
-		videoHeight: string;
 		videoImage: string;
 	}
 
-	let {
-		videoSrcURL,
-		videoTitle,
-		videoWidth,
-		videoHeight,
-		videoImage
-	}: Props = $props();
+	let { videoSrcURL, videoTitle, videoImage }: Props = $props();
 
 	let showVideoPlayer = $state(false);
 	let youtubeApiLoaded = false;
@@ -63,25 +52,26 @@
 	tabindex="0"
 >
 	{#if showVideoPlayer}
-		<iframe
-			src={videoSrcURL}
-			title={videoTitle}
-			class="w-full"
-			frameborder="0"
-			allowfullscreen
-			width={videoWidth}
-			height={videoHeight}
-		></iframe>
+		<div class="relative w-full pt-[56.25%]">
+			<iframe
+				src={videoSrcURL}
+				title={videoTitle}
+				class="absolute inset-0 h-full w-full rounded-t-md"
+				frameborder="0"
+				allowfullscreen
+			></iframe>
+		</div>
 	{:else}
-		<div style="position: relative;">
+		<div class="relative">
 			<button
 				class="w-full"
 				onclick={loadYoutubeVideo}
-				onkeydown={preventDefault((event) => {
+				onkeydown={(event) => {
 					if (event.key === 'Enter' || event.key === ' ') {
+						event.preventDefault();
 						loadYoutubeVideo();
 					}
-				})}
+				}}
 				style="cursor: pointer;"
 			>
 				<img src={videoImage} alt={videoTitle} class="w-full rounded-t-md" />

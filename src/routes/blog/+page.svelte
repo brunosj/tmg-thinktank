@@ -3,6 +3,7 @@
 	import BlogListing from '$components/Blog/BlogListing.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 	import type { BlogPost, News } from '$lib/types/types';
+
 	interface Props {
 		data: Page;
 	}

@@ -1,12 +1,14 @@
 <script lang="ts">
 	import type { News } from '$lib/types/types';
 	import { formatDateNews } from '$utils/utils';
+
 	interface Props {
 		items: News[];
 		nbrColumns?: number;
+		padding?: string;
 	}
 
-	let { items, nbrColumns = 3 }: Props = $props();
+	let { items, nbrColumns = 3, padding = 'py-6 lg:py-12' }: Props = $props();
 
 	function getSingleItemPrefix(type: string) {
 		switch (type) {
@@ -27,7 +29,7 @@
 		}
 	}
 
-	const gridClass = `grid grid-cols-1 gap-5 py-6 md:grid-cols-${nbrColumns} lg:py-12`;
+	const gridClass = `grid grid-cols-1 gap-5 ${padding} md:grid-cols-${nbrColumns}`;
 </script>
 
 <div class={gridClass}>

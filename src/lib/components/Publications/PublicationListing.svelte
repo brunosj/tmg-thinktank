@@ -1,12 +1,14 @@
 <script lang="ts">
 	import type { Publication } from '$lib/types/types';
 	import { formatDateNews } from '$utils/utils';
+
 	interface Props {
 		items: Publication[];
 		layout?: boolean;
+		paddingTop?: string;
 	}
 
-	let { items, layout = true }: Props = $props();
+	let { items, layout = true, paddingTop = 'pt-6 lg:pt-12' }: Props = $props();
 
 	// Create a derived value for sorted items instead of a reactive statement
 	let sortedItems = $derived(
@@ -17,7 +19,7 @@
 </script>
 
 <div
-	class={`${layout ? 'layout' : ' '} grid grid-cols-1 pb-6 pt-6 lg:grid-cols-2 lg:gap-5 lg:pt-12`}
+	class={`${layout ? 'layout' : ' '} grid grid-cols-1 pb-6 ${paddingTop} lg:grid-cols-2 lg:gap-5`}
 >
 	{#each sortedItems as item, i (item.fields.title)}
 		{@const image =
@@ -30,9 +32,7 @@
 					class="grid grid-cols-1 rounded-md bg-green-variation p-3 duration-300 group-hover:bg-white lg:grid-cols-4"
 				>
 					{#if image}
-						<div
-							class="w-1/3 rounded-full px-2 pb-5 transition duration-300 ease-in-out lg:w-full lg:pb-2"
-						>
+						<div class="w-1/3 px-2 pb-5 transition duration-300 ease-in-out lg:w-full lg:pb-2">
 							<img loading="lazy" src={image} alt={item.fields.title} />
 						</div>
 					{/if}

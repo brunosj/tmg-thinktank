@@ -157,6 +157,38 @@ export interface EventSeries extends ContentfulEntry {
 	};
 }
 
+export interface Initiative extends ContentfulEntry {
+	fields: {
+		pageBannerCdn: ImageCdn[];
+		title: string;
+		summary: string;
+		quoteText: string;
+		quotePerson: string;
+		quotePersonOrganization: string;
+		quotePersonPicture: Image;
+		section1Heading: string;
+		section1Image: ImageCdn[];
+		text1: string;
+		section2Heading: string;
+		section2Image: ImageCdn[];
+		text2: string;
+		section3Heading: string;
+		text3: string;
+		section3Image: ImageCdn[];
+		slides: ImageCdn[];
+		gallery: ImageCdn[];
+		eventFeatured: Event;
+		events: Event[];
+		news: News[];
+		publications: Publication[];
+		color1: string;
+		color2: string;
+		videoTitle: string;
+		videoItem: Video;
+		slug: string;
+	};
+}
+
 export interface FlagshipOutput extends ContentfulEntry {
 	fields: {
 		programme: Programme;

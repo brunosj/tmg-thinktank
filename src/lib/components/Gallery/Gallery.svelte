@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Lightbox, LightboxGallery, GalleryThumbnail, GalleryImage } from 'svelte-lightbox';
 	import type { ImageCdn } from '$lib/types/types';
+
 	interface Props {
 		images: ImageCdn[];
 		borderColor?: string;
@@ -12,27 +13,17 @@
 <LightboxGallery
 	arrowsConfig={{ color: 'transparent', character: 'loop', enableKeyboardControl: true }}
 >
-	{#snippet thumbnail()}
-		<ul
-			class="relative grid grid-cols-3 items-center justify-between gap-12 rounded-md p-6 lg:border-4"
-			style="border-color:{borderColor}"
-		>
+	<svelte:fragment slot="thumbnail">
+		<div class="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-2">
 			{#each images as image, i}
 				<div class="w-full opacity-100 duration-300 hover:opacity-90">
 					<GalleryThumbnail title="name" id={i}>
-						<img src={image.secure_url} alt={''} class="aspect-square object-contain" />
+						<img src={image.secure_url} alt={''} class=" object-contain" />
 					</GalleryThumbnail>
 				</div>
 			{/each}
-			<!-- {#each images as image, i}
-						<div class="w-full opacity-100 duration-300 hover:opacity-90">
-							<GalleryThumbnail title="name" id={i}>
-								<img src={image.secure_url} alt={''} class="aspect-square object-contain" />
-							</GalleryThumbnail>
-						</div>
-					{/each} -->
-		</ul>
-	{/snippet}
+		</div>
+	</svelte:fragment>
 
 	{#each images as image}
 		<div class="image-layout">
@@ -61,5 +52,6 @@
 
 	:global(.svelte-lightbox-footer) {
 		margin-top: 0.5rem;
+		display: none;
 	}
 </style>

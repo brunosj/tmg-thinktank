@@ -6,30 +6,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @font-face {
-	font-family: 'Inter';
-	font-style: italic;
-	font-weight: 400;
-	font-display: swap;
-	src: url('/fonts/Inter-Italic.woff2') format('woff2');
-}
-
-@font-face {
-	font-family: 'Inter';
-	font-style: italic;
-	font-weight: 800;
-	font-display: swap;
-	src: url('/fonts/Inter-BoldItalic.woff2') format('woff2');
-}
-
-@font-face {
-	font-family: 'Inter';
-	font-style: italic;
-	font-weight: 600;
-	font-display: swap;
-	src: url('/fonts/Inter-SemiBoldItalic.woff2') format('woff2');
-} */
-
 :root {
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -214,9 +190,9 @@ b {
 }
 
 .bgGradientBRBlue {
-	@apply from-navyBlue bg-gradient-to-br to-gray-800/100;
+	@apply bg-gradient-to-br from-navyBlue to-gray-800/100;
 }
 
 .bgGradientTLBlue {
-	@apply from-navyBlue bg-gradient-to-tl to-gray-800/100;
+	@apply bg-gradient-to-tl from-navyBlue to-gray-800/100;
 }

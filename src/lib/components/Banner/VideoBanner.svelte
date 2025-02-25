@@ -27,8 +27,6 @@
 					<div class="w-full">
 						<VideoWrapper
 							videoSrcURL={video.fields.url}
-							videoWidth="1248"
-							videoHeight="600"
 							videoTitle={video.fields.title}
 							videoImage={video.fields.image.fields.file.url}
 						/>

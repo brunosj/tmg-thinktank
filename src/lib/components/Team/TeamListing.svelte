@@ -5,6 +5,7 @@
 	import FaMail from 'virtual:icons/fa6-regular/envelope';
 	import Icon from '$components/UI/Icon.svelte';
 	import { ensureHttps } from '$utils/utils';
+
 	interface Props {
 		items: Team[];
 	}
