@@ -381,10 +381,6 @@ export interface Programme extends ContentfulEntry {
 		topics: Topic[];
 		slug: string;
 		flagshipOutput: FlagshipOutput;
-		flagshipOutputTitle: string;
-		flagshipOutputDescription: string;
-		flagshipOutputMedia: Image;
-		flagshipOutputLink: string;
 		initiatives: Initiative[];
 	};
 }

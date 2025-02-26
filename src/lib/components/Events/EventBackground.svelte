@@ -21,7 +21,9 @@
 			<PlusSmIcon class="block h-6 w-6 text-gray-400 group-hover:text-gray-500" />
 		</div>
 		<div class="richText p-4">
-			{@html renderRichText(item.fields.background)}
+			{#if item.fields.background}
+				{@html renderRichText(item.fields.background)}
+			{/if}
 		</div>
 	</AccordionItem>
 </Accordion>

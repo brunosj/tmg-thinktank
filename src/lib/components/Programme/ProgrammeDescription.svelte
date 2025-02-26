@@ -8,9 +8,10 @@
 		quoteAuthor: string;
 		flagshipOutput: FlagshipOutputType;
 		description: string;
+		color?: string;
 	}
 
-	let { quoteText, quoteAuthor, flagshipOutput, description }: Props = $props();
+	let { quoteText, quoteAuthor, flagshipOutput, description, color = '#089b61' }: Props = $props();
 </script>
 
 <section class="layout pb-6 lg:pb-12">
@@ -26,7 +27,7 @@
 			{/if}
 		</div>
 		{#if flagshipOutput}
-			<FlagshipOutput item={flagshipOutput} />
+			<FlagshipOutput item={flagshipOutput} {color} />
 		{/if}
 	</div>
 </section>

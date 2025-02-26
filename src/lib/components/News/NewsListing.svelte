@@ -33,7 +33,7 @@
 </script>
 
 <div class={gridClass}>
-	{#each items as item (item.fields.slug)}
+	{#each items as item (item.fields.title)}
 		<a
 			href={`/${getSingleItemPrefix(item.fields.type)}/${item.fields.slug}`}
 			class="group h-full rounded-md border pb-5 lg:pb-0"

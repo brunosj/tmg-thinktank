@@ -1,7 +1,6 @@
 <script lang="ts">
-
 	import type { Event } from '$lib/types/types';
-	import SpeakerListing from '$components/Events/SpeakerListing.svelte';
+	import SpeakersAvatars from '$components/Speakers/SpeakersAvatars.svelte';
 	interface Props {
 		item: Event;
 	}
@@ -21,4 +20,4 @@
 		<span></span>
 	{/if}
 </div>
-<SpeakerListing items={item.fields.facilitators} />
+<SpeakersAvatars speakers={item.fields.facilitators} color="#6f62b1" />

@@ -166,6 +166,7 @@
 			quoteAuthor={programme.fields.quoteAuthor}
 			flagshipOutput={programme.fields.flagshipOutput}
 			description={programme.fields.description}
+			color="#67797B"
 		/>
 
 		{#if slides && slides.length > 0}

@@ -11,7 +11,7 @@
 	let { item }: Props = $props();
 </script>
 
-{#if item.fields.relatedVideos}
+{#if item.fields.relatedVideos && item.fields.relatedVideos.length > 0}
 	<section>
 		<div class="text-xl font-semibold lg:text-2xl">
 			Related Videos
@@ -29,7 +29,7 @@
 	</section>
 {/if}
 
-{#if item.fields.news}
+{#if item.fields.news && item.fields.news.length > 0}
 	<section>
 		<div class="text-xl font-semibold lg:text-2xl">
 			Related News
@@ -47,7 +47,7 @@
 	</section>
 {/if}
 
-{#if item.fields.relatedDocuments}
+{#if item.fields.relatedDocuments && item.fields.relatedDocuments.length > 0}
 	<div class="pt-6">
 		<div class="text-xl font-semibold lg:text-2xl">
 			Related Documents
@@ -64,7 +64,7 @@
 		<PublicationListing items={item.fields.relatedDocuments} layout={false} />
 	</div>
 {/if}
-{#if item.fields.relatedEvents}
+{#if item.fields.relatedEvents && item.fields.relatedEvents.length > 0}
 	<section>
 		<div class="pb-8 text-xl font-semibold lg:text-2xl">
 			Related Events

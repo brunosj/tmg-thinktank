@@ -62,9 +62,11 @@
 					text={item.fields.title}
 					url={`https://tmg-thinktank.com/events/${item.fields.slug}`}
 				/>
-				<div class="richText">
-					{@html renderRichText(item.fields.description)}
-				</div>
+				{#if item.fields.description}
+					<div class="richText">
+						{@html renderRichText(item.fields.description)}
+					</div>
+				{/if}
 				{#if item.fields.background}
 					<EventBackground {item} />
 				{/if}
@@ -79,13 +81,13 @@
 		</div>
 
 		<section class="layout space-y-6 py-6 lg:py-12">
-			{#if item.fields.speakers}
+			{#if item.fields.speakers && item.fields.speakers.length > 0}
 				<EventSpeakers {item} />
 			{/if}
-			{#if item.fields.facilitators}
+			{#if item.fields.facilitators && item.fields.facilitators.length > 0}
 				<EventFacilitators {item} />
 			{/if}
-			{#if item.fields.relatedVideos || item.fields.news || item.fields.relatedDocuments || item.fields.relatedEvents}
+			{#if (item.fields.relatedVideos && item.fields.relatedVideos.length > 0) || (item.fields.news && item.fields.news.length > 0) || (item.fields.relatedDocuments && item.fields.relatedDocuments.length > 0) || (item.fields.relatedEvents && item.fields.relatedEvents.length > 0)}
 				<RelatedItems {item} />
 			{/if}
 		</section>
@@ -104,7 +106,7 @@
 				</div>
 			{/if}
 
-			{#if item.fields.programme.fields.title}
+			{#if item.fields.programme?.fields?.title}
 				<div class="border-b border-t border-gray-300 py-6 leading-loose">
 					<div class="text-sm font-bold">
 						More:

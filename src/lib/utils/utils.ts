@@ -118,6 +118,11 @@ import * as contentfulTypes from '@contentful/rich-text-types';
 const { BLOCKS, INLINES } = contentfulTypes;
 
 export function renderRichText(richText: any) {
+	// Add null/undefined check to prevent errors
+	if (!richText || !richText.content) {
+		return '';
+	}
+
 	const renderNode = {
 		[BLOCKS.PARAGRAPH]: (node: any, next: any) => {
 			return `<p>${next(node.content)}</p>`;
@@ -150,6 +155,10 @@ export function renderRichText(richText: any) {
 			return `<blockquote>${next(node.content)}</blockquote>`;
 		},
 		[BLOCKS.EMBEDDED_ASSET]: (node: any) => {
+			if (!node.data?.target?.fields?.file?.contentType) {
+				return '';
+			}
+
 			if (node.data.target.fields.file.contentType === 'application/pdf') {
 				const title = node.data.target.fields.title;
 				const fileUrl = node.data.target.fields.file.url;
@@ -168,6 +177,10 @@ export function renderRichText(richText: any) {
 			return '';
 		},
 		[INLINES.HYPERLINK]: (node: any) => {
+			if (!node.data?.uri || !node.content?.[0]?.value) {
+				return '';
+			}
+
 			const url = node.data.uri;
 			const text = node.content[0].value;
 			const isExternalLink = url.includes('http') || url.includes('https') || url.includes('www');
@@ -176,7 +189,12 @@ export function renderRichText(richText: any) {
 		}
 	};
 
-	return documentToHtmlString(richText, { renderNode });
+	try {
+		return documentToHtmlString(richText, { renderNode });
+	} catch (error) {
+		console.error('Error rendering rich text:', error);
+		return '';
+	}
 }
 
 //////  Util function to format strings
