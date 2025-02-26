@@ -17,6 +17,9 @@ importers:
       '@fontsource-variable/inter':
         specifier: ^5.1.1
         version: 5.1.1
+      '@fontsource-variable/montserrat':
+        specifier: ^5.0.17
+        version: 5.1.1
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.21.0
         version: 8.21.0(@typescript-eslint/parser@8.21.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)
@@ -368,6 +371,9 @@ packages:
 
   '@fontsource-variable/inter@5.1.1':
     resolution: {integrity: sha512-OpXFTmiH6tHkYijMvQTycFKBLK4X+SRV6tet1m4YOUH7SzIIlMqDja+ocDtiCA72UthBH/vF+3ZtlMr2rN/wIw==}
+
+  '@fontsource-variable/montserrat@5.1.1':
+    resolution: {integrity: sha512-eHmSruS3B+4wVaHk6ShNUJj1MbWEohOuriwN/oYR2VY8jRS83a5SKQeG1wu4Eku3v3f5cXTIbfd1tHeQ7GXkiA==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -2278,6 +2284,8 @@ snapshots:
   '@floating-ui/utils@0.2.9': {}
 
   '@fontsource-variable/inter@5.1.1': {}
+
+  '@fontsource-variable/montserrat@5.1.1': {}
 
   '@humanfs/core@0.19.1': {}
 

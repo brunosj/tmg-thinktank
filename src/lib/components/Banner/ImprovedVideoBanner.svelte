@@ -89,7 +89,7 @@
 			</div>
 		{/if}
 
-		<div class="layout relative z-10 grid grid-cols-1 items-center gap-x-16 py-20 lg:grid-cols-2">
+		<div class="layout relative z-10 grid grid-cols-1 items-center gap-x-8 py-12 lg:grid-cols-2">
 			<!-- Text content -->
 			<div
 				class={`${textAlignment} transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}

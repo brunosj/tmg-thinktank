@@ -1,6 +1,8 @@
 @import '@fontsource-variable/inter';
 @import '@fontsource-variable/inter/wght.css';
 @import '@fontsource-variable/inter/wght-italic.css';
+@import '@fontsource-variable/montserrat';
+@import '@fontsource-variable/montserrat/wght.css';
 
 @tailwind base;
 @tailwind components;
@@ -121,7 +123,7 @@ h2.fromRight:hover:after {
 }
 
 .richText p {
-	@apply mb-3;
+	@apply mb-3 text-sm lg:text-lg;
 }
 
 .richText a {

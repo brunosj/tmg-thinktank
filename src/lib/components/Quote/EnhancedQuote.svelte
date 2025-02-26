@@ -16,8 +16,8 @@
 </script>
 
 <div class="bg-white">
-	<div class="layout">
-		<div class="relative mx-auto max-w-4xl">
+	<div class="">
+		<div class="relative mx-auto max-w-6xl">
 			<!-- Decorative quote marks -->
 			<div
 				class="absolute -left-4 -top-10 font-serif text-8xl opacity-10 md:-left-10 md:-top-16 md:text-9xl"
@@ -49,7 +49,7 @@
 					{#if quotePersonPictureUrl}
 						<div class="mb-6 flex-shrink-0 md:mb-0">
 							<div
-								class="relative h-20 w-20 overflow-hidden rounded-full border-4 md:h-32 md:w-32"
+								class="relative h-20 w-20 overflow-hidden rounded-full border-4 md:h-48 md:w-48"
 								style="border-color: {color}"
 							>
 								<img
@@ -63,13 +63,13 @@
 
 					<!-- Quote text -->
 					<div>
-						<p class="mb-6 text-base italic leading-relaxed md:text-2xl" style="color: {color}">
+						<p class="mb-6 text-base italic leading-relaxed md:text-xl" style="color: {color}">
 							"{quoteText}"
 						</p>
 
 						<div class="flex items-center">
-							<div class="h-px w-8" style="background-color: {color}; opacity: 0.4;"></div>
-							<div class="ml-4">
+							<!-- <div class="h-px w-8" style="background-color: {color}; opacity: 0.4;"></div> -->
+							<div class="">
 								<p class="text-xl font-medium" style="color: {color}">
 									{quotePerson}
 								</p>

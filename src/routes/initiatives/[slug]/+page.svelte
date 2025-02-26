@@ -3,16 +3,18 @@
 	import { renderRichText } from '$utils/utils';
 	import SEO from '$components/SEO/SEO.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
-	import EventListing from '$components/Events/EventListing.svelte';
-
+	import EventsSection from '$components/Events/EventsSection.svelte';
 	import EnhancedGallery from '$components/Gallery/EnhancedGallery.svelte';
 	import SpeakersAvatars from '$components/Speakers/SpeakersAvatars.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import EventFeaturedBanner from '$components/Events/EventFeaturedBanner.svelte';
 	import ImprovedVideoBanner from '$components/Banner/ImprovedVideoBanner.svelte';
 	import SectionHeading from '$components/Layout/SectionHeading.svelte';
+	import ContentSection from '$components/Layout/ContentSection.svelte';
+	import TableOfContents from '$components/Layout/TableOfContents.svelte';
 	import EnhancedQuote from '$components/Quote/EnhancedQuote.svelte';
 	import SimpleCarousel from '$lib/components/Carousel/SimpleCarousel.svelte';
+	import PartnersLogo from '$components/Partners/PartnersLogo.svelte';
 	import { onMount } from 'svelte';
 
 	interface Props {
@@ -26,6 +28,7 @@
 	let item: Initiative = $derived(data.item);
 	let animationReady = $state(false);
 	let activeTab = $state('overview');
+	let activeSection = $state('');
 
 	// Define tab interface
 	interface Tab {
@@ -38,11 +41,7 @@
 		const tabs: Tab[] = [{ id: 'overview', label: 'Overview' }];
 
 		// Events tab (includes featured event and regular events)
-		if (
-			item.fields.eventFeatured ||
-			(item.fields.events && item.fields.events.length > 0) ||
-			speakers().length > 0
-		) {
+		if ((item.fields.events && item.fields.events.length > 0) || speakers().length > 0) {
 			tabs.push({ id: 'events', label: 'Events' });
 		}
 
@@ -57,7 +56,63 @@
 			tabs.push({ id: 'resources', label: 'Resources' });
 		}
 
+		// Partners tab
+		if (item.fields.partners && item.fields.partners.length > 0) {
+			tabs.push({ id: 'partners', label: 'Partners' });
+		}
+
 		return tabs;
+	});
+
+	// Define table of contents sections
+	let tocSections = $derived(() => {
+		const sections = [];
+
+		if (item.fields.text1 || (item.fields.section1Image && item.fields.section1Image.length > 0)) {
+			sections.push({
+				id: item.fields.section1Heading?.toLowerCase().replace(/\s+/g, '-') || 'initiative-details',
+				title: item.fields.section1Heading || 'Initiative Details'
+			});
+		}
+
+		if (item.fields.text2 || (item.fields.section2Image && item.fields.section2Image.length > 0)) {
+			sections.push({
+				id:
+					item.fields.section2Heading?.toLowerCase().replace(/\s+/g, '-') ||
+					'additional-information',
+				title: item.fields.section2Heading || 'Additional Information'
+			});
+		}
+
+		if (item.fields.text3 || (item.fields.section3Image && item.fields.section3Image.length > 0)) {
+			sections.push({
+				id: item.fields.section3Heading?.toLowerCase().replace(/\s+/g, '-') || 'further-details',
+				title: item.fields.section3Heading || 'Further Details'
+			});
+		}
+
+		if (item.fields.text4 || (item.fields.section4Image && item.fields.section4Image.length > 0)) {
+			sections.push({
+				id: item.fields.section4Heading?.toLowerCase().replace(/\s+/g, '-') || 'more-information',
+				title: item.fields.section4Heading || 'More Information'
+			});
+		}
+
+		if (item.fields.text5 || (item.fields.section5Image && item.fields.section5Image.length > 0)) {
+			sections.push({
+				id: item.fields.section5Heading?.toLowerCase().replace(/\s+/g, '-') || 'additional-content',
+				title: item.fields.section5Heading || 'Additional Content'
+			});
+		}
+
+		if (item.fields.slides && item.fields.slides.length > 0) {
+			sections.push({
+				id: 'slides-section',
+				title: item.fields.slidesHeading || 'Slides'
+			});
+		}
+
+		return sections;
 	});
 
 	let speakers = $derived(() => {
@@ -79,6 +134,42 @@
 
 	onMount(() => {
 		animationReady = true;
+
+		// Set up intersection observer to track active section
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						activeSection = entry.target.id;
+					}
+				});
+			},
+			{ rootMargin: '-120px 0px -70% 0px', threshold: 0.1 }
+		);
+
+		// Wait for DOM to be fully rendered
+		setTimeout(() => {
+			// Observe all section elements
+			tocSections().forEach((section) => {
+				const element = document.getElementById(section.id);
+				if (element) {
+					observer.observe(element);
+					console.log('Observing section:', section.id);
+				} else {
+					console.warn('Section element not found:', section.id);
+				}
+			});
+		}, 100);
+
+		return () => {
+			// Clean up observer on component unmount
+			tocSections().forEach((section) => {
+				const element = document.getElementById(section.id);
+				if (element) {
+					observer.unobserve(element);
+				}
+			});
+		};
 	});
 </script>
 
@@ -117,7 +208,7 @@
 	<div class="layout relative z-10 flex h-full flex-col items-center justify-center py-24 md:py-32">
 		<div class="max-w-3xl text-center">
 			<h1
-				class="mb-4 text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl"
+				class="mb-4 font-heading text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl"
 			>
 				{item.fields.title}
 			</h1>
@@ -125,7 +216,7 @@
 			<!-- Simplified separator -->
 			<div class="mx-auto my-4 h-1 w-20 rounded bg-white/60"></div>
 
-			<h2 class="mx-auto max-w-2xl text-xl font-light leading-relaxed text-white md:text-2xl">
+			<h2 class="mx-auto max-w-2xl text-base font-light leading-relaxed text-white md:text-2xl">
 				{item.fields.summary}
 			</h2>
 		</div>
@@ -143,13 +234,13 @@
 {/if}
 
 <!-- Tabbed Navigation -->
-<div class="sticky top-[3.5rem] z-20 bg-white py-4 shadow-md">
+<div class="sticky top-[2rem] z-20 bg-white py-4 shadow-md lg:top-[3.5rem]">
 	<div class="layout">
 		<div class="mx-auto flex max-w-6xl justify-center overflow-x-auto">
 			<div class="flex space-x-1 rounded-full bg-gray-100 p-1 sm:space-x-2 sm:p-1.5">
 				{#each availableTabs() as tab}
 					<button
-						class="relative whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 sm:text-base"
+						class="relative whitespace-nowrap rounded-full px-4 py-2 font-heading text-sm font-medium transition-all duration-200 sm:text-base"
 						style="background-color: {activeTab === tab.id ? item.fields.color2 : 'transparent'}; 
 						color: {activeTab === tab.id ? 'white' : 'rgba(0,0,0,0.7)'}"
 						onclick={() => (activeTab = tab.id)}
@@ -171,243 +262,124 @@
 <div class="layout py-8">
 	<!-- Overview Tab -->
 	{#if activeTab === 'overview'}
-		<div class="animate-fadeIn mx-auto max-w-6xl">
-			<!-- Text1 content spread across both columns -->
-			{#if item.fields.text1}
-				<div class="mb-12">
-					<SectionHeading
-						title={item.fields.section1Heading || 'Initiative Details'}
-						color={item.fields.color2 || '#333'}
-						marginBottom="mb-6"
+		<div class="animate-fadeIn">
+			<!-- Two-column layout with TOC and content -->
+			<div class=" mx-auto flex max-w-6xl flex-col lg:flex-row lg:gap-8">
+				<!-- Table of Contents (left sidebar) -->
+				{#if tocSections().length > 0}
+					<TableOfContents
+						sections={tocSections()}
+						accentColor={item.fields.color2 || '#333'}
+						{activeSection}
 					/>
-					<!-- Text content with improved typography -->
-					<div class="richText prose prose-lg max-w-none">
-						{@html renderRichText(item.fields.text1)}
-					</div>
-				</div>
-			{/if}
+				{/if}
 
-			<!-- Section1 Images -->
-			{#if item.fields.section1Image && item.fields.section1Image.length > 0}
-				<div class="mb-12">
-					{#if item.fields.section1Image.length === 1}
-						<img
-							src={item.fields.section1Image[0].secure_url}
-							alt={item.fields.section1Image[0].context?.custom?.caption || item.fields.title}
-							class="w-full rounded-lg shadow-md"
-						/>
-						{#if item.fields.section1Image[0].context?.custom?.caption}
-							<p class="mt-2 text-sm italic text-gray-600">
-								{item.fields.section1Image[0].context.custom.caption}
-							</p>
-						{/if}
-					{:else}
-						<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-							{#each item.fields.section1Image as image}
-								<div>
-									<img
-										src={image.secure_url}
-										alt={image.context?.custom?.caption || item.fields.title}
-										class="w-full rounded-lg shadow-md"
-									/>
-									{#if image.context?.custom?.caption}
-										<p class="mt-2 text-sm italic text-gray-600">
-											{image.context.custom.caption}
-										</p>
-									{/if}
-								</div>
-							{/each}
+				<!-- Main content area -->
+				<div class="flex-1">
+					<!-- Section 1 -->
+					<ContentSection
+						heading={item.fields.section1Heading}
+						defaultHeading="Initiative Details"
+						text={item.fields.text1}
+						images={item.fields.section1Image}
+						accentColor={item.fields.color2 || '#333'}
+					/>
+
+					<!-- Video Section -->
+					{#if item.fields.videoItem}
+						<div class="mb-12">
+							<ImprovedVideoBanner
+								video={item.fields.videoItem}
+								bgColor={item.fields.color1 || '#333'}
+								text={item.fields.videoTitle || 'Watch our video'}
+								textColor="white"
+								order="order-last"
+								textAlignment="text-left"
+							/>
+						</div>
+					{/if}
+
+					<!-- Section 2 -->
+					<ContentSection
+						heading={item.fields.section2Heading}
+						defaultHeading="Additional Information"
+						text={item.fields.text2}
+						images={item.fields.section2Image}
+						accentColor={item.fields.color2 || '#333'}
+					/>
+
+					<!-- Quote Section -->
+					{#if item.fields.quoteText && item.fields.quotePerson && item.fields.quotePersonOrganization && item.fields.quotePersonPicture}
+						<div class="mx-auto mb-12 max-w-6xl">
+							<EnhancedQuote
+								quoteText={item.fields.quoteText}
+								quotePerson={item.fields.quotePerson}
+								quotePersonOrganization={item.fields.quotePersonOrganization}
+								quotePersonPictureUrl={item.fields.quotePersonPicture.fields.file.url}
+								color={item.fields.color2 || '#333'}
+							/>
+						</div>
+					{/if}
+
+					<!-- Section 3 -->
+					<ContentSection
+						heading={item.fields.section3Heading}
+						defaultHeading="Further Details"
+						text={item.fields.text3}
+						images={item.fields.section3Image}
+						accentColor={item.fields.color2 || '#333'}
+						maxWidth="max-w-4xl"
+					/>
+
+					<!-- Section 4 -->
+					<ContentSection
+						heading={item.fields.section4Heading}
+						defaultHeading="More Information"
+						text={item.fields.text4}
+						images={item.fields.section4Image}
+						accentColor={item.fields.color2 || '#333'}
+						maxWidth="max-w-4xl"
+					/>
+
+					<!-- Section 5 -->
+					<ContentSection
+						heading={item.fields.section5Heading}
+						defaultHeading="Additional Content"
+						text={item.fields.text5}
+						images={item.fields.section5Image}
+						accentColor={item.fields.color2 || '#333'}
+						maxWidth="max-w-4xl"
+					/>
+
+					<!-- Slides Carousel -->
+					{#if item.fields.slides && item.fields.slides.length > 0}
+						<div id="slides-section">
+							<SimpleCarousel
+								slides={item.fields.slides}
+								accentColor={item.fields.color2 || '#333'}
+								title={item.fields.slidesHeading || 'Slides'}
+								autoAdvance={false}
+							/>
 						</div>
 					{/if}
 				</div>
-			{/if}
-
-			<!-- Video Section -->
-			{#if item.fields.videoItem}
-				<div class="mb-12">
-					<ImprovedVideoBanner
-						video={item.fields.videoItem}
-						bgColor={item.fields.color1 || '#333'}
-						text={item.fields.videoTitle || 'Watch our video'}
-						textColor="white"
-						order="order-last"
-						textAlignment="text-left"
-					/>
-				</div>
-			{/if}
-
-			<!-- Text2 Section -->
-			{#if item.fields.text2}
-				<div class="mb-12">
-					<SectionHeading
-						title={item.fields.section2Heading || 'Additional Information'}
-						color={item.fields.color2 || '#333'}
-						marginBottom="mb-6"
-					/>
-					<div class="richText prose prose-lg max-w-none">
-						{@html renderRichText(item.fields.text2)}
-					</div>
-				</div>
-			{/if}
-
-			<!-- Section2 Images -->
-			{#if item.fields.section2Image && item.fields.section2Image.length > 0}
-				<div class="mb-12">
-					{#if item.fields.section2Image.length === 1}
-						<img
-							src={item.fields.section2Image[0].secure_url}
-							alt={item.fields.section2Image[0].context?.custom?.caption || item.fields.title}
-							class="w-full rounded-lg shadow-md"
-						/>
-						{#if item.fields.section2Image[0].context?.custom?.caption}
-							<p class="mt-2 text-sm italic text-gray-600">
-								{item.fields.section2Image[0].context.custom.caption}
-							</p>
-						{/if}
-					{:else}
-						<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-							{#each item.fields.section2Image as image}
-								<div>
-									<img
-										src={image.secure_url}
-										alt={image.context?.custom?.caption || item.fields.title}
-										class="w-full rounded-lg shadow-md"
-									/>
-									{#if image.context?.custom?.caption}
-										<p class="mt-2 text-sm italic text-gray-600">
-											{image.context.custom.caption}
-										</p>
-									{/if}
-								</div>
-							{/each}
-						</div>
-					{/if}
-				</div>
-			{/if}
-
-			<!-- Quote Section -->
-			{#if item.fields.quoteText && item.fields.quotePerson && item.fields.quotePersonOrganization && item.fields.quotePersonPicture}
-				<div class="mx-auto mb-12 max-w-6xl">
-					<EnhancedQuote
-						quoteText={item.fields.quoteText}
-						quotePerson={item.fields.quotePerson}
-						quotePersonOrganization={item.fields.quotePersonOrganization}
-						quotePersonPictureUrl={item.fields.quotePersonPicture.fields.file.url}
-						color={item.fields.color2 || '#333'}
-					/>
-				</div>
-			{/if}
-
-			<!-- Text3 Section -->
-			{#if item.fields.text3}
-				<div class="mx-auto mb-12 max-w-4xl">
-					<SectionHeading
-						title={item.fields.section3Heading || 'Further Details'}
-						color={item.fields.color2 || '#333'}
-						marginBottom="mb-6"
-					/>
-					<div class="richText prose prose-lg max-w-none">
-						{@html renderRichText(item.fields.text3)}
-					</div>
-				</div>
-			{/if}
-
-			<!-- Section3 Images (if they exist) -->
-			{#if item.fields.section3Image && item.fields.section3Image.length > 0}
-				<div class="mb-12">
-					{#if item.fields.section3Image.length === 1}
-						<img
-							src={item.fields.section3Image[0].secure_url}
-							alt={item.fields.section3Image[0].context?.custom?.caption || item.fields.title}
-							class="w-full rounded-lg shadow-md"
-						/>
-						{#if item.fields.section3Image[0].context?.custom?.caption}
-							<p class="mt-2 text-sm italic text-gray-600">
-								{item.fields.section3Image[0].context.custom.caption}
-							</p>
-						{/if}
-					{:else}
-						<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-							{#each item.fields.section3Image as image}
-								<div>
-									<img
-										src={image.secure_url}
-										alt={image.context?.custom?.caption || item.fields.title}
-										class="w-full rounded-lg shadow-md"
-									/>
-									{#if image.context?.custom?.caption}
-										<p class="mt-2 text-sm italic text-gray-600">
-											{image.context.custom.caption}
-										</p>
-									{/if}
-								</div>
-							{/each}
-						</div>
-					{/if}
-				</div>
-			{/if}
-
-			<!-- Slides Carousel -->
-			{#if item.fields.slides && item.fields.slides.length > 0}
-				<SimpleCarousel
-					slides={item.fields.slides}
-					accentColor={item.fields.color2 || '#333'}
-					title="Slides"
-					autoAdvance={false}
-				/>
-			{/if}
+			</div>
 		</div>
 	{/if}
 
-	<!-- Events Tab (combines Featured Event and regular events) -->
+	<!-- Events Tab -->
 	{#if activeTab === 'events'}
-		<div class="animate-fadeIn mx-auto max-w-6xl">
-			<!-- Featured Event Section -->
-			{#if item.fields.eventFeatured}
-				<div class="mb-16">
-					<SectionHeading
-						title="Featured Event"
-						color={item.fields.color2 || '#333'}
-						marginBottom="mb-6"
-					/>
-					<EventFeaturedBanner event={item.fields.eventFeatured} bgColor={item.fields.color2} />
-				</div>
-			{/if}
-
-			<!-- Regular Events Section -->
-			{#if item.fields.events && item.fields.events.length > 0}
-				<div class="mb-16">
-					<SectionHeading
-						title="Upcoming Events"
-						color={item.fields.color2 || '#333'}
-						marginBottom="mb-6"
-					/>
-					<EventListing events={item.fields.events} color={item.fields.color2} />
-				</div>
-			{/if}
-
-			<!-- Speakers Section -->
-			{#if speakers().length > 0}
-				<div>
-					<SectionHeading
-						title="Featured Speakers"
-						color={item.fields.color2 || '#333'}
-						marginBottom="mb-6"
-					/>
-					<SpeakersAvatars speakers={speakers()} color={item.fields.color2} />
-				</div>
-			{/if}
-		</div>
+		<EventsSection
+			events={item.fields.events || []}
+			speakers={speakers()}
+			accentColor={item.fields.color2 || '#333'}
+		/>
 	{/if}
 
 	<!-- Gallery Tab -->
 	{#if activeTab === 'gallery'}
 		<div class="animate-fadeIn mx-auto max-w-6xl">
-			<SectionHeading
-				title="Image Gallery"
-				color={item.fields.color2 || '#333'}
-				marginBottom="mb-6"
-			/>
+			<SectionHeading title="Image Gallery" color={item.fields.color2 || '#333'} marginBottom="" />
 
 			<EnhancedGallery
 				images={item.fields.gallery}
@@ -433,6 +405,19 @@
 					<NewsListing items={item.fields.news} padding="py-0" />
 				</div>
 			{/if}
+		</div>
+	{/if}
+
+	<!-- Partners Tab -->
+	{#if activeTab === 'partners'}
+		<div class="animate-fadeIn mx-auto max-w-6xl">
+			<SectionHeading title="Partners" color={item.fields.color2 || '#333'} marginBottom="" />
+
+			<div class="flex flex-wrap items-center justify-between gap-4">
+				{#each item.fields.partners as partner}
+					<PartnersLogo item={partner} />
+				{/each}
+			</div>
 		</div>
 	{/if}
 </div>
