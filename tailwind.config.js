@@ -25,7 +25,7 @@ const config = {
 			serif: ['ivypresto-display'],
 			inter: ['Inter Variable', 'sans-serif'],
 			italic: ['Inter', 'sans-serif'],
-			heading: ['Montserrat Variable', 'sans-serif']
+			heading: ['Spline Sans Variable', 'sans-serif']
 		},
 		fontSize: {
 			xs: '.75rem',

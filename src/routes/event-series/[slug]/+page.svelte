@@ -141,7 +141,7 @@
 	{/if}
 
 	{#if item.fields.eventFeatured}
-		<section class="pb-6 lg:pb-0">
+		<section class="pb--0 pt-12">
 			<EventFeaturedBanner event={item.fields.eventFeatured} bgColor={item.fields.color2} />
 		</section>
 	{/if}
@@ -171,7 +171,7 @@
 		</section>
 	{/if} -->
 
-	{#if item.fields.gallery}
+	{#if item.fields.gallery && item.fields.gallery.length > 0}
 		<ImageGallery images={item.fields.gallery} borderColor={item.fields.color2} />
 	{/if}
 

@@ -35,36 +35,45 @@
 		<div class="mt-10 bg-white pb-12 sm:pb-16">
 			<div class="relative">
 				<div class="absolute inset-0 h-1/2 bg-green-variation"></div>
-				<div class="layout mx-auto">
+				<div class="layout relative z-10 mx-auto">
 					<div class="mx-auto max-w-4xl">
-						<dl class="rounded-md bg-white shadow-lg sm:grid sm:grid-cols-2">
+						<dl class="relative z-10 rounded-md bg-white shadow-lg sm:grid sm:grid-cols-3">
 							<div
 								class="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r"
 							>
 								<dt class="order-2 mt-2 text-base font-medium leading-6 text-cop1 lg:text-xl">
 									{item1}
 								</dt>
-								<dd class={'order-1 text-2xl font-extrabold lg:text-5xl '} style="color: {color}">
+								<dd
+									class="relative z-10 order-1 text-2xl font-extrabold lg:text-5xl"
+									style="color: {color}"
+								>
 									{number1}
 								</dd>
 							</div>
-							<!-- <div
+							<div
 								class="flex flex-col border-b border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r"
 							>
-								<dt class="order-2 mt-2 text-base lg:text-xl font-medium leading-6 text-cop1">
+								<dt class="order-2 mt-2 text-base font-medium leading-6 text-cop1 lg:text-xl">
 									{item2}
 								</dt>
-								<dd class="order-1 text-2xl lg:text-5xl font-extrabold" style="color: {color}">
+								<dd
+									class="relative z-10 order-1 text-2xl font-extrabold lg:text-5xl"
+									style="color: {color}"
+								>
 									{number2}
 								</dd>
-							</div> -->
+							</div>
 							<div
 								class="flex flex-col border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l"
 							>
 								<dt class="order-2 mt-2 text-base font-medium leading-6 text-cop1 lg:text-xl">
 									{item3}
 								</dt>
-								<dd class="order-1 text-2xl font-extrabold lg:text-5xl" style="color: {color}">
+								<dd
+									class="relative z-10 order-1 text-2xl font-extrabold lg:text-5xl"
+									style="color: {color}"
+								>
 									{number3}+
 								</dd>
 							</div>

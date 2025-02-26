@@ -285,20 +285,6 @@
 						accentColor={item.fields.color2 || '#333'}
 					/>
 
-					<!-- Video Section -->
-					{#if item.fields.videoItem}
-						<div class="mb-12">
-							<ImprovedVideoBanner
-								video={item.fields.videoItem}
-								bgColor={item.fields.color1 || '#333'}
-								text={item.fields.videoTitle || 'Watch our video'}
-								textColor="white"
-								order="order-last"
-								textAlignment="text-left"
-							/>
-						</div>
-					{/if}
-
 					<!-- Section 2 -->
 					<ContentSection
 						heading={item.fields.section2Heading}
@@ -392,6 +378,20 @@
 	<!-- Resources Tab -->
 	{#if activeTab === 'resources'}
 		<div class="animate-fadeIn mx-auto max-w-6xl">
+			<!-- Video Section -->
+			{#if item.fields.videoItem}
+				<div class="mb-12">
+					<ImprovedVideoBanner
+						video={item.fields.videoItem}
+						bgColor={item.fields.color2 || '#333'}
+						text={item.fields.videoTitle || 'Watch our video'}
+						textColor="white"
+						order="order-last"
+						textAlignment="text-left"
+					/>
+				</div>
+			{/if}
+
 			{#if item.fields.publications}
 				<div class="">
 					<SectionHeading title="Publications & Articles" color={item.fields.color2 || '#333'} />

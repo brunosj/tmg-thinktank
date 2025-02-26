@@ -20,6 +20,12 @@ importers:
       '@fontsource-variable/montserrat':
         specifier: ^5.0.17
         version: 5.1.1
+      '@fontsource-variable/spline-sans':
+        specifier: ^5.1.1
+        version: 5.1.1
+      '@fontsource/anton':
+        specifier: ^5.1.1
+        version: 5.1.1
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.21.0
         version: 8.21.0(@typescript-eslint/parser@8.21.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)
@@ -374,6 +380,12 @@ packages:
 
   '@fontsource-variable/montserrat@5.1.1':
     resolution: {integrity: sha512-eHmSruS3B+4wVaHk6ShNUJj1MbWEohOuriwN/oYR2VY8jRS83a5SKQeG1wu4Eku3v3f5cXTIbfd1tHeQ7GXkiA==}
+
+  '@fontsource-variable/spline-sans@5.1.1':
+    resolution: {integrity: sha512-jkCpOJbhIigpDWfFa96DFlZKD5uKaZwof+zLb/k0h1fRBGc2/fxszsn6AHyb4Zuo13RDpxolhvRWkpzcxrq7iQ==}
+
+  '@fontsource/anton@5.1.1':
+    resolution: {integrity: sha512-PbKqw6qNhRkyf7TRLS1JoQR7fp504o60VveuzFOO3SO33lsfE6GqEdDeVd1LLePKWkgHxIpU0ypW3pNu1unrQg==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -2286,6 +2298,10 @@ snapshots:
   '@fontsource-variable/inter@5.1.1': {}
 
   '@fontsource-variable/montserrat@5.1.1': {}
+
+  '@fontsource-variable/spline-sans@5.1.1': {}
+
+  '@fontsource/anton@5.1.1': {}
 
   '@humanfs/core@0.19.1': {}
 

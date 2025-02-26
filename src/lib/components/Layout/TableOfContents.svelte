@@ -44,7 +44,7 @@
 					<li>
 						<button
 							onclick={() => scrollToSection(section.id)}
-							class="group flex w-full items-center text-left font-heading text-sm transition-all duration-200"
+							class="group flex w-full items-center text-left font-heading text-base transition-all duration-200"
 							style="color: {activeSection === section.id ? accentColor : 'rgba(0,0,0,0.7)'}"
 						>
 							<div

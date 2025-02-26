@@ -385,6 +385,7 @@ export interface Programme extends ContentfulEntry {
 		flagshipOutputDescription: string;
 		flagshipOutputMedia: Image;
 		flagshipOutputLink: string;
+		initiatives: Initiative[];
 	};
 }
 

@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import SEO from '$components/SEO/SEO.svelte';
 	import ProgrammeHeader from '$components/Programme/ProgrammeHeader.svelte';
 	import ProgrammeDescription from '$components/Programme/ProgrammeDescription.svelte';
@@ -12,18 +10,31 @@
 	import EventListing from '$components/Events/EventListing.svelte';
 	import ButtonLoadMore from '$components/UI/ButtonLoadMore.svelte';
 	import CarouselV2 from '$components/Carousel/CarouselV2.svelte';
-	import type { Programme, Event, Publication, News, Video, BlogPost } from '$lib/types/types';
+	import ProgrammeInitiatives from '$components/Programme/ProgrammeInitiatives.svelte';
+
+	import type {
+		Programme,
+		Event,
+		Publication,
+		News,
+		Video,
+		BlogPost,
+		PublicationFeature,
+		Initiative
+	} from '$lib/types/types';
+
 	interface Props {
 		data: Page;
 	}
 
 	let { data }: Props = $props();
 
-	let programme: Programme = $state();
+	let programme: Programme | undefined = $state(undefined);
 	let events: Event[] = $state([]);
 	let publications: Publication[] = $state([]);
 	let news: News[] = $state([]);
 	let videos: Video[] = $state([]);
+	let isLoading = $state(true);
 
 	type Page = {
 		item: Programme;
@@ -33,69 +44,89 @@
 		videos: Video[];
 	};
 
-	run(() => {
-		events = data.events;
-	});
-	run(() => {
-		news = data.news;
-	});
-	run(() => {
-		publications = data.publications;
-	});
-	run(() => {
-		videos = data.videos;
-	});
-	run(() => {
-		programme = data.item;
+	// Initialize state from props data
+	$effect(() => {
+		if (data) {
+			programme = data.item;
+			events = data.events;
+			news = data.news;
+			publications = data.publications;
+			videos = data.videos;
+			isLoading = false;
+		}
 	});
 
-	run(() => {
-		events = events
-			.filter((event) => event.fields.programme?.fields.title === programme.fields?.title)
-			.sort((a, b) => {
-				const dateA = new Date(a.fields.date).getTime();
-				const dateB = new Date(b.fields.date).getTime();
-				return dateB - dateA;
-			});
-	});
+	// Filter and sort events
+	let filteredEvents = $derived(
+		programme && 'fields' in programme
+			? events
+					.filter((event) => event.fields.programme?.fields.title === programme?.fields?.title)
+					.sort((a, b) => {
+						const dateA = new Date(a.fields.date).getTime();
+						const dateB = new Date(b.fields.date).getTime();
+						return dateB - dateA;
+					})
+			: []
+	);
 
-	run(() => {
-		publications = publications
-			.filter(
-				(publication) => publication.fields.programme?.fields.title === programme.fields?.title
-			)
-			.sort((a, b) => {
-				const dateA = new Date(a.fields.publicationDate).getTime();
-				const dateB = new Date(b.fields.publicationDate).getTime();
-				return dateB - dateA;
-			});
-	});
+	// Filter and sort publications
+	let filteredPublications = $derived(
+		programme && 'fields' in programme
+			? publications
+					.filter(
+						(publication) => publication.fields.programme?.fields.title === programme?.fields?.title
+					)
+					.sort((a, b) => {
+						const dateA = new Date(a.fields.publicationDate).getTime();
+						const dateB = new Date(b.fields.publicationDate).getTime();
+						return dateB - dateA;
+					})
+			: []
+	);
 
-	run(() => {
-		news = news
-			.filter((news) => news.fields.programme?.fields.title === programme.fields?.title)
-			.sort((a, b) => {
-				const dateA = new Date(a.fields.dateFormat).getTime();
-				const dateB = new Date(b.fields.dateFormat).getTime();
-				return dateB - dateA;
-			});
-	});
+	// Filter and sort news
+	let filteredNews = $derived(
+		programme && 'fields' in programme
+			? news
+					.filter((news) => news.fields.programme?.fields.title === programme?.fields?.title)
+					.sort((a, b) => {
+						const dateA = new Date(a.fields.dateFormat).getTime();
+						const dateB = new Date(b.fields.dateFormat).getTime();
+						return dateB - dateA;
+					})
+			: []
+	);
 
-	run(() => {
-		videos = videos
-			.filter((video) => {
-				return video.fields.programmes?.some(
-					(prog) => prog.fields.title === programme.fields?.title
-				);
-			})
-			.sort((a, b) => {
-				const dateA = new Date(a.fields.date).getTime();
-				const dateB = new Date(b.fields.date).getTime();
-				return dateB - dateA;
-			});
-	});
+	// Filter and sort videos
+	let filteredVideos = $derived(
+		programme && 'fields' in programme
+			? videos
+					.filter((video) => {
+						return video.fields.programmes?.some(
+							(prog) => prog.fields.title === programme?.fields?.title
+						);
+					})
+					.sort((a, b) => {
+						const dateA = new Date(a.fields.date).getTime();
+						const dateB = new Date(b.fields.date).getTime();
+						return dateB - dateA;
+					})
+			: []
+	);
 
-	let slides = $derived(programme.fields.featuredItems);
+	// Fix type issue by casting to the expected type
+	let slides = $derived(
+		programme && 'fields' in programme && programme.fields.featuredItems
+			? (programme.fields.featuredItems as (News | Event | PublicationFeature)[])
+			: []
+	);
+
+	// Get initiatives linked to this programme
+	let initiatives = $derived(
+		programme && 'fields' in programme && programme.fields.initiatives
+			? programme.fields.initiatives
+			: []
+	);
 
 	//// Load more functionality
 	let newsCount = $state(6);
@@ -118,85 +149,103 @@
 	}
 </script>
 
-<SEO
-	title={programme.fields.title}
-	description={programme.fields.subtitle}
-	image={programme.fields.bannerPicture[0].secure_url}
-/>
-<ProgrammeHeader
-	image={programme.fields.bannerPicture[0].secure_url}
-	title={programme.fields.title}
-/>
-
-<div class="lg-pb-24 pb-12 pt-12 lg:pt-24">
-	<ProgrammeDescription
-		quoteText={programme.fields.quote}
-		quoteAuthor={programme.fields.quoteAuthor}
-		flagshipOutput={programme.fields.flagshipOutput}
-		description={programme.fields.description}
+{#if !isLoading && programme && 'fields' in programme}
+	<SEO
+		title={programme.fields.title}
+		description={programme.fields.subtitle}
+		image={programme.fields.bannerPicture?.[0]?.secure_url || ''}
+	/>
+	<ProgrammeHeader
+		image={programme.fields.bannerPicture?.[0]?.secure_url || ''}
+		title={programme.fields.title}
 	/>
 
-	{#if slides.length > 0}
-		<Heading text="Latest" bgColor="#F4F6F6" textColor="#67797B" />
-		<div class="layout mx-auto mt-12">
-			<CarouselV2 {slides} />
+	<div class="lg-pb-24 pb-12 pt-12 lg:pt-24">
+		<ProgrammeDescription
+			quoteText={programme.fields.quote}
+			quoteAuthor={programme.fields.quoteAuthor}
+			flagshipOutput={programme.fields.flagshipOutput}
+			description={programme.fields.description}
+		/>
+
+		{#if slides && slides.length > 0}
+			<Heading text="Latest" bgColor="#F4F6F6" textColor="#67797B" />
+			<div class="layout mx-auto mt-12">
+				<CarouselV2 {slides} />
+			</div>
+		{/if}
+
+		<!-- {#if initiatives.length > 0}
+			<div class=" layout mx-auto">
+				<ProgrammeInitiatives {initiatives} />
+			</div>
+		{/if} -->
+
+		<Heading text="Topics" bgColor="#F4F6F6" textColor="#67797B" />
+		<ProgrammeTopics topics={programme.fields.topics} />
+
+		{#if filteredNews.length >= 1}
+			<section id="news">
+				<Heading text="News & Blog Posts" bgColor="#F4F6F6" textColor="#67797B" />
+				<div class="layout">
+					<NewsListing items={filteredNews.slice(0, newsCount)} />
+				</div>
+				{#if filteredNews.length > newsCount}
+					<div class="layout flex justify-evenly pb-6 lg:pb-12">
+						<ButtonLoadMore onClick={loadMoreNews}>Load More News</ButtonLoadMore>
+					</div>
+				{:else}
+					<p></p>
+				{/if}
+			</section>
+		{/if}
+
+		{#if filteredPublications.length >= 1}
+			<section id="publications">
+				<Heading text="Publications" bgColor="#F4F6F6" textColor="#67797B" />
+				<PublicationListing items={filteredPublications.slice(0, publicationsCount)} />
+				{#if filteredPublications.length > publicationsCount}
+					<div class="layout flex justify-evenly pb-6 lg:pb-12">
+						<ButtonLoadMore onClick={loadMorePublications}>Load More Publications</ButtonLoadMore>
+					</div>
+				{:else}
+					<p></p>
+				{/if}
+			</section>
+		{/if}
+
+		{#if filteredVideos.length >= 1}
+			<section id="videos">
+				<Heading text="Videos" bgColor="#F4F6F6" textColor="#67797B" />
+				<div class="layout">
+					<VideoListing videos={filteredVideos} />
+				</div>
+			</section>
+		{/if}
+
+		{#if filteredEvents.length >= 1}
+			<section id="events">
+				<Heading text="Events" bgColor="#F4F6F6" textColor="#67797B" />
+				<div class="layout grid grid-cols-1 py-6 lg:grid-cols-2 lg:py-12">
+					<EventListing events={filteredEvents.slice(0, eventsCount)} />
+				</div>
+				{#if filteredEvents.length > eventsCount}
+					<div class="layout flex justify-evenly pb-6 lg:pb-12">
+						<ButtonLoadMore onClick={loadMoreEvents}>Load More Events</ButtonLoadMore>
+					</div>
+				{:else}
+					<p></p>
+				{/if}
+			</section>
+		{/if}
+	</div>
+{:else}
+	<div class="flex h-screen items-center justify-center">
+		<div class="text-center">
+			<div
+				class="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-t-4 border-gray-200 border-t-blue-500"
+			></div>
+			<p class="text-lg text-gray-600">Loading programme...</p>
 		</div>
-	{/if}
-	<Heading text="Topics" bgColor="#F4F6F6" textColor="#67797B" />
-	<ProgrammeTopics topics={programme.fields.topics} />
-
-	{#if news.length >= 1}
-		<section id="news">
-			<Heading text="News & Blog Posts" bgColor="#F4F6F6" textColor="#67797B" />
-			<div class="layout">
-				<NewsListing items={news.slice(0, newsCount)} />
-			</div>
-			{#if news.length > newsCount}
-				<div class="layout flex justify-evenly pb-6 lg:pb-12">
-					<ButtonLoadMore onClick={loadMoreNews}>Load More News</ButtonLoadMore>
-				</div>
-			{:else}
-				<p></p>
-			{/if}
-		</section>
-	{/if}
-
-	{#if publications.length >= 1}
-		<section id="publications">
-			<Heading text="Publications" bgColor="#F4F6F6" textColor="#67797B" />
-			<PublicationListing items={publications.slice(0, publicationsCount)} />
-			{#if publications.length > publicationsCount}
-				<div class="layout flex justify-evenly pb-6 lg:pb-12">
-					<ButtonLoadMore onClick={loadMorePublications}>Load More Publications</ButtonLoadMore>
-				</div>
-			{:else}
-				<p></p>
-			{/if}
-		</section>
-	{/if}
-
-	{#if videos.length >= 1}
-		<section id="videos">
-			<Heading text="Videos" bgColor="#F4F6F6" textColor="#67797B" />
-			<div class="layout">
-				<VideoListing {videos} />
-			</div>
-		</section>
-	{/if}
-
-	{#if events.length >= 1}
-		<section id="events">
-			<Heading text="Events" bgColor="#F4F6F6" textColor="#67797B" />
-			<div class="layout grid grid-cols-1 py-6 lg:grid-cols-2 lg:py-12">
-				<EventListing events={events.slice(0, eventsCount)} />
-			</div>
-			{#if events.length > eventsCount}
-				<div class="layout flex justify-evenly pb-6 lg:pb-12">
-					<ButtonLoadMore onClick={loadMoreEvents}>Load More Events</ButtonLoadMore>
-				</div>
-			{:else}
-				<p></p>
-			{/if}
-		</section>
-	{/if}
-</div>
+	</div>
+{/if}
