@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Event, EventSeries } from '$lib/types/types';
 	import Button from '$components/UI/Button.svelte';
 	interface Props {
@@ -32,9 +31,6 @@
 				<p class="line-clamp-3 text-sm leading-6 text-gray-600">
 					{item.fields.summary}
 				</p>
-				<!-- <div>
-					<Button to={`/event-series/${item.fields.slug}`} colors="green">Read more</Button>
-				</div> -->
 			</div>
 		</a>
 	{/each}
