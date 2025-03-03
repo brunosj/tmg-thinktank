@@ -11,6 +11,7 @@
 	}
 
 	let { items }: Props = $props();
+	$inspect(items);
 </script>
 
 <div>

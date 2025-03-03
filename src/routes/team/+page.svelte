@@ -5,12 +5,12 @@
 	import type { Team } from '$lib/types/types';
 
 	interface Props {
-		data: Team[];
+		data: { entries: Team[] };
 	}
 
 	let { data }: Props = $props();
 
-	let team: Team[] = data;
+	let team: Team[] = data.entries;
 </script>
 
 <SEO title="Team" />

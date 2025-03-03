@@ -13,7 +13,7 @@
 
 	let { image, intro, title, to, key }: Props = $props();
 
-	let element: HTMLDivElement | null = $state(null);
+	let element: HTMLAnchorElement | null = $state(null);
 	let intersecting = $state(false);
 
 	const isTextRight = key === 0 || key === 2;
