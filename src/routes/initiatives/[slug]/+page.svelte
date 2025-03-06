@@ -29,6 +29,9 @@
 	let animationReady = $state(false);
 	let activeTab = $state('overview');
 	let activeSection = $state('');
+	let observer: IntersectionObserver | null = null;
+	let previousTab = $state('overview');
+	let tabContentRef: HTMLElement | null = null;
 
 	// Define tab interface
 	interface Tab {
@@ -132,11 +135,15 @@
 		return newSpeakers.sort((a, b) => a.fields.name.localeCompare(b.fields.name));
 	});
 
-	onMount(() => {
-		animationReady = true;
+	// Function to set up the intersection observer
+	function setupIntersectionObserver() {
+		// Clean up previous observer if it exists
+		if (observer) {
+			observer.disconnect();
+		}
 
-		// Set up intersection observer to track active section
-		const observer = new IntersectionObserver(
+		// Create new observer
+		observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
@@ -153,23 +160,67 @@
 			tocSections().forEach((section) => {
 				const element = document.getElementById(section.id);
 				if (element) {
-					observer.observe(element);
+					observer?.observe(element);
 					console.log('Observing section:', section.id);
 				} else {
 					console.warn('Section element not found:', section.id);
 				}
 			});
 		}, 100);
+	}
+
+	// Function to scroll to tab content
+	function scrollToTabContent() {
+		if (tabContentRef) {
+			// Use a small offset to account for sticky header
+			const offset = 150;
+			const topPosition = tabContentRef.getBoundingClientRect().top + window.scrollY - offset;
+
+			window.scrollTo({
+				top: topPosition,
+				behavior: 'smooth'
+			});
+		}
+	}
+
+	// Handle tab changes
+	function handleTabChange(tabId: string) {
+		previousTab = activeTab;
+		activeTab = tabId;
+
+		// If switching to overview tab, reset the active section to the first section
+		if (tabId === 'overview') {
+			// Reset active section to the first section or empty if no sections
+			activeSection = tocSections().length > 0 ? tocSections()[0].id : '';
+
+			// Small delay to ensure DOM is updated
+			setTimeout(setupIntersectionObserver, 50);
+		}
+
+		// Scroll to tab content
+		setTimeout(scrollToTabContent, 50);
+	}
+
+	onMount(() => {
+		animationReady = true;
+		setupIntersectionObserver();
 
 		return () => {
 			// Clean up observer on component unmount
-			tocSections().forEach((section) => {
-				const element = document.getElementById(section.id);
-				if (element) {
-					observer.unobserve(element);
-				}
-			});
+			if (observer) {
+				observer.disconnect();
+			}
 		};
+	});
+
+	// Use $effect instead of afterUpdate to watch for tab changes
+	$effect(() => {
+		// If we're on the overview tab and we just switched to it
+		if (activeTab === 'overview' && previousTab !== 'overview') {
+			// Reset active section to the first section or empty if no sections
+			activeSection = tocSections().length > 0 ? tocSections()[0].id : '';
+			setupIntersectionObserver();
+		}
 	});
 </script>
 
@@ -243,7 +294,7 @@
 						class="relative whitespace-nowrap rounded-full px-4 py-2 font-heading text-sm font-medium transition-all duration-200 sm:text-base"
 						style="background-color: {activeTab === tab.id ? item.fields.color2 : 'transparent'}; 
 						color: {activeTab === tab.id ? 'white' : 'rgba(0,0,0,0.7)'}"
-						onclick={() => (activeTab = tab.id)}
+						onclick={() => handleTabChange(tab.id)}
 					>
 						{tab.label}
 						{#if activeTab === tab.id}
@@ -259,7 +310,7 @@
 </div>
 
 <!-- Tab Content with transition -->
-<div class="layout py-8">
+<div class="layout py-8" bind:this={tabContentRef}>
 	<!-- Overview Tab -->
 	{#if activeTab === 'overview'}
 		<div class="animate-fadeIn">
@@ -365,7 +416,12 @@
 	<!-- Gallery Tab -->
 	{#if activeTab === 'gallery'}
 		<div class="animate-fadeIn mx-auto max-w-6xl">
-			<SectionHeading title="Image Gallery" color={item.fields.color2 || '#333'} marginBottom="" />
+			<SectionHeading title="Image Gallery" color={item.fields.color2 || '#333'} />
+			{#if item.fields.galleryText}
+				<div class="mx-auto">
+					{@html renderRichText(item.fields.galleryText)}
+				</div>
+			{/if}
 
 			<EnhancedGallery
 				images={item.fields.gallery}
@@ -413,7 +469,7 @@
 		<div class="animate-fadeIn mx-auto max-w-6xl">
 			<SectionHeading title="Partners" color={item.fields.color2 || '#333'} marginBottom="" />
 
-			<div class="flex flex-wrap items-center justify-between gap-4">
+			<div class="flex flex-wrap items-center justify-center gap-4">
 				{#each item.fields.partners as partner}
 					<PartnersLogo item={partner} />
 				{/each}

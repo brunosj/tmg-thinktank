@@ -183,6 +183,7 @@ export interface Initiative extends ContentfulEntry {
 		section5Image: ImageCdn[];
 		slidesHeading: string;
 		slides: ImageCdn[];
+		galleryText: string;
 		gallery: ImageCdn[];
 		events: Event[];
 		news: News[];
