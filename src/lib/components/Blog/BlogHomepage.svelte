@@ -23,12 +23,12 @@
 				<li>
 					<a
 						href={`/blog/${item.fields.slug}`}
-						class="group flex max-w-xl flex-col items-start justify-between rounded-md bg-white duration-300 hover:bg-green-variation"
+						class="group flex max-w-xl flex-col items-start justify-between rounded-md bg-white duration-300 hover:bg-blue-light"
 					>
 						<div class="my-3 space-y-3 p-4">
 							<div class="flex w-full items-center justify-between gap-x-4 text-xs">
 								<div
-									class="relative z-10 rounded-md bg-green-variation px-3 py-1.5 font-medium text-gray-600 duration-300"
+									class="relative z-10 rounded-md bg-blue-light px-3 py-1.5 font-medium text-gray-600 duration-300"
 								>
 									{item.fields.programme.fields.title}
 								</div>

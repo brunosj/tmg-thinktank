@@ -7,7 +7,7 @@
 		bgColor?: string;
 	}
 
-	let { image = '', text, person, organisation, bgColor = '#67797B' }: Props = $props();
+	let { image = '', text, person, organisation, bgColor = '#2e2d51' }: Props = $props();
 </script>
 
 <section>

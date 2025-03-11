@@ -51,7 +51,7 @@
 				<div
 					class="relative mx-auto -mt-16 w-11/12 rounded-xl shadow-lg"
 					style="background: linear-gradient(135deg, {initiative.fields.color1 ||
-						'#3B5F63'}, {initiative.fields.color2 || '#67797B'});"
+						'#3B5F63'}, {initiative.fields.color2 || '#2e2d51'});"
 				>
 					<!-- Decorative elements -->
 					<div class="absolute inset-0 overflow-hidden rounded-xl opacity-20">

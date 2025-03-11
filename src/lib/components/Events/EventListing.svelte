@@ -1,13 +1,13 @@
 <script lang="ts">
 	export let events: Event[];
-	export let color: string = '#67797B';
+	export let color: string = '#2e2d51';
 
 	import type { Event } from '$lib/types/types';
 	import { formatTime, formatDay, formatMonth, formatYear } from '$utils/utils';
 </script>
 
 {#each events as event, i}
-	<div class="rounded-md bg-white p-4 duration-300 hover:bg-green-variation">
+	<div class="rounded-md bg-white p-4 duration-300 hover:bg-blue-light">
 		<a href={`/events/${event.fields.slug}`}>
 			<div class="group">
 				<div class="grid grid-cols-7 duration-200 ease-in-out">
@@ -47,7 +47,7 @@
 							<div class="flex items-center gap-x-4">
 								<p class="text-sm font-semibold text-gray-500">{event.fields.type}</p>
 								<div
-									class="relative z-10 hidden rounded-md bg-green-variation px-3 py-1.5 text-xs font-medium text-gray-600 duration-300 group-hover:bg-white lg:block"
+									class="relative z-10 hidden rounded-md bg-blue-light px-3 py-1.5 text-xs font-medium text-gray-600 duration-300 group-hover:bg-white lg:block"
 								>
 									{event.fields.programme.fields.title}
 								</div>

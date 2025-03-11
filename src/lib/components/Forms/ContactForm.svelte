@@ -18,10 +18,10 @@
 	};
 </script>
 
-<div class="bg-green-variation p-5 lg:p-24">
+<div class="bg-blue-light p-5 lg:p-24">
 	<div class="layout rounded-md bg-green-light p-10">
 		<h2
-			class="pb-10 text-3xl font-extrabold leading-tight tracking-tight text-green-normal sm:text-4xl"
+			class="pb-10 text-3xl font-extrabold leading-tight tracking-tight text-blue-normal sm:text-4xl"
 		>
 			Get in touch!
 		</h2>
@@ -82,7 +82,7 @@
 					{#if action_result?.missing}<p class="error">The email field is required</p>{/if}
 
 					{#if success}
-						<p class="text-green-normal">Thanks! Your email has been sent</p>
+						<p class="text-blue-normal">Thanks! Your email has been sent</p>
 					{:else if action_result === 'failure'}
 						<p>Ooops! There was an error.</p>
 					{:else}

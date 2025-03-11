@@ -14,6 +14,8 @@
 	import SpeakersAvatars from '$components/Speakers/SpeakersAvatars.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import EventFeaturedBanner from '$components/Events/EventFeaturedBanner.svelte';
+	import RelatedContentSection from '$components/Layout/RelatedContentSection.svelte';
+
 	interface Props {
 		data: {
 			item: EventSeries;
@@ -116,7 +118,7 @@
 
 	<section class="layout">
 		{#if item.fields.events}
-			<div class="m-auto">
+			<div class="m-auto pb-12">
 				<EventListing events={item.fields.events} color={item.fields.color2} />
 			</div>
 		{/if}
@@ -182,7 +184,17 @@
 				bgColor={item.fields.color2}
 				textColor={item.fields.color1}
 			/>
-			<PublicationListing items={item.fields.relatedDocuments} />
+			<div class="layout py-6">
+				{#snippet publicationsContent()}
+					<PublicationListing items={item.fields.relatedDocuments} />
+				{/snippet}
+
+				<RelatedContentSection
+					title="Publications & Articles"
+					hasBorder={false}
+					children={publicationsContent}
+				/>
+			</div>
 		</section>
 	{/if}
 
@@ -194,7 +206,11 @@
 				textColor={item.fields.color1}
 			/>
 			<div class="layout py-6">
-				<NewsListing items={item.fields.news} />
+				{#snippet newsContent()}
+					<NewsListing items={item.fields.news} />
+				{/snippet}
+
+				<RelatedContentSection title="News & Blog Posts" hasBorder={false} children={newsContent} />
 			</div>
 		</section>
 	{/if}

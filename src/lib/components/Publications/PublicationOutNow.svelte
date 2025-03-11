@@ -38,7 +38,7 @@
 			</div>
 			<div class=" grid grid-cols-1 gap-6 overflow-hidden lg:grid-cols-3">
 				<div class="col-span-2 m-auto w-full space-y-6">
-					<h2 class="font-bold leading-tight text-green-normal">
+					<h2 class="text-blue-normal font-bold leading-tight">
 						{item.fields.title}
 					</h2>
 					{#if item.fields.author}

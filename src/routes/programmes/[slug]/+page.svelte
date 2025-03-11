@@ -166,11 +166,11 @@
 			quoteAuthor={programme.fields.quoteAuthor}
 			flagshipOutput={programme.fields.flagshipOutput}
 			description={programme.fields.description}
-			color="#67797B"
+			color="#2e2d51"
 		/>
 
 		{#if slides && slides.length > 0}
-			<Heading text="Latest" bgColor="#F4F6F6" textColor="#67797B" />
+			<Heading text="Latest" bgColor="#eaeaee" textColor="#2e2d51" />
 			<div class="layout mx-auto mt-12">
 				<CarouselV2 {slides} />
 			</div>
@@ -182,12 +182,12 @@
 			</div>
 		{/if} -->
 
-		<Heading text="Topics" bgColor="#F4F6F6" textColor="#67797B" />
+		<Heading text="Topics" bgColor="#eaeaee" textColor="#2e2d51" />
 		<ProgrammeTopics topics={programme.fields.topics} />
 
 		{#if filteredNews.length >= 1}
 			<section id="news">
-				<Heading text="News & Blog Posts" bgColor="#F4F6F6" textColor="#67797B" />
+				<Heading text="News & Blog Posts" bgColor="#eaeaee" textColor="#2e2d51" />
 				<div class="layout">
 					<NewsListing items={filteredNews.slice(0, newsCount)} />
 				</div>
@@ -203,7 +203,7 @@
 
 		{#if filteredPublications.length >= 1}
 			<section id="publications">
-				<Heading text="Publications" bgColor="#F4F6F6" textColor="#67797B" />
+				<Heading text="Publications" bgColor="#eaeaee" textColor="#2e2d51" />
 				<PublicationListing items={filteredPublications.slice(0, publicationsCount)} />
 				{#if filteredPublications.length > publicationsCount}
 					<div class="layout flex justify-evenly pb-6 lg:pb-12">
@@ -217,7 +217,7 @@
 
 		{#if filteredVideos.length >= 1}
 			<section id="videos">
-				<Heading text="Videos" bgColor="#F4F6F6" textColor="#67797B" />
+				<Heading text="Videos" bgColor="#eaeaee" textColor="#2e2d51" />
 				<div class="layout">
 					<VideoListing videos={filteredVideos} />
 				</div>
@@ -226,7 +226,7 @@
 
 		{#if filteredEvents.length >= 1}
 			<section id="events">
-				<Heading text="Events" bgColor="#F4F6F6" textColor="#67797B" />
+				<Heading text="Events" bgColor="#eaeaee" textColor="#2e2d51" />
 				<div class="layout grid grid-cols-1 py-6 lg:grid-cols-2 lg:py-12">
 					<EventListing events={filteredEvents.slice(0, eventsCount)} />
 				</div>

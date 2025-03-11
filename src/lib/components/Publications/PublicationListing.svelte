@@ -29,7 +29,7 @@
 		{#if item.fields.pdf}
 			<a href={item.fields.pdf.fields.file.url} target="_blank" class="group">
 				<div
-					class="grid grid-cols-1 rounded-md bg-green-variation p-3 duration-300 group-hover:bg-white lg:grid-cols-4"
+					class="grid grid-cols-1 rounded-md bg-blue-light p-3 duration-300 group-hover:bg-white lg:grid-cols-4"
 				>
 					{#if image}
 						<div class="w-1/3 px-2 pb-5 transition duration-300 ease-in-out lg:w-full lg:pb-2">
@@ -37,9 +37,9 @@
 						</div>
 					{/if}
 					<div
-						class="justify-between space-y-2 border-b-[1px] border-green-normal pb-5 leading-normal lg:col-span-3 lg:border-b-0 lg:px-8 lg:pb-0"
+						class="justify-between space-y-2 border-b-[1px] border-blue-normal pb-5 leading-normal lg:col-span-3 lg:border-b-0 lg:px-8 lg:pb-0"
 					>
-						<p class="items-center text-sm font-semibold text-green-normal">
+						<p class="items-center text-sm font-semibold text-blue-normal">
 							{item.fields.category}
 						</p>
 						<h4 class="font-bold text-black duration-300">

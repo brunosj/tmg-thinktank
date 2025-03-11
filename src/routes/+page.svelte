@@ -58,7 +58,10 @@
 <ImageBannerEventSeries items={eventSeries} />
 <EventsHomepage {events} {landingPage} />
 <ImageBannerPublicationFeature items={publicationFeatures} />
-<HeroProgrammesV2 heroProgrammes={programmes} />
+<HeroProgrammesV2
+	heroProgrammes={programmes}
+	programmeSectionTitle={landingPage.fields.programmeSectionTitle}
+/>
 <BlogHomepage {news} {landingPage} />
 <NewsletterBanner {newsletter} {landingPage} />
 <NetworksBanner {partners} {landingPage} />

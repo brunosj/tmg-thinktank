@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { run, preventDefault } from 'svelte/legacy';
 
-
 	import type { CalendarEvent } from '$lib/types/types';
 	import CalendarPlus from 'virtual:icons/fa6-regular/calendar-plus';
 
@@ -136,7 +135,7 @@
 								<p class="hidden text-sm lg:block">{evt.subtitle}</p>
 								<div class=" hidden items-center lg:flex">
 									<button
-										class="relative rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-green-normal shadow-sm duration-300 hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-normal"
+										class="text-blue-normal focus-visible:outline-blue-normal relative rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold shadow-sm duration-300 hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
 										onclick={preventDefault(() => downloadICal(evt))}
 									>
 										<div class="flex items-center space-x-3">

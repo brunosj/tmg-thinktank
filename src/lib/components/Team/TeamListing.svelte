@@ -37,12 +37,12 @@
 						<div class="">
 							<a href={`/team/${item.fields.slug}`}>
 								<p
-									class="text-2xl font-semibold text-black transition duration-300 ease-in-out hover:text-green-normal"
+									class="hover:text-blue-normal text-2xl font-semibold text-black transition duration-300 ease-in-out"
 								>
 									{item.fields.name}
 								</p>
 							</a>
-							<h1 class="pb-4 text-lg font-bold text-green-normal">{item.fields.position}</h1>
+							<h1 class="text-blue-normal pb-4 text-lg font-bold">{item.fields.position}</h1>
 
 							{#if item.fields.bio}
 								<p class="pb-4 text-base text-black">
@@ -50,7 +50,7 @@
 								</p>
 							{/if}
 
-							<ul class="flex items-center space-x-3 pt-2 text-green-normal">
+							<ul class="text-blue-normal flex items-center space-x-3 pt-2">
 								{#if item.fields.email}
 									{@const mailWithoutAt = item.fields.email.replace('@', ' [at] ')}
 									<a href={`mailto:${mailWithoutAt}`} class="">

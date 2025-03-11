@@ -6,7 +6,7 @@
 	let { map }: Props = $props();
 </script>
 
-<div class="bg-green-variation">
+<div class="bg-blue-light">
 	<div class="layout pb-12 pt-12 font-bold lg:pb-24">
 		<div class="py-6 lg:py-12">
 			<img loading="lazy" src={map} alt="Image1" />
@@ -17,9 +17,7 @@
 				<div>
 					{' '}
 					Based in Berlin, with a regional office in Nairobi,<br />
-					<span class="font-extrabold text-green-normal">
-						TMG - Think Tank for Sustainability
-					</span>
+					<span class="font-extrabold text-blue-normal"> TMG - Think Tank for Sustainability </span>
 					<br />
 					is made up of two independent companies:
 				</div>

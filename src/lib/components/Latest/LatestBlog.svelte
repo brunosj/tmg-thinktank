@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
 
-
 	import type { News } from '$lib/types/types';
 	import { slugify } from '$utils/utils';
 	import BlogGrid from '$components/Latest/BlogGrid.svelte';
@@ -32,7 +31,7 @@
 		<div class="col-span-3 pr-0">
 			<BlogGrid latest={blogs[0]} recent={blogs.slice(1, 4)} />
 			<!-- <div class="flex justify-end pt-3">
-        <ButtonInternal to="/blog" color="#F4F6F" textColor="#67797B" iconcolor="#67797B">
+        <ButtonInternal to="/blog" color="#F4F6F" textColor="#2e2d51" iconcolor="#2e2d51">
           View All Blog Posts
         </ButtonInternal>
       </div> -->

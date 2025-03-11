@@ -5,7 +5,7 @@ export const headerMenu = [
 			{ title: 'Blog', to: '/blog' },
 			{ title: 'Events', to: '/events' },
 			{ title: 'News', to: '/news' },
-			{ title: 'Newsletter', to: '/newsletter' },
+			// { title: 'Newsletter', to: '/newsletter' },
 			{ title: 'Publications', to: '/publications' },
 			{ title: 'Videos', to: '/videos' }
 		]

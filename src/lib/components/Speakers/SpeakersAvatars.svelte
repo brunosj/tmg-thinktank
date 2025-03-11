@@ -6,7 +6,7 @@
 		color?: string;
 	}
 
-	let { speakers, color = '#67797B' }: Props = $props();
+	let { speakers, color = '#2e2d51' }: Props = $props();
 </script>
 
 <div class="py-4">

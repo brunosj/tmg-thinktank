@@ -86,13 +86,13 @@
 				{#if !showSearchInput}
 					<button type="button" aria-label="menu" onclick={toggleSearch}>
 						<SearchIcon
-							class="h-8 w-8 rounded-md bg-transparent p-1 text-green-normal duration-300 hover:bg-green-variation"
+							class="h-8 w-8 rounded-md bg-transparent p-1 text-blue-normal duration-300 hover:bg-blue-light"
 						/>
 					</button>
 				{/if}
 				<button type="button" aria-label="menu" onclick={toggleSidebar}>
 					<MenuIcon
-						class="h-8 w-8 rounded-md bg-transparent p-1 text-green-normal duration-300 hover:bg-green-variation"
+						class="h-8 w-8 rounded-md bg-transparent p-1 text-blue-normal duration-300 hover:bg-blue-light"
 					/>
 				</button>
 			</div>

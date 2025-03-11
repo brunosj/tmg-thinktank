@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Event } from '$lib/types/types';
 	import { formatTime, formatDay, formatMonth, formatYear } from '$utils/utils';
 	interface Props {
@@ -7,7 +6,7 @@
 		color?: string;
 	}
 
-	let { events, color = '#67797B' }: Props = $props();
+	let { events, color = '#2e2d51' }: Props = $props();
 </script>
 
 <ul class="divide-y divide-gray-200">
@@ -20,7 +19,7 @@
 							<div class="flex flex-col items-center space-y-1 p-5">
 								<div class="flex">
 									<span
-										class="text-3xl font-semibold leading-none text-green-normal lg:text-5xl"
+										class="text-3xl font-semibold leading-none text-blue-normal lg:text-5xl"
 										style="color:{color}"
 									>
 										{formatDay(event.fields.date)}
@@ -32,7 +31,7 @@
 									</span>
 								</div>
 								<div class="flex">
-									<span class="text-lg font-bold text-green-normal" style="color:{color}">
+									<span class="text-lg font-bold text-blue-normal" style="color:{color}">
 										{formatYear(event.fields.date)}
 									</span>
 								</div>

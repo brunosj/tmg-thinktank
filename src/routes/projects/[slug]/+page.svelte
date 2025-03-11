@@ -135,7 +135,7 @@
 	<div class="grid grid-cols-1 lg:grid-cols-9">
 		<div class="col-span-1 py-6 lg:col-span-6 lg:py-12">
 			{#if project.fields.quote}
-				<div class="pb-6 text-green-normal">
+				<div class="pb-6 text-blue-normal">
 					<p class="text-lg font-bold md:text-xl">
 						"{project.fields.quote}"
 					</p>
@@ -162,7 +162,7 @@
 
 		{#if project.fields.team.length > 0}
 			<div class="col-span-1 col-start-1 ml-0 lg:col-span-3 lg:col-start-7 lg:ml-20">
-				<div class="bg-green-variation pb-5">
+				<div class="bg-blue-light pb-5">
 					<div class="px-10 py-6 lg:py-12 lg:pb-10">
 						<div class="border-b border-gray-900">
 							<div class="pb-5 text-left text-xl font-bold uppercase text-black">Team</div>
@@ -179,7 +179,7 @@
 
 {#if news.length >= 1}
 	<section id="news">
-		<Heading text="News & Blog Posts" bgColor="#F4F6F6" textColor="#67797B" />
+		<Heading text="News & Blog Posts" bgColor="#eaeaee" textColor="#2e2d51" />
 		<div class="layout">
 			<NewsListing items={news.slice(0, newsCount)} />
 		</div>
@@ -195,7 +195,7 @@
 
 {#if publications.length >= 1}
 	<section id="publications">
-		<Heading text="Publications" bgColor="#F4F6F6" textColor="#67797B" />
+		<Heading text="Publications" bgColor="#eaeaee" textColor="#2e2d51" />
 		<PublicationListing items={publications.slice(0, publicationsCount)} />
 		{#if publications.length > publicationsCount}
 			<div class="layout flex justify-evenly pb-6 lg:pb-12">
@@ -209,7 +209,7 @@
 
 {#if videos.length >= 1}
 	<section id="videos">
-		<Heading text="Videos" bgColor="#F4F6F6" textColor="#67797B" />
+		<Heading text="Videos" bgColor="#eaeaee" textColor="#2e2d51" />
 		<div class="layout">
 			<VideoListing {videos} />
 		</div>

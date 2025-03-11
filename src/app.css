@@ -186,11 +186,11 @@ b {
 }
 
 .bgGradientBR {
-	@apply bg-gradient-to-br from-black/70 via-green-normal to-green-normal/100;
+	@apply via-blue-normal to-blue-normal/100 bg-gradient-to-br from-black/80;
 }
 
 .bgGradientTL {
-	@apply bg-gradient-to-tl from-black/70 via-green-normal to-green-normal/100;
+	@apply via-blue-normal to-blue-normal/100 bg-gradient-to-tl from-black/80;
 }
 
 .bgGradientBRBlue {

@@ -8,7 +8,7 @@
 
 	const gridClass = `mx-auto mt-6 grid max-w-2xl grid-cols-1 gap-x-4 gap-y-4  pt-6 lg:mx-0 lg:max-w-none lg:gap-y-12 lg:grid-cols-${nbrColumns} `;
 
-	const bgClass = reverseBackground ? 'bg-white' : 'bg-green-variation';
+	const bgClass = reverseBackground ? 'bg-white' : 'bg-blue-light';
 </script>
 
 <section>
@@ -34,7 +34,7 @@
 					<div class="my-3 space-y-3 p-4">
 						<div class="flex w-full items-center justify-between gap-x-4 text-xs">
 							<div
-								class={`relative z-10 rounded-md ${reverseBackground ? 'bg-green-variation' : 'bg-white'} px-3 py-1.5 font-medium text-gray-600 duration-300`}
+								class={`relative z-10 rounded-md ${reverseBackground ? 'bg-blue-light' : 'bg-white'} px-3 py-1.5 font-medium text-gray-600 duration-300`}
 							>
 								{item.fields.programme.fields.title}
 							</div>

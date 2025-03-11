@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Programme } from '$lib/types/types';
 	import ProgrammeBanner from '$components/Banner/ProgrammeBanner.svelte';
 	import Heading from '$components/Layout/Heading.svelte';
@@ -25,7 +24,7 @@
 	}
 </script>
 
-<Heading text="We work towards" textColor="#67797B" bgColor="#F4F6F6" />
+<Heading text="We work towards" textColor="#2e2d51" bgColor="#eaeaee" />
 <section class="grid grid-cols-1 lg:grid-cols-2">
 	{#each heroProgrammes.sort( (a, b) => (a.fields.title || '').localeCompare(b.fields.title || '') ) as programme, index}
 		{#if programme.fields.bannerPicture}

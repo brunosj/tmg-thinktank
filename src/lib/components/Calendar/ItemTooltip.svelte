@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { CalendarEvent } from '$lib/types/types';
 	interface Props {
 		hoveredDay: Date;
@@ -66,13 +65,13 @@
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <button class="absolute left-6 top-12 z-10 w-64">
-	<div class="rounded-t-md border-b-[3px] border-green-normal bg-white px-4 py-2 text-sm font-bold">
+	<div class="border-blue-normal rounded-t-md border-b-[3px] bg-white px-4 py-2 text-sm font-bold">
 		<div>{getFormattedDate(hoveredDay)}</div>
 	</div>
 	<ul class="rounded-b-md bg-white px-4 py-2 shadow-lg">
 		{#each items.filter(filterEventsByDay) as item (item)}
 			<li
-				class={`textHover my-1 cursor-pointer rounded-md py-1 text-xs text-black duration-300 hover:text-green-normal`}
+				class={`textHover hover:text-blue-normal my-1 cursor-pointer rounded-md py-1 text-xs text-black duration-300`}
 			>
 				<a
 					href={`/events/${item.slug}`}

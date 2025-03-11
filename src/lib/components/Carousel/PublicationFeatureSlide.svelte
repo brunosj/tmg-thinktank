@@ -27,7 +27,7 @@
 </script>
 
 <div
-	class={`group relative h-full w-full overflow-hidden border-[1px] border-green-variation bg-white duration-300 hover:border-white hover:bg-green-variation ${
+	class={`group relative h-full w-full overflow-hidden border-[1px] border-blue-light bg-white duration-300 hover:border-white hover:bg-blue-light ${
 		i === 0 ? 'rounded-l-xl' : ''
 	} ${i === slidesQty - 1 ? 'rounded-r-xl' : ''}`}
 	in:fly={{ y: 200, duration: 300 }}
@@ -53,7 +53,7 @@
 						</span>
 						</div> -->
 
-			<div class="leading-tight duration-300 ease-in-out group-hover:text-green-normal">
+			<div class="leading-tight duration-300 ease-in-out group-hover:text-blue-normal">
 				<h3>
 					{item.fields.title}
 				</h3>

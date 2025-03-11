@@ -31,7 +31,7 @@
 		<div class="justify-between px-2 leading-normal lg:col-span-3 lg:px-8">
 			<div class="space-y-6">
 				<div class="space-y-2">
-					<p class="font-semibold text-green-normal">
+					<p class="text-blue-normal font-semibold">
 						{item.fields.category}
 					</p>
 					<h2 class=" text-black">

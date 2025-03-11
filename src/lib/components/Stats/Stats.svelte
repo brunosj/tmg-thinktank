@@ -25,7 +25,7 @@
 </script>
 
 <section class="">
-	<div class="bg-green-variation pt-12 sm:pt-16">
+	<div class="bg-blue-light pt-12 sm:pt-16">
 		<div class="layout mx-auto">
 			<div class="mx-auto max-w-4xl text-center">
 				<h2 class="text-3xl font-extrabold sm:text-4xl" style="color: {color}">{title}</h2>
@@ -34,7 +34,7 @@
 		</div>
 		<div class="mt-10 bg-white pb-12 sm:pb-16">
 			<div class="relative">
-				<div class="absolute inset-0 h-1/2 bg-green-variation"></div>
+				<div class="absolute inset-0 h-1/2 bg-blue-light"></div>
 				<div class="layout relative z-10 mx-auto">
 					<div class="mx-auto max-w-4xl">
 						<dl class="relative z-10 rounded-md bg-white shadow-lg sm:grid sm:grid-cols-3">

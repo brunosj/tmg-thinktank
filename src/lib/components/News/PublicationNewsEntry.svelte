@@ -11,6 +11,8 @@
 	import Tag from '$components/UI/Tag.svelte';
 	import { ensureHttps } from '$utils/utils';
 	import { formatDateNews } from '$utils/utils';
+	import RelatedContentSection from '$components/Layout/RelatedContentSection.svelte';
+
 	interface Props {
 		item: News;
 	}
@@ -38,7 +40,7 @@
 />
 <div class="bg-green-light">
 	<div class="overflow-hidden">
-		<section class="bg-green-variation">
+		<section class="bg-blue-light">
 			<div
 				class="layout grid grid-cols-1 overflow-hidden pb-6 pt-24 lg:grid-cols-3 lg:pb-12 lg:pt-32"
 			>
@@ -46,7 +48,7 @@
 					<div class="font-bold text-white">
 						<span class="rounded-md bg-gray-900 px-2 py-1">{item.fields.type}</span>
 					</div>
-					<h2 class="font-bold leading-tight text-green-normal">
+					<h2 class="font-bold leading-tight text-blue-normal">
 						{item.fields.title}
 					</h2>
 					<h4>{item.fields.summary}</h4>
@@ -82,10 +84,11 @@
 					{@html renderRichText(item.fields.descriptionRich)}
 				</div>
 				{#if item.fields.relatedNews && item.fields.relatedNews.length > 0}
-					<div class="pt-6">
-						<div class="text-xl font-semibold lg:text-2xl">Related News</div>
+					{#snippet relatedNewsContent()}
 						<NewsListing items={item.fields.relatedNews} />
-					</div>
+					{/snippet}
+
+					<RelatedContentSection title="Related News" children={relatedNewsContent} />
 				{/if}
 			</div>
 		</div>

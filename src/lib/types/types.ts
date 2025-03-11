@@ -25,6 +25,7 @@ export interface LandingPage {
 		latestSectionTitle: string;
 		latestSectionSubtitle: string;
 		featuredItems: (News | Event)[];
+		programmeSectionTitle: string;
 		eventSectionTitle: string;
 		eventSectionSubtitle: string;
 		eventSeriesBanner: Image;

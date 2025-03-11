@@ -86,7 +86,7 @@
 		<AccordionItem open tag="div">
 			<span slot="header" class="flex text-sm font-bold">Filter by {filterField}</span>
 			<div slot="arrowup">
-				<MinusSmIcon class="block h-6 w-6 text-right text-green-normal group-hover:text-black" />
+				<MinusSmIcon class="text-blue-normal block h-6 w-6 text-right group-hover:text-black" />
 			</div>
 			<div slot="arrowdown">
 				<PlusSmIcon class="block h-6 w-6 text-right text-gray-400 group-hover:text-gray-500" />
@@ -99,7 +99,7 @@
 							name="filter"
 							type="radio"
 							checked={selectedFilter === filter}
-							class="h-4 w-4 cursor-pointer text-green-normal focus:ring-green-normal"
+							class="text-blue-normal focus:ring-blue-normal h-4 w-4 cursor-pointer"
 						/>
 					</div>
 					<div class="ml-3 min-w-0 text-sm">
@@ -117,7 +117,7 @@
 		<AccordionItem tag="div">
 			<span slot="header" class="text-sm font-bold">Filter by Programmes</span>
 			<div slot="arrowup">
-				<MinusSmIcon class="block h-6 w-6 text-green-normal group-hover:text-black" />
+				<MinusSmIcon class="text-blue-normal block h-6 w-6 group-hover:text-black" />
 			</div>
 			<div slot="arrowdown">
 				<PlusSmIcon class="block h-6 w-6 text-gray-400 group-hover:text-gray-500" />
@@ -130,7 +130,7 @@
 							name="programme"
 							type="radio"
 							checked={selectedProgramme === programme}
-							class="h-4 w-4 cursor-pointer text-green-normal focus:ring-green-normal"
+							class="text-blue-normal focus:ring-blue-normal h-4 w-4 cursor-pointer"
 						/>
 					</div>
 					<div class="ml-3 min-w-0 text-sm">

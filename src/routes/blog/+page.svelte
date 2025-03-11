@@ -47,11 +47,11 @@
 			political events, and engage with debates in the many fields in which we work.
 		</h3>
 	</section>
-	<section class="top-16 z-10 w-full bg-green-variation py-4 lg:sticky">
+	<section class="top-16 z-10 w-full bg-blue-light py-4 lg:sticky">
 		<div class="layout flex flex-wrap justify-between gap-x-6 gap-y-3 space-x-0 lg:space-x-12">
 			<label class="flex items-center space-x-2">
 				<input
-					class="h-4 w-4 cursor-pointer border-gray-300 text-green-normal focus:ring-green-normal"
+					class="h-4 w-4 cursor-pointer border-gray-300 text-blue-normal focus:ring-blue-normal"
 					type="radio"
 					bind:group={selectedFilter}
 					value="All"
@@ -64,7 +64,7 @@
 			{#each filterOptions as option}
 				<label class="flex items-center space-x-2">
 					<input
-						class="h-4 w-4 cursor-pointer border-gray-300 text-green-normal focus:ring-green-normal"
+						class="h-4 w-4 cursor-pointer border-gray-300 text-blue-normal focus:ring-blue-normal"
 						type="radio"
 						bind:group={selectedFilter}
 						value={option.fields.title}

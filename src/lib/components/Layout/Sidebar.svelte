@@ -19,7 +19,6 @@
 		programmes: Programme[];
 	}
 
-	
 	let { sidebarHidden = $bindable(true), programmes }: Props = $props();
 
 	let transitionParamsRight = {
@@ -53,7 +52,8 @@
 				<li class="list-none">
 					<SidebarDropdownWrapper
 						label="Programmes"
-						class="group flex w-full items-center rounded-md p-1 text-lg font-semibold text-green-normal transition duration-75 hover:bg-green-variation lg:p-2 lg:text-2xl" isOpen
+						class="group flex w-full items-center rounded-md p-1 text-lg font-semibold text-blue-normal transition duration-75 hover:bg-blue-light lg:p-2 lg:text-2xl"
+						isOpen
 					>
 						<ul>
 							{#each programmeLinks as programme}
@@ -72,11 +72,11 @@
 
 				<!-- Other Menu Categories -->
 				{#each headerMenu as category, i}
-					{#if i === 0 }
+					{#if i === 0}
 						<li class="list-none">
 							<SidebarDropdownWrapper
 								label={category.category}
-								class="group flex w-full items-center rounded-md p-1 text-lg font-semibold text-green-normal  transition duration-75 hover:bg-green-variation lg:p-2 lg:text-2xl"
+								class="group flex w-full items-center rounded-md p-1 text-lg font-semibold text-blue-normal  transition duration-75 hover:bg-blue-light lg:p-2 lg:text-2xl"
 								isOpen
 							>
 								<ul>
@@ -97,7 +97,7 @@
 						<li>
 							<SidebarDropdownWrapper
 								label={category.category}
-								class="group flex w-full items-center rounded-md p-1 text-lg font-semibold text-green-normal  transition duration-75 hover:bg-green-variation lg:p-2 lg:text-2xl"
+								class="group flex w-full items-center rounded-md p-1 text-lg font-semibold text-blue-normal  transition duration-75 hover:bg-blue-light lg:p-2 lg:text-2xl"
 							>
 								<ul>
 									{#each category.links as link}

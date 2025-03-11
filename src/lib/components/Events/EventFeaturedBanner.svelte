@@ -7,7 +7,7 @@
 		bgColor?: string;
 	}
 
-	let { event, bgColor = '#67797B' }: Props = $props();
+	let { event, bgColor = '#2e2d51' }: Props = $props();
 
 	let image: string = $state('');
 

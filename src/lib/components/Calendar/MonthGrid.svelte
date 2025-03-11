@@ -127,7 +127,7 @@
 							<div
 								class={`relative grid h-32 w-full flex-grow-0 grid-cols-7 border-[0.5px] border-neutral-400 ${
 									isCurrentMonth ? '' : 'text-neutral-300 '
-								} ${isEventDay ? 'bg-green-variation ' : ''}  ${weekendClass}`}
+								} ${isEventDay ? 'bg-blue-light ' : ''}  ${weekendClass}`}
 							>
 								<div class="col-span-7 flex flex-col">
 									<span class="ml-auto p-1 text-sm">{dateFormat}</span>

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
 
-
 	import type { Event } from '$lib/types/types';
 	import EventListing from '$components/Events/EventListing.svelte';
 	interface Props {
@@ -38,7 +37,7 @@
 		</div>
 		<EventListing {events} />
 		<!-- <div class="flex justify-end pt-6">
-    <ButtonInternal to="/events" color="#F4F6F" textColor="#67797B" iconcolor="#67797B">
+    <ButtonInternal to="/events" color="#F4F6F" textColor="#2e2d51" iconcolor="#2e2d51">
       View All Events
     </ButtonInternal>
   </div> -->

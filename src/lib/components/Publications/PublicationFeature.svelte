@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { PublicationFeature } from '$lib/types/types';
 	interface Props {
 		items: PublicationFeature[];
@@ -25,7 +24,7 @@
 					/>
 				</div>
 				<div
-					class=" flex h-full flex-col items-center space-y-2 bg-white p-8 duration-300 group-hover:bg-green-variation"
+					class=" flex h-full flex-col items-center space-y-2 bg-white p-8 duration-300 group-hover:bg-blue-light"
 				>
 					<div class="text-base font-semibold leading-6 text-gray-500">
 						{item.fields.title}

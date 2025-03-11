@@ -77,17 +77,17 @@
 			</div>
 			<button type="button" onclick={clearSearchTerm}>
 				<XIcon
-					class="h-8 w-8 rounded-md bg-transparent p-1 text-green-normal duration-300 hover:bg-green-variation"
+					class="h-8 w-8 rounded-md bg-transparent p-1 text-blue-normal duration-300 hover:bg-blue-light"
 				/>
 			</button>
 		</div>
 
-		<div class="bg-green-normal py-2">
+		<div class="bg-blue-normal py-2">
 			<div class="layout flex flex-wrap gap-x-6 gap-y-3 space-x-0 lg:space-x-12">
 				{#each filterOptions as option, index}
 					<label class="flex items-center space-x-2">
 						<input
-							class="h-4 w-4 cursor-pointer border-white text-green-normal focus:ring-green-normal"
+							class="h-4 w-4 cursor-pointer border-white text-blue-normal focus:ring-blue-normal"
 							type="radio"
 							bind:group={selectedFilter}
 							value={option}
@@ -105,7 +105,7 @@
 				<li class="">
 					<a
 						href={getItemUrl(result)}
-						class="group flex flex-col space-y-2 rounded-md bg-white p-4 duration-300 hover:bg-green-variation"
+						class="group flex flex-col space-y-2 rounded-md bg-white p-4 duration-300 hover:bg-blue-light"
 						onclick={clearSearchTerm}
 						target={result.itemType.key === 'publications' ? '_blank' : '_self'}
 					>
@@ -114,7 +114,7 @@
 								<span class="text-gray-500">{formatDateNews(result.date)}</span>
 							{/if}
 							<span
-								class="relative z-10 rounded-md bg-green-variation px-3 py-1.5 font-medium duration-300"
+								class="relative z-10 rounded-md bg-blue-light px-3 py-1.5 font-medium duration-300"
 							>
 								<span>
 									{result.itemType.label}

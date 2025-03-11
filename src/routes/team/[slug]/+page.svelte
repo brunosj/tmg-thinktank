@@ -84,7 +84,7 @@
 				<h2 class="font-semibold text-black">
 					{item.fields.name}
 				</h2>
-				<h3 class="pb-4 font-bold text-green-normal">
+				<h3 class="pb-4 font-bold text-blue-normal">
 					{item.fields.position}
 				</h3>
 
@@ -94,7 +94,7 @@
 					</p>
 				{/if}
 
-				<ul class="flex items-center space-x-3 pt-2 text-green-normal">
+				<ul class="flex items-center space-x-3 pt-2 text-blue-normal">
 					{#if item.fields.email}
 						<a href={`mailto:${item.fields.email}`} class="">
 							<Icon icon={FaMail} label="Mail" classes="w-4 h-4" />
@@ -141,7 +141,7 @@
 	{/if}
 
 	<div class="layout pt-6 lg:pt-8">
-		<ButtonArrow to="/team" color="#F4F6F" textColor="#67797B" arrowDirection="left"
+		<ButtonArrow to="/team" color="#F4F6F" textColor="#2e2d51" arrowDirection="left"
 			>Team</ButtonArrow
 		>
 	</div>

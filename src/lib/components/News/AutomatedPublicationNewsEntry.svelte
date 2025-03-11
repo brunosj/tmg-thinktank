@@ -10,6 +10,8 @@
 	import { slugify } from '$utils/utils';
 	import Tag from '$components/UI/Tag.svelte';
 	import { formatDateNews } from '$utils/utils';
+	import RelatedContentSection from '$components/Layout/RelatedContentSection.svelte';
+
 	interface Props {
 		item: Publication;
 	}
@@ -26,7 +28,7 @@
 <SEO title={item.fields.title} description={item.fields.summary} {image} />
 <div class="bg-green-light">
 	<div class="overflow-hidden">
-		<section class="bg-green-variation">
+		<section class="bg-blue-light">
 			<div
 				class="layout grid grid-cols-1 overflow-hidden pb-6 pt-24 lg:grid-cols-3 lg:pb-12 lg:pt-32"
 			>
@@ -34,7 +36,7 @@
 					<div class="font-bold text-white">
 						<span class="rounded-md bg-gray-900 px-2 py-1">{item.fields.category}</span>
 					</div>
-					<h2 class="font-bold leading-tight text-green-normal">
+					<h2 class="font-bold leading-tight text-blue-normal">
 						{item.fields.title}
 					</h2>
 					<h4>{item.fields.summary}</h4>
@@ -69,12 +71,6 @@
 				<div class="richText pb-5">
 					{@html renderRichText(item.fields.automatedNewsEntry)}
 				</div>
-				<!-- {#if item.fields.relatedNews}
-					<div class="pt-6">
-						<div class="text-xl font-semibold lg:text-2xl">Related News</div>
-						<NewsListing items={item.fields.relatedNews} />
-					</div>
-				{/if} -->
 			</div>
 		</div>
 

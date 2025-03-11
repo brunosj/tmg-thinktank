@@ -6,6 +6,8 @@
 	import VideoListing from '$components/Video/VideoListing.svelte';
 	import { renderRichText } from '$utils/utils';
 	import type { News } from '$lib/types/types';
+	import RelatedContentSection from '$components/Layout/RelatedContentSection.svelte';
+
 	interface Props {
 		data: Page;
 	}
@@ -33,9 +35,9 @@
 	keywords={item.fields.keywords}
 />
 <article class="overflow-hidden pt-16 lg:pt-32">
-	<section class="layout space-y-6 border-b border-green-normal pb-6 lg:pb-12">
+	<section class="layout space-y-6 border-b border-blue-normal pb-6 lg:pb-12">
 		<h3 class="font-semibold leading-relaxed text-black">{item.fields.type}</h3>
-		<h1 class="font-bold leading-tight text-green-normal">
+		<h1 class="font-bold leading-tight text-blue-normal">
 			{item.fields.title}
 		</h1>
 		<p class="text-xl">{item.fields.summary}</p>
@@ -49,17 +51,19 @@
 	<section class="richText layout w-full py-6 lg:w-2/3 lg:py-12">
 		{@html renderRichText(item.fields.descriptionRich)}
 		{#if item.fields.relatedNews.length > 0}
-			<div class="pt-6">
-				<div class="text-xl font-semibold lg:text-2xl">Related News</div>
+			{#snippet relatedNewsContent()}
 				<NewsListing items={item.fields.relatedNews} />
-			</div>
+			{/snippet}
+
+			<RelatedContentSection title="Related News" children={relatedNewsContent} />
 		{/if}
 
 		{#if item.fields.relatedPublications.length > 0}
-			<div class="pt-6">
-				<div class="text-xl font-semibold lg:text-2xl">Related Publications</div>
+			{#snippet relatedPublicationsContent()}
 				<PublicationListing items={item.fields.relatedPublications} />
-			</div>
+			{/snippet}
+
+			<RelatedContentSection title="Related Publications" children={relatedPublicationsContent} />
 		{/if}
 
 		<div class="pt-6">

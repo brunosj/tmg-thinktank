@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Event } from '$lib/types/types';
 	import { formatTime, formatDay, formatMonth, formatYear } from '$utils/utils';
 	import { ensureHttps } from '$utils/utils';
@@ -11,13 +10,7 @@
 		bgColor?: string;
 	}
 
-	let {
-		events,
-		titleTextColor = '',
-		color1 = '#67797B',
-		color2,
-		bgColor = ''
-	}: Props = $props();
+	let { events, titleTextColor = '', color1 = '#2e2d51', color2, bgColor = '' }: Props = $props();
 </script>
 
 <section class="grid grid-cols-1 gap-5 py-4 lg:grid-cols-2 lg:py-8">

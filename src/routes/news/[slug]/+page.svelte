@@ -8,6 +8,8 @@
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
 	import { slugify } from '$utils/utils';
 	import Tag from '$components/UI/Tag.svelte';
+	import RelatedContentSection from '$components/Layout/RelatedContentSection.svelte';
+
 	interface Props {
 		data: Page;
 	}
@@ -31,6 +33,11 @@
 			? item.fields.imageCdn[0].context?.custom.caption
 			: item.fields.image.fields.description
 	);
+
+	// Filter out the current news item from related news
+	let filteredRelatedNews = $derived(
+		item.fields.relatedNews?.filter((news) => news.fields.slug !== item.fields.slug) || []
+	);
 </script>
 
 <SEO
@@ -40,12 +47,12 @@
 	keywords={item.fields.keywords}
 />
 <div class="layout overflow-hidden pt-16 lg:pt-32">
-	<section class="mt-6 border-b border-green-normal lg:mt-12">
+	<section class="mt-6 border-b border-blue-normal lg:mt-12">
 		<div class="space-y-6 overflow-hidden">
 			<div class="font-bold text-white">
 				<span class="rounded-md bg-gray-900 px-2 py-1">{item.fields.type}</span>
 			</div>
-			<h2 class="font-bold leading-tight text-green-normal">
+			<h2 class="font-bold leading-tight text-blue-normal">
 				{item.fields.title}
 			</h2>
 			<h4 class="pb-12">{item.fields.summary}</h4>
@@ -75,18 +82,20 @@
 			{@html renderRichText(item.fields.descriptionRich)}
 		</div>
 
-		{#if item.fields.relatedNews}
-			<div class="pt-6">
-				<div class="text-xl font-semibold lg:text-2xl">Related News</div>
-				<NewsListing items={item.fields.relatedNews} />
-			</div>
+		{#if filteredRelatedNews.length > 0}
+			{#snippet relatedNewsContent()}
+				<NewsListing items={filteredRelatedNews} />
+			{/snippet}
+
+			<RelatedContentSection title="Related News" children={relatedNewsContent} />
 		{/if}
 
 		{#if item.fields.relatedPublications}
-			<div class="pt-6">
-				<div class="text-xl font-semibold lg:text-2xl">Related Publications</div>
+			{#snippet relatedPublicationsContent()}
 				<PublicationListing items={item.fields.relatedPublications} />
-			</div>
+			{/snippet}
+
+			<RelatedContentSection title="Related Publications" children={relatedPublicationsContent} />
 		{/if}
 
 		<div

@@ -8,6 +8,9 @@
 	import Tag from '$components/UI/Tag.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 	import { ensureHttps } from '$utils/utils';
+	import PublicationListing from '$components/Publications/PublicationListing.svelte';
+	import RelatedContentSection from '$components/Layout/RelatedContentSection.svelte';
+
 	interface Props {
 		data: Page;
 	}
@@ -24,6 +27,7 @@
 
 	let moreBlogItems: BlogPost[] = $derived(
 		entries
+			.filter((entry) => entry.fields.slug !== item.fields.slug)
 			.sort((a, b) => {
 				return new Date(b.fields.dateFormat).getTime() - new Date(a.fields.dateFormat).getTime();
 			})
@@ -52,12 +56,12 @@
 
 <article class="bg-green-light">
 	<section>
-		<div class="relative z-0 bg-green-variation py-24 lg:pb-32 lg:pt-40">
+		<div class="relative z-0 bg-blue-light py-24 lg:pb-32 lg:pt-40">
 			<div class="layout w-full space-y-6 last:pb-12 lg:w-2/3">
 				<div class="font-bold text-white">
 					<span class="rounded-md bg-gray-900 px-2 py-1">Blog Post</span>
 				</div>
-				<h1 class="text-green-normal">
+				<h1 class="text-blue-normal">
 					{item.fields.title}
 				</h1>
 				<h4 class=" text-black">
@@ -108,19 +112,32 @@
 
 	<div class="layout w-full pb-6 lg:pb-12">
 		{#if item.fields.video}
-			<section class="border-t border-gray-300">
-				<div class="pt-6 text-xl font-semibold lg:text-2xl">
-					{Array.isArray(item.fields.video) && item.fields.video.length >= 2
-						? 'Related Videos'
-						: 'Related Video'}
-				</div>
-				<VideoListing videos={item.fields.video} />
-			</section>
+			{#snippet videoContent()}
+				<VideoListing videos={item.fields.video || []} />
+			{/snippet}
+
+			<RelatedContentSection
+				title={Array.isArray(item.fields.video) && item.fields.video.length >= 2
+					? 'Related Videos'
+					: 'Related Video'}
+				children={videoContent}
+			/>
 		{/if}
-		<section class="border-t border-gray-300 pb-12">
-			<div class="pt-6 text-xl font-semibold lg:text-2xl">Recent Blogs</div>
+
+		{#if item.fields.relatedPublications}
+			{#snippet publicationsContent()}
+				<PublicationListing items={item.fields.relatedPublications} layout={false} />
+			{/snippet}
+
+			<RelatedContentSection title="Related Publications" children={publicationsContent} />
+		{/if}
+
+		{#snippet blogContent()}
 			<BlogListing items={moreBlogItems} />
-		</section>
+		{/snippet}
+
+		<RelatedContentSection title="Recent Blogs" extraClasses="pb-12" children={blogContent} />
+
 		<div class="items-center border-b-0 border-t border-gray-300 md:flex md:py-12 lg:border-b">
 			<div class="leading-relaxed">
 				{#if item.fields.author}

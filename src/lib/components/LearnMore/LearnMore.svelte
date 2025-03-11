@@ -32,7 +32,7 @@
 						<a
 							href={link.link}
 							target="_blank"
-							class="block transform p-3 text-green-light transition-all duration-300 hover:scale-110 hover:text-green-variation"
+							class="block transform p-3 text-green-light transition-all duration-300 hover:scale-110 hover:text-blue-light"
 						>
 							<Icon icon={link.icon} label={link.label} />
 						</a>

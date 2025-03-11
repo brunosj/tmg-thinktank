@@ -9,7 +9,7 @@
 	let { teamSectionText }: Props = $props();
 </script>
 
-<div class="bg-white font-bold text-green-normal">
+<div class="text-blue-normal bg-white font-bold">
 	<div class="layout grid grid-cols-1 py-12 lg:grid-cols-2">
 		<HeadingAbout text="Our Team" />
 		<div>

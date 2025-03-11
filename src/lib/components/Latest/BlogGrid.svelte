@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { News } from '$lib/types/types';
 	interface Props {
 		latest: News;
@@ -11,7 +10,7 @@
 
 <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
 	<div class="flex">
-		<div class="h-full w-full border duration-200 ease-in-out hover:bg-green-variation">
+		<div class="h-full w-full border duration-200 ease-in-out hover:bg-blue-light">
 			<a href={`/blog/${latest.fields.slug}`}>
 				<div class="group">
 					<div
@@ -59,7 +58,7 @@
 							</div>
 						</div>
 						<div
-							class="col-span-3 flex items-center py-6 pl-5 pr-4 duration-200 ease-in-out group-hover:bg-green-variation lg:block"
+							class="col-span-3 flex items-center py-6 pl-5 pr-4 duration-200 ease-in-out group-hover:bg-blue-light lg:block"
 						>
 							<div class="group flex-col">
 								<div class="text-xs font-bold text-white lg:text-base">

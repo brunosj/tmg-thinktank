@@ -40,7 +40,7 @@
 						<a
 							href={link.link}
 							target="_blank"
-							class="text-green-normal transition duration-300 ease-in-out hover:text-gray-800"
+							class="text-blue-normal transition duration-300 ease-in-out hover:text-gray-800"
 						>
 							<Icon icon={link.icon} label={link.label} />
 						</a>

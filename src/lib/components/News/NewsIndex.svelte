@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { News } from '$lib/types/types';
 	import { formatDateLong } from '$lib/utils/utils';
 	interface Props {
@@ -36,13 +35,13 @@
 	}) as item (item.fields.slug)}
 		<a href={`/${getSingleItemPrefix(item.fields.type)}/${item.fields.slug}`} class="bg-white">
 			<div class="p-5">
-				<div class="group justify-between border-b border-green-normal leading-normal">
+				<div class="border-blue-normal group justify-between border-b leading-normal">
 					<div>
 						<p class="pb-2 text-base font-semibold text-black">
 							{formatDateLong(item.fields.dateFormat)} | {item.fields.type}
 						</p>
 						<h1
-							class="pb-4 text-xl font-bold text-green-normal group-hover:text-green-normal group-hover:underline"
+							class="text-blue-normal group-hover:text-blue-normal pb-4 text-xl font-bold group-hover:underline"
 						>
 							{item.fields.title}
 						</h1>

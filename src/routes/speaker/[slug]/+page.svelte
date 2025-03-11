@@ -82,7 +82,7 @@
 					</p>
 				{/if}
 
-				<div class="flex items-center space-x-3 pt-2 text-green-normal">
+				<div class="flex items-center space-x-3 pt-2 text-blue-normal">
 					{#if speaker.fields.twitter}
 						<a href={`https://twitter.com/${speaker.fields.twitter}`} target="_blank">
 							<Icon icon={FaTwitter} label="Twitter" classes="w-4 h-4" />
@@ -106,7 +106,7 @@
 
 	{#if events}
 		<section class="pt-6 lg:pt-12">
-			<Heading text="Events" bgColor="#F4F6F6" textColor="#67797B" />
+			<Heading text="Events" bgColor="#eaeaee" textColor="#2e2d51" />
 			<div class="layout grid grid-cols-1 py-6 lg:grid-cols-2 lg:py-12">
 				<EventListing {events} />
 			</div>

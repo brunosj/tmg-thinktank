@@ -10,6 +10,7 @@
 	import ImageGallery from '$components/Gallery/ImageGallery.svelte';
 	import Banner from '$components/Banner/Banner.svelte';
 	import ResponsiveIFrame from '$lib/components/IFrame/ResponsiveIFrame.svelte';
+	import RelatedContentSection from '$components/Layout/RelatedContentSection.svelte';
 
 	interface Props {
 		data: Page;
@@ -104,7 +105,7 @@
 									{@html item.fields.iFrameCode}
 								</div>
 							{:else}
-								<div class="richText bg-green-variation p-8 text-center text-black">
+								<div class="richText bg-blue-light p-8 text-center text-black">
 									{@html renderRichText(item.fields.text)}
 								</div>
 							{/if}
@@ -127,27 +128,35 @@
 
 	{#if feature.fields.events}
 		<section class="py-6">
-			<Heading text="Related Events" textColor={feature.fields.color1} bgColor="#F4F6F6" />
+			<Heading text="Related Events" textColor={feature.fields.color1} bgColor="#eaeaee" />
 			<div class="layout py-6">
-				<FeatureEventCard
-					events={feature.fields.events}
-					color1={feature.fields.color2}
-					color2="#F4F6F6"
-				/>
+				{#snippet eventsContent()}
+					<FeatureEventCard
+						events={feature.fields.events}
+						color1={feature.fields.color2}
+						color2="#eaeaee"
+					/>
+				{/snippet}
+
+				<RelatedContentSection title="Related Events" hasBorder={false} children={eventsContent} />
 			</div>
 		</section>
 	{/if}
 
 	{#if feature.fields.relatedDocuments}
 		<section>
-			<Heading text="Documents" textColor={feature.fields.color1} bgColor="#F4F6F6" />
-			<PublicationListing items={feature.fields.relatedDocuments} />
+			<Heading text="Documents" textColor={feature.fields.color1} bgColor="#eaeaee" />
+			{#snippet documentsContent()}
+				<PublicationListing items={feature.fields.relatedDocuments} />
+			{/snippet}
+
+			<RelatedContentSection title="Documents" hasBorder={false} children={documentsContent} />
 		</section>
 	{/if}
 
 	{#if feature.fields.news}
 		<section>
-			<Heading text="News & Blog Posts" bgColor="#F4F6F6" textColor={feature.fields.color1} />
+			<Heading text="News & Blog Posts" bgColor="#eaeaee" textColor={feature.fields.color1} />
 			<div class="layout py-6">
 				<NewsListing items={feature.fields.news} />
 			</div>
@@ -156,7 +165,7 @@
 
 	{#if feature.fields.partnersLogos}
 		<section>
-			<Heading text="In collaboration with" bgColor="#F4F6F6" textColor={feature.fields.color1} />
+			<Heading text="In collaboration with" bgColor="#eaeaee" textColor={feature.fields.color1} />
 			<div class="layout py-6">
 				<ul class="flex flex-wrap items-center justify-around px-5 lg:px-0">
 					{#each feature.fields.partnersLogos as item (item.fields.url)}

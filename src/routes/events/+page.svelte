@@ -75,7 +75,7 @@
 </div>
 
 {#if eventSeries}
-	<div class="bg-green-variation">
+	<div class="bg-blue-light">
 		<div class="layout">
 			<div class="pt-6 text-3xl font-bold lg:pt-12">Event Series</div>
 			<EventSeriesCard items={eventSeries} />

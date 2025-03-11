@@ -32,7 +32,7 @@
 			<div
 				class="relative overflow-hidden rounded-2xl shadow-2xl transition-all duration-500"
 				style="background: linear-gradient(135deg, {initiative.fields.color1 ||
-					'#3B5F63'}, {initiative.fields.color2 || '#67797B'});"
+					'#3B5F63'}, {initiative.fields.color2 || '#2e2d51'});"
 			>
 				<!-- Decorative elements -->
 				<div class="absolute inset-0 opacity-20">

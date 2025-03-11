@@ -4,9 +4,10 @@
 	import type { Programme } from '$lib/types/types';
 	interface Props {
 		heroProgrammes: Programme[];
+		programmeSectionTitle: string;
 	}
 
-	let { heroProgrammes }: Props = $props();
+	let { heroProgrammes, programmeSectionTitle }: Props = $props();
 
 	let numberOfColumns = $derived(Math.min(heroProgrammes.length, 6));
 	let gridClass = $derived(
@@ -26,9 +27,9 @@
 	);
 </script>
 
-<div class="bgGradientTLBlue relative">
+<div class="bgGradientTL relative">
 	<div class="sectionPy layout mx-auto hidden lg:block">
-		<HeadingV2 title="We work towards" textColor="light" />
+		<HeadingV2 title={programmeSectionTitle} textColor="light" />
 
 		<div class="mx-auto mt-12 max-w-2xl lg:max-w-none">
 			<div class={gridClass}>
@@ -46,7 +47,7 @@
 							/>
 						</div>
 						<div
-							class=" flex h-full flex-col items-center space-y-2 rounded-b-lg bg-white p-4 duration-300 group-hover:bg-green-variation lg:p-6"
+							class=" flex h-full flex-col items-center space-y-2 rounded-b-lg bg-white p-4 duration-300 group-hover:bg-blue-light lg:p-6"
 						>
 							<div class="flex h-full flex-col justify-around space-y-2">
 								<div class="text-base font-semibold leading-6 text-navyBlue">

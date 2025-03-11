@@ -33,7 +33,7 @@
 </script>
 
 <div class={gridClass}>
-	{#each items as item (item.fields.title)}
+	{#each items as item (`${item.fields.type}-${item.fields.slug}-${item.fields.dateFormat}`)}
 		<a
 			href={`/${getSingleItemPrefix(item.fields.type)}/${item.fields.slug}`}
 			class="group h-full rounded-md border pb-5 lg:pb-0"
@@ -54,7 +54,7 @@
 			<div class="p-4">
 				<div class="flex items-center justify-between gap-x-4 pt-2 text-white">
 					<span
-						class="rounded-md bg-black px-2 py-1 text-xs font-bold duration-300 ease-in-out group-hover:bg-green-normal"
+						class="rounded-md bg-black px-2 py-1 text-xs font-bold duration-300 ease-in-out group-hover:bg-blue-normal"
 					>
 						{item.fields.type || 'Blog Post'}
 					</span>
@@ -62,7 +62,7 @@
 				</div>
 
 				<h1
-					class="font pt-3 text-base font-bold leading-tight text-black duration-300 group-hover:text-green-normal lg:text-2xl"
+					class="font pt-3 text-base font-bold leading-tight text-black duration-300 group-hover:text-blue-normal lg:text-2xl"
 				>
 					{item.fields.title}
 				</h1>

@@ -25,7 +25,7 @@
 </script>
 
 <div
-	class="relative mt-12 w-full overflow-hidden lg:mt-16"
+	class="relative mt-12 min-h-[50vh] w-full overflow-hidden lg:mt-16"
 	bind:this={element}
 	style={`background-color: ${heroBackgroundColor};`}
 >

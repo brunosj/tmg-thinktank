@@ -13,12 +13,12 @@
 <div class="">
 	<ul class="flex gap-3 text-sm">
 		<li
-			class="group flex items-center justify-center rounded-md bg-green-variation duration-300 ease-in-out hover:bg-green-normal"
+			class="group flex items-center justify-center rounded-md bg-blue-light duration-300 ease-in-out hover:bg-blue-normal"
 		>
 			<a
 				href={twitterShareUrl}
 				target="_blank"
-				class="flex flex-col items-center justify-center px-3 py-1 font-bold text-green-normal duration-300 group-hover:text-white"
+				class="flex flex-col items-center justify-center px-3 py-1 font-bold text-blue-normal duration-300 group-hover:text-white"
 			>
 				<div class="flex items-center justify-center">
 					<FaTwitter class="h-6 w-6" />
@@ -27,12 +27,12 @@
 			</a>
 		</li>
 		<li
-			class="group flex items-center justify-center rounded-md bg-green-variation duration-300 ease-in-out hover:bg-green-normal"
+			class="group flex items-center justify-center rounded-md bg-blue-light duration-300 ease-in-out hover:bg-blue-normal"
 		>
 			<a
 				href={linkedInShareUrl}
 				target="_blank"
-				class="flex flex-col items-center justify-center px-3 py-1 font-bold text-green-normal duration-300 group-hover:text-white"
+				class="flex flex-col items-center justify-center px-3 py-1 font-bold text-blue-normal duration-300 group-hover:text-white"
 			>
 				<div class="flex items-center justify-center">
 					<FaLinkedin class="h-6 w-6" />

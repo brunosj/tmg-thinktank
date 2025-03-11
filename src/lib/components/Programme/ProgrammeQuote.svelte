@@ -13,7 +13,7 @@
 	let intersecting = $state(false);
 </script>
 
-<section class="pb-6 text-green-normal" bind:this={element}>
+<section class="text-blue-normal pb-6" bind:this={element}>
 	<IntersectionObserver {element} bind:intersecting once>
 		{#if intersecting}
 			<div

@@ -29,7 +29,7 @@
 					<div class="">
 						<a href={`/speaker/${item.fields.slug}`}>
 							<div
-								class="text-large font-semibold text-black transition duration-150 ease-in-out group-hover:text-green-normal"
+								class="text-large group-hover:text-blue-normal font-semibold text-black transition duration-150 ease-in-out"
 							>
 								{item.fields.name}
 							</div>

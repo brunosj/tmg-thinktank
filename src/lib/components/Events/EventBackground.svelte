@@ -11,11 +11,11 @@
 	let { item }: Props = $props();
 </script>
 
-<Accordion class="rounded-md bg-green-variation">
+<Accordion class="rounded-md bg-blue-light">
 	<AccordionItem open tag="div">
 		<span slot="header" class="text-lg">Background</span>
 		<div slot="arrowup">
-			<MinusSmIcon class="block h-6 w-6 text-green-normal group-hover:text-black" />
+			<MinusSmIcon class="block h-6 w-6 text-blue-normal group-hover:text-black" />
 		</div>
 		<div slot="arrowdown">
 			<PlusSmIcon class="block h-6 w-6 text-gray-400 group-hover:text-gray-500" />

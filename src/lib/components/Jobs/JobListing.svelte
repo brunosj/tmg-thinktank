@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Job } from '$lib/types/types';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
 	import { formatDateNews } from '$utils/utils';
@@ -11,7 +10,7 @@
 </script>
 
 <li>
-	<div class="justify-between border-b border-green-normal leading-normal">
+	<div class="border-blue-normal justify-between border-b leading-normal">
 		<div class="">
 			<a
 				href={item.fields.applicationFile?.fields
@@ -19,9 +18,7 @@
 					: item.fields.url}
 				target="_blank"
 			>
-				<h1
-					class="pb-4 text-xl font-bold text-green-normal hover:text-green-normal hover:underline"
-				>
+				<h1 class="text-blue-normal hover:text-blue-normal pb-4 text-xl font-bold hover:underline">
 					{item.fields.title}
 				</h1>
 			</a>

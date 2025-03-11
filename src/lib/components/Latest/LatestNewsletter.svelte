@@ -28,7 +28,7 @@
 	<div class="mt-6 grid-cols-2 border lg:mt-12 lg:grid">
 		<div class="lg:border-r">
 			<div class="p-5 text-base font-bold text-white lg:text-lg">
-				<span class="bg-gray-900 px-2 py-1 duration-200 ease-in-out group-hover:bg-green-normal">
+				<span class="group-hover:bg-blue-normal bg-gray-900 px-2 py-1 duration-200 ease-in-out">
 					Latest
 				</span>
 			</div>
@@ -50,7 +50,7 @@
 
 		<div class="hidden lg:block">
 			<div class="p-5 text-base font-bold text-white lg:text-lg">
-				<span class="bg-gray-900 px-2 py-1 duration-200 ease-in-out group-hover:bg-green-normal">
+				<span class="group-hover:bg-blue-normal bg-gray-900 px-2 py-1 duration-200 ease-in-out">
 					Previous editions
 				</span>
 			</div>

@@ -16,7 +16,7 @@
 	});
 </script>
 
-<div class="sectionPy overflow-hidden bg-green-variation">
+<div class="sectionPy overflow-hidden bg-blue-light">
 	<div class="layout">
 		<HeadingV2
 			title={landingPage.fields.latestSectionTitle}

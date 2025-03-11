@@ -63,6 +63,10 @@ const config = {
 					variationLight: '#f6f8f8',
 					light: '#FFFFFF'
 				},
+				blue: {
+					normal: '#2e2d51',
+					light: '#eaeaee'
+				},
 				backg: {
 					dark: '#394535',
 					light: '#A9B4DB'

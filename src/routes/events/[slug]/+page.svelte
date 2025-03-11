@@ -14,6 +14,8 @@
 	import EventFacilitators from '$components/Events/EventFacilitators.svelte';
 	import RelatedItems from '$components/Events/RelatedItems.svelte';
 	import VideoListing from '$components/Video/VideoListing.svelte';
+	import RelatedContentSection from '$components/Layout/RelatedContentSection.svelte';
+
 	interface Props {
 		data: Event;
 	}
@@ -71,7 +73,17 @@
 					<EventBackground {item} />
 				{/if}
 				{#if item.fields.video}
-					<VideoListing videos={item.fields.video} />
+					{#snippet videoContent()}
+						<VideoListing videos={item.fields.video} />
+					{/snippet}
+
+					<RelatedContentSection
+						title={Array.isArray(item.fields.video) && item.fields.video.length > 1
+							? 'Related Videos'
+							: 'Related Video'}
+						hasBorder={false}
+						children={videoContent}
+					/>
 				{/if}
 				{#if item.fields.eventRecording}
 					<EventRecording {item} />

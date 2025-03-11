@@ -42,10 +42,10 @@
 
 <SEO title="Publications" />
 <SectionHeaderLow title="Publications" background="bgGradientBR" />
-<article class=" bg-green-variation" bind:this={element}>
+<article class=" bg-blue-light" bind:this={element}>
 	<IntersectionObserver {element} bind:intersecting once>
 		{#if intersecting}
-			<div class="layout grid-cols-4 gap-6 bg-green-variation align-top lg:grid">
+			<div class="layout grid-cols-4 gap-6 bg-blue-light align-top lg:grid">
 				<div
 					class="sticky top-0 col-span-1 mx-auto hidden w-full self-start py-12 lg:block"
 					transition:fly={{ x: -100, duration: 500, delay: 500, easing: cubicInOut }}
@@ -61,7 +61,7 @@
 					class="col-span-3"
 					transition:fly={{ x: 100, duration: 500, delay: 500, easing: cubicInOut }}
 				>
-					<div class="mt-0 bg-white text-center text-green-normal lg:mt-12">
+					<div class="mt-0 bg-white text-center text-blue-normal lg:mt-12">
 						<div class="grid grid-cols-1">
 							<div class="p-6 text-lg lg:text-xl">
 								Check out our

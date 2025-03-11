@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Video } from '$lib/types/types';
 	import VideoWrapper from '$components/Video/VideoWrapper.svelte';
 	import { formatDateNews } from '$utils/utils';
@@ -35,14 +34,14 @@
 								<div class="flex w-full items-center justify-between gap-x-4 text-xs">
 									<a
 										href={`/programmes/${video.fields.programmes[0].fields.slug}`}
-										class="ite relative z-10 rounded-md bg-green-variation px-3 py-1.5 font-medium text-gray-600 duration-300"
+										class="ite relative z-10 rounded-md bg-blue-light px-3 py-1.5 font-medium text-gray-600 duration-300"
 									>
 										{video.fields.programmes[0].fields.title}
 									</a>
 									<span class="text-gray-500">{formatDateNews(video.fields.date)}</span>
 								</div>
 								<h1
-									class="font text-base font-bold leading-tight text-black group-hover:text-green-normal lg:text-xl"
+									class="font text-base font-bold leading-tight text-black group-hover:text-blue-normal lg:text-xl"
 								>
 									{video.fields.title}
 								</h1>
@@ -69,7 +68,7 @@
 				{#if showTitle}
 					<div class="space-y-3 p-4">
 						<h1
-							class="text-base font-bold leading-tight text-black group-hover:text-green-normal lg:text-xl"
+							class="text-base font-bold leading-tight text-black group-hover:text-blue-normal lg:text-xl"
 						>
 							{videosArray[0].fields.title}
 						</h1>
