@@ -163,10 +163,7 @@ export interface Initiative extends ContentfulEntry {
 		pageBannerCdn: ImageCdn[];
 		title: string;
 		summary: string;
-		quoteText: string;
-		quotePerson: string;
-		quotePersonOrganization: string;
-		quotePersonPicture: Image;
+
 		section1Heading: string;
 		section1Image: ImageCdn[];
 		text1: string;
@@ -190,6 +187,23 @@ export interface Initiative extends ContentfulEntry {
 		news: News[];
 		publications: Publication[];
 		partners: Partner[];
+		quoteText: string;
+		quotePerson: string;
+		quotePersonOrganization: string;
+		quotePersonPicture: Image;
+		quote2Text: string;
+		quote2Person: string;
+		quote2PersonOrganization: string;
+		quote3Text: string;
+		quote3Person: string;
+		quote3PersonOrganization: string;
+		quote4Text: string;
+		quote4Person: string;
+		quote4PersonOrganization: string;
+		quote5Text: string;
+		quote5Person: string;
+		quote5PersonOrganization: string;
+		quotesPictures: ImageCdn[];
 		color1: string;
 		color2: string;
 		videoTitle: string;

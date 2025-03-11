@@ -52,6 +52,17 @@
 			tabs.push({ id: 'gallery', label: 'Gallery' });
 		}
 
+		// Voices tab (quotes)
+		if (
+			item.fields.quoteText ||
+			item.fields.quote2Text ||
+			item.fields.quote3Text ||
+			item.fields.quote4Text ||
+			item.fields.quote5Text
+		) {
+			tabs.push({ id: 'voices', label: 'Voices' });
+		}
+
 		if (
 			(item.fields.publications && item.fields.publications.length > 0) ||
 			(item.fields.news && item.fields.news.length > 0)
@@ -230,7 +241,7 @@
 	image={item.fields.pageBannerCdn[0].secure_url}
 />
 
-<div style="background-color: {item.fields.color2}" class="relative overflow-hidden">
+<div style="background-color: {item.fields.color1}" class="relative overflow-hidden">
 	<!-- Simplified decorative elements -->
 	<div class="absolute inset-0 opacity-10">
 		<div class="absolute left-0 top-0 h-32 w-32 rounded-full bg-white blur-xl"></div>
@@ -292,7 +303,7 @@
 				{#each availableTabs() as tab}
 					<button
 						class="relative whitespace-nowrap rounded-full px-4 py-2 font-heading text-sm font-medium transition-all duration-200 sm:text-base"
-						style="background-color: {activeTab === tab.id ? item.fields.color2 : 'transparent'}; 
+						style="background-color: {activeTab === tab.id ? item.fields.color1 : 'transparent'}; 
 						color: {activeTab === tab.id ? 'white' : 'rgba(0,0,0,0.7)'}"
 						onclick={() => handleTabChange(tab.id)}
 					>
@@ -320,7 +331,7 @@
 				{#if tocSections().length > 0}
 					<TableOfContents
 						sections={tocSections()}
-						accentColor={item.fields.color2 || '#333'}
+						accentColor={item.fields.color1 || '#333'}
 						{activeSection}
 					/>
 				{/if}
@@ -333,7 +344,7 @@
 						defaultHeading="Initiative Details"
 						text={item.fields.text1}
 						images={item.fields.section1Image}
-						accentColor={item.fields.color2 || '#333'}
+						accentColor={item.fields.color1 || '#333'}
 					/>
 
 					<!-- Section 2 -->
@@ -342,7 +353,7 @@
 						defaultHeading="Additional Information"
 						text={item.fields.text2}
 						images={item.fields.section2Image}
-						accentColor={item.fields.color2 || '#333'}
+						accentColor={item.fields.color1 || '#333'}
 					/>
 
 					<!-- Quote Section -->
@@ -353,7 +364,7 @@
 								quotePerson={item.fields.quotePerson}
 								quotePersonOrganization={item.fields.quotePersonOrganization}
 								quotePersonPictureUrl={item.fields.quotePersonPicture.fields.file.url}
-								color={item.fields.color2 || '#333'}
+								color={item.fields.color1 || '#333'}
 							/>
 						</div>
 					{/if}
@@ -364,7 +375,7 @@
 						defaultHeading="Further Details"
 						text={item.fields.text3}
 						images={item.fields.section3Image}
-						accentColor={item.fields.color2 || '#333'}
+						accentColor={item.fields.color1 || '#333'}
 						maxWidth="max-w-4xl"
 					/>
 
@@ -374,7 +385,7 @@
 						defaultHeading="More Information"
 						text={item.fields.text4}
 						images={item.fields.section4Image}
-						accentColor={item.fields.color2 || '#333'}
+						accentColor={item.fields.color1 || '#333'}
 						maxWidth="max-w-4xl"
 					/>
 
@@ -384,7 +395,7 @@
 						defaultHeading="Additional Content"
 						text={item.fields.text5}
 						images={item.fields.section5Image}
-						accentColor={item.fields.color2 || '#333'}
+						accentColor={item.fields.color1 || '#333'}
 						maxWidth="max-w-4xl"
 					/>
 
@@ -393,7 +404,7 @@
 						<div id="slides-section">
 							<SimpleCarousel
 								slides={item.fields.slides}
-								accentColor={item.fields.color2 || '#333'}
+								accentColor={item.fields.color1 || '#333'}
 								title={item.fields.slidesHeading || 'Slides'}
 								autoAdvance={false}
 							/>
@@ -409,14 +420,14 @@
 		<EventsSection
 			events={item.fields.events || []}
 			speakers={speakers()}
-			accentColor={item.fields.color2 || '#333'}
+			accentColor={item.fields.color1 || '#333'}
 		/>
 	{/if}
 
 	<!-- Gallery Tab -->
 	{#if activeTab === 'gallery'}
 		<div class="animate-fadeIn mx-auto max-w-6xl">
-			<SectionHeading title="Image Gallery" color={item.fields.color2 || '#333'} />
+			<SectionHeading title="Image Gallery" color={item.fields.color1 || '#333'} />
 			{#if item.fields.galleryText}
 				<div class="mx-auto">
 					{@html renderRichText(item.fields.galleryText)}
@@ -425,8 +436,8 @@
 
 			<EnhancedGallery
 				images={item.fields.gallery}
-				borderColor={item.fields.color2 || '#333'}
-				textColor={item.fields.color2 || '#333'}
+				borderColor={item.fields.color1 || '#333'}
+				textColor={item.fields.color1 || '#333'}
 			/>
 		</div>
 	{/if}
@@ -450,14 +461,19 @@
 
 			{#if item.fields.publications}
 				<div class="">
-					<SectionHeading title="Publications & Articles" color={item.fields.color2 || '#333'} />
-					<PublicationListing items={item.fields.publications} layout={false} paddingTop="pt-0" />
+					<SectionHeading title="Publications & Articles" color={item.fields.color1 || '#333'} />
+					<PublicationListing
+						items={item.fields.publications}
+						layout={false}
+						paddingTop="pt-0"
+						invertHover={true}
+					/>
 				</div>
 			{/if}
 
 			{#if item.fields.news}
 				<div class="mt-16">
-					<SectionHeading title="News & Blog Posts" color={item.fields.color2 || '#333'} />
+					<SectionHeading title="News & Blog Posts" color={item.fields.color1 || '#333'} />
 					<NewsListing items={item.fields.news} padding="py-0" />
 				</div>
 			{/if}
@@ -467,13 +483,100 @@
 	<!-- Partners Tab -->
 	{#if activeTab === 'partners'}
 		<div class="animate-fadeIn mx-auto max-w-6xl">
-			<SectionHeading title="Partners" color={item.fields.color2 || '#333'} marginBottom="" />
+			<SectionHeading title="Partners" color={item.fields.color1 || '#333'} marginBottom="" />
 
 			<div class="flex flex-wrap items-center justify-center gap-4">
 				{#each item.fields.partners as partner}
 					<PartnersLogo item={partner} />
 				{/each}
 			</div>
+		</div>
+	{/if}
+
+	<!-- Voices Tab -->
+	{#if activeTab === 'voices'}
+		<div class="animate-fadeIn mx-auto max-w-6xl">
+			<SectionHeading title="Voices" color={item.fields.color1 || '#333'} />
+
+			<!-- Quote 1 -->
+			{#if item.fields.quoteText && item.fields.quotePerson && item.fields.quotePersonOrganization}
+				<div class="mb-16">
+					<EnhancedQuote
+						quoteText={item.fields.quoteText}
+						quotePerson={item.fields.quotePerson}
+						quotePersonOrganization={item.fields.quotePersonOrganization}
+						quotePersonPictureUrl={item.fields.quotesPictures &&
+						item.fields.quotesPictures.length > 0
+							? item.fields.quotesPictures[0].secure_url
+							: item.fields.quotePersonPicture?.fields.file.url || ''}
+						color={item.fields.color1 || '#333'}
+					/>
+				</div>
+			{/if}
+
+			<!-- Quote 2 -->
+			{#if item.fields.quote2Text && item.fields.quote2Person && item.fields.quote2PersonOrganization}
+				<div class="mb-16">
+					<EnhancedQuote
+						quoteText={item.fields.quote2Text}
+						quotePerson={item.fields.quote2Person}
+						quotePersonOrganization={item.fields.quote2PersonOrganization}
+						quotePersonPictureUrl={item.fields.quotesPictures &&
+						item.fields.quotesPictures.length > 1
+							? item.fields.quotesPictures[1].secure_url
+							: ''}
+						color={item.fields.color2 || '#333'}
+					/>
+				</div>
+			{/if}
+
+			<!-- Quote 3 -->
+			{#if item.fields.quote3Text && item.fields.quote3Person && item.fields.quote3PersonOrganization}
+				<div class="mb-16">
+					<EnhancedQuote
+						quoteText={item.fields.quote3Text}
+						quotePerson={item.fields.quote3Person}
+						quotePersonOrganization={item.fields.quote3PersonOrganization}
+						quotePersonPictureUrl={item.fields.quotesPictures &&
+						item.fields.quotesPictures.length > 2
+							? item.fields.quotesPictures[2].secure_url
+							: ''}
+						color={item.fields.color1 || '#333'}
+					/>
+				</div>
+			{/if}
+
+			<!-- Quote 4 -->
+			{#if item.fields.quote4Text && item.fields.quote4Person && item.fields.quote4PersonOrganization}
+				<div class="mb-16">
+					<EnhancedQuote
+						quoteText={item.fields.quote4Text}
+						quotePerson={item.fields.quote4Person}
+						quotePersonOrganization={item.fields.quote4PersonOrganization}
+						quotePersonPictureUrl={item.fields.quotesPictures &&
+						item.fields.quotesPictures.length > 3
+							? item.fields.quotesPictures[3].secure_url
+							: ''}
+						color={item.fields.color2 || '#333'}
+					/>
+				</div>
+			{/if}
+
+			<!-- Quote 5 -->
+			{#if item.fields.quote5Text && item.fields.quote5Person && item.fields.quote5PersonOrganization}
+				<div class="mb-16">
+					<EnhancedQuote
+						quoteText={item.fields.quote5Text}
+						quotePerson={item.fields.quote5Person}
+						quotePersonOrganization={item.fields.quote5PersonOrganization}
+						quotePersonPictureUrl={item.fields.quotesPictures &&
+						item.fields.quotesPictures.length > 4
+							? item.fields.quotesPictures[4].secure_url
+							: ''}
+						color={item.fields.color1 || '#333'}
+					/>
+				</div>
+			{/if}
 		</div>
 	{/if}
 </div>

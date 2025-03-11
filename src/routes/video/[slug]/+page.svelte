@@ -71,7 +71,3 @@
 		</div>
 	</section>
 </article>
-
-<style>
-	/* Add your CSS styles here */
-</style>

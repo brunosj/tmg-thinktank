@@ -6,9 +6,10 @@
 		items: Publication[];
 		layout?: boolean;
 		paddingTop?: string;
+		invertHover?: boolean;
 	}
 
-	let { items, layout = true, paddingTop = 'pt-6 lg:pt-12' }: Props = $props();
+	let { items, layout = true, paddingTop = 'pt-6 lg:pt-12', invertHover = false }: Props = $props();
 
 	// Create a derived value for sorted items instead of a reactive statement
 	let sortedItems = $derived(
@@ -29,7 +30,9 @@
 		{#if item.fields.pdf}
 			<a href={item.fields.pdf.fields.file.url} target="_blank" class="group">
 				<div
-					class="grid grid-cols-1 rounded-md bg-blue-light p-3 duration-300 group-hover:bg-white lg:grid-cols-4"
+					class="grid grid-cols-1 rounded-md {invertHover
+						? 'bg-white group-hover:bg-blue-light'
+						: 'bg-blue-light group-hover:bg-white'} p-3 duration-300 lg:grid-cols-4"
 				>
 					{#if image}
 						<div class="w-1/3 px-2 pb-5 transition duration-300 ease-in-out lg:w-full lg:pb-2">

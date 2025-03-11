@@ -63,11 +63,9 @@
 		</div>
 	</section>
 
-	<section class="pt layout pt-6 lg:pt-12">
-		<div>
-			<h1>{feature.fields.title}</h1>
-			<h3>{feature.fields.summary}</h3>
-		</div>
+	<section class="pt layout space-y-3 pt-6 lg:pt-12">
+		<h1>{feature.fields.title}</h1>
+		<h3>{feature.fields.summary}</h3>
 	</section>
 
 	{#if sectionsWithContentBlocks.length > 0}
