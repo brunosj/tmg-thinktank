@@ -356,19 +356,6 @@
 						accentColor={item.fields.color1 || '#333'}
 					/>
 
-					<!-- Quote Section -->
-					{#if item.fields.quoteText && item.fields.quotePerson && item.fields.quotePersonOrganization && item.fields.quotePersonPicture}
-						<div class="mx-auto mb-12 max-w-6xl">
-							<EnhancedQuote
-								quoteText={item.fields.quoteText}
-								quotePerson={item.fields.quotePerson}
-								quotePersonOrganization={item.fields.quotePersonOrganization}
-								quotePersonPictureUrl={item.fields.quotePersonPicture.fields.file.url}
-								color={item.fields.color1 || '#333'}
-							/>
-						</div>
-					{/if}
-
 					<!-- Section 3 -->
 					<ContentSection
 						heading={item.fields.section3Heading}
@@ -506,9 +493,9 @@
 						quotePerson={item.fields.quotePerson}
 						quotePersonOrganization={item.fields.quotePersonOrganization}
 						quotePersonPictureUrl={item.fields.quotesPictures &&
-						item.fields.quotesPictures.length > 0
+						item.fields.quotesPictures.length > 1
 							? item.fields.quotesPictures[0].secure_url
-							: item.fields.quotePersonPicture?.fields.file.url || ''}
+							: ''}
 						color={item.fields.color1 || '#333'}
 					/>
 				</div>

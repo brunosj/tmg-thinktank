@@ -190,7 +190,6 @@ export interface Initiative extends ContentfulEntry {
 		quoteText: string;
 		quotePerson: string;
 		quotePersonOrganization: string;
-		quotePersonPicture: Image;
 		quote2Text: string;
 		quote2Person: string;
 		quote2PersonOrganization: string;
