@@ -298,23 +298,25 @@
 <!-- Tabbed Navigation -->
 <div class="sticky top-[2rem] z-20 bg-white py-4 shadow-md lg:top-[3.5rem]">
 	<div class="layout">
-		<div class="mx-auto flex max-w-6xl justify-center overflow-x-auto">
-			<div class="flex space-x-1 rounded-full bg-gray-100 p-1 sm:space-x-2 sm:p-1.5">
-				{#each availableTabs() as tab}
-					<button
-						class="relative whitespace-nowrap rounded-full px-4 py-2 font-heading text-sm font-medium transition-all duration-200 sm:text-base"
-						style="background-color: {activeTab === tab.id ? item.fields.color1 : 'transparent'}; 
-						color: {activeTab === tab.id ? 'white' : 'rgba(0,0,0,0.7)'}"
-						onclick={() => handleTabChange(tab.id)}
-					>
-						{tab.label}
-						{#if activeTab === tab.id}
-							<span
-								class="absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-white"
-							></span>
-						{/if}
-					</button>
-				{/each}
+		<div class="mx-auto flex max-w-6xl justify-center">
+			<div class="inline-block rounded-lg bg-gray-100 p-2">
+				<div class="flex flex-wrap justify-center gap-2">
+					{#each availableTabs() as tab}
+						<button
+							class="relative whitespace-nowrap rounded-full px-3 py-1.5 font-heading text-sm font-medium transition-all duration-200 sm:px-4 sm:py-2 sm:text-base"
+							style="background-color: {activeTab === tab.id ? item.fields.color1 : 'transparent'}; 
+							color: {activeTab === tab.id ? 'white' : 'rgba(0,0,0,0.7)'}"
+							onclick={() => handleTabChange(tab.id)}
+						>
+							{tab.label}
+							{#if activeTab === tab.id}
+								<span
+									class="absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-white"
+								></span>
+							{/if}
+						</button>
+					{/each}
+				</div>
 			</div>
 		</div>
 	</div>
