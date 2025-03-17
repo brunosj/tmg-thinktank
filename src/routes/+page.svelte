@@ -21,6 +21,8 @@
 	import EventsHomepage from '$components/Events/EventsHomepage.svelte';
 	import ImageBannerPublicationFeature from '$components/Banner/ImageBannerPublicationFeature.svelte';
 	import ImageBannerEventSeries from '$components/Banner/ImageBannerEventSeries.svelte';
+
+	import NewsletterBannerV2 from '$components/Banner/NewsletterBannerV2.svelte';
 	interface Props {
 		data: Page;
 	}
@@ -63,5 +65,5 @@
 	programmeSectionTitle={landingPage.fields.programmeSectionTitle}
 />
 <BlogHomepage {news} {landingPage} />
-<NewsletterBanner {newsletter} {landingPage} />
+<NewsletterBannerV2 {newsletter} {landingPage} />
 <NetworksBanner {partners} {landingPage} />
