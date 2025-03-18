@@ -11,7 +11,7 @@
 
 	let { title, image }: Props = $props();
 
-	let element: HTMLDivElement | null = $state(null);
+	let element: HTMLElement | null = $state(null);
 	let intersecting = $state(false);
 </script>
 
@@ -20,7 +20,7 @@
 		loading="lazy"
 		src={image}
 		alt={title}
-		class="h-48 w-full object-cover object-center lg:h-96"
+		class="h-48 w-full object-cover object-center lg:h-[60vh]"
 	/>
 	<IntersectionObserver {element} bind:intersecting once>
 		{#if intersecting}

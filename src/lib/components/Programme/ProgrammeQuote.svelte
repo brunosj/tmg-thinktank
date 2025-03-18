@@ -9,11 +9,11 @@
 
 	let { text, author }: Props = $props();
 
-	let element: HTMLDivElement | null = $state(null);
+	let element: HTMLElement | null = $state(null);
 	let intersecting = $state(false);
 </script>
 
-<section class="text-blue-normal pb-6" bind:this={element}>
+<section class="pb-6 text-blue-normal" bind:this={element}>
 	<IntersectionObserver {element} bind:intersecting once>
 		{#if intersecting}
 			<div
