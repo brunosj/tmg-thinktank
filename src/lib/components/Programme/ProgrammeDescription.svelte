@@ -6,7 +6,7 @@
 	interface Props {
 		quoteText: string;
 		quoteAuthor: string;
-		flagshipOutput: FlagshipOutputType;
+		flagshipOutput?: FlagshipOutputType;
 		description: string;
 		color?: string;
 	}

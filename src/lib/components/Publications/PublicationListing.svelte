@@ -9,7 +9,12 @@
 		invertHover?: boolean;
 	}
 
-	let { items, layout = true, paddingTop = 'pt-6 lg:pt-12', invertHover = false }: Props = $props();
+	let {
+		items,
+		layout = false,
+		paddingTop = 'pt-6 lg:pt-12',
+		invertHover = false
+	}: Props = $props();
 
 	// Create a derived value for sorted items instead of a reactive statement
 	let sortedItems = $derived(

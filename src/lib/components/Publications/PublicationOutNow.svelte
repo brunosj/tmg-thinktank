@@ -38,7 +38,7 @@
 			</div>
 			<div class=" grid grid-cols-1 gap-6 overflow-hidden lg:grid-cols-3">
 				<div class="col-span-2 m-auto w-full space-y-6">
-					<h2 class="text-blue-normal font-bold leading-tight">
+					<h2 class="font-bold leading-tight text-blue-normal">
 						{item.fields.title}
 					</h2>
 					{#if item.fields.author}
@@ -72,7 +72,7 @@
 				{item.fields.summary}
 			</div>
 
-			<section class="flex w-full pt-3 lg:pt-6">
+			<section class="flex w-full pt-6">
 				<ShareSocialMedia
 					text={item.fields.title}
 					url={`https://tmg-thinktank.com/publications/${item.fields.slug}`}

@@ -11,6 +11,7 @@
 	import ButtonLoadMore from '$components/UI/ButtonLoadMore.svelte';
 	import CarouselV2 from '$components/Carousel/CarouselV2.svelte';
 	import ProgrammeInitiatives from '$components/Programme/ProgrammeInitiatives.svelte';
+	import ProgrammeFeatured from '$components/Programme/ProgrammeFeatured.svelte';
 
 	import type {
 		Programme,
@@ -115,16 +116,16 @@
 	);
 
 	// Fix type issue by casting to the expected type
-	let slides = $derived(
-		programme && 'fields' in programme && programme.fields.featuredItems
-			? (programme.fields.featuredItems as (News | Event | PublicationFeature)[])
-			: []
-	);
+	// let slides = $derived(
+	// 	programme && 'fields' in programme && programme.fields.featuredItems
+	// 		? (programme.fields.featuredItems as (News | Event | PublicationFeature)[])
+	// 		: []
+	// );
 
 	// Get initiatives linked to this programme
 	let initiatives = $derived(
-		programme && 'fields' in programme && programme.fields.initiatives
-			? programme.fields.initiatives
+		programme && 'fields' in programme && (programme as Programme).fields.initiatives
+			? (programme as Programme).fields.initiatives
 			: []
 	);
 
@@ -164,23 +165,34 @@
 		<ProgrammeDescription
 			quoteText={programme.fields.quote}
 			quoteAuthor={programme.fields.quoteAuthor}
-			flagshipOutput={programme.fields.flagshipOutput}
 			description={programme.fields.description}
 			color="#2e2d51"
 		/>
 
-		{#if slides && slides.length > 0}
+		<!-- {#if slides && slides.length > 0}
 			<Heading text="Latest" bgColor="#eaeaee" textColor="#2e2d51" />
 			<div class="layout mx-auto mt-12">
 				<CarouselV2 {slides} />
 			</div>
-		{/if}
+		{/if} -->
 
 		<!-- {#if initiatives.length > 0}
 			<div class=" layout mx-auto">
 				<ProgrammeInitiatives {initiatives} />
 			</div>
 		{/if} -->
+
+		{#if initiatives.length > 0}
+			<ProgrammeFeatured item={initiatives[0]} type="initiative" />
+		{/if}
+		{#if programme.fields.flagshipOutput}
+			<ProgrammeFeatured
+				item={programme.fields.flagshipOutput}
+				type="flagship"
+				theme="dark"
+				imagePosition="right"
+			/>
+		{/if}
 
 		<Heading text="Topics" bgColor="#eaeaee" textColor="#2e2d51" />
 		<ProgrammeTopics topics={programme.fields.topics} />
