@@ -88,7 +88,7 @@
 					class="col-span-3"
 					transition:fly={{ x: 100, duration: 500, delay: 500, easing: cubicInOut }}
 				>
-					<PublicationListing items={filteredItems.slice(0, itemsCount)} />
+					<PublicationListing layout={false} items={filteredItems.slice(0, itemsCount)} />
 					{#if items.length > itemsCount}
 						<div class="layout flex justify-evenly pb-6 lg:pb-12">
 							<ButtonLoadMore onClick={loadMoreItems}>Load More Publications</ButtonLoadMore>

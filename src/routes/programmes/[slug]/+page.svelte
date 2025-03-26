@@ -216,7 +216,7 @@
 		{#if filteredPublications.length >= 1}
 			<section id="publications">
 				<Heading text="Publications" bgColor="#eaeaee" textColor="#2e2d51" />
-				<PublicationListing items={filteredPublications.slice(0, publicationsCount)} />
+				<PublicationListing invertHover items={filteredPublications.slice(0, publicationsCount)} />
 				{#if filteredPublications.length > publicationsCount}
 					<div class="layout flex justify-evenly pb-6 lg:pb-12">
 						<ButtonLoadMore onClick={loadMorePublications}>Load More Publications</ButtonLoadMore>

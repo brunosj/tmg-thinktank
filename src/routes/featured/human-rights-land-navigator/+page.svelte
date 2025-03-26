@@ -4,6 +4,7 @@
 	import QuoteBanner from '$components/Banner/QuoteBanner.svelte';
 	import TitleImageGradientHeader from '$components/Layout/TitleImageGradientHeader.svelte';
 	import VideoBanner from '$components/Banner/VideoBanner.svelte';
+
 	let { data } = $props();
 
 	let item = $derived(data);

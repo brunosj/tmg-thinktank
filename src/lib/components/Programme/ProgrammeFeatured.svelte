@@ -31,7 +31,7 @@
 	);
 	let text = $derived(item.fields.text1);
 	let slug = $derived(
-		isFlagship ? `/flagship/${item.fields.slug}` : `/initiatives/${item.fields.slug}`
+		isFlagship ? `/featured/${item.fields.slug}` : `/initiatives/${item.fields.slug}`
 	);
 
 	// Theme-based classes
