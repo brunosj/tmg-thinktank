@@ -233,13 +233,11 @@
 			setupIntersectionObserver();
 		}
 	});
+
+	let image = $derived(item.fields?.pageBannerCdn?.[0]?.secure_url || '');
 </script>
 
-<SEO
-	title={item.fields.title}
-	description={item.fields.summary}
-	image={item.fields.pageBannerCdn[0].secure_url}
-/>
+<SEO title={item.fields.title} description={item.fields.summary} {image} />
 
 <div style="background-color: {item.fields.color1}" class="relative overflow-hidden">
 	<!-- Simplified decorative elements -->
@@ -461,7 +459,7 @@
 			{/if}
 
 			{#if item.fields.news}
-				<div class="mt-16">
+				<div class="mt-6">
 					<SectionHeading title="News & Blog Posts" color={item.fields.color1 || '#333'} />
 					<NewsListing items={item.fields.news} padding="py-0" />
 				</div>

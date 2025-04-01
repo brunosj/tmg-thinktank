@@ -14,11 +14,17 @@
 	arrowsConfig={{ color: 'transparent', character: 'loop', enableKeyboardControl: true }}
 >
 	<svelte:fragment slot="thumbnail">
-		<div class="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-2">
+		<div class="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-3">
 			{#each images as image, i}
-				<div class="w-full opacity-100 duration-300 hover:opacity-90">
+				<div
+					class="relative aspect-square w-full overflow-hidden opacity-100 transition-opacity duration-300 hover:opacity-90"
+				>
 					<GalleryThumbnail title="name" id={i}>
-						<img src={image.secure_url} alt={''} class=" object-contain" />
+						<img
+							src={image.secure_url}
+							alt={''}
+							class="absolute aspect-square h-full w-full object-cover object-center"
+						/>
 					</GalleryThumbnail>
 				</div>
 			{/each}
@@ -26,7 +32,7 @@
 	</svelte:fragment>
 
 	{#each images as image}
-		<div class="image-layout">
+		<div class="mx-auto">
 			<GalleryImage title={'Name'} description="image">
 				<img src={image.secure_url} alt={''} class="h-full w-full object-contain" />
 			</GalleryImage>
@@ -35,12 +41,6 @@
 </LightboxGallery>
 
 <style>
-	.image-layout {
-		/* width: 40%; */
-		margin: auto;
-		object-fit: contain;
-	}
-
 	:global(.svelte-lightbox-body img) {
 		max-height: 75vh !important;
 		width: auto !important;
