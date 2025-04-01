@@ -12,7 +12,7 @@
 
 <a
 	href={`/events/${event.fields.slug}`}
-	class="block transform rounded-lg bg-white p-4 shadow-sm transition duration-300 hover:translate-y-[-2px] hover:shadow-md"
+	class="block transform rounded-lg bg-white p-4 transition duration-300 hover:translate-y-[-2px] hover:shadow-md"
 >
 	<div class="flex flex-col gap-4 sm:flex-row sm:items-center">
 		<!-- Date Block -->

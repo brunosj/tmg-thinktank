@@ -39,7 +39,7 @@
 	{/if}
 
 	<!-- Other Events Section -->
-	{#if upcomingEvents.length > 1 || pastEvents.length > 0}
+	{#if upcomingEvents.length > 1}
 		<div class="mb-16">
 			<SectionHeading
 				title={upcomingEvents.length > 1 ? 'More Upcoming Events' : 'Past Events'}
@@ -53,18 +53,18 @@
 						<EventListItem {event} {accentColor} />
 					{/each}
 				{/if}
+			</div>
+		</div>
+	{/if}
 
-				{#if pastEvents.length > 0 && upcomingEvents.length > 0}
-					<div class="my-8">
-						<SectionHeading title="Past Events" color={accentColor} marginBottom="mb-6" />
-					</div>
-				{/if}
-
-				{#if pastEvents.length > 0}
-					{#each sortedPastEvents as event}
-						<EventListItem {event} {accentColor} />
-					{/each}
-				{/if}
+	<!-- Past Events Section -->
+	{#if pastEvents.length > 0}
+		<div class="mb-16">
+			<SectionHeading title="Past Events" color={accentColor} marginBottom="mb-6" />
+			<div class="space-y-4">
+				{#each sortedPastEvents as event}
+					<EventListItem {event} {accentColor} />
+				{/each}
 			</div>
 		</div>
 	{/if}
