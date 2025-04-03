@@ -172,7 +172,6 @@
 				const element = document.getElementById(section.id);
 				if (element) {
 					observer?.observe(element);
-					console.log('Observing section:', section.id);
 				} else {
 					console.warn('Section element not found:', section.id);
 				}

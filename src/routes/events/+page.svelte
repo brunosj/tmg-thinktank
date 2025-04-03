@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import type { Event, EventSeries } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
@@ -27,19 +25,12 @@
 		})
 	);
 
-	let events;
-	run(() => {
-		events = data.events;
-	});
-
-	let eventsFuture: Event[] = $state();
-	let eventsPast: Event[] = $state();
-
+	let events: Event[] = $state(data.events);
 	const today = new Date();
+	let currentMonth = $state(new Date());
 
-	run(() => {
-		events = data.events;
-		eventsFuture = events
+	let eventsFuture = $derived(
+		events
 			.filter((event) => {
 				const date = new Date(event.fields.date);
 				return date >= today;
@@ -48,12 +39,41 @@
 				const dateA = new Date(a.fields.date);
 				const dateB = new Date(b.fields.date);
 				return Number(dateA) - Number(dateB);
-			});
-		eventsPast = events.filter((event) => {
+			})
+	);
+
+	// Create a filtered list of events for the current month OR future events
+	let currentMonthOrFutureEvents = $derived(
+		events.filter((event) => {
+			const eventDate = new Date(event.fields.date);
+			const eventEndDate = event.fields.endDate
+				? new Date(event.fields.endDate)
+				: new Date(event.fields.date);
+
+			const startOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+			const endOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+
+			// Include events that are either:
+			// 1. In the future (start date >= today), OR
+			// 2. Within the current month (even if they're in the past)
+			return (
+				eventDate >= today ||
+				// In current month
+				(eventDate >= startOfMonth && eventDate <= endOfMonth) ||
+				// End date is within current month
+				(eventEndDate >= startOfMonth && eventEndDate <= endOfMonth) ||
+				// Event spans over the month
+				(eventDate < startOfMonth && eventEndDate > endOfMonth)
+			);
+		})
+	);
+
+	let eventsPast = $derived(
+		events.filter((event) => {
 			const date = new Date(event.fields.date);
 			return date < today;
-		});
-	});
+		})
+	);
 
 	//// Load more functionality
 	let eventsCount = $state(12);
@@ -69,7 +89,7 @@
 <div class="bg-white">
 	<div class="layout">
 		<div class="sectionPy">
-			<Calendar {events} />
+			<Calendar events={currentMonthOrFutureEvents} bind:currentMonth />
 		</div>
 	</div>
 </div>

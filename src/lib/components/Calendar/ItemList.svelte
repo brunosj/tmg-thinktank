@@ -36,46 +36,59 @@
 		}
 	};
 
-	let itemsByDay = new Map();
-	let sortedDays: string[] = $state([]);
+	// Group items by day (for rendering)
+	function groupItemsByDay() {
+		const dayMap = new Map<string, CalendarEvent[]>();
 
-	run(() => {
-		itemsByDay.clear();
-		let startOfMonthDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
-		let endOfMonthDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+		if (!items || items.length === 0) {
+			return dayMap;
+		}
 
-		let itemsInCurrentMonth = items?.filter(
-			(event) => new Date(event.start) >= startOfMonthDate && new Date(event.end) <= endOfMonthDate
-		);
-
-		itemsInCurrentMonth?.forEach((event) => {
+		// Group events by day
+		items.forEach((event) => {
+			// Get a range of dates for this event within the current month
 			let startDate = new Date(event.start);
 			let endDate = new Date(event.end);
+
+			// When processing day by day, only include days within the current month
 			let currentDate = new Date(startDate);
 
+			// Loop through each day of the event
 			while (currentDate <= endDate) {
-				let dayKey = currentDate.toISOString().slice(0, 10);
-				if (!itemsByDay.has(dayKey)) {
-					itemsByDay.set(dayKey, []);
+				if (
+					currentDate.getMonth() === currentMonth.getMonth() &&
+					currentDate.getFullYear() === currentMonth.getFullYear()
+				) {
+					let dayKey = currentDate.toISOString().slice(0, 10);
+					if (!dayMap.has(dayKey)) {
+						dayMap.set(dayKey, []);
+					}
+					dayMap.get(dayKey)?.push({
+						...event,
+						rawStart: String(event.rawStart),
+						rawEnd: String(event.rawEnd)
+					});
 				}
-				itemsByDay.get(dayKey).push({
-					...event,
-					rawStart: String(event.rawStart),
-					rawEnd: String(event.rawEnd)
-				});
+
+				// Move to the next day
 				currentDate.setDate(currentDate.getDate() + 1);
 			}
 		});
 
-		itemsByDay.forEach((events, day) => {
+		// Sort events for each day
+		dayMap.forEach((events, day) => {
 			events.sort(
 				(a: CalendarEvent, b: CalendarEvent) =>
 					new Date(a.start).getTime() - new Date(b.start).getTime()
 			);
 		});
 
-		sortedDays = Array.from(itemsByDay.keys()).sort();
-	});
+		return dayMap;
+	}
+
+	// Calculate grouped items whenever source items or month changes
+	let itemsByDay = $derived(groupItemsByDay());
+	let sortedDays = $derived(Array.from(itemsByDay.keys()).sort());
 </script>
 
 <div>
@@ -96,10 +109,10 @@
 				</span>
 			</div>
 			<ul class="space-y-3 py-3 lg:space-y-6 lg:py-6">
-				{#each itemsByDay.get(day) as evt}
+				{#each itemsByDay.get(day) || [] as evt}
 					<li class={` ${bgColorClass(evt.type)} grid rounded-md bg-opacity-20 p-2 lg:p-6`}>
 						<div class="grid-cols-5 gap-6 lg:grid lg:gap-12">
-							{#if evt.end && isSameDay(evt.start, evt.end)}
+							{#if evt.end && isSameDay(String(evt.start), String(evt.end))}
 								<div
 									class={`${bgColorClass(evt.type)} col-span-1 hidden h-full flex-col items-center justify-around rounded-md p-2 text-center lg:flex`}
 								>
@@ -135,8 +148,11 @@
 								<p class="hidden text-sm lg:block">{evt.subtitle}</p>
 								<div class=" hidden items-center lg:flex">
 									<button
-										class="text-blue-normal focus-visible:outline-blue-normal relative rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold shadow-sm duration-300 hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-										onclick={preventDefault(() => downloadICal(evt))}
+										class="relative rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-blue-normal shadow-sm duration-300 hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-normal"
+										onclick={(e) => {
+											e.preventDefault();
+											downloadICal(evt);
+										}}
 									>
 										<div class="flex items-center space-x-3">
 											<CalendarPlus class="h-6 w-6" />

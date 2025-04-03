@@ -1,11 +1,14 @@
 <script lang="ts">
 	import type { CalendarEvent } from '$lib/types/types';
+
 	interface Props {
 		hoveredDay: Date;
 		items: CalendarEvent[];
+		ontooltipenter?: () => void;
+		ontooltipleave?: () => void;
 	}
 
-	let { hoveredDay, items }: Props = $props();
+	let { hoveredDay, items, ontooltipenter = () => {}, ontooltipleave = () => {} }: Props = $props();
 
 	let isExternal = false;
 
@@ -64,29 +67,44 @@
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<button class="absolute left-6 top-12 z-10 w-64">
-	<div class="border-blue-normal rounded-t-md border-b-[3px] bg-white px-4 py-2 text-sm font-bold">
+<div
+	class="absolute left-6 top-12 z-20 w-64"
+	onmouseenter={ontooltipenter}
+	onmouseleave={ontooltipleave}
+>
+	<div class="rounded-t-md border-b-[3px] border-blue-normal bg-white px-4 py-2 text-sm font-bold">
 		<div>{getFormattedDate(hoveredDay)}</div>
 	</div>
 	<ul class="rounded-b-md bg-white px-4 py-2 shadow-lg">
 		{#each items.filter(filterEventsByDay) as item (item)}
 			<li
-				class={`textHover hover:text-blue-normal my-1 cursor-pointer rounded-md py-1 text-xs text-black duration-300`}
+				class={`textHover my-1 cursor-pointer rounded-md py-1 text-xs text-black duration-300 hover:text-blue-normal`}
 			>
 				<a
 					href={`/events/${item.slug}`}
 					target={isExternal ? '_blank' : ''}
 					rel={isExternal ? 'noopener noreferrer' : ''}
+					class="block w-full"
 				>
 					<span>{item.title}</span>
 				</a>
 			</li>
 		{/each}
 	</ul>
-</button>
+</div>
 
 <style>
-	button {
-		text-align: left;
+	div.absolute {
+		pointer-events: auto;
+	}
+
+	a {
+		display: block;
+		width: 100%;
+		padding: 8px;
+	}
+
+	a:hover {
+		background-color: #f0f0f0;
 	}
 </style>

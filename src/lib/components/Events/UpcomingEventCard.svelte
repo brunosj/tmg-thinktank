@@ -10,7 +10,7 @@
 	let { event, accentColor }: Props = $props();
 </script>
 
-<div class="transform duration-300 hover:translate-y-[-2px] hover:shadow-md">
+<div class="transform transition duration-300 hover:translate-y-[-2px] hover:shadow-md">
 	<a class=" overflow-hidden rounded-lg bg-white" href={`/events/${event.fields.slug}`}>
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
 			{#if event.fields.imageCdn && event.fields.imageCdn.length > 0}

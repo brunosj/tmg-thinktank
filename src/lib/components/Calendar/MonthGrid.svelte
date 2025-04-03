@@ -13,21 +13,64 @@
 	let {
 		currentMonth,
 		items,
-		hoveredDay,
+		hoveredDay = $bindable(),
 		handleDayMouseEnter,
 		handleDayMouseLeave,
-		selectedDate
+		selectedDate = $bindable()
 	}: Props = $props();
 
 	let rows = [];
+	let isTooltipHovered = $state(false);
+	let tooltipHideTimeout: ReturnType<typeof setTimeout> | null = null;
+
+	// Add a delay before hiding the tooltip to prevent flickering
+	const handleMouseLeave = () => {
+		if (tooltipHideTimeout) {
+			clearTimeout(tooltipHideTimeout);
+		}
+
+		tooltipHideTimeout = setTimeout(() => {
+			// Only hide tooltip if it's not currently being hovered
+			if (!isTooltipHovered) {
+				handleDayMouseLeave();
+			}
+		}, 300); // 300ms delay
+	};
+
+	// Clear the timeout when hovering again
+	const handleMouseEnter = (date: Date) => {
+		if (tooltipHideTimeout) {
+			clearTimeout(tooltipHideTimeout);
+			tooltipHideTimeout = null;
+		}
+		handleDayMouseEnter(date);
+	};
+
+	// Handle tooltip hover events
+	const handleTooltipEnter = () => {
+		isTooltipHovered = true;
+		if (tooltipHideTimeout) {
+			clearTimeout(tooltipHideTimeout);
+			tooltipHideTimeout = null;
+		}
+	};
+
+	const handleTooltipLeave = () => {
+		isTooltipHovered = false;
+		handleDayMouseLeave();
+	};
 
 	let multiDayClass = (event: CalendarEvent, date: Date) => {
-		if (event.isMultiDay && event.start.toDateString() === date.toDateString()) {
+		const eventStartDay = new Date(event.start).setHours(0, 0, 0, 0);
+		const eventEndDay = new Date(event.end).setHours(0, 0, 0, 0);
+		const currentDay = new Date(date).setHours(0, 0, 0, 0);
+
+		if (eventStartDay === currentDay) {
 			return 'rounded-l-md';
-		} else if (event.end.toDateString() === date.toDateString()) {
-			return 'rounded-r-md text-transparent';
+		} else if (eventEndDay === currentDay) {
+			return 'rounded-r-md';
 		} else {
-			return 'text-transparent';
+			return '';
 		}
 	};
 
@@ -63,20 +106,25 @@
 				const isWeekend = day.getDay() === 6 || day.getDay() === 0;
 				const weekendClass = isWeekend ? 'bg-black bg-opacity-10' : '';
 
-				let sortedItems = items.slice().sort((a, b) => {
-					if (a.isMultiDay === b.isMultiDay) {
-						return a.start.getTime() - b.start.getTime();
-					} else {
-						return a.isMultiDay ? -1 : 1;
-					}
-				});
+				const dayItems = items
+					.filter((event) => {
+						const eventStartDate = new Date(event.rawStart);
+						const eventEndDate = new Date(event.rawEnd);
 
-				const dayItems = sortedItems.filter(
-					(event) =>
-						event.start.toDateString() === day.toDateString() ||
-						event.end.toDateString() === day.toDateString() ||
-						(event.start < day && event.end >= day)
-				);
+						eventStartDate.setHours(0, 0, 0, 0);
+						eventEndDate.setHours(0, 0, 0, 0);
+
+						const currentDay = new Date(day);
+						currentDay.setHours(0, 0, 0, 0);
+
+						return currentDay >= eventStartDate && currentDay <= eventEndDate;
+					})
+					.sort((a, b) => {
+						if (a.isMultiDay === b.isMultiDay) {
+							return new Date(a.start).getTime() - new Date(b.start).getTime();
+						}
+						return a.isMultiDay ? -1 : 1;
+					});
 
 				const truncatedItems = dayItems.slice(0, 2);
 				const additionalEventCount = dayItems.length - truncatedItems.length;
@@ -135,24 +183,30 @@
 										{#if items && items.length > 0}
 											<ul class="">
 												{#if hoveredDay && date.toDateString() === hoveredDay.toDateString()}
-													<ItemTooltip items={truncatedItems} {hoveredDay} />
+													<ItemTooltip
+														items={truncatedItems}
+														{hoveredDay}
+														ontooltipleave={handleTooltipLeave}
+														ontooltipenter={handleTooltipEnter}
+													/>
 												{/if}
 												{#each truncatedItems as event (event)}
 													<li
 														class={`${bgColorClass(event.type)} ${
 															event.isMultiDay ? multiDayClass(event, date) : ''
-														} 
-													relative my-1 px-2 text-xs`}
-														onmouseenter={() => handleDayMouseEnter(date)}
-														onmouseleave={handleDayMouseLeave}
+														} relative my-1 cursor-pointer px-2 text-xs`}
+														onmouseenter={() => handleMouseEnter(date)}
+														onmouseleave={handleMouseLeave}
 													>
-														<span class="">
-															{#if event.title.length > 10}
-																{event.title.slice(0, 25)}...
-															{:else}
-																{event.title}
-															{/if}
-														</span>
+														<a href={`/events/${event.slug}`} class="block h-full w-full">
+															<span>
+																{#if event.title.length > 10}
+																	{event.title.slice(0, 25)}...
+																{:else}
+																	{event.title}
+																{/if}
+															</span>
+														</a>
 													</li>
 												{/each}
 

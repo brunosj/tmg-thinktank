@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Event, CalendarEvent } from '$lib/types/types';
 	import { onMount, onDestroy } from 'svelte';
 	import CalendarHeader from '$components/Calendar/CalendarHeader.svelte';
@@ -9,17 +8,39 @@
 	import EventLegend from './EventLegend.svelte';
 	interface Props {
 		events: Event[];
+		currentMonth?: Date;
 	}
 
-	let { events }: Props = $props();
+	let { events, currentMonth = $bindable(new Date()) }: Props = $props();
 
-	let currentMonth = $state(new Date());
 	let hoveredDay: Date | null = $state(null);
 	let selectedDate = $state(new Date());
-	let items: CalendarEvent[] = $state([]);
+
+	let items = $derived(
+		events && events.length > 0
+			? events.map((event) => {
+					const start = new Date(event.fields.date);
+					const end = event.fields.endDate
+						? new Date(event.fields.endDate)
+						: new Date(event.fields.date);
+
+					return {
+						start,
+						end,
+						rawStart: event.fields.date,
+						rawEnd: event.fields.endDate || event.fields.date,
+						title: event.fields.title,
+						subtitle: event.fields.summary,
+						slug: event.fields.slug,
+						isMultiDay: end.getTime() > start.getTime() + 24 * 60 * 60 * 1000,
+						type: event.fields.type,
+						category: event.fields.type
+					} as CalendarEvent;
+				})
+			: []
+	);
 
 	let isListView = $state(true);
-	
 
 	if (browser) {
 		const isMobile = window.innerWidth < 768;
@@ -36,28 +57,6 @@
 			window.removeEventListener('resize', handleResize);
 		});
 	}
-
-	onMount(() => {
-		const transformedEvents = events.map((event) => {
-			const start = new Date(event.fields.date);
-			const end = event.fields.endDate ? new Date(event.fields.endDate) : start;
-
-			return {
-				start,
-				end,
-				rawStart: event.fields.date,
-				rawEnd: event.fields.endDate || event.fields.date,
-				title: event.fields.title,
-				subtitle: event.fields.summary,
-				slug: event.fields.slug,
-				isMultiDay: end > start,
-				type: event.fields.type,
-				category: event.fields.type
-			};
-		});
-
-		items = [...transformedEvents];
-	});
 
 	const handleMonthChange = (event: any) => {
 		const selectedOption = event.detail;

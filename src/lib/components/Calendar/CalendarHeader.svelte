@@ -10,38 +10,49 @@
 		isListView: boolean;
 	}
 
-	let { items, currentMonth = $bindable(), monthChange, toggleView, isListView }: Props = $props();
+	let {
+		items,
+		currentMonth = $bindable(),
+		monthChange,
+		toggleView,
+		isListView = $bindable()
+	}: Props = $props();
 
 	let monthOptions: { value: string; label: string }[] = $state([]);
 	let selectedMonth: string = $state('');
 
-	onMount(() => {
-		if (items.length > 0) {
-			const earliestEvent = items.reduce((earliest, event) => {
-				return event.start < earliest.start ? event : earliest;
-			}, items[0]);
+	// Watch for currentMonth changes from parent
+	$effect(() => {
+		if (currentMonth) {
+			selectedMonth = `${currentMonth.getFullYear()}-${('0' + (currentMonth.getMonth() + 1)).slice(-2)}-01`;
+		}
+	});
 
-			currentMonth = new Date(earliestEvent.start.getFullYear(), earliestEvent.start.getMonth(), 1);
-		} else {
-			const currentDate = new Date();
-			currentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+	onMount(() => {
+		// Generate month options without setting currentMonth
+		// Generate all options in one go, without reactivity
+		const options: { value: string; label: string }[] = [];
+
+		// Add 24 months starting from current date for adequate range
+		const today = new Date();
+		const startYear = today.getFullYear();
+		const startMonth = today.getMonth();
+
+		for (let i = 0; i < 24; i++) {
+			const monthDate = new Date(startYear, startMonth + i, 1);
+			options.push({
+				value: `${monthDate.getFullYear()}-${('0' + (monthDate.getMonth() + 1)).slice(-2)}-01`,
+				label: `${monthDate.toLocaleString('en-US', { month: 'long' })} ${monthDate.getFullYear()}`
+			});
 		}
 
-		const monthsInPast = 0;
-		const monthsInFuture = 6;
+		// Sort and set the options
+		monthOptions = options.sort((a, b) => a.value.localeCompare(b.value));
 
-		monthOptions = [...Array(monthsInPast + monthsInFuture)].map((_, index) => {
-			const year = currentMonth.getFullYear();
-			const month = currentMonth.getMonth() + index - monthsInPast;
-			const monthDate = new Date(year, month, 1);
-
-			return {
-				value: `${year}-${('0' + (month + 1)).slice(-2)}-01`,
-				label: `${monthDate.toLocaleString('en-US', { month: 'long' })} ${year}`
-			};
-		});
-
-		selectedMonth = `${currentMonth.getFullYear()}-${('0' + (currentMonth.getMonth() + 1)).slice(-2)}-01`;
+		// Set the selected month value based on current month
+		if (currentMonth) {
+			selectedMonth = `${currentMonth.getFullYear()}-${('0' + (currentMonth.getMonth() + 1)).slice(-2)}-01`;
+		}
 	});
 </script>
 
