@@ -362,6 +362,7 @@ export interface Project extends ContentfulEntry {
 		year: string;
 		partnersList: Partner[];
 		fundersList: Partner[];
+		contractingAuthorityList: Partner[];
 		thumbnail: Image;
 		thumbnailCdn: ImageCdn[];
 		gallery: ImageCdn[];

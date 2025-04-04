@@ -40,7 +40,9 @@
 		<div class="space-y-2 text-sm">
 			<div class="">
 				<div class="border-b-[1px] border-gray-900 pb-1">
-					<div class=" text-left font-semibold text-black">Partners</div>
+					<div class=" text-left font-semibold text-black">
+						{item.fields.partnersList.length > 1 ? 'Partners' : 'Partner'}
+					</div>
 				</div>
 			</div>
 			<div class="font-normal text-black">
@@ -59,7 +61,9 @@
 		<div class="space-y-2 text-sm">
 			<div class="">
 				<div class="border-b-[1px] border-gray-900 pb-1">
-					<div class=" text-left font-semibold text-black">Funders</div>
+					<div class=" text-left font-semibold text-black">
+						{item.fields.fundersList.length > 1 ? 'Funders' : 'Funder'}
+					</div>
 				</div>
 			</div>
 			<div class="font-normal text-black">
@@ -67,6 +71,30 @@
 					<div>
 						<a href={ensureHttps(funder.fields.url)} target="_blank" class="inline-block">
 							<p class="text-sm duration-300 ease-in-out hover:underline">{funder.fields.name}</p>
+						</a>
+					</div>
+				{/each}
+			</div>
+		</div>
+	{/if}
+	{#if item.fields.contractingAuthorityList}
+		<div class="space-y-2 text-sm">
+			<div class="">
+				<div class="border-b-[1px] border-gray-900 pb-1">
+					<div class=" text-left font-semibold text-black">
+						{item.fields.contractingAuthorityList.length > 1
+							? 'Contracting Authorities'
+							: 'Contracting Authority'}
+					</div>
+				</div>
+			</div>
+			<div class="font-normal text-black">
+				{#each item.fields.contractingAuthorityList as authority (authority.fields.name)}
+					<div>
+						<a href={ensureHttps(authority.fields.url)} target="_blank" class="inline-block">
+							<p class="text-sm duration-300 ease-in-out hover:underline">
+								{authority.fields.name}
+							</p>
 						</a>
 					</div>
 				{/each}
