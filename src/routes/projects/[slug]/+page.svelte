@@ -11,6 +11,7 @@
 	import ProjectTeam from '$components/Project/ProjectTeam.svelte';
 	import ProjectDetails from '../../../lib/components/Project/ProjectDetails.svelte';
 	import type { Project, Event, Publication, News, Video } from '$lib/types/types';
+	import PartnersLogo from '$lib/components/Partners/PartnersLogo.svelte';
 
 	interface Props {
 		data: Page;
@@ -131,6 +132,17 @@
 
 			<ProjectDetails item={project} />
 
+			{#if project.fields.fundersList && project.fields.fundersList.length > 0}
+				<div class="mt-6 border-t-2 border-gray-300 pt-6">
+					<h3 class="mb-4 text-xl font-bold text-blue-normal">Supported by</h3>
+					<div class="flex flex-wrap items-center">
+						{#each project.fields.fundersList as funder}
+							<PartnersLogo item={funder} />
+						{/each}
+					</div>
+				</div>
+			{/if}
+
 			{#if project.fields.url}
 				<div class="">
 					<span class="pr-2 leading-none">
@@ -158,6 +170,20 @@
 	</div>
 </div>
 
+{#if filteredPublications.length >= 1}
+	<section id="publications">
+		<Heading text="Publications" bgColor="#eaeaee" textColor="#2e2d51" />
+		<PublicationListing invertHover items={filteredPublications.slice(0, publicationsCount)} />
+		{#if filteredPublications.length > publicationsCount}
+			<div class="layout flex justify-evenly pb-6 lg:pb-12">
+				<ButtonLoadMore onClick={loadMorePublications}>Load More Publications</ButtonLoadMore>
+			</div>
+		{:else}
+			<p></p>
+		{/if}
+	</section>
+{/if}
+
 {#if filteredNews.length >= 1}
 	<section id="news">
 		<Heading text="News & Blog Posts" bgColor="#eaeaee" textColor="#2e2d51" />
@@ -167,20 +193,6 @@
 		{#if filteredNews.length > newsCount}
 			<div class="layout flex justify-evenly pb-6 lg:pb-12">
 				<ButtonLoadMore onClick={loadMoreNews}>Load More News</ButtonLoadMore>
-			</div>
-		{:else}
-			<p></p>
-		{/if}
-	</section>
-{/if}
-
-{#if filteredPublications.length >= 1}
-	<section id="publications">
-		<Heading text="Publications" bgColor="#eaeaee" textColor="#2e2d51" />
-		<PublicationListing invertHover items={filteredPublications.slice(0, publicationsCount)} />
-		{#if filteredPublications.length > publicationsCount}
-			<div class="layout flex justify-evenly pb-6 lg:pb-12">
-				<ButtonLoadMore onClick={loadMorePublications}>Load More Publications</ButtonLoadMore>
 			</div>
 		{:else}
 			<p></p>
