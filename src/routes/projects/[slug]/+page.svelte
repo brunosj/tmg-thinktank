@@ -201,6 +201,28 @@
 	</div>
 </div>
 
+<!-- Team Section -->
+{#if project.fields.team && project.fields.team.length > 0}
+	<!-- Full-width divider/banner for team -->
+	<div class="mt-12 w-full bg-blue-normal py-12">
+		<div class="layout">
+			<h2 class="text-center text-2xl font-bold text-white lg:text-3xl">Team</h2>
+		</div>
+	</div>
+
+	<div class="layout py-12">
+		<div class="mx-auto">
+			<div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+				{#each project.fields.team as teamMember}
+					<div class="team-member">
+						<ProjectTeam items={[teamMember]} />
+					</div>
+				{/each}
+			</div>
+		</div>
+	</div>
+{/if}
+
 <!-- Publications Section -->
 {#if filteredPublications.length > 0}
 	<!-- Full-width divider/banner for publications -->
@@ -260,28 +282,6 @@
 	<div class="layout py-8">
 		<div class="mx-auto">
 			<VideoListing videos={filteredVideos} />
-		</div>
-	</div>
-{/if}
-
-<!-- Team Section (moved to bottom) -->
-{#if project.fields.team && project.fields.team.length > 0}
-	<!-- Full-width divider/banner for team -->
-	<div class="mt-12 w-full bg-blue-normal py-12">
-		<div class="layout">
-			<h2 class="text-center text-2xl font-bold text-white lg:text-3xl">Team</h2>
-		</div>
-	</div>
-
-	<div class="layout py-12">
-		<div class="mx-auto">
-			<div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-				{#each project.fields.team as teamMember}
-					<div class="team-member">
-						<ProjectTeam items={[teamMember]} />
-					</div>
-				{/each}
-			</div>
 		</div>
 	</div>
 {/if}
