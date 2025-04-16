@@ -65,7 +65,7 @@ export const actions = {
 			},
 			to: [
 				{
-					email: 'info@tmg-thinktank.com',
+					email: 'web@tmg-thinktank.com',
 					name: 'TMG'
 				}
 			],
