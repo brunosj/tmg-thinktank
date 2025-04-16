@@ -2,6 +2,7 @@ import { json } from '@sveltejs/kit';
 import type { RequestEvent } from '@sveltejs/kit';
 import * as brevo from '@getbrevo/brevo';
 import { BREVO_API_KEY, BREVO_LIST_ID } from '$lib/server/env';
+import { checkRateLimit } from '$lib/server/ratelimit';
 
 if (!BREVO_API_KEY) {
 	console.error('BREVO_API_KEY environment variable is not set');
@@ -14,43 +15,47 @@ let apiInstance = new brevo.ContactsApi();
 let apiKey = apiInstance.authentications['apiKey'];
 apiKey.apiKey = BREVO_API_KEY;
 
-export async function POST({ request }: RequestEvent) {
-	console.log('📨 Newsletter subscription request received');
-	console.log('API Key configured:', !!BREVO_API_KEY);
-	console.log('List ID:', BREVO_LIST_ID);
+export async function POST({ request, getClientAddress }: RequestEvent) {
+	// Check rate limiting
+	const clientIp = getClientAddress();
+	const rateLimit = checkRateLimit(clientIp);
+
+	if (!rateLimit.allowed) {
+		return json(
+			{ message: 'Too many requests, please try again later', success: false },
+			{
+				status: 429,
+				headers: {
+					'Retry-After': '60'
+				}
+			}
+		);
+	}
 
 	try {
 		const body = await request.json();
-		console.log('📧 Request body:', body);
 		const { email } = body;
-		console.log('📧 Processing subscription for:', { email });
 
 		if (!email) {
-			console.warn('⚠️ No email provided in request');
-			return json({ message: 'Email is required' }, { status: 400 });
+			console.warn('No email provided in request');
+			return json({ message: 'Email is required', success: false }, { status: 400 });
 		}
 
-		console.log('📝 Creating contact object');
+		// Basic email validation
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailRegex.test(email)) {
+			return json({ message: 'Invalid email format', success: false }, { status: 400 });
+		}
+
 		const createDoiContact = new brevo.CreateDoiContact();
 		createDoiContact.email = email;
 		createDoiContact.includeListIds = [BREVO_LIST_ID];
 		createDoiContact.templateId = 2;
 		createDoiContact.redirectionUrl = 'https://tmg-thinktank.com/newsletter-success';
-
-		console.log('📝 Contact object created:', createDoiContact);
-
-		console.log('📤 Sending request to Brevo API');
 		const result = await apiInstance.createDoiContact(createDoiContact);
-		console.log('✅ Contact successfully created/updated in Brevo. Result:', result);
-
 		return json({ message: 'Successfully subscribed to newsletter', success: true });
 	} catch (error: unknown) {
-		console.error('🔥 Newsletter subscription error:', error);
-		console.error('Error details:', {
-			name: error instanceof Error ? error.name : 'Unknown',
-			message: error instanceof Error ? error.message : 'Unknown error',
-			stack: error instanceof Error ? error.stack : undefined
-		});
+		console.error('Newsletter subscription error occurred');
 
 		// Handle specific Brevo API errors
 		if (
@@ -63,7 +68,6 @@ export async function POST({ request }: RequestEvent) {
 		) {
 			try {
 				const apiError = JSON.parse(error.response.text as string);
-				console.log('📦 Brevo API error details:', apiError);
 
 				if (apiError.code === 'duplicate_parameter') {
 					return json(
@@ -72,7 +76,7 @@ export async function POST({ request }: RequestEvent) {
 					);
 				}
 			} catch {
-				console.error('❌ Failed to parse Brevo API error response');
+				console.error('Failed to parse API error response');
 			}
 		}
 

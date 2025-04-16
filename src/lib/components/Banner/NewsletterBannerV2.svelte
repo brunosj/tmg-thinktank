@@ -15,14 +15,12 @@
 
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
-		console.log('🚀 Newsletter signup initiated:', { email });
 
 		loading = true;
 		error = '';
 		success = false;
 
 		try {
-			console.log('📤 Sending request to /api/newsletter/subscribe');
 			const response = await fetch('/api/newsletter/subscribe', {
 				method: 'POST',
 				headers: {
@@ -31,29 +29,18 @@
 				body: JSON.stringify({ email })
 			});
 
-			console.log('📥 Response received:', {
-				status: response.status,
-				statusText: response.statusText,
-				headers: Object.fromEntries(response.headers.entries())
-			});
-
 			const data = await response.json();
-			console.log('📦 Response data:', data);
 
 			if (!response.ok) {
-				console.error('❌ Request failed:', { status: response.status, data });
 				throw new Error(data.message || 'Failed to subscribe');
 			}
 
-			console.log('✅ Subscription successful');
 			success = true;
 			email = '';
 		} catch (err) {
-			console.error('🔥 Error during subscription:', err);
 			error = err instanceof Error ? err.message : 'An error occurred';
 		} finally {
 			loading = false;
-			console.log('🏁 Subscription flow completed:', { success, error });
 		}
 	}
 </script>
