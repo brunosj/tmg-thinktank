@@ -12,6 +12,9 @@
 	let loading = $state(false);
 	let success = $state(false);
 	let error = $state('');
+	let responseStatus = $state(0);
+	let debugInfo = $state('');
+	let showDebug = $state(true); // Set to true to show debug info during testing
 
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
@@ -19,8 +22,11 @@
 		loading = true;
 		error = '';
 		success = false;
+		responseStatus = 0;
+		debugInfo = '';
 
 		try {
+			console.log('Submitting newsletter form...', { email });
 			const response = await fetch('/api/newsletter/subscribe', {
 				method: 'POST',
 				headers: {
@@ -29,16 +35,53 @@
 				body: JSON.stringify({ email })
 			});
 
-			const data = await response.json();
+			responseStatus = response.status;
+			console.log(`Newsletter API response status: ${response.status}`);
+			debugInfo = `Status: ${response.status}, Headers: ${JSON.stringify([...response.headers.entries()])}`;
 
-			if (!response.ok) {
-				throw new Error(data.message || 'Failed to subscribe');
+			try {
+				const data = await response.json();
+				console.log('Response data:', data);
+				debugInfo += `\nResponse data: ${JSON.stringify(data)}`;
+
+				if (!response.ok) {
+					console.log('Newsletter API error:', data.message);
+					throw new Error(data.message || 'Failed to subscribe');
+				}
+
+				console.log('Newsletter subscription successful');
+				success = true;
+				email = '';
+			} catch (parseError) {
+				console.error('Error parsing response:', parseError);
+				debugInfo += `\nError parsing response: ${parseError instanceof Error ? parseError.message : 'Unknown'}`;
+				throw new Error('Error parsing API response');
 			}
-
-			success = true;
-			email = '';
 		} catch (err) {
-			error = err instanceof Error ? err.message : 'An error occurred';
+			// Handle common error cases with more user-friendly messages
+			const errMsg = err instanceof Error ? err.message : 'An error occurred';
+			console.log('Newsletter subscription error:', errMsg);
+			debugInfo += `\nError: ${errMsg}`;
+
+			if (errMsg.includes('duplicate_parameter') || errMsg.includes('already subscribed')) {
+				error = 'This email is already subscribed to our newsletter.';
+			} else if (responseStatus === 429) {
+				error = 'Too many requests. Please try again in a minute.';
+			} else if (errMsg.includes('Invalid email')) {
+				error = 'Please provide a valid email address.';
+			} else if (errMsg.includes('Subscription error:')) {
+				// Display the detailed error from the server
+				error = errMsg;
+			} else {
+				// Check for possible Brevo account issues
+				if (responseStatus >= 500) {
+					error = `Our newsletter service is currently unavailable (${responseStatus}). Please try again later.`;
+				} else if (responseStatus === 0) {
+					error = 'Network error. Please check your connection.';
+				} else {
+					error = `Something went wrong (${responseStatus}). Please try again later.`;
+				}
+			}
 		} finally {
 			loading = false;
 		}
@@ -140,6 +183,13 @@
 							<p class="text-sm font-medium text-red-100">{error}</p>
 						</div>
 					{/if}
+
+					<!-- {#if showDebug && debugInfo}
+						<div class="rounded-lg bg-gray-800 p-3 text-xs text-white">
+							<p class="font-mono">Debug Info:</p>
+							<pre class="font-mono mt-2 overflow-auto">{debugInfo}</pre>
+						</div>
+					{/if} -->
 				</div>
 
 				<!-- Card grid section -->
