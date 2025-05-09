@@ -45,7 +45,7 @@
 />
 <article>
 	{#if item.fields.topBanner}
-		<div class="w-full pt-16">
+		<div class="w-full pt-12 lg:pt-16">
 			<img
 				loading="lazy"
 				src={item.fields.topBanner[0].secure_url}
@@ -54,7 +54,7 @@
 			/>
 		</div>
 	{/if}
-	<div class="overflow-hidden pt-16 lg:pt-32">
+	<div class={`overflow-hidden ${item.fields.topBanner ? 'pt-8 lg:pt-16' : 'pt-16 lg:pt-32'}`}>
 		<EventHeader {item} />
 		{#if image && item.fields.imagePosition === 'Top'}
 			<div class="layout w-full py-6 lg:py-12">

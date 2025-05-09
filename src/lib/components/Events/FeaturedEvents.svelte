@@ -17,7 +17,7 @@
 			<div class="grid grid-cols-1 gap-6 py-6 lg:grid-cols-2 lg:gap-12 lg:py-12">
 				{#each events as event}
 					<div
-						class="group overflow-hidden rounded-lg shadow-lg transition duration-300 ease-in-out hover:shadow-xl"
+						class="group overflow-hidden rounded-lg shadow-md transition duration-300 ease-in-out"
 					>
 						<a href={`/events/${event.fields.slug}`} class="block">
 							{#if event.fields.topBanner}
@@ -30,7 +30,7 @@
 								</div>
 							{/if}
 							<div class="space-y-2 p-5">
-								<h3 class="text-xl font-semibold text-blue-normal">{event.fields.title}</h3>
+								<h3 class="text-lg font-semibold text-blue-normal">{event.fields.title}</h3>
 								<p class="text-sm text-gray-600">
 									{new Date(event.fields.date).toLocaleDateString('en-US', {
 										month: 'long',
@@ -39,7 +39,7 @@
 									})}
 								</p>
 								{#if event.fields.summary}
-									<p class="text-gray-700">{event.fields.summary}</p>
+									<p class="text-sm text-gray-700">{event.fields.summary}</p>
 								{/if}
 							</div>
 						</a>
