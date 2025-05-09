@@ -76,6 +76,8 @@ export interface LandingPageBanner {
 
 export interface Event extends ContentfulEntry {
 	fields: {
+		topBanner: ImageCdn[];
+		featureOnEventsPage: boolean;
 		programme: Programme;
 		title: string;
 		secondLanguage: string;
@@ -97,6 +99,8 @@ export interface Event extends ContentfulEntry {
 		facilitators: Speaker[];
 		image: Image;
 		imageCdn: ImageCdn[];
+		contactPerson: Team[];
+		contactPersonEmail: string;
 		imagePosition: 'Top' | 'Bottom';
 		news: News[];
 		relatedEvents: Event[];

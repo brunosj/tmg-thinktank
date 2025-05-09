@@ -6,6 +6,8 @@
 	import ButtonLoadMore from '$components/UI/ButtonLoadMore.svelte';
 	import Calendar from '$components/Calendar/Calendar.svelte';
 	import EventSeriesCard from '$components/Events/EventSeriesCard.svelte';
+	import FeaturedEvents from '$components/Events/FeaturedEvents.svelte';
+
 	interface Props {
 		data: Page;
 	}
@@ -28,6 +30,10 @@
 	let events: Event[] = $state(data.events);
 	const today = new Date();
 	let currentMonth = $state(new Date());
+
+	let featuredEvents = $derived(
+		events.filter((event) => event.fields.featureOnEventsPage && event.fields.topBanner)
+	);
 
 	let eventsFuture = $derived(
 		events
@@ -86,6 +92,7 @@
 
 <SEO title="Events" description="Events from TMG and its partners" />
 <SectionHeaderLow title="Events" background="bgGradientBR" subtitle="" />
+
 <div class="bg-white">
 	<div class="layout">
 		<div class="sectionPy">
@@ -93,6 +100,7 @@
 		</div>
 	</div>
 </div>
+<FeaturedEvents events={featuredEvents} />
 
 {#if eventSeries}
 	<div class="bg-blue-light">

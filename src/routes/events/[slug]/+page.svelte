@@ -44,6 +44,16 @@
 	keywords={item.fields.keywords}
 />
 <article>
+	{#if item.fields.topBanner}
+		<div class="w-full pt-16">
+			<img
+				loading="lazy"
+				src={item.fields.topBanner[0].secure_url}
+				alt={item.fields.title}
+				class="w-full"
+			/>
+		</div>
+	{/if}
 	<div class="overflow-hidden pt-16 lg:pt-32">
 		<EventHeader {item} />
 		{#if image && item.fields.imagePosition === 'Top'}

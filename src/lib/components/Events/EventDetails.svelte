@@ -55,8 +55,8 @@
 
 <div class="col-span-1 border-b lg:border-none">
 	<div class="bg-blue-light p-8">
-		<div class="">
-			<div class="pb-5 tracking-wider">
+		<div class="space-y-3">
+			<div class=" tracking-wider">
 				<p class="pb-1 font-bold">Date</p>
 				<div>
 					{formatDateDayJS(item.fields.date)}
@@ -64,25 +64,25 @@
 						<span> - {formatDateDayJS(item.fields.endDate)}</span>
 					{/if}
 				</div>
+			</div>
 
-				{#if item.fields.endDate && isSameDay(item.fields.date, item.fields.endDate)}
-					<div>
-						<p class="pb-1 pt-5 font-bold">Time</p>
-						<!-- <p>
+			{#if item.fields.endDate && isSameDay(item.fields.date, item.fields.endDate)}
+				<div class=" tracking-wider">
+					<p class="pb-1 font-bold">Time</p>
+					<!-- <p>
 							{formatLocalTimeWithTZ(item.fields.date, item.fields.endDate)}
 						</p>
 						<p class="text-sm">
 							Your local time
 							{formatTz(item.fields.date)}
 						</p> -->
-						<p class="">
-							{formatEventLocalTime(item.fields.date, item.fields.endDate)}
-						</p>
-						<!-- <p class="text-sm">Event location local time</p> -->
-					</div>
-				{/if}
-			</div>
-			<div class="pb-5">
+					<p class="">
+						{formatEventLocalTime(item.fields.date, item.fields.endDate)}
+					</p>
+					<!-- <p class="text-sm">Event location local time</p> -->
+				</div>
+			{/if}
+			<div class="">
 				<p class="pb-1 font-bold">Organisers</p>
 				{#each item.fields.organiser as organiser}
 					<div class="">
@@ -92,17 +92,64 @@
 			</div>
 
 			{#if item.fields.location}
-				<div class="pb-5">
+				<div class="">
 					<p class="pb-1 font-bold">Location</p>
 					<p class="break-words text-sm">{item.fields.location}</p>
 				</div>
 			{/if}
 
 			{#if item.fields.language}
-				<div class="pb-5">
+				<div class="">
 					<p class="pb-1 font-bold">Languages</p>
 					{#each item.fields.language as language}
 						<p class="text-sm">{language}</p>
+					{/each}
+				</div>
+			{/if}
+
+			{#if item.fields.contactPerson && item.fields.contactPerson.length > 0}
+				<div class="">
+					<p class="pb-1 font-bold">
+						{item.fields.contactPerson.length > 1 ? 'Contact Persons' : 'Contact Person'}
+					</p>
+					{#each item.fields.contactPerson as person}
+						<div class="mb-6 mt-3 flex items-center">
+							<div class="mr-3">
+								<img
+									loading="lazy"
+									src={person.fields.pictureCdn?.length > 0
+										? person.fields.pictureCdn[0].secure_url
+										: person.fields.picture?.fields.file.url}
+									alt={person.fields.name}
+									class="h-10 w-10 rounded-full object-cover lg:h-16 lg:w-16"
+								/>
+							</div>
+							<div>
+								<p class="text-sm font-semibold">{person.fields.name}</p>
+								{#if item.fields.contactPersonEmail}
+									<a
+										href={`mailto:${item.fields.contactPersonEmail}`}
+										class="inline-flex items-center text-xs font-light text-blue-normal hover:underline"
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="mr-1 h-3 w-3"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+											/>
+										</svg>
+										Contact
+									</a>
+								{/if}
+							</div>
+						</div>
 					{/each}
 				</div>
 			{/if}
