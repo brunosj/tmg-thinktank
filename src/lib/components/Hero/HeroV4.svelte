@@ -34,18 +34,18 @@
 			<div class="grid grid-cols-1 lg:grid-cols-4">
 				<!-- Content Section -->
 				<div
-					class="col-span-1 flex items-center lg:col-span-3"
+					class="layout col-span-1 flex items-center lg:col-span-3"
 					in:fade={{ duration: 800, easing: cubicInOut }}
 				>
-					<div class="layoutRight space-y-8 py-12 text-white">
+					<div class="w-full space-y-8 py-12 text-white lg:w-[90%]">
 						<h1
-							class="text-3xl font-semibold leading-tight tracking-tight lg:text-7xl"
+							class="text-3xl font-semibold leading-tight tracking-tight lg:text-5xl"
 							transition:fly={{ x: -50, duration: 500, delay: 250, easing: cubicInOut }}
 						>
 							{heroTitle}
 						</h1>
 						<h2
-							class="prose text-base text-white/90 lg:text-xl"
+							class="text-base font-normal leading-relaxed text-white/90 lg:text-xl"
 							transition:fly={{ x: -50, duration: 500, delay: 350, easing: cubicInOut }}
 						>
 							{heroSubtitle}
