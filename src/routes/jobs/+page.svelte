@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Job } from '$lib/types/types';
+	import type { Job } from '$lib/types/payload-types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import JobListing from '$components/Jobs/JobListing.svelte';
@@ -18,14 +18,14 @@
 	const today = new Date();
 
 	const activeJobs = jobs.filter((job) => {
-		const jobDeadline = new Date(job.fields.date);
+		const jobDeadline = new Date(job.deadlineDate || '');
 		return jobDeadline > today;
 	});
-	const noDeadlineJobs = jobs.filter((item) => item.fields.date == null);
+	const noDeadlineJobs = jobs.filter((item) => item.date == null);
 	const allActiveJobs = activeJobs.concat(noDeadlineJobs);
 
-	const jobOffers = allActiveJobs.filter((item) => item.fields.category === 'Job');
-	const consultancyOffers = allActiveJobs.filter((item) => item.fields.category === 'Consultancy');
+	const jobOffers = allActiveJobs.filter((item) => item.category === 'Job');
+	const consultancyOffers = allActiveJobs.filter((item) => item.category === 'Consultancy');
 </script>
 
 <SEO title="Job Opportunities" description="Join our team!" />
@@ -35,7 +35,7 @@
 		{#if jobOffers.length > 0}
 			<h2 class="py-6 text-2xl font-bold underline lg:py-12">Jobs</h2>
 			<ul class="space-y-6 pl-0 lg:space-y-12">
-				{#each jobOffers as item (item.fields.title)}
+				{#each jobOffers as item (item.title)}
 					<JobListing {item} />
 				{/each}
 			</ul>
@@ -44,7 +44,7 @@
 		{#if consultancyOffers.length > 0}
 			<h2 class="py-6 text-2xl font-bold underline lg:py-12">Calls for Tenders</h2>
 			<ul class="space-y-6 pl-0 lg:space-y-12">
-				{#each consultancyOffers as item (item.fields.title)}
+				{#each consultancyOffers as item (item.title)}
 					<JobListing {item} />
 				{/each}
 			</ul>

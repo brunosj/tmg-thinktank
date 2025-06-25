@@ -1,9 +1,9 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { getVideos } from '$lib/payloadClient';
 
 export async function load() {
 	let entries = [];
 	try {
-		entries = await fetchContentfulData('video');
+		entries = await getVideos();
 		return {
 			entries
 		};

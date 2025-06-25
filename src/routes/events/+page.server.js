@@ -1,9 +1,9 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { getEvents, getEventSeries } from '$lib/payloadClient';
 
 export async function load() {
 	try {
-		const eventSeries = await fetchContentfulData('unfssCop26');
-		const events = await fetchContentfulData('event');
+		const eventSeries = await getEventSeries();
+		const events = await getEvents();
 
 		return {
 			events,

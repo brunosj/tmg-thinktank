@@ -1,11 +1,11 @@
 import type { LayoutServerLoad } from './$types';
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { getProgrammes } from '$lib/payloadClient';
 
 export const load: LayoutServerLoad = async ({ url }) => {
 	const { pathname } = url;
 
 	try {
-		const programmes = await fetchContentfulData('program');
+		const programmes = await getProgrammes();
 
 		return {
 			pathname,

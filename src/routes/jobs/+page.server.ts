@@ -1,9 +1,9 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { getJobs } from '$lib/payloadClient';
 
 export async function load() {
 	let entries = [];
 	try {
-		entries = await fetchContentfulData('jobs');
+		entries = await getJobs();
 		return {
 			entries
 		};

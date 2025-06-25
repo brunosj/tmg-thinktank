@@ -2,7 +2,7 @@
 	import SEO from '$components/SEO/SEO.svelte';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import TeamListing from '$components/Team/TeamListing.svelte';
-	import type { Team } from '$lib/types/types';
+	import type { Team } from '$lib/types/payload-types';
 
 	interface Props {
 		data: { entries: Team[] };

@@ -3,6 +3,13 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import type { BlogPost, CalendarEvent, Event, Publication, Video } from '$lib/types/types';
+// Import new Payload types
+import type {
+	Post,
+	Publication as PayloadPublication,
+	Video as PayloadVideo,
+	Category as Programme
+} from '$lib/types/payload-types';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -112,7 +119,7 @@ export function downloadICal(evt: CalendarEvent | Event) {
 	URL.revokeObjectURL(url);
 }
 
-// Contentful
+// Contentful rich text rendering (legacy - for existing Contentful data)
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import * as contentfulTypes from '@contentful/rich-text-types';
 const { BLOCKS, INLINES } = contentfulTypes;
@@ -197,25 +204,93 @@ export function renderRichText(richText: any) {
 	}
 }
 
-//////  Util function to format strings
-export function slugify(text: string) {
-	return text
-		.toLowerCase()
-		.replace(/ /g, '-')
-		.replace(/[^\w-]+/g, '');
+// Lexical rich text rendering (for Payload CMS)
+export function renderLexicalRichText(lexicalData: any): string {
+	if (!lexicalData || !lexicalData.root || !lexicalData.root.children) {
+		return '';
+	}
+
+	function renderNode(node: any): string {
+		if (!node) return '';
+
+		switch (node.type) {
+			case 'paragraph':
+				const children = node.children?.map(renderNode).join('') || '';
+				return `<p>${children}</p>`;
+
+			case 'heading':
+				const headingChildren = node.children?.map(renderNode).join('') || '';
+				const level = node.tag || 'h2';
+				return `<${level}>${headingChildren}</${level}>`;
+
+			case 'list':
+				const listChildren = node.children?.map(renderNode).join('') || '';
+				const listTag = node.listType === 'number' ? 'ol' : 'ul';
+				return `<${listTag}>${listChildren}</${listTag}>`;
+
+			case 'listitem':
+				const listItemChildren = node.children?.map(renderNode).join('') || '';
+				return `<li>${listItemChildren}</li>`;
+
+			case 'quote':
+				const quoteChildren = node.children?.map(renderNode).join('') || '';
+				return `<blockquote>${quoteChildren}</blockquote>`;
+
+			case 'text':
+				let text = node.text || '';
+				if (node.format) {
+					if (node.format & 1) text = `<strong>${text}</strong>`;
+					if (node.format & 2) text = `<em>${text}</em>`;
+					if (node.format & 4) text = `<u>${text}</u>`;
+					if (node.format & 8) text = `<s>${text}</s>`;
+				}
+				return text;
+
+			case 'link':
+				const linkChildren = node.children?.map(renderNode).join('') || '';
+				const url = node.url || '#';
+				const isExternal = url.startsWith('http') || url.startsWith('https');
+				const target = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+				return `<a href="${url}" ${target}>${linkChildren}</a>`;
+
+			case 'linebreak':
+				return '<br>';
+
+			default:
+				// For unknown node types, try to render children
+				if (node.children) {
+					return node.children.map(renderNode).join('');
+				}
+				return '';
+		}
+	}
+
+	try {
+		return lexicalData.root.children.map(renderNode).join('');
+	} catch (error) {
+		console.error('Error rendering Lexical rich text:', error);
+		return '';
+	}
 }
 
-//////  Util function to intersect and render transitions conditionally
+export function slugify(text: string) {
+	return text
+		.toString()
+		.toLowerCase()
+		.trim()
+		.replace(/\s+/g, '-')
+		.replace(/[^\w\-]+/g, '')
+		.replace(/\-\-+/g, '-');
+}
+
 export function observeIntersection(
 	targetSelector: string,
 	callback: () => void,
 	threshold = 0.5,
 	margin = '0px'
 ) {
-	const options = {
-		rootMargin: margin,
-		threshold: threshold
-	};
+	const target = document.querySelector(targetSelector);
+	if (!target) return;
 
 	const handleIntersection = (entries: IntersectionObserverEntry[]) => {
 		entries.forEach((entry) => {
@@ -225,12 +300,12 @@ export function observeIntersection(
 		});
 	};
 
-	const observer = new IntersectionObserver(handleIntersection, options);
-	const target = document.querySelector(targetSelector);
+	const observer = new IntersectionObserver(handleIntersection, {
+		threshold,
+		rootMargin: margin
+	});
 
-	if (target) {
-		observer.observe(target);
-	}
+	observer.observe(target);
 
 	return () => {
 		if (target) {
@@ -309,21 +384,23 @@ export function formatDateLong(date: string) {
 	return `${day} ${month} ${year}`;
 }
 
-export function transformPublicationToNews(publication: Publication) {
+// Updated transformation functions for Payload CMS data structure
+
+export function transformPublicationToNews(publication: PayloadPublication) {
 	return {
 		fields: {
-			programme: publication.fields.programme,
+			programme: publication.info?.programme,
 			secondProgramme: null,
-			project: [publication.fields.project],
-			dateFormat: publication.fields.publicationDate,
+			project: publication.info?.project ? [publication.info.project] : [],
+			dateFormat: publication.info?.publicationDate,
 			type: 'Publication',
-			author: publication.fields.author,
-			authorTmg: publication.fields.authorTmg,
-			title: publication.fields.title,
-			summary: publication.fields.summary,
-			image: publication.fields.thumbnail,
-			imageCdn: publication.fields.thumbnailCdn,
-			descriptionRich: publication.fields.automatedNewsEntry,
+			author: publication.info?.author,
+			authorTmg: publication.info?.authorTmg || [],
+			title: publication.title,
+			summary: publication.info?.summary,
+			image: publication.content?.thumbnail,
+			imageCdn: publication.thumbnailFromCloudinary,
+			descriptionRich: publication.automatedNewsEntry,
 			source: null,
 			sourceUrl: null,
 			publication: publication,
@@ -333,69 +410,70 @@ export function transformPublicationToNews(publication: Publication) {
 			video: null,
 			relatedNews: [],
 			relatedPublications: [],
-			slug: publication.fields.slug
+			slug: publication.slug
 		}
 	};
 }
 
-export function transformBlogPostToNews(blogPost: BlogPost) {
+export function transformBlogPostToNews(blogPost: Post) {
 	return {
 		fields: {
-			programme: blogPost.fields.programme,
-			secondProgramme: blogPost.fields.secondProgramme,
-			project: [blogPost.fields.project],
-			dateFormat: blogPost.fields.dateFormat,
+			programme: blogPost.Info?.programme,
+			secondProgramme: blogPost.Info?.secondProgramme,
+			project: blogPost.Info?.project || [],
+			dateFormat: blogPost.Info?.dateFormat,
 			type: 'Blog Post',
-			author: blogPost.fields.author,
-			authorTmg: blogPost.fields.authorTmg,
-			title: blogPost.fields.title,
-			summary: blogPost.fields.summary,
-			image: blogPost.fields.image,
-			imageCdn: blogPost.fields.imageCdn,
-			descriptionRich: blogPost.fields.descriptionRich,
-			source: blogPost.fields.source,
-			sourceUrl: blogPost.fields.sourceUrl,
-			relatedNews: blogPost.fields.relatedNews,
-			relatedPublications: blogPost.fields.relatedPublications,
-			slug: blogPost.fields.slug
+			author: null,
+			authorTmg:
+				blogPost.authors?.filter((a) => a.authorType === 'team').map((a) => a.teamMember) || [],
+			title: blogPost.title,
+			summary: blogPost.Info?.summary,
+			image: blogPost.heroImage,
+			imageCdn: blogPost.imageFromCloudinary,
+			descriptionRich: blogPost.content,
+			source: blogPost.Info?.source,
+			sourceUrl: blogPost.Info?.sourceUrl,
+			relatedNews: blogPost.relatedNews || [],
+			relatedPublications: blogPost.relatedPublications || [],
+			slug: blogPost.slug
 		}
 	};
 }
 
-export function transformVideoToNews(video: Video) {
+export function transformVideoToNews(video: PayloadVideo) {
 	return {
 		fields: {
-			programme: video.fields.programmes ? video.fields.programmes[0] : null,
-			secondProgramme: video.fields.programmes?.length > 1 ? video.fields.programmes[1] : null,
-			project: video.fields.projects,
-			dateFormat: video.fields.date,
+			programme: video.programmes && video.programmes.length > 0 ? video.programmes[0] : null,
+			secondProgramme: video.programmes && video.programmes.length > 1 ? video.programmes[1] : null,
+			project: video.projects || [],
+			dateFormat: video.date,
 			type: 'Video',
 			author: null,
 			authorTmg: [],
-			title: video.fields.title,
-			summary: video.fields.summary,
-			image: video.fields.image,
-			imageCdn: video.fields.imageCdn,
-			descriptionRich: video.fields.automatedNewsEntry,
+			title: video.title,
+			summary: video.summary,
+			image: video.image,
+			imageCdn: null,
+			descriptionRich: video.automatedNewsEntry,
 			source: null,
 			sourceUrl: null,
 			publication: null,
 			publicationReferenceTMG: null,
 			externalPublicationThumbnail: null,
-			externalPublicationUrl: video.fields.url,
+			externalPublicationUrl: video.url,
 			video: {
 				fields: {
-					videoId: video.fields.videoId,
-					url: video.fields.url,
-					imageCdn: video.fields.imageCdn,
-					image: video.fields.image,
-					summary: video.fields.summary,
-					title: video.fields.title
+					videoId: video.videoId,
+					url: video.url,
+					imageCdn: null,
+					image: video.image,
+					summary: video.summary,
+					title: video.title
 				}
 			},
 			relatedNews: [],
 			relatedPublications: [],
-			slug: video.fields.slug || slugify(video.fields.title)
+			slug: video.slug || slugify(video.title)
 		}
 	};
 }
@@ -421,13 +499,11 @@ export function formatEventLocalTime(startDateStr: string, endDateStr: string): 
 	return `${startTime} - ${endTime} (${formattedTz})`;
 }
 
-import type { Programme } from '$lib/types/types';
-
 export function generateProgrammeLinks(programmes: Programme[]) {
 	return programmes
-		.sort((a, b) => (a.fields.title || '').localeCompare(b.fields.title || ''))
+		.sort((a, b) => (a.title || '').localeCompare(b.title || ''))
 		.map((programme) => ({
-			title: programme.fields.title,
-			to: `/programmes/${programme.fields.slug}`
+			title: programme.title,
+			to: `/programmes/${programme.slug}`
 		}));
 }

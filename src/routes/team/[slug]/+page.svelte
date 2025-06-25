@@ -7,8 +7,9 @@
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import ButtonArrow from '$components/UI/ButtonArrow.svelte';
+	import LexicalRenderer from '$components/RichText/LexicalRenderer.svelte';
 	import { ensureHttps } from '$utils/utils';
-	import type { Team, News, Publication } from '$lib/types/types';
+	import type { Team, News, Publication } from '$lib/types/payload-types';
 	interface Props {
 		data: Page;
 	}
@@ -21,92 +22,79 @@
 		publications: Publication[];
 	};
 
-	let publications: Publication[] = $state([]);
-	let news: News[] = $state([]);
-
 	let item = $derived(data.item);
 
-	$effect(() => {
-		news = data.news;
-	});
-
-	$effect(() => {
-		publications = data.publications;
-	});
-
-	$effect(() => {
-		publications = publications
+	let publications = $derived(
+		data.publications
 			.filter((publication) => {
-				if (publication.fields.authorTmg && item.fields.name) {
-					return publication.fields.authorTmg.some(
-						(author) => author.fields?.name === item.fields?.name
+				if (publication.info?.authorTmg && item.name) {
+					return publication.info.authorTmg.some(
+						(author) => typeof author === 'object' && author.name === item.name
 					);
 				}
 				return false;
 			})
 			.sort((a, b) => {
-				const dateA = new Date(a.fields.publicationDate).getTime();
-				const dateB = new Date(b.fields.publicationDate).getTime();
+				const dateA = new Date(a.info?.publicationDate || '').getTime();
+				const dateB = new Date(b.info?.publicationDate || '').getTime();
 				return dateB - dateA;
-			});
-	});
+			})
+	);
 
-	$effect(() => {
-		news = news
+	let news = $derived(
+		data.news
 			.filter((newsItem) => {
-				if (newsItem.fields.authorTmg && item.fields.name) {
-					return newsItem.fields.authorTmg.some(
-						(author) => author.fields?.name === item.fields?.name
+				if (newsItem.info?.authorTmg && item.name) {
+					return newsItem.info.authorTmg.some(
+						(author) => typeof author === 'object' && author.name === item.name
 					);
 				}
 				return false;
 			})
 			.sort((a, b) => {
-				const dateA = new Date(a.fields.dateFormat).getTime();
-				const dateB = new Date(b.fields.dateFormat).getTime();
+				const dateA = new Date(a.info?.dateFormat || '').getTime();
+				const dateB = new Date(b.info?.dateFormat || '').getTime();
 				return dateB - dateA;
-			});
-	});
+			})
+	);
 
 	let image = $derived(
-		item.fields.pictureCdn?.length > 0
-			? item.fields.pictureCdn[0].secure_url
-			: item.fields.picture.fields.file.url
+		item.picture && typeof item.picture === 'object' ? item.picture.url || undefined : undefined
 	);
 </script>
 
-<SEO title={item.fields.name} {image} />
+<SEO title={item.name} {image} />
 
 <article class="pb-6 pt-24 lg:pb-16 lg:pt-48">
 	<div class="gril-cols-1 layout grid lg:grid-cols-4">
 		<div class="order-2 justify-between pr-0 leading-normal lg:order-1 lg:col-span-3 lg:pr-16">
 			<div class="">
 				<h2 class="font-semibold text-black">
-					{item.fields.name}
+					{item.name}
 				</h2>
-				<h3 class="pb-4 font-bold text-blue-normal">
-					{item.fields.position}
+				<h3 class="text-blue-normal pb-4 font-bold">
+					{item.position}
 				</h3>
 
-				{#if item.fields.bio}
-					<p class="pb-4 text-base text-black">
-						{item.fields.bio}
-					</p>
+				{#if item.bio}
+					<div class="pb-4 text-base text-black">
+						<LexicalRenderer content={item.bio} />
+					</div>
 				{/if}
 
-				<ul class="flex items-center space-x-3 pt-2 text-blue-normal">
-					{#if item.fields.email}
-						<a href={`mailto:${item.fields.email}`} class="">
+				<ul class="text-blue-normal flex items-center space-x-3 pt-2">
+					{#if item.email}
+						<a href={`mailto:${item.email}`} class="">
 							<Icon icon={FaMail} label="Mail" classes="w-4 h-4" />
 						</a>
 					{/if}
-					{#if item.fields.twitter}
-						<a href={ensureHttps(item.fields.twitter)}>
+					{#if item.twitter}
+						<a href={ensureHttps(item.twitter)}>
 							<Icon icon={FaTwitter} label="Twitter" classes="w-4 h-4" />
 						</a>
 					{/if}
-					{#if item.fields.linkedin}
-						<a href={ensureHttps(item.fields.linkedin)}>
+					{#if item.linkedin}
+						<a href={ensureHttps(item.linkedin)}>
 							<Icon icon={FaLinkedin} label="LinkedIn" classes="w-4 h-4" />
 						</a>
 					{/if}
@@ -120,7 +108,7 @@
 					loading="lazy"
 					class="aspect-square w-full rounded-full object-cover"
 					src={image}
-					alt={item.fields.name}
+					alt={item.name}
 				/>
 			</div>
 		{/if}
