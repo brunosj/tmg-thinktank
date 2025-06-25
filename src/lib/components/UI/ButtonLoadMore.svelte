@@ -2,14 +2,14 @@
 	import type { Snippet } from 'svelte';
 
 	interface Props {
-		onClick: () => void;
+		onclick: () => void;
 		children?: Snippet;
 	}
 
-	let { onClick, children }: Props = $props();
+	let { onclick, children }: Props = $props();
 </script>
 
-<button class="w-full" onclick={onClick}>
+<button class="w-full" {onclick}>
 	<div
 		class="focus:shadow-outline border-blue-normal text-blue-normal hover:bg-blue-normal group flex items-center justify-around rounded-md border bg-white align-middle text-sm duration-300 hover:text-white focus:outline-none md:text-base"
 	>

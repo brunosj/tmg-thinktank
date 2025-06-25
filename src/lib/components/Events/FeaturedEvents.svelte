@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Event } from '$lib/types/types';
+	import type { Event } from '$lib/types/payload-types';
 
 	interface Props {
 		events: Event[];
@@ -19,27 +19,27 @@
 					<div
 						class="group overflow-hidden rounded-lg shadow-md transition duration-300 ease-in-out"
 					>
-						<a href={`/events/${event.fields.slug}`} class="block">
-							{#if event.fields.topBanner}
+						<a href={`/events/${event.slug}`} class="block">
+							{#if event.content?.image && typeof event.content.image === 'object'}
 								<div class="aspect-[16/9] w-full overflow-hidden">
 									<img
-										src={event.fields.topBanner[0].secure_url}
-										alt={event.fields.title}
+										src={event.content.image.url}
+										alt={event.title}
 										class="h-full w-full object-cover transition duration-300 ease-in-out group-hover:saturate-[0.25]"
 									/>
 								</div>
 							{/if}
 							<div class="space-y-2 p-5">
-								<h3 class="text-lg font-semibold text-blue-normal">{event.fields.title}</h3>
+								<h3 class="text-blue-normal text-lg font-semibold">{event.title}</h3>
 								<p class="text-sm text-gray-600">
-									{new Date(event.fields.date).toLocaleDateString('en-US', {
+									{new Date(event.date).toLocaleDateString('en-US', {
 										month: 'long',
 										day: 'numeric',
 										year: 'numeric'
 									})}
 								</p>
-								{#if event.fields.summary}
-									<p class="text-sm text-gray-700">{event.fields.summary}</p>
+								{#if event.info?.summary}
+									<p class="text-sm text-gray-700">{event.info.summary}</p>
 								{/if}
 							</div>
 						</a>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Speaker } from '$lib/types/types';
+	import type { Speaker } from '$lib/types/payload-types';
 
 	interface Props {
 		speakers: Speaker[];
@@ -11,9 +11,9 @@
 
 <div class="py-4">
 	<div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-		{#each speakers as speaker (speaker.fields.slug)}
+		{#each speakers as speaker (speaker.slug)}
 			<a
-				href={`/speaker/${speaker.fields.slug}`}
+				href={`/speaker/${speaker.slug}`}
 				class="group flex transform flex-col items-center transition duration-300 hover:translate-y-[-4px]"
 			>
 				<div class="relative mb-3">
@@ -28,12 +28,14 @@
 						class="relative h-24 w-24 overflow-hidden rounded-full border-2 shadow-sm transition-transform duration-300 sm:h-28 sm:w-28"
 						style="border-color: {color};"
 					>
-						<img
-							loading="lazy"
-							src={speaker.fields.picture.fields.file.url}
-							alt={speaker.fields.name}
-							class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-						/>
+						{#if speaker.picture && typeof speaker.picture === 'object' && 'url' in speaker.picture}
+							<img
+								loading="lazy"
+								src={speaker.picture.url}
+								alt={speaker.name}
+								class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+							/>
+						{/if}
 					</div>
 
 					<!-- Status indicator dot -->
@@ -45,13 +47,13 @@
 
 				<div class="text-center">
 					<h3 class="line-clamp-1 font-medium text-gray-900">
-						{speaker.fields.name}
+						{speaker.name}
 					</h3>
 					<p
 						class="line-clamp-1 text-xs transition-colors duration-300 group-hover:font-medium"
 						style="color: {color};"
 					>
-						{speaker.fields.organisation}
+						{speaker.organisation || ''}
 					</p>
 				</div>
 			</a>

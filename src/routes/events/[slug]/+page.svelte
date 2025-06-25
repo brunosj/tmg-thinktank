@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { Event } from '$lib/types/types';
+	import type { Event } from '$lib/types/payload-types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Button from '$components/UI/Button.svelte';
-	import { renderRichText } from '$utils/utils';
+	import { renderLexicalRichText } from '$utils/utils';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
 	import { slugify } from '$utils/utils';
 	import Tag from '$components/UI/Tag.svelte';
@@ -13,56 +13,79 @@
 	import EventSpeakers from '$components/Events/EventSpeakers.svelte';
 	import EventFacilitators from '$components/Events/EventFacilitators.svelte';
 	import RelatedItems from '$components/Events/RelatedItems.svelte';
-	import VideoListing from '$components/Video/VideoListing.svelte';
 	import RelatedContentSection from '$components/Layout/RelatedContentSection.svelte';
 
 	interface Props {
-		data: Event;
+		data: {
+			item: Event;
+		};
 	}
 
 	let { data }: Props = $props();
 
-	let item = $derived(data);
+	let item = $derived(data.item);
 
-	let image = $derived(
-		item.fields.imageCdn?.length > 0
-			? item.fields.imageCdn[0].secure_url
-			: item.fields.image?.fields.file.url
-	);
+	// For Payload, we need to handle the Media type properly
+	let image = $derived(() => {
+		if (!item.content?.image) return null;
 
-	let imageCaption = $derived(
-		item.fields.imageCdn?.length > 0
-			? item.fields.imageCdn[0].context?.custom.caption
-			: item.fields.image?.fields.description
-	);
+		// If image is a Media object with url property
+		if (typeof item.content.image === 'object' && 'url' in item.content.image) {
+			return item.content.image.url;
+		}
+
+		// If image is a string (just the URL)
+		if (typeof item.content.image === 'string') {
+			return item.content.image;
+		}
+
+		return null;
+	});
+
+	let imageCaption = $derived(() => {
+		if (!item.content?.image) return null;
+
+		// If image is a Media object with caption
+		if (typeof item.content.image === 'object' && 'alt' in item.content.image) {
+			return item.content.image.alt;
+		}
+
+		return null;
+	});
+
+	// Helper to get image as string for SEO
+	let seoImage = $derived(image());
+
+	// Helper to get keywords as array for SEO
+	let seoKeywords = $derived(() => {
+		const keywords = item.info?.keywords;
+		if (!keywords || !Array.isArray(keywords)) return undefined;
+		const keywordStrings = keywords.map((k) => k.keyword).filter(Boolean) as string[];
+		return keywordStrings.length > 0 ? keywordStrings : undefined;
+	});
 </script>
 
 <SEO
-	title={item.fields.title}
-	description={item.fields.summary}
-	{image}
-	keywords={item.fields.keywords}
+	title={item.title}
+	description={item.info?.summary || undefined}
+	image={seoImage || undefined}
+	keywords={seoKeywords()}
 />
 <article>
-	{#if item.fields.topBanner}
+	{#if item.content?.topBanner}
 		<div class="w-full pt-12 lg:pt-16">
-			<img
-				loading="lazy"
-				src={item.fields.topBanner[0].secure_url}
-				alt={item.fields.title}
-				class="w-full"
-			/>
+			<img loading="lazy" src={item.content.topBanner.url} alt={item.title} class="w-full" />
 		</div>
 	{/if}
-	<div class={`overflow-hidden ${item.fields.topBanner ? 'pt-8 lg:pt-16' : 'pt-16 lg:pt-32'}`}>
+	<div class={`overflow-hidden ${item.content?.topBanner ? 'pt-8 lg:pt-16' : 'pt-16 lg:pt-32'}`}>
 		<EventHeader {item} />
-		{#if image && item.fields.imagePosition === 'Top'}
+		{#if image() && item.content?.imagePosition === 'Top'}
 			<div class="layout w-full py-6 lg:py-12">
-				<img loading="lazy" src={image} alt={item.fields.title} />
-				{#if imageCaption}
+				<img loading="lazy" src={image()} alt={item.title} />
+				{#if imageCaption()}
 					<div class="flex">
 						<span class="ml-auto pt-2 text-sm font-normal italic text-black">
-							{imageCaption}
+							{imageCaption()}
 						</span>
 					</div>
 				{/if}
@@ -70,32 +93,16 @@
 		{/if}
 		<div class="layout grid grid-cols-1 gap-0 pb-6 pt-6 lg:grid-cols-3 lg:gap-12">
 			<div class="col-span-2 space-y-12">
-				<ShareSocialMedia
-					text={item.fields.title}
-					url={`https://tmg-thinktank.com/events/${item.fields.slug}`}
-				/>
-				{#if item.fields.description}
+				<ShareSocialMedia text={item.title} url={`https://tmg-thinktank.com/events/${item.slug}`} />
+				{#if item.content?.description}
 					<div class="richText">
-						{@html renderRichText(item.fields.description)}
+						{@html renderLexicalRichText(item.content.description)}
 					</div>
 				{/if}
-				{#if item.fields.background}
+				{#if item.content?.background}
 					<EventBackground {item} />
 				{/if}
-				{#if item.fields.video}
-					{#snippet videoContent()}
-						<VideoListing videos={item.fields.video} />
-					{/snippet}
-
-					<RelatedContentSection
-						title={Array.isArray(item.fields.video) && item.fields.video.length > 1
-							? 'Related Videos'
-							: 'Related Video'}
-						hasBorder={false}
-						children={videoContent}
-					/>
-				{/if}
-				{#if item.fields.eventRecording}
+				{#if item.relationships?.video && typeof item.relationships.video === 'object'}
 					<EventRecording {item} />
 				{/if}
 			</div>
@@ -103,37 +110,37 @@
 		</div>
 
 		<section class="layout space-y-6 py-6 lg:py-12">
-			{#if item.fields.speakers && item.fields.speakers.length > 0}
+			{#if item.relationships?.speakers && item.relationships.speakers.length > 0}
 				<EventSpeakers {item} />
 			{/if}
-			{#if item.fields.facilitators && item.fields.facilitators.length > 0}
+			{#if item.relationships?.facilitators && item.relationships.facilitators.length > 0}
 				<EventFacilitators {item} />
 			{/if}
-			{#if (item.fields.relatedVideos && item.fields.relatedVideos.length > 0) || (item.fields.news && item.fields.news.length > 0) || (item.fields.relatedDocuments && item.fields.relatedDocuments.length > 0) || (item.fields.relatedEvents && item.fields.relatedEvents.length > 0)}
+			{#if (item.relationships?.relatedNews && item.relationships.relatedNews.length > 0) || (item.relationships?.relatedDocuments && item.relationships.relatedDocuments.length > 0) || (item.relationships?.relatedEvents && item.relationships.relatedEvents.length > 0)}
 				<RelatedItems {item} />
 			{/if}
 		</section>
 
 		<section class="layout">
-			{#if image && item.fields.imagePosition !== 'Top'}
+			{#if image() && item.content?.imagePosition !== 'Top'}
 				<div class="w-full pb-6">
-					<img loading="lazy" src={image} alt={item.fields.title} />
-					{#if imageCaption}
+					<img loading="lazy" src={image()} alt={item.title} />
+					{#if imageCaption()}
 						<div class="flex">
 							<span class="ml-auto pt-2 text-sm font-normal italic text-black">
-								{imageCaption}
+								{imageCaption()}
 							</span>
 						</div>
 					{/if}
 				</div>
 			{/if}
 
-			{#if item.fields.programme?.fields?.title}
+			{#if item.info?.programme && typeof item.info.programme === 'object' && 'title' in item.info.programme}
 				<div class="border-b border-t border-gray-300 py-6 leading-loose">
 					<div class="text-sm font-bold">
 						More:
-						<Tag to={`/programmes/${slugify(item.fields.programme.fields.title)}#events`}
-							>{item.fields.programme.fields.title}</Tag
+						<Tag to={`/programmes/${slugify(item.info.programme.title)}#events`}
+							>{item.info.programme.title}</Tag
 						>
 					</div>
 				</div>

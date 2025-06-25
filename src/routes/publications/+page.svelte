@@ -7,7 +7,12 @@
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
-	import type { Publication, PublicationFeature, News } from '$lib/types/payload-types';
+	import type {
+		Publication,
+		PublicationFeature,
+		News,
+		PublicationsPage
+	} from '$lib/types/payload-types';
 	import Heading from '$components/Layout/Heading.svelte';
 	import PayloadCarouselV2 from '$components/Carousel/PayloadCarouselV2.svelte';
 	import PayloadPublicationOutNow from '$components/Publications/PayloadPublicationOutNow.svelte';
@@ -22,6 +27,7 @@
 		entries: Publication[];
 		features: PublicationFeature[];
 		news: News[];
+		pageData: PublicationsPage | null;
 	};
 
 	let element = $state<HTMLElement | null>(null);
@@ -31,9 +37,11 @@
 	let items = data.entries;
 	let features = data.features;
 	let news = data.news || [];
+	let pageData = data.pageData;
 	let filterCriteria = $state<Publication[]>(items);
 	let filteredItems = $derived(filterCriteria);
 	let itemsCount = $state(12);
+	let featuredPublication = $derived(pageData?.featuredPublication);
 
 	let latestPublicationWithNewsEntry = $derived(
 		items
@@ -55,8 +63,14 @@
 	}
 </script>
 
-<SEO title="Publications" />
-<SectionHeaderLow title="Publications" background="bgGradientBR" />
+<SEO
+	title={pageData?.meta?.title || pageData?.title || 'Publications'}
+	description={pageData?.meta?.description || 'Publications from TMG and its partners'}
+	image={pageData?.meta?.image && typeof pageData.meta.image === 'object'
+		? pageData.meta.image.url || 'https://tmg-thinktank.com/tmg-seo.jpg'
+		: 'https://tmg-thinktank.com/tmg-seo.jpg'}
+/>
+<SectionHeaderLow title={pageData?.title || 'Publications'} background="bgGradientBR" />
 
 <article class="bg-blue-light" bind:this={element}>
 	<IntersectionObserver {element} bind:intersecting once>
@@ -71,7 +85,7 @@
 					<PayloadCarouselV2 slides={features} />
 					{#if latestPublicationWithNewsEntry}
 						<PayloadPublicationOutNow
-							publication={latestPublicationWithNewsEntry}
+							publication={featuredPublication as Publication}
 							automatedNewsEntries={news}
 						/>
 					{/if}

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { Event, CalendarEvent } from '$lib/types/types';
+	import type { Event } from '$lib/types/payload-types';
+	import type { CalendarEvent } from '$lib/types/types';
 	import { onMount, onDestroy } from 'svelte';
 	import CalendarHeader from '$components/Calendar/CalendarHeader.svelte';
 	import ItemList from '$components/Calendar/ItemList.svelte';
@@ -19,22 +20,20 @@
 	let items = $derived(
 		events && events.length > 0
 			? events.map((event) => {
-					const start = new Date(event.fields.date);
-					const end = event.fields.endDate
-						? new Date(event.fields.endDate)
-						: new Date(event.fields.date);
+					const start = new Date(event.date);
+					const end = event.endDate ? new Date(event.endDate) : new Date(event.date);
 
 					return {
 						start,
 						end,
-						rawStart: event.fields.date,
-						rawEnd: event.fields.endDate || event.fields.date,
-						title: event.fields.title,
-						subtitle: event.fields.summary,
-						slug: event.fields.slug,
+						rawStart: event.date,
+						rawEnd: event.endDate || event.date,
+						title: event.title,
+						subtitle: event.info?.summary || '',
+						slug: event.slug,
 						isMultiDay: end.getTime() > start.getTime() + 24 * 60 * 60 * 1000,
-						type: event.fields.type,
-						category: event.fields.type
+						type: event.info?.type || 'other',
+						category: event.info?.type || 'other'
 					} as CalendarEvent;
 				})
 			: []

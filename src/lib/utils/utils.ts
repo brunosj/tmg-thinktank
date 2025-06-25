@@ -507,3 +507,27 @@ export function generateProgrammeLinks(programmes: Programme[]) {
 			to: `/programmes/${programme.slug}`
 		}));
 }
+
+/**
+ * Convert language code to full language name
+ */
+export function getLanguageName(languageCode: string | null | undefined): string {
+	if (!languageCode) return '';
+
+	const languageMap: Record<string, string> = {
+		en: 'English',
+		de: 'German',
+		fr: 'French',
+		es: 'Spanish',
+		it: 'Italian',
+		pt: 'Portuguese',
+		nl: 'Dutch',
+		ru: 'Russian',
+		zh: 'Chinese',
+		ja: 'Japanese',
+		ko: 'Korean',
+		ar: 'Arabic'
+	};
+
+	return languageMap[languageCode.toLowerCase()] || languageCode;
+}

@@ -14,7 +14,9 @@ import type {
 	EventSery as EventSeries,
 	Initiative,
 	Category,
-	Homepage
+	Homepage,
+	PublicationsPage,
+	VideosPage
 } from './types/payload-types';
 
 export interface PayloadCollectionResponse<T> {
@@ -316,5 +318,31 @@ export async function getLatestNews(limit = 3): Promise<News[]> {
 	} catch (error) {
 		console.error('Error fetching latest news:', error);
 		return [];
+	}
+}
+
+// Page-specific collection functions
+
+export async function getPublicationsPage(): Promise<PublicationsPage | null> {
+	try {
+		const response = await fetchFromPayload<PayloadCollectionResponse<PublicationsPage>>(
+			'/publications-page?limit=1&depth=2'
+		);
+		return response.docs.length > 0 ? response.docs[0] : null;
+	} catch (error) {
+		console.error('Error fetching publications page:', error);
+		return null;
+	}
+}
+
+export async function getVideosPage(): Promise<VideosPage | null> {
+	try {
+		const response = await fetchFromPayload<PayloadCollectionResponse<VideosPage>>(
+			'/videos-page?limit=1&depth=2'
+		);
+		return response.docs.length > 0 ? response.docs[0] : null;
+	} catch (error) {
+		console.error('Error fetching videos page:', error);
+		return null;
 	}
 }

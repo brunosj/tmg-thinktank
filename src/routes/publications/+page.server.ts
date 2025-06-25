@@ -1,8 +1,21 @@
-import { getPublications, getPublicationFeatures, getNews } from '$lib/payloadClient';
-import type { Publication, PublicationFeature, News } from '$lib/types/payload-types';
+import {
+	getPublications,
+	getPublicationFeatures,
+	getNews,
+	getPublicationsPage
+} from '$lib/payloadClient';
+import type {
+	Publication,
+	PublicationFeature,
+	News,
+	PublicationsPage
+} from '$lib/types/payload-types';
 
 export async function load() {
 	try {
+		// Fetch page-specific data
+		const pageData: PublicationsPage | null = await getPublicationsPage();
+
 		let entries: Publication[] = await getPublications();
 
 		entries = entries.sort((a, b) => {
@@ -24,7 +37,8 @@ export async function load() {
 		return {
 			entries,
 			features,
-			news
+			news,
+			pageData
 		};
 	} catch (error) {
 		console.error('Error fetching data:', error);
