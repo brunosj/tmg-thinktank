@@ -1,7 +1,11 @@
 <script lang="ts">
-	import type { Partner } from '$lib/types/types';
 	interface Props {
-		item: Partner;
+		item: {
+			funder?: string | null;
+			partner?: string | null;
+			authority?: string | null;
+			id?: string | null;
+		};
 		width?: string;
 		lgWidth?: string;
 		padding?: string;
@@ -16,17 +20,16 @@
 		lgPadding = 'lg:p-5'
 	}: Props = $props();
 
-	let image = $derived(
-		item.fields.logoCdn?.length > 0
-			? item.fields.logoCdn[0].secure_url
-			: item.fields.logo.fields.file.url
-	);
+	// Get the name from any of the available fields
+	let name = $derived(item.funder || item.partner || item.authority || '');
 </script>
 
-{#if image}
-	<a href={item.fields.url} target="_blank">
-		<div class="{width} {padding} {lgWidth} {lgPadding}">
-			<img loading="lazy" src={image} alt={item.fields.name} class="h-full w-full" />
+{#if name}
+	<div class="{width} {padding} {lgWidth} {lgPadding}">
+		<div
+			class="flex h-full w-full items-center justify-center rounded bg-gray-100 p-2 text-center text-sm font-medium text-gray-700"
+		>
+			{name}
 		</div>
-	</a>
+	</div>
 {/if}

@@ -58,7 +58,9 @@
 					>
 						{item.info?.type || 'Blog Post'}
 					</span>
-					<span class="text-xs text-gray-500">{formatDateNews(item.info?.dateFormat || '')}</span>
+					<span class="text-xs text-gray-500"
+						>{formatDateNews(item.info?.dateFormat || item.createdAt || '')}</span
+					>
 				</div>
 
 				<h1

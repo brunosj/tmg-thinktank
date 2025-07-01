@@ -203,7 +203,34 @@ export async function getPublicationBySlug(slug: string): Promise<Publication | 
 }
 
 export async function getBlogPosts(): Promise<Post[]> {
-	return fetchPayloadData<Post>('posts');
+	try {
+		// Fetch only published posts
+		const response = await fetchFromPayload<PayloadCollectionResponse<Post>>(
+			'/posts?where[_status][equals]=published&limit=1000&depth=2'
+		);
+		console.log(`Fetched ${response.docs.length} published blog posts from Payload`);
+		return response.docs;
+	} catch (error) {
+		console.error('Error fetching published blog posts:', error);
+		// Fallback to try without status filter in case of issues
+		try {
+			const fallbackResponse = await fetchFromPayload<PayloadCollectionResponse<Post>>(
+				'/posts?limit=1000&depth=2'
+			);
+			console.log(
+				`Fallback: Fetched ${fallbackResponse.docs.length} total blog posts from Payload`
+			);
+			// Filter for published posts in JavaScript as backup
+			const publishedPosts = fallbackResponse.docs.filter(
+				(post) => !post._status || post._status === 'published'
+			);
+			console.log(`${publishedPosts.length} posts are published or have no status`);
+			return publishedPosts;
+		} catch (fallbackError) {
+			console.error('Error fetching blog posts (fallback):', fallbackError);
+			return [];
+		}
+	}
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<Post | null> {

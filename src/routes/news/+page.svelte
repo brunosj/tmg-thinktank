@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { News } from '$lib/types/types';
+	import type { News } from '$lib/types/payload-types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
-	import NewsIndex from '$components/News/NewsIndex.svelte';
+	// import NewsIndex from '$components/News/NewsIndex.svelte'; // Not used
 	import ItemsFilter from '$components/Filter/ItemsFilter.svelte';
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fade, fly } from 'svelte/transition';
@@ -23,8 +23,9 @@
 
 	let news = $state(
 		data.entries.sort((a, b) => {
-			const dateA = new Date(a.fields.dateFormat).getTime();
-			const dateB = new Date(b.fields.dateFormat).getTime();
+			// Sort by most recent first (latest to oldest)
+			const dateA = new Date(a.info?.dateFormat || a.createdAt || '1970-01-01').getTime();
+			const dateB = new Date(b.info?.dateFormat || b.createdAt || '1970-01-01').getTime();
 			return dateB - dateA;
 		})
 	);

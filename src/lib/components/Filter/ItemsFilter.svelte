@@ -2,7 +2,7 @@
 
 <script lang="ts">
 	import { onMount, createEventDispatcher } from 'svelte';
-	import type { News, Publication, Programme, BlogPost } from '$lib/types/types';
+	import type { News, Publication, Category, Post } from '$lib/types/payload-types';
 	import { Accordion, AccordionItem } from 'flowbite-svelte';
 	import { MinusSmIcon, PlusSmIcon } from '@rgossiaux/svelte-heroicons/outline';
 
@@ -29,22 +29,56 @@
 		initialize();
 	});
 
-	function getFilters(items: News[] | Publication[] | BlogPost[], field: string) {
+	function getFilters(items: News[] | Publication[] | Post[], field: string) {
 		let filterItems = items.map((item) => {
-			return item.fields[field as keyof typeof item.fields];
+			// Handle different data structures for News vs Publications
+			if ('info' in item && item.info) {
+				return item.info[field as keyof typeof item.info];
+			}
+			return null;
 		});
-		let uniqueFilters = new Set(filterItems);
-		return [allLabel, ...Array.from(uniqueFilters)];
+
+		// Only include filters where at least one item exists
+		let uniqueFilters = new Set(filterItems.filter(Boolean));
+		let validFilters = Array.from(uniqueFilters).filter((filter) => {
+			return items.some((item) => {
+				if ('info' in item && item.info) {
+					return item.info[field as keyof typeof item.info] === filter;
+				}
+				return false;
+			});
+		});
+
+		return [allLabel, ...validFilters];
 	}
 
 	function getProgrammes(items: News[] | Publication[]) {
 		let programmeItems = items.map((item) => {
-			return item.fields.programme.fields.title;
+			if ('info' in item && item.info?.programme) {
+				// Programme can be a string ID or Category object
+				return typeof item.info.programme === 'string'
+					? item.info.programme
+					: item.info.programme.title;
+			}
+			return null;
 		});
-		let uniqueProgrammes = new Set(programmeItems);
-		let programmes = Array.from(uniqueProgrammes);
-		programmes = ['All Programmes', ...programmes];
-		return programmes;
+
+		// Only include programmes where at least one item exists
+		let uniqueProgrammes = new Set(programmeItems.filter(Boolean));
+		let validProgrammes = Array.from(uniqueProgrammes).filter((programme) => {
+			return items.some((item) => {
+				if ('info' in item && item.info?.programme) {
+					const programmeTitle =
+						typeof item.info.programme === 'string'
+							? item.info.programme
+							: item.info.programme.title;
+					return programmeTitle === programme;
+				}
+				return false;
+			});
+		});
+
+		return ['All Programmes', ...validProgrammes];
 	}
 
 	function handleFilters(filterValue: string) {
@@ -52,29 +86,38 @@
 		if (filterValue === allLabel) {
 			filteredItems = [...items];
 		} else {
-			filteredItems = items.filter(
-				(item: News | Publication) =>
-					item.fields[filterField as keyof typeof item.fields] === filterValue
-			);
+			filteredItems = items.filter((item: News | Publication) => {
+				if ('info' in item && item.info) {
+					return item.info[filterField as keyof typeof item.info] === filterValue;
+				}
+				return false;
+			});
 		}
 		onFilteredData(filteredItems);
 	}
 
-	function handleProgrammes(programme: string | Programme) {
+	function handleProgrammes(programme: string | Category) {
 		selectedProgramme = programme as string;
 		if (programme === 'All Programmes') {
 			filteredItems = [...items];
 		} else {
-			filteredItems = items.filter(
-				(item: News | Publication) => item.fields.programme.fields.title === programme
-			);
+			filteredItems = items.filter((item: News | Publication) => {
+				if ('info' in item && item.info?.programme) {
+					const programmeTitle =
+						typeof item.info.programme === 'string'
+							? item.info.programme
+							: item.info.programme.title;
+					return programmeTitle === programme;
+				}
+				return false;
+			});
 		}
 		onFilteredData(filteredItems);
 	}
 
 	function initialize() {
 		filters = getFilters(items, filterField).map(String);
-		programmes = getProgrammes(items);
+		programmes = getProgrammes(items).filter((p): p is string => p !== null);
 		filteredItems = [...items];
 	}
 </script>

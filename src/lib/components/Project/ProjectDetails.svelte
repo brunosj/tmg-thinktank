@@ -1,6 +1,5 @@
 <script lang="ts">
-	import type { Project } from '$lib/types/types';
-	import ProjectPartners from '$components/Project/ProjectPartners.svelte';
+	import type { Project } from '$lib/types/payload-types';
 	interface Props {
 		item: Project;
 	}
@@ -10,7 +9,7 @@
 </script>
 
 <div class="space-y-6">
-	{#if item.fields.name}
+	{#if item.name}
 		<div class="space-y-2 text-sm">
 			<div class="">
 				<div class="border-b-[1px] border-gray-900 pb-1">
@@ -18,12 +17,12 @@
 				</div>
 			</div>
 			<div class=" font-normal text-black">
-				{item.fields.name}
+				{item.name}
 			</div>
 		</div>
 	{/if}
 
-	{#if item.fields.year}
+	{#if item.info?.year}
 		<div class="space-y-2 text-sm">
 			<div class="">
 				<div class="border-b-[1px] border-gray-900 pb-1">
@@ -31,71 +30,64 @@
 				</div>
 			</div>
 			<div class=" font-normal text-black">
-				{item.fields.year}
+				{item.info.year}
 			</div>
 		</div>
 	{/if}
 
-	{#if item.fields.partnersList}
+	{#if item.info?.partnersList && item.info.partnersList.length > 0}
 		<div class="space-y-2 text-sm">
 			<div class="">
 				<div class="border-b-[1px] border-gray-900 pb-1">
 					<div class=" text-left font-semibold text-black">
-						{item.fields.partnersList.length > 1 ? 'Partners' : 'Partner'}
+						{item.info.partnersList.length > 1 ? 'Partners' : 'Partner'}
 					</div>
 				</div>
 			</div>
 			<div class="font-normal text-black">
-				{#each item.fields.partnersList as partner (partner.fields.name)}
+				{#each item.info.partnersList as partner (partner.id)}
 					<div>
-						<a href={ensureHttps(partner.fields.url)} target="_blank" class="inline-block">
-							<p class="text-sm duration-300 ease-in-out hover:underline">{partner.fields.name}</p>
-						</a>
+						<p class="text-sm">{partner.partner || ''}</p>
 					</div>
 				{/each}
 			</div>
 		</div>
 	{/if}
 
-	{#if item.fields.fundersList}
+	{#if item.info?.fundersList && item.info.fundersList.length > 0}
 		<div class="space-y-2 text-sm">
 			<div class="">
 				<div class="border-b-[1px] border-gray-900 pb-1">
 					<div class=" text-left font-semibold text-black">
-						{item.fields.fundersList.length > 1 ? 'Funders' : 'Funder'}
+						{item.info.fundersList.length > 1 ? 'Funders' : 'Funder'}
 					</div>
 				</div>
 			</div>
 			<div class="font-normal text-black">
-				{#each item.fields.fundersList as funder (funder.fields.name)}
+				{#each item.info.fundersList as funder (funder.id)}
 					<div>
-						<a href={ensureHttps(funder.fields.url)} target="_blank" class="inline-block">
-							<p class="text-sm duration-300 ease-in-out hover:underline">{funder.fields.name}</p>
-						</a>
+						<p class="text-sm">{funder.funder || ''}</p>
 					</div>
 				{/each}
 			</div>
 		</div>
 	{/if}
-	{#if item.fields.contractingAuthorityList}
+
+	{#if item.info?.contractingAuthorityList && item.info.contractingAuthorityList.length > 0}
 		<div class="space-y-2 text-sm">
 			<div class="">
 				<div class="border-b-[1px] border-gray-900 pb-1">
 					<div class=" text-left font-semibold text-black">
-						{item.fields.contractingAuthorityList.length > 1
+						{item.info.contractingAuthorityList.length > 1
 							? 'Contracting Authorities'
 							: 'Contracting Authority'}
 					</div>
 				</div>
 			</div>
 			<div class="font-normal text-black">
-				{#each item.fields.contractingAuthorityList as authority (authority.fields.name)}
+				{#each item.info.contractingAuthorityList as authority (authority.id)}
 					<div>
-						<a href={ensureHttps(authority.fields.url)} target="_blank" class="inline-block">
-							<p class="text-sm duration-300 ease-in-out hover:underline">
-								{authority.fields.name}
-							</p>
-						</a>
+						<p class="text-sm">{authority.authority || ''}</p>
 					</div>
 				{/each}
 			</div>

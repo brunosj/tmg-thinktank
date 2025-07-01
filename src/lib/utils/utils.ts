@@ -328,6 +328,8 @@ export function formatYear(date: string) {
 }
 
 export function formatMonth(date: string) {
+	if (!date) return '';
+
 	const months = [
 		'January',
 		'February',
@@ -342,7 +344,11 @@ export function formatMonth(date: string) {
 		'November',
 		'December'
 	];
-	return months[new Date(date).getMonth()];
+
+	const dateObj = new Date(date);
+	if (isNaN(dateObj.getTime())) return '';
+
+	return months[dateObj.getMonth()];
 }
 
 export function formatDay(date: string) {
@@ -363,10 +369,18 @@ export function formatDate(date: string) {
 }
 
 export function formatDateNews(date: string) {
+	if (!date) return '';
+
+	const dateObj = new Date(date);
+	if (isNaN(dateObj.getTime())) return '';
+
 	const day = formatDay(date);
-	const month = formatMonth(date).slice(0, 3);
+	const month = formatMonth(date);
 	const year = formatYear(date);
-	return `${month} ${day}, ${year}`;
+
+	if (!month) return '';
+
+	return `${month.slice(0, 3)} ${day}, ${year}`;
 }
 
 export function ensureHttps(url: string) {

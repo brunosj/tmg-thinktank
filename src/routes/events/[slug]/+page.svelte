@@ -58,7 +58,7 @@
 
 	// Helper to get keywords as array for SEO
 	let seoKeywords = $derived(() => {
-		const keywords = item.info?.keywords;
+		const keywords = item.meta?.keywords;
 		if (!keywords || !Array.isArray(keywords)) return undefined;
 		const keywordStrings = keywords.map((k) => k.keyword).filter(Boolean) as string[];
 		return keywordStrings.length > 0 ? keywordStrings : undefined;
@@ -74,7 +74,14 @@
 <article>
 	{#if item.content?.topBanner}
 		<div class="w-full pt-12 lg:pt-16">
-			<img loading="lazy" src={item.content.topBanner.url} alt={item.title} class="w-full" />
+			<img
+				loading="lazy"
+				src={typeof item.content.topBanner === 'object'
+					? item.content.topBanner.url
+					: item.content.topBanner}
+				alt={item.title}
+				class="w-full"
+			/>
 		</div>
 	{/if}
 	<div class={`overflow-hidden ${item.content?.topBanner ? 'pt-8 lg:pt-16' : 'pt-16 lg:pt-32'}`}>

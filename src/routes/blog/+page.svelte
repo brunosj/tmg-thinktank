@@ -2,7 +2,7 @@
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
 	import BlogListing from '$components/Blog/BlogListing.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
-	import type { BlogPost, News } from '$lib/types/types';
+	import type { Post } from '$lib/types/payload-types';
 
 	interface Props {
 		data: Page;
@@ -11,20 +11,40 @@
 	let { data }: Props = $props();
 
 	type Page = {
-		news: BlogPost[];
+		posts: Post[];
 	};
 
-	let items: BlogPost[];
+	let items: Post[];
 
-	items = data.news.sort((a, b) => {
-		const dateA = new Date(a.fields.dateFormat).getTime();
-		const dateB = new Date(b.fields.dateFormat).getTime();
+	items = data.posts.sort((a, b) => {
+		const dateA = new Date(
+			a.Info?.dateFormat || a.publishedAt || a.createdAt || '1970-01-01'
+		).getTime();
+		const dateB = new Date(
+			b.Info?.dateFormat || b.publishedAt || b.createdAt || '1970-01-01'
+		).getTime();
 		return dateB - dateA;
 	});
 
-	let filteredItems: BlogPost[] = $state(items);
+	let filteredItems: Post[] = $state(items);
 
-	let filterOptions = Array.from(new Set(items.map((item) => item.fields.programme)));
+	// Get unique programmes for filter, only where items exist
+	let filterOptions = Array.from(
+		new Set(
+			items
+				.map((item) => {
+					const programme = item.Info?.programme;
+					if (typeof programme === 'string') {
+						return programme;
+					} else if (programme && typeof programme === 'object' && 'title' in programme) {
+						return programme.title;
+					}
+					return null;
+				})
+				.filter((option): option is string => option !== null)
+		)
+	);
+
 	let selectedFilter: string = $state('All');
 
 	function applyFilter(option: string) {
@@ -32,7 +52,15 @@
 		if (option === 'All') {
 			filteredItems = items;
 		} else {
-			filteredItems = items.filter((item) => item.fields.programme.fields.title === option);
+			filteredItems = items.filter((item) => {
+				const programme = item.Info?.programme;
+				if (typeof programme === 'string') {
+					return programme === option;
+				} else if (programme && typeof programme === 'object' && 'title' in programme) {
+					return programme.title === option;
+				}
+				return false;
+			});
 		}
 	}
 </script>
@@ -47,11 +75,11 @@
 			political events, and engage with debates in the many fields in which we work.
 		</h3>
 	</section>
-	<section class="top-16 z-10 w-full bg-blue-light py-4 lg:sticky">
+	<section class="bg-blue-light top-16 z-10 w-full py-4 lg:sticky">
 		<div class="layout flex flex-wrap justify-between gap-x-6 gap-y-3 space-x-0 lg:space-x-12">
 			<label class="flex items-center space-x-2">
 				<input
-					class="h-4 w-4 cursor-pointer border-gray-300 text-blue-normal focus:ring-blue-normal"
+					class="text-blue-normal focus:ring-blue-normal h-4 w-4 cursor-pointer border-gray-300"
 					type="radio"
 					bind:group={selectedFilter}
 					value="All"
@@ -64,14 +92,14 @@
 			{#each filterOptions as option}
 				<label class="flex items-center space-x-2">
 					<input
-						class="h-4 w-4 cursor-pointer border-gray-300 text-blue-normal focus:ring-blue-normal"
+						class="text-blue-normal focus:ring-blue-normal h-4 w-4 cursor-pointer border-gray-300"
 						type="radio"
 						bind:group={selectedFilter}
-						value={option.fields.title}
-						onchange={() => applyFilter(option.fields.title)}
+						value={option}
+						onchange={() => applyFilter(option)}
 					/>
 					<span class="cursor-pointer select-none text-xs font-medium text-black lg:text-base"
-						>{option.fields.title}</span
+						>{option}</span
 					>
 				</label>
 			{/each}

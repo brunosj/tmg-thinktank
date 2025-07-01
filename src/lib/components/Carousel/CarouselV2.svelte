@@ -1,6 +1,5 @@
 <script lang="ts">
-
-	import type { News, Event, PublicationFeature, Video } from '$lib/types/types';
+	import type { News, Event, PublicationFeature, Video } from '$lib/types/payload-types';
 	import type { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel';
 	import emblaCarouselSvelte from 'embla-carousel-svelte';
 	import FeaturedSlideV2 from './FeaturedSlideV2.svelte';
@@ -54,7 +53,12 @@
 	function isPublicationFeature(
 		slide: Event | News | PublicationFeature | Video
 	): slide is PublicationFeature {
-		return (slide as PublicationFeature).fields.featuredOnHomepage !== undefined;
+		// Handle both Contentful and Payload data structures
+		const asFeature = slide as any;
+		return (
+			asFeature.info?.featuredOnHomepage !== undefined ||
+			asFeature.fields?.featuredOnHomepage !== undefined
+		);
 	}
 
 	const slidesQty = slides.length;
@@ -70,9 +74,9 @@
 			{#each slides as slide, i}
 				<li class="carousel__embla__slide">
 					{#if isPublicationFeature(slide)}
-						<PublicationFeatureSlide item={slide} {i} {slidesQty} />
+						<PublicationFeatureSlide item={slide as any} {i} {slidesQty} />
 					{:else if !isPublicationFeature(slide)}
-						<FeaturedSlideV2 item={slide} {i} {slidesQty} />
+						<FeaturedSlideV2 item={slide as any} {i} {slidesQty} />
 					{/if}
 				</li>
 			{/each}

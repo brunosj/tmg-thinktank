@@ -10,7 +10,7 @@
 	import { renderRichText } from '$utils/utils';
 	import ProjectTeam from '$components/Project/ProjectTeam.svelte';
 	import ProjectDetails from '../../../lib/components/Project/ProjectDetails.svelte';
-	import type { Project, Event, Publication, News, Video } from '$lib/types/types';
+	import type { Project, Event, Publication, News, Video, Team } from '$lib/types/payload-types';
 	import PartnersLogo from '$lib/components/Partners/PartnersLogo.svelte';
 	import { onMount } from 'svelte';
 
@@ -18,7 +18,7 @@
 		data: Page;
 	}
 
-	let { data } = $props();
+	let { data }: Props = $props();
 
 	type Page = {
 		item: Project;
@@ -31,13 +31,26 @@
 	let project: Project = $state(data.item);
 	let animationReady = $state(false);
 
+	// Get only Team objects, filter out string IDs
+	let teamMembers = $derived(
+		project.relationships?.team?.filter(
+			(member): member is Team => typeof member === 'object' && member !== null
+		) || []
+	);
+
 	// Filter and sort publications
 	let filteredPublications = $derived(
 		data.publications
-			.filter((publication) => publication.fields.project?.fields.name === project.fields?.name)
+			.filter((publication) => {
+				// Check if publication has a related project that matches current project
+				if (typeof publication.info?.project === 'object' && publication.info.project) {
+					return publication.info.project.id === project.id;
+				}
+				return false;
+			})
 			.sort((a, b) => {
-				const dateA = new Date(a.fields.publicationDate).getTime();
-				const dateB = new Date(b.fields.publicationDate).getTime();
+				const dateA = new Date(a.info?.publicationDate || '1970-01-01').getTime();
+				const dateB = new Date(b.info?.publicationDate || '1970-01-01').getTime();
 				return dateB - dateA;
 			})
 	);
@@ -46,15 +59,19 @@
 	let filteredNews = $derived(
 		data.news
 			.filter((newsItem) => {
-				if (!newsItem?.fields) return false;
-				const hasMatchingProject = newsItem.fields.project?.some(
-					(item: any) => item?.fields?.name === project?.fields?.name
-				);
-				return hasMatchingProject;
+				if (!newsItem?.info?.project) return false;
+				// Check if any related project matches current project
+				const relatedProjects = Array.isArray(newsItem.info.project) ? newsItem.info.project : [];
+				return relatedProjects.some((relatedProject) => {
+					if (typeof relatedProject === 'object' && relatedProject) {
+						return relatedProject.id === project.id;
+					}
+					return false;
+				});
 			})
 			.sort((a, b) => {
-				const dateA = new Date(a.fields.dateFormat).getTime();
-				const dateB = new Date(b.fields.dateFormat).getTime();
+				const dateA = new Date(a.info?.dateFormat || '1970-01-01').getTime();
+				const dateB = new Date(b.info?.dateFormat || '1970-01-01').getTime();
 				return dateB - dateA;
 			})
 	);
@@ -62,12 +79,21 @@
 	// Filter and sort videos
 	let filteredVideos = $derived(
 		data.videos
-			.filter((video) =>
-				video.fields.projects?.some((item: any) => item.fields?.name === project.fields?.name)
-			)
+			.filter((video) => {
+				// Check if video has projects field and any match current project
+				if (video.projects && Array.isArray(video.projects)) {
+					return video.projects.some((projectRef) => {
+						if (typeof projectRef === 'object' && 'project' in projectRef) {
+							return projectRef.project === project.name;
+						}
+						return false;
+					});
+				}
+				return false;
+			})
 			.sort((a, b) => {
-				const dateA = new Date(a.fields.date).getTime();
-				const dateB = new Date(b.fields.date).getTime();
+				const dateA = new Date(a.date || '1970-01-01').getTime();
+				const dateB = new Date(b.date || '1970-01-01').getTime();
 				return dateB - dateA;
 			})
 	);
@@ -88,7 +114,9 @@
 
 	// Set image for SEO only
 	let projectImage = $derived(
-		project.fields.thumbnailCdn?.length > 0 ? project.fields.thumbnailCdn[0].secure_url : undefined
+		project.content?.thumbnail && typeof project.content.thumbnail === 'object'
+			? project.content.thumbnail.url || project.thumbnailFromCloudinary || undefined
+			: project.thumbnailFromCloudinary || undefined
 	);
 
 	onMount(() => {
@@ -96,24 +124,26 @@
 	});
 </script>
 
-<SEO title={project.fields.name} description={project.fields.summary} image={projectImage} />
+<SEO title={project.name} description={project.info?.summary || undefined} image={projectImage} />
 
 <!-- Hero section with dynamic background -->
-<div class="relative overflow-hidden bg-blue-normal pb-24">
+<div class="bg-blue-normal relative overflow-hidden pb-24">
 	<!-- Breadcrumbs at the top of hero -->
 	<div class="layout relative z-10 pt-24 lg:pt-32">
 		<div class="mx-auto max-w-full">
 			<div class="text-sm text-white/80">
 				<a href="/" class="transition duration-200 hover:text-white hover:underline">Home</a>
 				<span> {' > '} </span>
-				<a
-					href={`/programmes/${slugify(project.fields.programme.fields.title)}`}
-					class="transition duration-200 hover:text-white hover:underline"
-				>
-					{project.fields.programme.fields.title}
-				</a>
-				<span> {' > '} </span>
-				<span class="text-white">{project.fields.name}</span>
+				{#if project.info?.programme && typeof project.info.programme === 'object'}
+					<a
+						href={`/programmes/${slugify(project.info.programme.title)}`}
+						class="transition duration-200 hover:text-white hover:underline"
+					>
+						{project.info.programme.title}
+					</a>
+					<span> {' > '} </span>
+				{/if}
+				<span class="text-white">{project.name}</span>
 			</div>
 		</div>
 	</div>
@@ -123,17 +153,19 @@
 		<div class="mx-auto max-w-full">
 			<div>
 				<h1
-					class="mb-4 max-w-4xl font-heading text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl"
+					class="font-heading mb-4 max-w-4xl text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl"
 				>
-					{project.fields.name}
+					{project.name}
 				</h1>
 
 				<!-- Separator -->
 				<div class="my-4 h-1 w-20 rounded bg-white/60"></div>
 
-				<div class="max-w-4xl text-base font-light leading-relaxed text-white md:text-xl">
-					{project.fields.summary}
-				</div>
+				{#if project.info?.summary}
+					<div class="max-w-4xl text-base font-light leading-relaxed text-white md:text-xl">
+						{project.info.summary}
+					</div>
+				{/if}
 			</div>
 		</div>
 	</div>
@@ -146,36 +178,40 @@
 		<div class="mb-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
 			<!-- Left column: Project description - 2/3 width -->
 			<div class="lg:col-span-2">
-				{#if project.fields.quote}
+				{#if project.info?.quote}
 					<div class="mb-8 rounded-xl bg-gray-50 p-6 shadow-sm">
 						<blockquote class="text-blue-normal">
 							<p class="text-lg font-bold italic md:text-xl">
-								"{project.fields.quote}"
+								"{project.info.quote}"
 							</p>
-							<footer class="mt-3 text-base font-light">
-								— {project.fields.quoteAuthor}
-							</footer>
+							{#if project.info.quoteAuthor}
+								<footer class="mt-3 text-base font-light">
+									— {project.info.quoteAuthor}
+								</footer>
+							{/if}
 						</blockquote>
 					</div>
 				{/if}
 
-				<div class="prose prose-lg mx-auto max-w-none">
-					{@html renderRichText(project.fields.description)}
-				</div>
+				{#if project.content?.description}
+					<div class="prose prose-lg mx-auto max-w-none">
+						{@html renderRichText(project.content.description)}
+					</div>
+				{/if}
 
 				<!-- Website link -->
-				{#if project.fields.url}
+				{#if project.info?.url}
 					<div class="mt-8 flex items-center">
 						<span class="mr-4 text-gray-700"> Learn more on the official website: </span>
-						<Button to={project.fields.url} colors="white">Visit Website</Button>
+						<Button to={project.info.url} colors="white">Visit Website</Button>
 					</div>
 				{/if}
 			</div>
 
 			<!-- Right column: Project details - 1/3 width -->
 			<div class="lg:col-span-1">
-				<div class="sticky top-20 rounded-xl bg-blue-light/40 p-5 shadow-sm lg:p-8">
-					<h2 class="mb-6 text-xl font-bold text-blue-normal">Details</h2>
+				<div class="bg-blue-light/40 sticky top-20 rounded-xl p-5 shadow-sm lg:p-8">
+					<h2 class="text-blue-normal mb-6 text-xl font-bold">Details</h2>
 					<div class="text-sm">
 						<ProjectDetails item={project} />
 					</div>
@@ -184,12 +220,12 @@
 		</div>
 
 		<!-- Funders section -->
-		{#if project.fields.fundersList && project.fields.fundersList.length > 0}
+		{#if project.info?.fundersList && project.info.fundersList.length > 0}
 			<div class="mt-6">
-				<h3 class="mb-4 text-left text-xl font-bold text-blue-normal lg:text-2xl">Supported by</h3>
+				<h3 class="text-blue-normal mb-4 text-left text-xl font-bold lg:text-2xl">Supported by</h3>
 				<div class="flex flex-wrap items-center justify-start gap-4">
-					{#each project.fields.fundersList as funder}
-						{#if project.fields.fundersList.length > 4}
+					{#each project.info.fundersList as funder}
+						{#if project.info.fundersList.length > 4}
 							<PartnersLogo item={funder} width="w-24" lgWidth="lg:w-48" />
 						{:else}
 							<PartnersLogo item={funder} />
@@ -202,9 +238,9 @@
 </div>
 
 <!-- Team Section -->
-{#if project.fields.team && project.fields.team.length > 0}
+{#if teamMembers.length > 0}
 	<!-- Full-width divider/banner for team -->
-	<div class="mt-12 w-full bg-blue-normal py-12">
+	<div class="bg-blue-normal mt-12 w-full py-12">
 		<div class="layout">
 			<h2 class="text-center text-2xl font-bold text-white lg:text-3xl">Team</h2>
 		</div>
@@ -213,7 +249,7 @@
 	<div class="layout py-12">
 		<div class="mx-auto">
 			<div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-				{#each project.fields.team as teamMember}
+				{#each teamMembers as teamMember}
 					<div class="team-member">
 						<ProjectTeam items={[teamMember]} />
 					</div>
@@ -226,7 +262,7 @@
 <!-- Publications Section -->
 {#if filteredPublications.length > 0}
 	<!-- Full-width divider/banner for publications -->
-	<div class="mt-12 w-full bg-blue-normal py-12">
+	<div class="bg-blue-normal mt-12 w-full py-12">
 		<div class="layout">
 			<h2 class="text-center text-2xl font-bold text-white lg:text-3xl">Publications</h2>
 		</div>
@@ -242,7 +278,7 @@
 			/>
 			{#if filteredPublications.length > publicationsCount}
 				<div class="flex justify-center">
-					<ButtonLoadMore onClick={loadMorePublications}>Load More Publications</ButtonLoadMore>
+					<ButtonLoadMore onclick={loadMorePublications}>Load More Publications</ButtonLoadMore>
 				</div>
 			{/if}
 		</div>
@@ -252,7 +288,7 @@
 <!-- News Section -->
 {#if filteredNews.length > 0}
 	<!-- Full-width divider/banner for news -->
-	<div class="mt-12 w-full bg-blue-normal py-12">
+	<div class="bg-blue-normal mt-12 w-full py-12">
 		<div class="layout">
 			<h2 class="text-center text-2xl font-bold text-white lg:text-3xl">News & Blog Posts</h2>
 		</div>
@@ -263,7 +299,7 @@
 			<NewsListing items={filteredNews.slice(0, newsCount)} padding="py-0" />
 			{#if filteredNews.length > newsCount}
 				<div class="flex justify-center">
-					<ButtonLoadMore onClick={loadMoreNews}>Load More News</ButtonLoadMore>
+					<ButtonLoadMore onclick={loadMoreNews}>Load More News</ButtonLoadMore>
 				</div>
 			{/if}
 		</div>
@@ -273,7 +309,7 @@
 <!-- Videos Section -->
 {#if filteredVideos.length > 0}
 	<!-- Full-width divider/banner for videos -->
-	<div class="mt-12 w-full bg-blue-normal py-12">
+	<div class="bg-blue-normal mt-12 w-full py-12">
 		<div class="layout">
 			<h2 class="text-center text-2xl font-bold text-white lg:text-3xl">Videos</h2>
 		</div>

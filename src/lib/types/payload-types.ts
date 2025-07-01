@@ -404,6 +404,14 @@ export interface Post {
 	 * Cloudinary URL for hero image (migration field)
 	 */
 	imageFromCloudinary?: string | null;
+	/**
+	 * Indicates if this post has embedded assets that need manual upload
+	 */
+	hasEmbeddedAssets?: boolean | null;
+	/**
+	 * Information about embedded assets that need manual handling
+	 */
+	embeddedAssetsInfo?: string | null;
 	slug?: string | null;
 	slugLock?: boolean | null;
 	updatedAt: string;
@@ -902,12 +910,6 @@ export interface News {
 		 */
 		authorTmg?: (string | Team)[] | null;
 		summary?: string | null;
-		keywords?:
-			| {
-					keyword?: string | null;
-					id?: string | null;
-			  }[]
-			| null;
 		source?: string | null;
 		sourceUrl?: string | null;
 	};
@@ -934,10 +936,6 @@ export interface News {
 		 * Referenced publication
 		 */
 		publication?: (string | null) | Publication;
-		/**
-		 * TMG publication reference
-		 */
-		publicationReferenceTMG?: (string | null) | Publication;
 		externalPublicationThumbnail?: (string | null) | Media;
 		externalPublicationUrl?: string | null;
 		/**
@@ -965,6 +963,12 @@ export interface News {
 		 */
 		image?: (string | null) | Media;
 		description?: string | null;
+		keywords?:
+			| {
+					keyword?: string | null;
+					id?: string | null;
+			  }[]
+			| null;
 	};
 	slug: string;
 	/**
@@ -1133,12 +1137,6 @@ export interface Event {
 		organiser?:
 			| {
 					name?: string | null;
-					id?: string | null;
-			  }[]
-			| null;
-		keywords?:
-			| {
-					keyword?: string | null;
 					id?: string | null;
 			  }[]
 			| null;
@@ -3528,12 +3526,6 @@ export interface EventsSelect<T extends boolean = true> {
 							name?: T;
 							id?: T;
 					  };
-				keywords?:
-					| T
-					| {
-							keyword?: T;
-							id?: T;
-					  };
 		  };
 	content?:
 		| T
@@ -3611,12 +3603,6 @@ export interface NewsSelect<T extends boolean = true> {
 				author?: T;
 				authorTmg?: T;
 				summary?: T;
-				keywords?:
-					| T
-					| {
-							keyword?: T;
-							id?: T;
-					  };
 				source?: T;
 				sourceUrl?: T;
 		  };
@@ -3630,7 +3616,6 @@ export interface NewsSelect<T extends boolean = true> {
 		| T
 		| {
 				publication?: T;
-				publicationReferenceTMG?: T;
 				externalPublicationThumbnail?: T;
 				externalPublicationUrl?: T;
 				video?: T;
@@ -3648,6 +3633,12 @@ export interface NewsSelect<T extends boolean = true> {
 				title?: T;
 				image?: T;
 				description?: T;
+				keywords?:
+					| T
+					| {
+							keyword?: T;
+							id?: T;
+					  };
 		  };
 	slug?: T;
 	contentfulId?: T;
@@ -3921,6 +3912,8 @@ export interface PostsSelect<T extends boolean = true> {
 	contentfulId?: T;
 	migrationNotes?: T;
 	imageFromCloudinary?: T;
+	hasEmbeddedAssets?: T;
+	embeddedAssetsInfo?: T;
 	slug?: T;
 	slugLock?: T;
 	updatedAt?: T;
