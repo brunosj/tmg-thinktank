@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import Button from '$components/UI/Button.svelte';
+	import { Turnstile } from 'svelte-turnstile';
+	import { PUBLIC_TURNSTILE_SITE_KEY } from '$env/static/public';
 
 	let action_result: any = $state();
 	let success = $state(false);
@@ -13,20 +15,25 @@
 	// Honeypot check - if this field is filled, it's likely a bot
 	let honeypot = $state('');
 
+	// Turnstile reset function
+	let turnstileReset = $state<() => void>();
+
 	const handle_result = (result: any) => {
 		action_result = result;
 		if (result.type === 'success') {
 			success = true;
 		} else if (result.type === 'failure') {
 			message_type = 'error';
+			// Reset Turnstile on failure
+			turnstileReset?.();
 		}
 	};
 </script>
 
 <div class="bg-blue-light p-5 lg:p-24">
-	<div class="layout rounded-md bg-green-light p-10">
+	<div class="layout bg-green-light rounded-md p-10">
 		<h2
-			class="pb-10 text-3xl font-extrabold leading-tight tracking-tight text-blue-normal sm:text-4xl"
+			class="text-blue-normal pb-10 text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl"
 		>
 			Get in touch!
 		</h2>
@@ -52,7 +59,12 @@
 				return ({ update, result }) => {
 					submitting = false;
 					handle_result(result);
-					update({ reset: true });
+					if (result.type === 'success') {
+						update({ reset: true });
+					} else {
+						// Don't reset form on error, but do reset Turnstile
+						update({ reset: false });
+					}
 				};
 			}}
 		>
@@ -108,8 +120,22 @@
 						disabled={submitting}
 					></textarea>
 				</div>
+
+				<!-- Turnstile CAPTCHA -->
+				<div class="space-y-3">
+					<Turnstile
+						siteKey={PUBLIC_TURNSTILE_SITE_KEY}
+						theme="light"
+						size="normal"
+						bind:reset={turnstileReset}
+					/>
+				</div>
+
 				<div class="">
 					{#if action_result?.missing}<p class="error">The email field is required</p>{/if}
+					{#if action_result?.turnstileError}<p class="error">
+							{action_result.turnstileError}
+						</p>{/if}
 
 					{#if success}
 						<p class="text-blue-normal">Thanks! Your email has been sent</p>

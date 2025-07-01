@@ -32,6 +32,7 @@
 		"svelte": "^5.25.6",
 		"svelte-intersection-observer": "^1.0.0",
 		"svelte-lightbox": "^1.1.6",
+		"svelte-turnstile": "^0.11.0",
 		"tailwindcss": "^3.4.17",
 		"vite": "^6.2.4"
 	},
