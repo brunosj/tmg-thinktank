@@ -4,9 +4,10 @@
 	import type { Publication } from '$lib/types/types';
 
 	import SEO from '$components/SEO/SEO.svelte';
-	import { renderRichText } from '$utils/utils';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
 	import { ensureHttps } from '$utils/utils';
+	import { renderRichText } from '$utils/utils';
+
 	interface Props {
 		item: Publication;
 	}
@@ -26,7 +27,7 @@
 	let link = $derived(item.fields.pdf.fields.file.url);
 </script>
 
-<SEO title={item.fields.title} description={item.fields.summary} {image} />
+<!-- <SEO title={item.fields.title} description={item.fields.summary} {image} /> -->
 
 <div class="rounded-md bg-white p-5">
 	<div class="py-6 lg:py-12">
@@ -69,7 +70,7 @@
 
 		<div class="layout w-full pt-6 lg:w-3/4 lg:pt-12">
 			<div class="richText">
-				{item.fields.summary}
+				{@html renderRichText(item.fields.automatedNewsEntry)}
 			</div>
 
 			<section class="flex w-full pt-6">

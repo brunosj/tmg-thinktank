@@ -24,11 +24,11 @@
 >
 	{#each sortedItems as item, i (item.fields.title)}
 		{@const image =
-			item.fields.thumbnailCdn?.length > 0
-				? item.fields.thumbnailCdn[0].secure_url
-				: item.fields.thumbnail.fields.file.url}
+			item.fields?.thumbnailCdn?.length > 0
+				? item.fields?.thumbnailCdn[0]?.secure_url
+				: item.fields?.thumbnail?.fields?.file?.url}
 		{#if item.fields.pdf}
-			<a href={item.fields.pdf.fields.file.url} target="_blank" class="group">
+			<a href={item.fields?.pdf?.fields?.file?.url} target="_blank" class="group">
 				<div
 					class="grid grid-cols-1 rounded-md {invertHover
 						? 'bg-white group-hover:bg-blue-light'
