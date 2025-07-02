@@ -1,20 +1,42 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { getSpeakerBySlug, getEvents } from '$lib/payloadClient';
+import type { RequestEvent } from '@sveltejs/kit';
 
-export async function load({ params }) {
-	const { slug } = params;
+export async function load({ params }: RequestEvent) {
+	const slug = params.slug;
+
+	if (!slug) {
+		throw new Error('Slug parameter is required');
+	}
 
 	try {
-		const entries = await fetchContentfulData('speakers');
-		const item = entries.find((p) => p.fields.slug === slug);
-		const events = await fetchContentfulData('event');
+		const speaker = await getSpeakerBySlug(slug);
 
-		if (item) {
-			return { item, events };
-		} else {
-			throw new Error('Entry not found');
+		if (!speaker) {
+			throw new Error('Speaker not found');
 		}
+
+		// Get all events and filter for ones featuring this speaker
+		const allEvents = await getEvents();
+		const events = allEvents.filter((event) => {
+			if (!event.relationships?.speakers) return false;
+
+			// Check if this speaker is in the event's speakers
+			return event.relationships.speakers.some((eventSpeaker) => {
+				// Handle both object references and string IDs
+				if (typeof eventSpeaker === 'object' && eventSpeaker !== null) {
+					return eventSpeaker.id === speaker.id;
+				}
+				// If it's a string ID, compare directly
+				return eventSpeaker === speaker.id;
+			});
+		});
+
+		return {
+			item: speaker,
+			events
+		};
 	} catch (error) {
-		console.error('Error fetching entry data:', error);
+		console.error('Error fetching speaker data:', error);
 		throw error;
 	}
 }

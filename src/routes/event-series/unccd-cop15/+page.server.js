@@ -1,11 +1,9 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { getEventSeriesBySlug, getVideos } from '$lib/payloadClient';
 
 export async function load() {
 	try {
-		const entries = await fetchContentfulData('unfssCop26');
-		const item = entries.find((item) => item.fields.slug === 'unccd-cop15');
-
-		const videos = await fetchContentfulData('video');
+		const item = await getEventSeriesBySlug('unccd-cop15');
+		const videos = await getVideos();
 
 		if (item) {
 			return { item, videos };

@@ -16,7 +16,9 @@ import type {
 	Category,
 	Homepage,
 	PublicationsPage,
-	VideosPage
+	VideosPage,
+	Speaker,
+	Page
 } from './types/payload-types';
 
 export interface PayloadCollectionResponse<T> {
@@ -176,6 +178,22 @@ export async function getJobBySlug(slug: string): Promise<Job | null> {
 
 export async function getCollaborators(): Promise<Collaborator[]> {
 	return fetchPayloadData<Collaborator>('collaborators');
+}
+
+export async function getSpeakers(): Promise<Speaker[]> {
+	return fetchPayloadData<Speaker>('speakers');
+}
+
+export async function getSpeakerBySlug(slug: string): Promise<Speaker | null> {
+	return getPayloadEntryBySlug<Speaker>(slug, 'speakers');
+}
+
+export async function getPages(): Promise<Page[]> {
+	return fetchPayloadData<Page>('pages');
+}
+
+export async function getPageBySlug(slug: string): Promise<Page | null> {
+	return getPayloadEntryBySlug<Page>(slug, 'pages');
 }
 
 export async function getVideos(): Promise<Video[]> {
