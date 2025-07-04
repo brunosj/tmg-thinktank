@@ -7,16 +7,45 @@
 		submit?: boolean;
 		children?: Snippet;
 		disabled?: boolean;
+		newTab?: boolean;
 	}
 
-	let { to = '', colors, submit = false, children, disabled = false }: Props = $props();
+	let { to = '', colors, submit = false, children, disabled = false, newTab }: Props = $props();
+
+	// Determine if link should open in new tab
+	let shouldOpenInNewTab = $derived(() => {
+		if (newTab !== undefined) return newTab; // Explicit prop overrides
+		if (!to) return false;
+
+		// Check for external URLs (http/https)
+		if (to.includes('http://') || to.includes('https://')) return true;
+
+		// Check for file downloads (common file extensions)
+		const fileExtensions = [
+			'.pdf',
+			'.doc',
+			'.docx',
+			'.xls',
+			'.xlsx',
+			'.ppt',
+			'.pptx',
+			'.zip',
+			'.rar'
+		];
+		if (fileExtensions.some((ext) => to.toLowerCase().includes(ext))) return true;
+
+		// Check for Contentful asset URLs (images.ctfassets.net)
+		if (to.includes('ctfassets.net')) return true;
+
+		return false;
+	});
 </script>
 
 {#if to}
 	<a
 		href={to}
-		target={to.includes('http') ? '_blank' : ''}
-		rel={to.includes('http') ? 'noopener noreferrer' : ''}
+		target={shouldOpenInNewTab() ? '_blank' : ''}
+		rel={shouldOpenInNewTab() ? 'noopener noreferrer' : ''}
 	>
 		<button
 			class={colors === 'green'

@@ -351,6 +351,8 @@ export interface Publication extends ContentfulEntry {
 		doiNumber: number;
 		doiUrl: string;
 		citation: string;
+		additionalButtonText: string;
+		additionalButtonFile: MediaFile;
 	};
 }
 
