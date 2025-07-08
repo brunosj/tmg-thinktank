@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { News } from '$lib/types/types';
 	import PublicationNewsEntry from '$components/News/PublicationNewsEntry.svelte';
 	interface Props {
@@ -13,8 +12,6 @@
 	};
 
 	let item: News = $derived(data.item);
-
-	
 </script>
 
 <PublicationNewsEntry {item} />

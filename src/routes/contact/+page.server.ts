@@ -117,8 +117,8 @@ export const actions = {
 
 		const emailData = {
 			sender: {
-				name: sanitizedName,
-				email: sanitizedEmail
+				name: 'TMG Contact Form',
+				email: 'web@tmg-thinktank.com'
 			},
 			to: [
 				{
@@ -126,8 +126,24 @@ export const actions = {
 					name: 'TMG'
 				}
 			],
-			subject: sanitizedSubject,
-			htmlContent: `<html><head></head><body><p>Hello,</p><p>${sanitizedMessage}</p></body></html>`
+			replyTo: {
+				email: sanitizedEmail,
+				name: sanitizedName
+			},
+			subject: `Contact Form: ${sanitizedSubject}`,
+			htmlContent: `
+				<html>
+					<head></head>
+					<body>
+						<h3>New Contact Form Submission</h3>
+						<p><strong>From:</strong> ${sanitizedName} (${sanitizedEmail})</p>
+						<p><strong>Subject:</strong> ${sanitizedSubject}</p>
+						<hr>
+						<p><strong>Message:</strong></p>
+						<p>${sanitizedMessage.replace(/\n/g, '<br>')}</p>
+					</body>
+				</html>
+			`
 		};
 		try {
 			const response = await fetch(url, {
