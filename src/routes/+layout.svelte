@@ -1,15 +1,14 @@
 <script lang="ts">
-
-	import type { Programme } from '$lib/types/types';
 	import type { LayoutProps } from './$types';
 
 	import '../app.css';
+
 	import { fly, fade } from 'svelte/transition';
 	import { cubicIn, cubicOut } from 'svelte/easing';
 	import Footer from '$components/Layout/Footer.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Header from '$components/Layout/Header.svelte';
-	
+
 	let { data, children }: LayoutProps = $props();
 
 	let pathname = $derived(data.pathname);

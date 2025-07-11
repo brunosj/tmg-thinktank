@@ -1,0 +1,73 @@
+@font-face {
+	font-family: 'Lexend';
+	font-style: normal;
+	font-weight: 200 900;
+	font-display: swap;
+	src: url('/fonts/Lexend-VariableFont_wght.ttf') format('truetype');
+}
+
+@layer base {
+	/* * {
+		outline: 1px solid gray;
+	} */
+
+	/* Apply Lexend font to the entire reports section */
+	.lenis-container {
+		font-family: 'Lexend', 'sans-serif' !important;
+	}
+
+	/* Ensure all text elements in reports use Lexend */
+	.lenis-container * {
+		font-family: 'Lexend', 'sans-serif' !important;
+	}
+
+	.layout {
+		max-width: 90%;
+		margin: 0 auto;
+	}
+}
+
+@layer components {
+	/* Hero heading global styles */
+	.hero-heading .heading-wrapper {
+		@apply m-0;
+	}
+
+	.hero-heading .heading-block {
+		@apply mx-auto max-w-4xl rounded-lg px-8 py-4;
+		font-size: 3rem !important;
+		line-height: 1.1 !important;
+		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
+		font-family: 'Lexend', 'sans-serif' !important;
+	}
+
+	/* Author avatar global styles */
+	.author-avatar .picture-wrapper {
+		@apply m-0;
+	}
+
+	.author-avatar .picture-block {
+		@apply h-full w-full;
+	}
+
+	.author-avatar img {
+		@apply h-full w-full rounded-full object-cover;
+	}
+
+	/* Ensure all report content uses Lexend */
+	.report-blocks {
+		font-family: 'Lexend', 'sans-serif';
+	}
+
+	.report-blocks * {
+		font-family: 'Lexend', 'sans-serif';
+	}
+
+	/* Responsive hero heading adjustments */
+	@media (max-width: 768px) {
+		.hero-heading .heading-block {
+			@apply px-6 py-3;
+			font-size: 2rem !important;
+		}
+	}
+}

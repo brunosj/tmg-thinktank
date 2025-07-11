@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Project } from '$lib/types/types';
-	import ProjectPartners from '$components/Project/ProjectPartners.svelte';
 	interface Props {
 		item: Project;
 	}
