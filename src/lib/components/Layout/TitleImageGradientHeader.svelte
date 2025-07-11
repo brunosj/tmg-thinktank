@@ -23,7 +23,7 @@
 			class="h-[40vh] w-full object-cover object-center lg:h-[60vh]"
 			decoding="async"
 		/>
-		<div class="absolute inset-0 bg-gradient-to-t from-white"></div>
+		<div class="absolute inset-0 bg-linear-to-t from-white"></div>
 	</div>
 
 	<IntersectionObserver {element} bind:intersecting once>

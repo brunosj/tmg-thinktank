@@ -16,7 +16,7 @@
 <a href={to}>
 	<div class="py-2">
 		<div
-			class="group flex items-center rounded-md border border-transparent align-middle text-xs text-black transition duration-150 ease-in-out focus:outline-none md:text-base"
+			class="group flex items-center rounded-md border border-transparent align-middle text-xs text-black transition duration-150 ease-in-out focus:outline-hidden md:text-base"
 			style="background-color: {color}"
 		>
 			{#if arrowDirection === 'right'}

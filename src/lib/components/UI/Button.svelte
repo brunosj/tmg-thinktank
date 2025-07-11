@@ -49,12 +49,12 @@
 	>
 		<button
 			class={colors === 'green'
-				? 'rounded-md bg-blue-normal px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm duration-300 hover:bg-opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-normal lg:text-base'
+				? 'rounded-md bg-blue-normal px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs duration-300 hover:bg-opacity-80 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-normal lg:text-base'
 				: colors === 'blue'
-					? 'rounded-md bg-navyBlue px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm duration-300 hover:bg-opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue lg:text-base'
+					? 'rounded-md bg-navy-blue px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs duration-300 hover:bg-opacity-80 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-blue lg:text-base'
 					: colors === 'blue-invert'
-						? 'rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-navyBlue shadow-sm duration-300 hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue lg:text-base'
-						: 'rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-blue-normal shadow-sm duration-300 hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-normal lg:text-base'}
+						? 'rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-navy-blue shadow-xs duration-300 hover:bg-gray-100 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-blue lg:text-base'
+						: 'rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-blue-normal shadow-xs duration-300 hover:bg-gray-300 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-normal lg:text-base'}
 			type={submit === true ? 'submit' : 'button'}
 			{disabled}
 		>
@@ -64,12 +64,12 @@
 {:else}
 	<button
 		class={colors === 'green'
-			? 'rounded-md bg-blue-normal px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm duration-300 hover:bg-opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-normal lg:text-base'
+			? 'rounded-md bg-blue-normal px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs duration-300 hover:bg-opacity-80 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-normal lg:text-base'
 			: colors === 'blue'
-				? 'rounded-md bg-navyBlue px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm duration-300 hover:bg-opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue lg:text-base'
+				? 'rounded-md bg-navy-blue px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs duration-300 hover:bg-opacity-80 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-blue lg:text-base'
 				: colors === 'blue-invert'
-					? 'rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-navyBlue shadow-sm duration-300 hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue lg:text-base'
-					: 'rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-blue-normal shadow-sm duration-300 hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-normal lg:text-base'}
+					? 'rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-navy-blue shadow-xs duration-300 hover:bg-gray-100 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-blue lg:text-base'
+					: 'rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-blue-normal shadow-xs duration-300 hover:bg-gray-300 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-normal lg:text-base'}
 		type={submit === true ? 'submit' : 'button'}
 		{disabled}
 	>

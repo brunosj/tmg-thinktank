@@ -14,7 +14,7 @@
 				class="group flex items-center rounded-md p-2 transition-all duration-200 hover:cursor-pointer hover:bg-blue-normal/5"
 			>
 				<div
-					class="relative mr-4 h-16 w-16 flex-shrink-0 overflow-hidden rounded-full border-2 border-transparent transition-all duration-200 group-hover:border-blue-normal md:h-20 md:w-20"
+					class="relative mr-4 h-16 w-16 shrink-0 overflow-hidden rounded-full border-2 border-transparent transition-all duration-200 group-hover:border-blue-normal md:h-20 md:w-20"
 				>
 					<img
 						loading="lazy"
@@ -24,7 +24,7 @@
 					/>
 				</div>
 
-				<div class="flex-grow">
+				<div class="grow">
 					<div
 						class="text-base font-semibold leading-tight text-gray-800 transition-all duration-200 group-hover:text-blue-normal md:text-lg"
 					>

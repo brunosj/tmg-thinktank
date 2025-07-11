@@ -39,13 +39,13 @@
 				>
 					<div class="w-full space-y-8 py-12 text-white lg:w-[90%]">
 						<h1
-							class="text-3xl font-semibold leading-tight tracking-tight lg:text-5xl"
+							class="text-3xl leading-tight font-semibold tracking-tight lg:text-5xl"
 							transition:fly={{ x: -50, duration: 500, delay: 250, easing: cubicInOut }}
 						>
 							{heroTitle}
 						</h1>
 						<h2
-							class="text-base font-normal leading-relaxed text-white/90 lg:text-xl"
+							class="text-base leading-relaxed font-normal text-white/90 lg:text-xl"
 							transition:fly={{ x: -50, duration: 500, delay: 350, easing: cubicInOut }}
 						>
 							{heroSubtitle}
@@ -57,7 +57,7 @@
 				</div>
 
 				<!-- Image Section -->
-				<div class="col-span-1 flex items-center justify-center backdrop-blur-sm">
+				<div class="col-span-1 flex items-center justify-center backdrop-blur-xs">
 					<img
 						loading="eager"
 						src={heroImage}

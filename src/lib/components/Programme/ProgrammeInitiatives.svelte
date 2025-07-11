@@ -72,7 +72,7 @@
 									class="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
 								/>
 								<div
-									class="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent md:bg-gradient-to-l"
+									class="absolute inset-0 bg-linear-to-r from-black/50 to-transparent md:bg-linear-to-l"
 								></div>
 							</div>
 						{:else if initiative.fields.imageCdn && initiative.fields.imageCdn.length > 0}
@@ -83,7 +83,7 @@
 									class="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
 								/>
 								<div
-									class="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent md:bg-gradient-to-l"
+									class="absolute inset-0 bg-linear-to-r from-black/50 to-transparent md:bg-linear-to-l"
 								></div>
 							</div>
 						{:else}
@@ -94,7 +94,7 @@
 					<!-- Content section -->
 					<div class="flex flex-1 flex-col justify-center p-8 text-white md:p-12">
 						<div
-							class="mb-6 inline-block rounded-full bg-white/20 px-4 py-1 text-sm font-medium backdrop-blur-sm"
+							class="mb-6 inline-block rounded-full bg-white/20 px-4 py-1 text-sm font-medium backdrop-blur-xs"
 						>
 							Featured
 						</div>

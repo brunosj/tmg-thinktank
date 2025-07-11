@@ -95,7 +95,7 @@
 				class={`${textAlignment} transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
 			>
 				<div
-					class="mb-6 h-1 w-12 rounded"
+					class="mb-6 h-1 w-12 rounded-sm"
 					style="background-color: {textColor}; opacity: 0.6;"
 				></div>
 				<div
@@ -104,7 +104,7 @@
 				>
 					{text}
 				</div>
-				<div class="mt-6 h-1 w-24 rounded opacity-30" style="background-color: {textColor}"></div>
+				<div class="mt-6 h-1 w-24 rounded-sm opacity-30" style="background-color: {textColor}"></div>
 			</div>
 
 			<!-- Video content -->
@@ -112,7 +112,7 @@
 				class={`${order} transition-all delay-300 duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
 			>
 				<div class="relative">
-					<!-- Video shadow/glow effect -->
+					<!-- Video shadow effect -->
 					<div
 						class="absolute -inset-1 rounded-2xl opacity-30 blur-xl"
 						style="background-color: {bgColor}; filter: brightness(1.5);"

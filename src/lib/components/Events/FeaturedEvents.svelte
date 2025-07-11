@@ -21,7 +21,7 @@
 					>
 						<a href={`/events/${event.fields.slug}`} class="block">
 							{#if event.fields.topBanner}
-								<div class="aspect-[16/9] w-full overflow-hidden">
+								<div class="aspect-video w-full overflow-hidden">
 									<img
 										src={event.fields.topBanner[0].secure_url}
 										alt={event.fields.title}

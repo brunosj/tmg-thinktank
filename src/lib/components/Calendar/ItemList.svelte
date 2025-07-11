@@ -141,14 +141,14 @@
 									<div
 										class={`${bgColorClass(
 											evt.type
-										)} mr-3 h-3 w-3 flex-shrink-0 rounded-full bg-opacity-100 lg:hidden `}
+										)} mr-3 h-3 w-3 shrink-0 rounded-full bg-opacity-100 lg:hidden `}
 									></div>
 									<p class=" font-semibold duration-300 hover:opacity-70 lg:text-xl">{evt.title}</p>
 								</a>
 								<p class="hidden text-sm lg:block">{evt.subtitle}</p>
 								<div class=" hidden items-center lg:flex">
 									<button
-										class="relative rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-blue-normal shadow-sm duration-300 hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-normal"
+										class="relative rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-blue-normal shadow-xs duration-300 hover:bg-gray-300 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-normal"
 										onclick={(e) => {
 											e.preventDefault();
 											downloadICal(evt);

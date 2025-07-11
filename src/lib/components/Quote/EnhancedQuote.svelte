@@ -47,7 +47,7 @@
 				<div class="flex flex-col md:flex-row md:gap-8">
 					<!-- Person image -->
 					{#if quotePersonPictureUrl}
-						<div class="mb-6 flex-shrink-0 md:mb-0">
+						<div class="mb-6 shrink-0 md:mb-0">
 							<div
 								class="relative h-20 w-20 overflow-hidden rounded-full border-4 md:h-48 md:w-48"
 								style="border-color: {color}"

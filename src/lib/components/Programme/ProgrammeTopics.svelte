@@ -51,7 +51,7 @@
 					<div class="flex py-3">
 						<button class="w-full lg:w-1/3" onclick={() => handleDescriptionMore(i)}>
 							<div
-								class="focus:shadow-outline group flex items-center justify-around rounded-md border border-blue-normal bg-white align-middle text-sm text-blue-normal transition duration-300 ease-in-out hover:bg-blue-normal hover:text-white focus:outline-none md:text-base"
+								class="focus:shadow-outline group flex items-center justify-around rounded-md border border-blue-normal bg-white align-middle text-sm text-blue-normal transition duration-300 ease-in-out hover:bg-blue-normal hover:text-white focus:outline-hidden md:text-base"
 							>
 								<div class="flex">
 									<div class="py-3 pl-3 font-bold leading-snug">Read more</div>

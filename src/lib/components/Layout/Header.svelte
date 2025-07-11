@@ -63,7 +63,7 @@
 </script>
 
 <header class="fixed top-0 z-50 w-full bg-white bg-opacity-90 shadow-lg">
-	<div class="border-t-4 border-navyBlue">
+	<div class="border-t-4 border-navy-blue">
 		<div class="layout mx-auto flex items-center justify-between py-1">
 			<div>
 				<a href="/" class="m-0 flex h-8 w-16 md:m-auto lg:h-12 lg:w-24">

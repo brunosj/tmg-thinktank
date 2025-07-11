@@ -1,14 +1,81 @@
-@import '@fontsource-variable/inter';
-@import '@fontsource-variable/inter/wght.css';
-@import '@fontsource-variable/inter/wght-italic.css';
-@import '@fontsource-variable/montserrat';
-@import '@fontsource-variable/montserrat/wght.css';
-@import '@fontsource-variable/spline-sans';
-@import '@fontsource-variable/spline-sans/wght.css';
+@import '@fontsource-variable/inter' layer(base);
+@import '@fontsource-variable/inter/wght.css' layer(base);
+@import '@fontsource-variable/inter/wght-italic.css' layer(base);
+@import '@fontsource-variable/montserrat' layer(base);
+@import '@fontsource-variable/montserrat/wght.css' layer(base);
+@import '@fontsource-variable/spline-sans' layer(base);
+@import '@fontsource-variable/spline-sans/wght.css' layer(base);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@config '../tailwind.config.js';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+
+@layer components {
+	body {
+		@apply overflow-x-hidden bg-white font-inter leading-relaxed text-gray-800;
+	}
+	
+	h1 {
+		@apply text-3xl font-semibold leading-tight lg:text-5xl;
+	}
+	
+	h2 {
+		@apply text-xl font-semibold leading-tight tracking-tight lg:text-4xl;
+	}
+	
+	h3 {
+		@apply text-lg font-semibold leading-snug tracking-tight lg:text-xl;
+	}
+	
+	h4 {
+		@apply text-base leading-snug tracking-tight lg:text-lg;
+	}
+	
+	h2 {
+		display: inline-block;
+		font-size: 2rem;
+	}
+	
+	p {
+		@apply text-sm leading-normal lg:text-base;
+	}
+
+	mark {
+		background-color: '#67797B' !important;
+	}
+	
+	blockquote {
+		@apply mx-auto my-4 max-w-full border-l-2 border-gray-800 py-2 pl-4 lg:my-8 lg:max-w-[80%];
+	}
+	
+	i,
+	em {
+		@apply font-italic;
+	}
+	
+	b {
+		@apply font-semibold;
+	}
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 :root {
 	font-synthesis: none;
@@ -22,33 +89,7 @@
 	outline: gray solid 1px;
 } */
 
-body {
-	@apply overflow-x-hidden bg-white font-inter leading-relaxed text-gray-800;
-}
 
-h1 {
-	@apply text-3xl font-semibold leading-tight lg:text-5xl;
-}
-
-h2 {
-	@apply text-xl font-semibold leading-tight tracking-tight lg:text-4xl;
-}
-
-h3 {
-	@apply text-lg font-semibold leading-snug tracking-tight lg:text-xl;
-}
-
-h4 {
-	@apply text-base leading-snug tracking-tight lg:text-lg;
-}
-
-h2 {
-	display: inline-block;
-}
-
-p {
-	@apply text-sm leading-normal lg:text-base;
-}
 /* a {
 	@apply font-semibold text-blue-800 duration-300 hover:text-black;
 } */
@@ -168,35 +209,19 @@ h2.fromRight:hover:after {
 	@apply list-disc pl-6;
 }
 
-mark {
-	background-color: '#67797B' !important;
-}
-
-blockquote {
-	@apply mx-auto my-4 max-w-full border-l-2 border-gray-800 py-2 pl-4 lg:my-8 lg:max-w-[80%];
-}
-
-i,
-em {
-	@apply font-italic;
-}
-
-b {
-	@apply font-semibold;
-}
 
 .bgGradientBR {
-	@apply bg-gradient-to-br from-black/80 via-blue-normal to-blue-normal/100;
+	@apply bg-linear-to-br from-black/80 via-blue-normal to-blue-normal;
 }
 
 .bgGradientTL {
-	@apply bg-gradient-to-tl from-black/80 via-blue-normal to-blue-normal/100;
+	@apply bg-linear-to-tl from-black/80 via-blue-normal to-blue-normal;
 }
 
 .bgGradientBRBlue {
-	@apply bg-gradient-to-br from-navyBlue to-gray-800/100;
+	@apply bg-linear-to-br from-navy-blue to-gray-800;
 }
 
 .bgGradientTLBlue {
-	@apply bg-gradient-to-tl from-navyBlue to-gray-800/100;
+	@apply bg-linear-to-tl from-navy-blue to-gray-800;
 }

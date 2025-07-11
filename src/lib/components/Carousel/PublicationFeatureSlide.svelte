@@ -27,7 +27,7 @@
 </script>
 
 <div
-	class={`group relative h-full w-full overflow-hidden border-[1px] border-blue-light bg-white duration-300 hover:border-white hover:bg-blue-light ${
+	class={`group relative h-full w-full overflow-hidden border border-blue-light bg-white duration-300 hover:border-white hover:bg-blue-light ${
 		i === 0 ? 'rounded-l-xl' : ''
 	} ${i === slidesQty - 1 ? 'rounded-r-xl' : ''}`}
 	in:fly={{ y: 200, duration: 300 }}

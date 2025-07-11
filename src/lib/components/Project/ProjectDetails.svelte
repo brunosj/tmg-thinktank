@@ -13,7 +13,7 @@
 	{#if item.fields.name}
 		<div class="space-y-2 text-sm">
 			<div class="">
-				<div class="border-b-[1px] border-gray-900 pb-1">
+				<div class="border-b border-gray-900 pb-1">
 					<div class=" text-left font-semibold text-black">Project Name</div>
 				</div>
 			</div>
@@ -26,7 +26,7 @@
 	{#if item.fields.year}
 		<div class="space-y-2 text-sm">
 			<div class="">
-				<div class="border-b-[1px] border-gray-900 pb-1">
+				<div class="border-b border-gray-900 pb-1">
 					<div class=" text-left font-semibold text-black">Duration</div>
 				</div>
 			</div>
@@ -39,7 +39,7 @@
 	{#if item.fields.partnersList}
 		<div class="space-y-2 text-sm">
 			<div class="">
-				<div class="border-b-[1px] border-gray-900 pb-1">
+				<div class="border-b border-gray-900 pb-1">
 					<div class=" text-left font-semibold text-black">
 						{item.fields.partnersList.length > 1 ? 'Partners' : 'Partner'}
 					</div>
@@ -60,7 +60,7 @@
 	{#if item.fields.fundersList}
 		<div class="space-y-2 text-sm">
 			<div class="">
-				<div class="border-b-[1px] border-gray-900 pb-1">
+				<div class="border-b border-gray-900 pb-1">
 					<div class=" text-left font-semibold text-black">
 						{item.fields.fundersList.length > 1 ? 'Funders' : 'Funder'}
 					</div>
@@ -80,7 +80,7 @@
 	{#if item.fields.contractingAuthorityList}
 		<div class="space-y-2 text-sm">
 			<div class="">
-				<div class="border-b-[1px] border-gray-900 pb-1">
+				<div class="border-b border-gray-900 pb-1">
 					<div class=" text-left font-semibold text-black">
 						{item.fields.contractingAuthorityList.length > 1
 							? 'Contracting Authorities'

@@ -58,7 +58,7 @@
 		<div class="mx-auto max-w-6xl">
 			<!-- Section header -->
 			<div class="mb-12 flex items-center">
-				<div class="h-1 w-12 rounded" style="background-color: {borderColor}"></div>
+				<div class="h-1 w-12 rounded-sm" style="background-color: {borderColor}"></div>
 				<div class="ml-4 text-sm font-medium uppercase tracking-wider text-gray-500">
 					{title}
 				</div>
@@ -72,7 +72,7 @@
 					style="border-color: {borderColor}; transition: all 0.5s ease;"
 				>
 					{#if images && images.length > 0}
-						<div class="relative aspect-[16/9] w-full overflow-hidden">
+						<div class="relative aspect-video w-full overflow-hidden">
 							<Lightbox>
 								<img
 									src={images[selectedImage].secure_url}
@@ -117,7 +117,7 @@
 							</div>
 						{/if}
 					{:else}
-						<div class="flex aspect-[16/9] w-full items-center justify-center bg-gray-100">
+						<div class="flex aspect-video w-full items-center justify-center bg-gray-100">
 							<p class="text-gray-500">No images available</p>
 						</div>
 					{/if}

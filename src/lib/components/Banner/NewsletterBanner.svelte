@@ -35,7 +35,7 @@
 			</div>
 
 			<div class="relative mx-auto w-full max-w-md">
-				<div class="relative aspect-[3/4] transform-gpu">
+				<div class="relative aspect-3/4 transform-gpu">
 					<a href="/newsletter" class="group">
 						<div
 							class="absolute left-[5%] top-0 h-[85%] w-[70%] transition-transform duration-300 hover:-translate-y-2"

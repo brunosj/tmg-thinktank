@@ -59,7 +59,7 @@
 							<div
 								class="overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl"
 							>
-								<div class="aspect-[3/4] overflow-hidden">
+								<div class="aspect-3/4 overflow-hidden">
 									<img
 										loading="lazy"
 										src={image}

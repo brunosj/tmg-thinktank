@@ -169,11 +169,11 @@
 				{/each}
 			</div>
 			{#each updateMonthGrid() as row (row)}
-				<div class="flex flex-grow-0 flex-row">
+				<div class="flex grow-0 flex-row">
 					{#each row as { date, isEventDay, isCurrentMonth, isWeekend, weekendClass, dateFormat, truncatedItems, additionalEventCount }}
 						{#if date}
 							<div
-								class={`relative grid h-32 w-full flex-grow-0 grid-cols-7 border-[0.5px] border-neutral-400 ${
+								class={`relative grid h-32 w-full grow-0 grid-cols-7 border-[0.5px] border-neutral-400 ${
 									isCurrentMonth ? '' : 'text-neutral-300 '
 								} ${isEventDay ? 'bg-blue-light ' : ''}  ${weekendClass}`}
 							>

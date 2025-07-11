@@ -33,8 +33,8 @@
 </script>
 
 {#if sections.length > 0}
-	<div class="sticky top-[10rem] hidden max-h-[calc(100vh-10rem)] w-56 overflow-y-auto lg:block">
-		<div class="rounded-lg bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+	<div class="sticky top-40 hidden max-h-[calc(100vh-10rem)] w-56 overflow-y-auto lg:block">
+		<div class="rounded-lg bg-white/80 p-4 shadow-xs backdrop-blur-xs">
 			<h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-black">
 				Table of Contents
 			</h3>

@@ -273,7 +273,7 @@
 			</h1>
 
 			<!-- Simplified separator -->
-			<div class="mx-auto my-4 h-1 w-20 rounded bg-white/60"></div>
+			<div class="mx-auto my-4 h-1 w-20 rounded-sm bg-white/60"></div>
 
 			<h2 class="mx-auto max-w-2xl text-base font-light leading-relaxed text-white md:text-2xl">
 				{item.fields.summary}
@@ -293,7 +293,7 @@
 {/if}
 
 <!-- Tabbed Navigation -->
-<div class="sticky top-[2rem] z-20 bg-white py-4 shadow-md lg:top-[3.5rem]">
+<div class="sticky top-8 z-20 bg-white py-4 shadow-md lg:top-14">
 	<div class="layout">
 		<div class="mx-auto flex max-w-6xl justify-center">
 			<div class="inline-block rounded-lg bg-gray-100 p-2">

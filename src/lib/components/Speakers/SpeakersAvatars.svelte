@@ -25,7 +25,7 @@
 
 					<!-- Image with border -->
 					<div
-						class="relative h-24 w-24 overflow-hidden rounded-full border-2 shadow-sm transition-transform duration-300 sm:h-28 sm:w-28"
+						class="relative h-24 w-24 overflow-hidden rounded-full border-2 shadow-xs transition-transform duration-300 sm:h-28 sm:w-28"
 						style="border-color: {color};"
 					>
 						<img
@@ -38,7 +38,7 @@
 
 					<!-- Status indicator dot -->
 					<div
-						class="absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-white shadow-sm"
+						class="absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-white shadow-xs"
 						style="background-color: {color};"
 					></div>
 				</div>

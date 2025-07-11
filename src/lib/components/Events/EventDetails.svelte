@@ -156,7 +156,7 @@
 		</div>
 
 		<button
-			class="relative rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-blue-normal shadow-sm duration-300 hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-normal"
+			class="relative rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-blue-normal shadow-xs duration-300 hover:bg-gray-300 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-normal"
 			onclick={preventDefault(() => downloadICal(item))}
 		>
 			<div class="flex items-center space-x-3">

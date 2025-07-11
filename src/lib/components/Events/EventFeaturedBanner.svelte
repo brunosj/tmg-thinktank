@@ -47,7 +47,7 @@
 			<div class="">
 				<a
 					href={`/events/${event.fields.slug}`}
-					class="inline-flex rounded-md bg-white/10 px-3.5 py-2.5 text-sm font-semibold shadow-sm duration-300 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+					class="inline-flex rounded-md bg-white/10 px-3.5 py-2.5 text-sm font-semibold shadow-xs duration-300 hover:bg-white/20 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
 					>Learn More</a
 				>
 			</div>

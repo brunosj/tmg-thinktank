@@ -16,7 +16,7 @@
 	];
 </script>
 
-<div class="backdrop-blur-sm">
+<div class="backdrop-blur-xs">
 	<div class="layout py-16">
 		<div class="max-w-3xl">
 			<h3 class="text-2xl font-bold tracking-tight text-green-light md:text-3xl lg:text-4xl">

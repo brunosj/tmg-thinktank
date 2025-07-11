@@ -129,7 +129,7 @@
 				</h1>
 
 				<!-- Separator -->
-				<div class="my-4 h-1 w-20 rounded bg-white/60"></div>
+				<div class="my-4 h-1 w-20 rounded-sm bg-white/60"></div>
 
 				<div class="max-w-4xl text-base font-light leading-relaxed text-white md:text-xl">
 					{project.fields.summary}
@@ -147,7 +147,7 @@
 			<!-- Left column: Project description - 2/3 width -->
 			<div class="lg:col-span-2">
 				{#if project.fields.quote}
-					<div class="mb-8 rounded-xl bg-gray-50 p-6 shadow-sm">
+					<div class="mb-8 rounded-xl bg-gray-50 p-6 shadow-xs">
 						<blockquote class="text-blue-normal">
 							<p class="text-lg font-bold italic md:text-xl">
 								"{project.fields.quote}"
@@ -174,7 +174,7 @@
 
 			<!-- Right column: Project details - 1/3 width -->
 			<div class="lg:col-span-1">
-				<div class="sticky top-20 rounded-xl bg-blue-light/40 p-5 shadow-sm lg:p-8">
+				<div class="sticky top-20 rounded-xl bg-blue-light/40 p-5 shadow-xs lg:p-8">
 					<h2 class="mb-6 text-xl font-bold text-blue-normal">Details</h2>
 					<div class="text-sm">
 						<ProjectDetails item={project} />

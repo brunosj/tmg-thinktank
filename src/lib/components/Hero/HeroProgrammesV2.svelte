@@ -50,7 +50,7 @@
 							class=" flex h-full flex-col items-center space-y-2 rounded-b-lg bg-white p-4 duration-300 group-hover:bg-blue-light lg:p-6"
 						>
 							<div class="flex h-full flex-col justify-around space-y-2">
-								<div class="text-base font-semibold leading-6 text-navyBlue">
+								<div class="text-base font-semibold leading-6 text-navy-blue">
 									{programme.fields.actionVerb}
 								</div>
 								<div

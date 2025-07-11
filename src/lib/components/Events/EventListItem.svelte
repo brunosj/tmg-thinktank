@@ -17,7 +17,7 @@
 	<div class="flex flex-col gap-4 sm:flex-row sm:items-center">
 		<!-- Date Block -->
 		<div
-			class="flex h-20 w-20 flex-shrink-0 flex-col items-center justify-center rounded-lg text-white sm:h-24 sm:w-24"
+			class="flex h-20 w-20 shrink-0 flex-col items-center justify-center rounded-lg text-white sm:h-24 sm:w-24"
 			style="background-color: {accentColor};"
 		>
 			<span class="text-2xl font-bold leading-none sm:text-3xl">
@@ -32,7 +32,7 @@
 		</div>
 
 		<!-- Content -->
-		<div class="flex-grow">
+		<div class="grow">
 			<div class="mb-1 flex flex-wrap items-center gap-2">
 				<span
 					class="inline-block rounded-full px-2.5 py-1 text-xs font-medium"

@@ -9,7 +9,7 @@
 	const programmeLinks = generateProgrammeLinks(programmes);
 </script>
 
-<footer class="overflow-hidden bg-gradient-to-br from-navyBlue to-gray-800">
+<footer class="overflow-hidden bg-linear-to-br from-navy-blue to-gray-800">
 	<LearnMore />
 
 	<div class="layout pb-8 pt-0 lg:pb-8 lg:pt-16">

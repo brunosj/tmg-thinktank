@@ -40,7 +40,7 @@
 						</div>
 					{/if}
 					<div
-						class="justify-between space-y-2 border-b-[1px] border-blue-normal pb-5 leading-normal lg:col-span-3 lg:border-b-0 lg:px-8 lg:pb-0"
+						class="justify-between space-y-2 border-b border-blue-normal pb-5 leading-normal lg:col-span-3 lg:border-b-0 lg:px-8 lg:pb-0"
 					>
 						<p class="items-center text-sm font-semibold text-blue-normal">
 							{item.fields.category}

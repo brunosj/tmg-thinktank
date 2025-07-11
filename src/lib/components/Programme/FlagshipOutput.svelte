@@ -38,7 +38,7 @@
 <div class="col-span-1 mx-auto flex w-full">
 	<a href={urlPath} class="w-full transition duration-300">
 		<div
-			class="group overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all duration-300"
+			class="group overflow-hidden rounded-lg border border-gray-200 bg-white shadow-xs transition-all duration-300"
 		>
 			{#if image}
 				<div class="relative h-48 overflow-hidden">
@@ -48,10 +48,10 @@
 						alt={title}
 						class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
 					/>
-					<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+					<div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
 					<div class="absolute bottom-0 left-0 p-4">
 						<span
-							class="inline-block rounded px-2 py-1 text-sm font-bold text-white transition-colors duration-300"
+							class="inline-block rounded-sm px-2 py-1 text-sm font-bold text-white transition-colors duration-300"
 							style="background-color: {color};"
 						>
 							{label}
