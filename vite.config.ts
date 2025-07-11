@@ -21,11 +21,7 @@ export default defineConfig({
 		port: 4000,
 		strictPort: false
 	},
-	...(isDevelopment
-		? {}
-		: {
-				ssr: {
-					noExternal: ['contentful']
-				}
-		  })
+	ssr: {
+		noExternal: ['contentful', 'flexsearch', 'lenis', 'lenis-svelte']
+	}
 });
