@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import type { ReportBuilder } from '$lib/types/payload-types';
 	import RenderBlocks from '$components/RenderBlocks.svelte';
+	import SEO from '$components/SEO/SEO.svelte';
 
 	interface PageData {
 		report: ReportBuilder;
@@ -35,38 +36,46 @@
 		if (report.meta?.description) {
 			return report.meta.description;
 		}
+		if (report.description) {
+			return report.description;
+		}
 		return `A research report by TMG Think Tank: ${report.title || 'Untitled Report'}`;
+	});
+
+	// Get image for SEO
+	const seoImage = $derived(() => {
+		if (report.meta?.image) {
+			return typeof report.meta.image === 'string' ? report.meta.image : report.meta.image.url;
+		}
+		return '';
+	});
+
+	// Generate keywords/tags
+	const seoTags = $derived(() => {
+		const tags = ['research', 'report', 'sustainability', 'TMG'];
+		if (report.title) {
+			// Add relevant keywords from title
+			const titleWords = report.title
+				.toLowerCase()
+				.split(' ')
+				.filter((word) => word.length > 3);
+			tags.push(...titleWords);
+		}
+		return tags;
 	});
 </script>
 
+<SEO
+	title={pageTitle()}
+	description={metaDescription()}
+	image={seoImage() || ''}
+	tags={seoTags()}
+	ogType="article"
+	keywords={seoTags()}
+/>
+
 <svelte:head>
-	<title>{pageTitle()}</title>
-	<meta name="description" content={metaDescription()} />
-
-	<!-- Open Graph / Facebook -->
-	<meta property="og:type" content="article" />
-	<meta property="og:title" content={pageTitle()} />
-	<meta property="og:description" content={metaDescription()} />
-	{#if report.meta?.image}
-		<meta
-			property="og:image"
-			content={typeof report.meta.image === 'string' ? report.meta.image : report.meta.image.url}
-		/>
-	{/if}
-	<meta property="og:url" content={$page.url.href} />
-
-	<!-- Twitter -->
-	<meta property="twitter:card" content="summary_large_image" />
-	<meta property="twitter:title" content={pageTitle()} />
-	<meta property="twitter:description" content={metaDescription()} />
-	{#if report.meta?.image}
-		<meta
-			property="twitter:image"
-			content={typeof report.meta.image === 'string' ? report.meta.image : report.meta.image.url}
-		/>
-	{/if}
-
-	<!-- Additional meta tags -->
+	<!-- Additional meta tags specific to reports -->
 	{#if report.publishedAt}
 		<meta property="article:published_time" content={report.publishedAt} />
 	{/if}
@@ -90,6 +99,10 @@
 			"publisher": {
 				"@type": "Organization",
 				"name": "TMG Research"
+			},
+			"mainEntityOfPage": {
+				"@type": "WebPage",
+				"@id": $page.url.href
 			}
 		})}
 	</script>
