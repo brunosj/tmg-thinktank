@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import logo from '$assets/TMG_logo_transparent.png';
 	import { MenuIcon, SearchIcon } from '@rgossiaux/svelte-heroicons/outline';
 
@@ -34,7 +32,7 @@
 		document.addEventListener('keydown', handleKeyDown);
 	});
 
-	run(() => {
+	$effect(() => {
 		if (search === 'ready') {
 			results = searchPostsIndex(searchTerm);
 		}
@@ -62,8 +60,8 @@
 	}
 </script>
 
-<header class="fixed top-0 z-50 w-full bg-white bg-opacity-90 shadow-lg">
-	<div class="border-t-4 border-navy-blue">
+<header class="bg-opacity-90 fixed top-0 z-50 w-full bg-white shadow-lg">
+	<div class="border-navy-blue border-t-4">
 		<div class="layout mx-auto flex items-center justify-between py-1">
 			<div>
 				<a href="/" class="m-0 flex h-8 w-16 md:m-auto lg:h-12 lg:w-24">
@@ -86,13 +84,13 @@
 				{#if !showSearchInput}
 					<button type="button" aria-label="menu" onclick={toggleSearch}>
 						<SearchIcon
-							class="h-8 w-8 rounded-md bg-transparent p-1 text-blue-normal duration-300 hover:bg-blue-light"
+							class="text-blue-normal hover:bg-blue-light h-8 w-8 rounded-md bg-transparent p-1 duration-300"
 						/>
 					</button>
 				{/if}
 				<button type="button" aria-label="menu" onclick={toggleSidebar}>
 					<MenuIcon
-						class="h-8 w-8 rounded-md bg-transparent p-1 text-blue-normal duration-300 hover:bg-blue-light"
+						class="text-blue-normal hover:bg-blue-light h-8 w-8 rounded-md bg-transparent p-1 duration-300"
 					/>
 				</button>
 			</div>

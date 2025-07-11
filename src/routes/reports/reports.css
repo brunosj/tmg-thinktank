@@ -29,9 +29,6 @@
 
 @layer components {
 	/* Hero heading global styles */
-	.hero-heading .heading-wrapper {
-		@apply m-0;
-	}
 
 	.hero-heading .heading-block {
 		@apply mx-auto max-w-4xl rounded-lg px-8 py-4;
@@ -42,9 +39,6 @@
 	}
 
 	/* Author avatar global styles */
-	.author-avatar .picture-wrapper {
-		@apply m-0;
-	}
 
 	.author-avatar .picture-block {
 		@apply h-full w-full;
