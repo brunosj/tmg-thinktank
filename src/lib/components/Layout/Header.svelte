@@ -19,28 +19,28 @@
 
 	onMount(async () => {
 		try {
-			const response = await fetch('/search.json');
-			posts = await response.json();
-			createPostsIndex(posts);
-			search = 'ready';
+			// const response = await fetch('/search.json');
+			// posts = await response.json();
+			// createPostsIndex(posts);
+			// search = 'ready';
 		} catch (error) {
 			console.error('Error fetching posts:', error);
 		}
 	});
 
-	onMount(() => {
-		document.addEventListener('keydown', handleKeyDown);
-	});
+	// onMount(() => {
+	// 	document.addEventListener('keydown', handleKeyDown);
+	// });
 
-	$effect(() => {
-		if (search === 'ready') {
-			results = searchPostsIndex(searchTerm);
-		}
-	});
+	// $effect(() => {
+	// 	if (search === 'ready') {
+	// 		results = searchPostsIndex(searchTerm);
+	// 	}
+	// });
 
-	const toggleSearch = () => {
-		showSearchInput = !showSearchInput;
-	};
+	// const toggleSearch = () => {
+	// 	showSearchInput = !showSearchInput;
+	// };
 
 	const toggleSidebar = () => {
 		sidebarHidden = !sidebarHidden;
@@ -48,16 +48,16 @@
 		searchTerm = '';
 	};
 
-	const handleKeyDown = (event: KeyboardEvent) => {
-		if (event.key === 'Escape') {
-			showSearchInput = false;
-			searchTerm = '';
-		}
-	};
+	// const handleKeyDown = (event: KeyboardEvent) => {
+	// 	if (event.key === 'Escape') {
+	// 		showSearchInput = false;
+	// 		searchTerm = '';
+	// 	}
+	// };
 
-	function init(el: HTMLElement) {
-		el.focus();
-	}
+	// function init(el: HTMLElement) {
+	// 	el.focus();
+	// }
 </script>
 
 <header class="bg-opacity-90 fixed top-0 z-50 w-full bg-white shadow-lg">
@@ -69,7 +69,7 @@
 				</a>
 			</div>
 			<div class="flex justify-end gap-3">
-				{#if search === 'ready' && showSearchInput}
+				<!-- {#if search === 'ready' && showSearchInput}
 					<div class=" ml-auto flex justify-end">
 						<input
 							bind:value={searchTerm}
@@ -87,7 +87,7 @@
 							class="text-blue-normal hover:bg-blue-light h-8 w-8 rounded-md bg-transparent p-1 duration-300"
 						/>
 					</button>
-				{/if}
+				{/if} -->
 				<button type="button" aria-label="menu" onclick={toggleSidebar}>
 					<MenuIcon
 						class="text-blue-normal hover:bg-blue-light h-8 w-8 rounded-md bg-transparent p-1 duration-300"

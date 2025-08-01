@@ -155,7 +155,6 @@
 		);
 	});
 
-	console.log(block);
 </script>
 
 <section class={heroClasses()} style={styleString()}>

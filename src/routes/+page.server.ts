@@ -1,17 +1,26 @@
 import { fetchContentfulData } from '$lib/contentfulClient';
 import { slugify } from '$utils/utils.js';
-import type { Event, News, BlogPost, Programme, Partner, Newsletter, PublicationFeature, EventSeries } from '$lib/types/types';
+import type {
+	Event,
+	News,
+	BlogPost,
+	Programme,
+	Partner,
+	Newsletter,
+	PublicationFeature,
+	EventSeries
+} from '$lib/types/types';
 
 export async function load() {
 	try {
 		const today = new Date();
 
 		const landingPage = await fetchContentfulData('landingPage');
-		const programmes = await fetchContentfulData('program') as Programme[];
-		const newsletter = await fetchContentfulData('newsletter') as Newsletter[];
-		const partners = await fetchContentfulData('partners') as Partner[];
-		const events = await fetchContentfulData('event') as Event[];
-		const blogPosts = await fetchContentfulData('blogPost') as BlogPost[];
+		const programmes = (await fetchContentfulData('program')) as Programme[];
+		const newsletter = (await fetchContentfulData('newsletter')) as Newsletter[];
+		const partners = (await fetchContentfulData('partners')) as Partner[];
+		const events = (await fetchContentfulData('event')) as Event[];
+		const blogPosts = (await fetchContentfulData('blogPost')) as BlogPost[];
 
 		const upcomingEvents = events
 			.filter((event: Event) => {
@@ -33,8 +42,10 @@ export async function load() {
 			})
 			.slice(0, 3);
 
-		const publicationFeatures = await fetchContentfulData('publicationFeature') as PublicationFeature[];
-		const eventSeries = await fetchContentfulData('unfssCop26') as EventSeries[];
+		const publicationFeatures = (await fetchContentfulData(
+			'publicationFeature'
+		)) as PublicationFeature[];
+		const eventSeries = (await fetchContentfulData('unfssCop26')) as EventSeries[];
 
 		return {
 			landingPage,
@@ -43,7 +54,7 @@ export async function load() {
 			partners,
 			events: upcomingEvents,
 			eventSeries,
-			news: latestBlog,
+			blog: latestBlog,
 			publicationFeatures
 		};
 	} catch (error) {

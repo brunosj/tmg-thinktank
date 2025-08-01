@@ -1,11 +1,12 @@
 <script lang="ts">
-	export let news: News[];
+	export let blog: BlogPost[];
 	export let landingPage: LandingPage;
 
-	import type { News, LandingPage } from '$lib/types/types';
+	import type { BlogPost, LandingPage } from '$lib/types/types';
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	import { formatDateNews } from '$utils/utils';
 	import Button from '$components/UI/Button.svelte';
+
 </script>
 
 <div class="sectionPy bg-white">
@@ -19,7 +20,7 @@
 		<ul
 			class="mx-auto mt-6 grid max-w-2xl grid-cols-1 gap-x-4 gap-y-4 border-t border-gray-200 pt-6 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-y-16"
 		>
-			{#each news as item}
+			{#each blog as item}
 				<li>
 					<a
 						href={`/blog/${item.fields.slug}`}

@@ -9,6 +9,7 @@
 	import Text from './blocks/atomic-blocks/Text.svelte';
 	import Heading from './blocks/atomic-blocks/Heading.svelte';
 	import Picture from './blocks/atomic-blocks/Picture.svelte';
+	import Banner from './blocks/atomic-blocks/Banner.svelte';
 	import Scrollytelling from './Scrollytelling/Scrollytelling.svelte';
 	import Section from './blocks/Section.svelte';
 	import { clsx } from 'clsx';
@@ -40,7 +41,8 @@
 		text: Text,
 		heading: Heading,
 		picture: Picture,
-		section: Section
+		section: Section,
+		banner: Banner
 	};
 
 	// Helper to get the component for a block type

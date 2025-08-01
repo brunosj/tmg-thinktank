@@ -15,7 +15,8 @@ const config = {
 			$data: 'src/lib/data',
 			$utils: 'src/lib/utils',
 			$stores: 'src/lib/stores',
-			$styles: 'src/lib/styles'
+			$styles: 'src/lib/styles',
+			$types: 'src/lib/types'
 		},
 		prerender: {
 			handleHttpError: 'warn',

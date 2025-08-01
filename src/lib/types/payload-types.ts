@@ -68,40 +68,39 @@ export interface Config {
 	blocks: {};
 	collections: {
 		homepage: Homepage;
+		categories: Category;
 		about: About;
-		'events-page': EventsPage;
-		'blog-page': BlogPage;
+		'research-page': ResearchPage;
+		'resources-page': ResourcesPage;
+		'insights-page': InsightsPage;
+		'contact-page': ContactPage;
 		'jobs-page': JobsPage;
-		'news-page': NewsPage;
-		'publications-page': PublicationsPage;
-		publications: Publication;
 		'report-builder': ReportBuilder;
-		'videos-page': VideosPage;
-		'publication-features': PublicationFeature;
-		'event-series': EventSery;
-		projects: Project;
 		initiatives: Initiative;
-		events: Event;
+		posts: Post;
+		publications: Publication;
 		speakers: Speaker;
-		news: News;
 		banners: Banner;
 		pages: Page;
-		posts: Post;
-		categories: Category;
+		teams: Team;
 		collaborators: Collaborator;
 		jobs: Job;
-		teams: Team;
 		documents: Document;
 		media: Media;
 		'local-images': LocalImage;
 		videos: Video;
+		'publication-features': PublicationFeature;
+		'event-series': EventSery;
+		projects: Project;
+		events: Event;
+		news: News;
 		users: User;
 		redirects: Redirect;
 		forms: Form;
 		'form-submissions': FormSubmission;
 		search: Search;
-		folders: FolderInterface;
 		'payload-jobs': PayloadJob;
+		folders: FolderInterface;
 		'payload-locked-documents': PayloadLockedDocument;
 		'payload-preferences': PayloadPreference;
 		'payload-migrations': PayloadMigration;
@@ -113,40 +112,39 @@ export interface Config {
 	};
 	collectionsSelect: {
 		homepage: HomepageSelect<false> | HomepageSelect<true>;
+		categories: CategoriesSelect<false> | CategoriesSelect<true>;
 		about: AboutSelect<false> | AboutSelect<true>;
-		'events-page': EventsPageSelect<false> | EventsPageSelect<true>;
-		'blog-page': BlogPageSelect<false> | BlogPageSelect<true>;
+		'research-page': ResearchPageSelect<false> | ResearchPageSelect<true>;
+		'resources-page': ResourcesPageSelect<false> | ResourcesPageSelect<true>;
+		'insights-page': InsightsPageSelect<false> | InsightsPageSelect<true>;
+		'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
 		'jobs-page': JobsPageSelect<false> | JobsPageSelect<true>;
-		'news-page': NewsPageSelect<false> | NewsPageSelect<true>;
-		'publications-page': PublicationsPageSelect<false> | PublicationsPageSelect<true>;
-		publications: PublicationsSelect<false> | PublicationsSelect<true>;
 		'report-builder': ReportBuilderSelect<false> | ReportBuilderSelect<true>;
-		'videos-page': VideosPageSelect<false> | VideosPageSelect<true>;
-		'publication-features': PublicationFeaturesSelect<false> | PublicationFeaturesSelect<true>;
-		'event-series': EventSeriesSelect<false> | EventSeriesSelect<true>;
-		projects: ProjectsSelect<false> | ProjectsSelect<true>;
 		initiatives: InitiativesSelect<false> | InitiativesSelect<true>;
-		events: EventsSelect<false> | EventsSelect<true>;
+		posts: PostsSelect<false> | PostsSelect<true>;
+		publications: PublicationsSelect<false> | PublicationsSelect<true>;
 		speakers: SpeakersSelect<false> | SpeakersSelect<true>;
-		news: NewsSelect<false> | NewsSelect<true>;
 		banners: BannersSelect<false> | BannersSelect<true>;
 		pages: PagesSelect<false> | PagesSelect<true>;
-		posts: PostsSelect<false> | PostsSelect<true>;
-		categories: CategoriesSelect<false> | CategoriesSelect<true>;
+		teams: TeamsSelect<false> | TeamsSelect<true>;
 		collaborators: CollaboratorsSelect<false> | CollaboratorsSelect<true>;
 		jobs: JobsSelect<false> | JobsSelect<true>;
-		teams: TeamsSelect<false> | TeamsSelect<true>;
 		documents: DocumentsSelect<false> | DocumentsSelect<true>;
 		media: MediaSelect<false> | MediaSelect<true>;
 		'local-images': LocalImagesSelect<false> | LocalImagesSelect<true>;
 		videos: VideosSelect<false> | VideosSelect<true>;
+		'publication-features': PublicationFeaturesSelect<false> | PublicationFeaturesSelect<true>;
+		'event-series': EventSeriesSelect<false> | EventSeriesSelect<true>;
+		projects: ProjectsSelect<false> | ProjectsSelect<true>;
+		events: EventsSelect<false> | EventsSelect<true>;
+		news: NewsSelect<false> | NewsSelect<true>;
 		users: UsersSelect<false> | UsersSelect<true>;
 		redirects: RedirectsSelect<false> | RedirectsSelect<true>;
 		forms: FormsSelect<false> | FormsSelect<true>;
 		'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
 		search: SearchSelect<false> | SearchSelect<true>;
-		folders: FoldersSelect<false> | FoldersSelect<true>;
 		'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
+		folders: FoldersSelect<false> | FoldersSelect<true>;
 		'payload-locked-documents':
 			| PayloadLockedDocumentsSelect<false>
 			| PayloadLockedDocumentsSelect<true>;
@@ -159,10 +157,12 @@ export interface Config {
 	globals: {
 		header: Header;
 		footer: Footer;
+		socials: Social;
 	};
 	globalsSelect: {
 		header: HeaderSelect<false> | HeaderSelect<true>;
 		footer: FooterSelect<false> | FooterSelect<true>;
+		socials: SocialsSelect<false> | SocialsSelect<true>;
 	};
 	locale: null;
 	user: User & {
@@ -179,35 +179,96 @@ export interface Config {
 		workflows: unknown;
 	};
 }
-
-// Core interfaces that will be referenced throughout
-export interface ReportBuilder {
-	id: string;
-	title?: string | null;
-	description?: string | null;
-	slug?: string | null;
-	colors?: {
-		primary?: string | null;
-		secondary?: string | null;
-		accent?: string | null;
+export interface UserAuthOperations {
+	forgotPassword: {
+		email: string;
+		password: string;
 	};
-	layout?:
-		| (
-				| SectionBlock
-				| HeadingBlock
-				| PictureBlock
-				| TextBlock
-				| HeroBlock
-				| HighlightsBlock
-				| GridTextImageBlock
-				| TextBoxBlock
-				| TwoColumnBlock
-				| TableBlock
-				| ScrollytellingBlock
-		  )[]
+	login: {
+		email: string;
+		password: string;
+	};
+	registerFirstUser: {
+		email: string;
+		password: string;
+	};
+	unlock: {
+		email: string;
+		password: string;
+	};
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage".
+ */
+export interface Homepage {
+	id: string;
+	title: string;
+	image?: (string | null) | Media;
+	featuredItems?:
+		| {
+				/**
+				 * Select content to feature in this section
+				 */
+				item?:
+					| ({
+							relationTo: 'publications';
+							value: string | Publication;
+					  } | null)
+					| ({
+							relationTo: 'posts';
+							value: string | Post;
+					  } | null);
+				/**
+				 * This is the background image appearing in the carousel
+				 */
+				image?: (string | null) | Media;
+				id?: string | null;
+		  }[]
 		| null;
+	valuePropositionHeading?: string | null;
+	valueProposition?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	exploreOurWorkHeading?: string | null;
+	exploreOurWork?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	thematicAreasTitle?: string | null;
+	thematicAreas?: (string | Category)[] | null;
+	/**
+	 * Select a newsletter banner from the Banners collection. Only banners with type "newsletter" will be available.
+	 */
+	newsletterBanner?: (string | null) | Banner;
 	meta?: {
 		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
 		image?: (string | null) | Media;
 		description?: string | null;
 	};
@@ -216,64 +277,761 @@ export interface ReportBuilder {
 	createdAt: string;
 	_status?: ('draft' | 'published') | null;
 }
-
-// Block interfaces
-export interface SectionBlock {
-	parameters?: {
-		width?: ('sm' | 'md' | 'lg' | 'xl' | 'full') | null;
-		alignment?: ('left' | 'center' | 'right') | null;
-		verticalAlignment?: ('top' | 'center' | 'bottom') | null;
-		paddingTop?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
-		paddingBottom?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
-		paddingLeft?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
-		paddingRight?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
-		insideContainer?: boolean | null;
-		minHeight?: ('none' | 'screen-50' | 'screen-75' | 'screen-100') | null;
-		content?:
-			| (
-					| HeadingBlock
-					| PictureBlock
-					| TextBlock
-					| HeroBlock
-					| HighlightsBlock
-					| GridTextImageBlock
-					| TextBoxBlock
-					| TwoColumnBlock
-					| TableBlock
-					| ScrollytellingBlock
-			  )[]
-			| null;
-	};
-	styling?: {
-		backgroundColor?: string | null;
-		textColor?: string | null;
-		borderRadius?: ('none' | 'sm' | 'md' | 'lg' | 'full') | null;
-		shadow?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
-	};
-	id?: string | null;
-	blockName?: string | null;
-	blockType: 'section';
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+	id: string;
+	isImported?: boolean | null;
+	alt?: string | null;
+	caption?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	folder?: (string | null) | FolderInterface;
+	updatedAt: string;
+	createdAt: string;
+	/**
+	 * Cloudinary URL for imported assets
+	 */
+	url?: string | null;
+	/**
+	 * Thumbnail URL for imported assets
+	 */
+	thumbnailURL?: string | null;
+	filename?: string | null;
+	mimeType?: string | null;
+	filesize?: number | null;
+	width?: number | null;
+	height?: number | null;
+	focalX?: number | null;
+	focalY?: number | null;
 }
-
-export interface HeadingBlock {
-	parameters?: {
-		fontSize?: ('xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl') | null;
-		fontWeight?: ('light' | 'normal' | 'medium' | 'semibold' | 'bold') | null;
-		textTransform?: ('none' | 'uppercase' | 'lowercase' | 'capitalize') | null;
-		width?: ('sm' | 'md' | 'lg' | 'xl' | 'full') | null;
-		alignment?: ('left' | 'center' | 'right') | null;
-		position?: ('top' | 'center' | 'bottom') | null;
-		insideContainer?: boolean | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "folders".
+ */
+export interface FolderInterface {
+	id: string;
+	name: string;
+	folder?: (string | null) | FolderInterface;
+	documentsAndFolders?: {
+		docs?: (
+			| {
+					relationTo?: 'folders';
+					value: string | FolderInterface;
+			  }
+			| {
+					relationTo?: 'media';
+					value: string | Media;
+			  }
+		)[];
+		hasNextPage?: boolean;
+		totalDocs?: number;
 	};
-	styling?: {
-		textColor?: string | null;
-		highlightColor?: string | null;
-		showBackground?: boolean | null;
-		backgroundColor?: string | null;
-		backgroundRounded?: boolean | null;
+	folderType?: 'media'[] | null;
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publications".
+ */
+export interface Publication {
+	id: string;
+	title: string;
+	info: {
+		category: string;
+		/**
+		 * Related programme
+		 */
+		programme?: (string | null) | Category;
+		thematicArea?: (string | null) | Category;
+		/**
+		 * Related project
+		 */
+		project?: (string | null) | Project;
+		author?: string | null;
+		/**
+		 * TMG team members who authored this publication
+		 */
+		authorTmg?: (string | Team)[] | null;
+		summary?: string | null;
+		publicationDate?: string | null;
+		language?: ('en' | 'de' | 'fr') | null;
+		keywords?:
+			| {
+					keyword?: string | null;
+					id?: string | null;
+			  }[]
+			| null;
+		doi?: boolean | null;
+		doiNumber?: number | null;
+		doiUrl?: string | null;
+		citation?: string | null;
 	};
 	content?: {
-		content?: {
+		/**
+		 * Generate a news entry for this publication (use Description field in extension below)
+		 */
+		generateNewsEntry?: boolean | null;
+		description?: {
+			root: {
+				type: string;
+				children: {
+					type: string;
+					version: number;
+					[k: string]: unknown;
+				}[];
+				direction: ('ltr' | 'rtl') | null;
+				format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+				indent: number;
+				version: number;
+			};
+			[k: string]: unknown;
+		} | null;
+		/**
+		 * Publication thumbnail image
+		 */
+		thumbnail?: (string | null) | Media;
+		/**
+		 * Publication PDF document
+		 */
+		pdf?: (string | null) | Document;
+	};
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+	};
+	slug: string;
+	/**
+	 * Automated news entry content
+	 */
+	automatedNewsEntry?: string | null;
+	/**
+	 * Cloudinary URL for thumbnail (migration field)
+	 */
+	thumbnailFromCloudinary?: string | null;
+	/**
+	 * Original Contentful entry ID (for migration tracking)
+	 */
+	contentfulId?: string | null;
+	/**
+	 * Notes about the migration process
+	 */
+	migrationNotes?: string | null;
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+	id: string;
+	title: string;
+	image?: (string | null) | Media;
+	info?: {
+		summary?: string | null;
+		valueProposition?: {
+			heading?: string | null;
+			content?: {
+				root: {
+					type: string;
+					children: {
+						type: string;
+						version: number;
+						[k: string]: unknown;
+					}[];
+					direction: ('ltr' | 'rtl') | null;
+					format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+					indent: number;
+					version: number;
+				};
+				[k: string]: unknown;
+			} | null;
+		};
+		aimService?: {
+			heading?: string | null;
+			content?: {
+				root: {
+					type: string;
+					children: {
+						type: string;
+						version: number;
+						[k: string]: unknown;
+					}[];
+					direction: ('ltr' | 'rtl') | null;
+					format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+					indent: number;
+					version: number;
+				};
+				[k: string]: unknown;
+			} | null;
+		};
+	};
+	topics?: {
+		topic?:
+			| {
+					title?: string | null;
+					description?: {
+						root: {
+							type: string;
+							children: {
+								type: string;
+								version: number;
+								[k: string]: unknown;
+							}[];
+							direction: ('ltr' | 'rtl') | null;
+							format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+							indent: number;
+							version: number;
+						};
+						[k: string]: unknown;
+					} | null;
+					image?: (string | null) | Media;
+					slug?: string | null;
+					slugLock?: boolean | null;
+					id?: string | null;
+			  }[]
+			| null;
+	};
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+	};
+	slug?: string | null;
+	slugLock?: boolean | null;
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+	id: string;
+	name: string;
+	info?: {
+		summary?: string | null;
+		quote?: string | null;
+		quoteAuthor?: string | null;
+		/**
+		 * Related programme
+		 */
+		programme?: (string | null) | Category;
+		/**
+		 * Related topics
+		 */
+		topics?: (string | Category)[] | null;
+		year?: string | null;
+		/**
+		 * Partners (until Partners collection is created)
+		 */
+		partnersList?:
+			| {
+					partner?: string | null;
+					id?: string | null;
+			  }[]
+			| null;
+		/**
+		 * Funders (until Partners collection is created)
+		 */
+		fundersList?:
+			| {
+					funder?: string | null;
+					id?: string | null;
+			  }[]
+			| null;
+		/**
+		 * Contracting authorities (until Partners collection is created)
+		 */
+		contractingAuthorityList?:
+			| {
+					authority?: string | null;
+					id?: string | null;
+			  }[]
+			| null;
+		/**
+		 * External project URL
+		 */
+		url?: string | null;
+	};
+	content?: {
+		description?: {
+			root: {
+				type: string;
+				children: {
+					type: string;
+					version: number;
+					[k: string]: unknown;
+				}[];
+				direction: ('ltr' | 'rtl') | null;
+				format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+				indent: number;
+				version: number;
+			};
+			[k: string]: unknown;
+		} | null;
+		/**
+		 * Project thumbnail image
+		 */
+		thumbnail?: (string | null) | Media;
+		/**
+		 * Project gallery images
+		 */
+		gallery?:
+			| {
+					image?: (string | null) | Media;
+					id?: string | null;
+			  }[]
+			| null;
+	};
+	relationships?: {
+		/**
+		 * Team members involved in this project
+		 */
+		team?: (string | Team)[] | null;
+		/**
+		 * Related videos
+		 */
+		videos?: (string | Video)[] | null;
+		/**
+		 * Related projects
+		 */
+		relatedProjects?: (string | Project)[] | null;
+	};
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+	};
+	slug: string;
+	/**
+	 * Cloudinary URL for thumbnail (migration field)
+	 */
+	thumbnailFromCloudinary?: string | null;
+	/**
+	 * Original Contentful entry ID (for migration tracking)
+	 */
+	contentfulId?: string | null;
+	/**
+	 * Notes about the migration process
+	 */
+	migrationNotes?: string | null;
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "teams".
+ */
+export interface Team {
+	id: string;
+	name: string;
+	position: string;
+	picture?: (string | null) | LocalImage;
+	bio?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	linkedin?: string | null;
+	twitter?: string | null;
+	email?: string | null;
+	slug: string;
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "local-images".
+ */
+export interface LocalImage {
+	id: string;
+	/**
+	 * Alternative text for the image (important for accessibility)
+	 */
+	alt?: string | null;
+	caption?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	updatedAt: string;
+	createdAt: string;
+	url?: string | null;
+	thumbnailURL?: string | null;
+	filename?: string | null;
+	mimeType?: string | null;
+	filesize?: number | null;
+	width?: number | null;
+	height?: number | null;
+	focalX?: number | null;
+	focalY?: number | null;
+	sizes?: {
+		thumbnail?: {
+			url?: string | null;
+			width?: number | null;
+			height?: number | null;
+			mimeType?: string | null;
+			filesize?: number | null;
+			filename?: string | null;
+		};
+		square?: {
+			url?: string | null;
+			width?: number | null;
+			height?: number | null;
+			mimeType?: string | null;
+			filesize?: number | null;
+			filename?: string | null;
+		};
+		medium?: {
+			url?: string | null;
+			width?: number | null;
+			height?: number | null;
+			mimeType?: string | null;
+			filesize?: number | null;
+			filename?: string | null;
+		};
+	};
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "videos".
+ */
+export interface Video {
+	id: string;
+	title: string;
+	date?: string | null;
+	/**
+	 * Rich text description from Contentful
+	 */
+	description?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	/**
+	 * Automated news entry content from Contentful
+	 */
+	automatedNewsEntry?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	summary?: string | null;
+	keywords?:
+		| {
+				keyword?: string | null;
+				id?: string | null;
+		  }[]
+		| null;
+	/**
+	 * Video URL
+	 */
+	url: string;
+	/**
+	 * The unique identifier of the video on the platform (e.g., YouTube ID)
+	 */
+	videoId: string;
+	/**
+	 * Video thumbnail from Contentful
+	 */
+	image?: (string | null) | Media;
+	/**
+	 * Related programmes
+	 */
+	programmes?: (string | Category)[] | null;
+	/**
+	 * Project names (until Project collection is created)
+	 */
+	projects?:
+		| {
+				project?: string | null;
+				id?: string | null;
+		  }[]
+		| null;
+	/**
+	 * Event series names (until EventSeries collection is created)
+	 */
+	eventSeries?:
+		| {
+				eventSeries?: string | null;
+				id?: string | null;
+		  }[]
+		| null;
+	slug: string;
+	/**
+	 * Original Contentful entry ID
+	 */
+	contentfulId?: string | null;
+	/**
+	 * Notes from the migration process
+	 */
+	migrationNotes?: string | null;
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents".
+ */
+export interface Document {
+	id: string;
+	/**
+	 * Display title for the document
+	 */
+	title?: string | null;
+	/**
+	 * Brief description of the document
+	 */
+	description?: string | null;
+	/**
+	 * Auto-generated thumbnail path
+	 */
+	thumbnailPath?: string | null;
+	/**
+	 * Whether thumbnail was successfully generated
+	 */
+	thumbnailGenerated?: boolean | null;
+	/**
+	 * Original URL from Contentful (for migration tracking)
+	 */
+	originalUrl?: string | null;
+	updatedAt: string;
+	createdAt: string;
+	url?: string | null;
+	thumbnailURL?: string | null;
+	filename?: string | null;
+	mimeType?: string | null;
+	filesize?: number | null;
+	width?: number | null;
+	height?: number | null;
+	focalX?: number | null;
+	focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+	id: string;
+	title: string;
+	Info?: {
+		/**
+		 * Primary programme
+		 */
+		programme?: (string | null) | Category;
+		/**
+		 * Secondary programme (optional)
+		 */
+		secondProgramme?: (string | null) | Category;
+		/**
+		 * Related projects
+		 */
+		project?: (string | Project)[] | null;
+		/**
+		 * Article date from Contentful (converted from dateFormat)
+		 */
+		dateFormat?: string | null;
+		summary?: string | null;
+		date?: string | null;
+		keywords?:
+			| {
+					keyword?: string | null;
+					id?: string | null;
+			  }[]
+			| null;
+		/**
+		 * External source (optional)
+		 */
+		source?: string | null;
+		/**
+		 * External source URL (optional)
+		 */
+		sourceUrl?: string | null;
+	};
+	heroImage?: (string | null) | Media;
+	content: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	};
+	relatedPosts?: (string | Post)[] | null;
+	/**
+	 * Related news articles
+	 */
+	relatedNews?: (string | News)[] | null;
+	/**
+	 * Related publications
+	 */
+	relatedPublications?: (string | Publication)[] | null;
+	/**
+	 * Related video (optional)
+	 */
+	video?: (string | null) | Video;
+	categories?: (string | Category)[] | null;
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+	};
+	publishedAt?: string | null;
+	authors?:
+		| {
+				authorType?: ('team' | 'external') | null;
+				teamMember?: (string | null) | Team;
+				externalAuthor?: string | null;
+				id?: string | null;
+		  }[]
+		| null;
+	populatedAuthors?:
+		| {
+				id?: string | null;
+				name?: string | null;
+				type?: string | null;
+		  }[]
+		| null;
+	/**
+	 * Original Contentful entry ID (for migration tracking)
+	 */
+	contentfulId?: string | null;
+	/**
+	 * Notes about the migration process
+	 */
+	migrationNotes?: string | null;
+	/**
+	 * Cloudinary URL for hero image (migration field)
+	 */
+	imageFromCloudinary?: string | null;
+	/**
+	 * Indicates if this post has embedded assets that need manual upload
+	 */
+	hasEmbeddedAssets?: boolean | null;
+	/**
+	 * Information about embedded assets that need manual handling
+	 */
+	embeddedAssetsInfo?: string | null;
+	slug?: string | null;
+	slugLock?: boolean | null;
+	updatedAt: string;
+	createdAt: string;
+	_status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news".
+ */
+export interface News {
+	id: string;
+	title: string;
+	info: {
+		/**
+		 * Primary programme
+		 */
+		programme?: (string | null) | Category;
+		/**
+		 * Secondary programme (optional)
+		 */
+		secondProgramme?: (string | null) | Category;
+		/**
+		 * Related projects
+		 */
+		project?: (string | Project)[] | null;
+		/**
+		 * Article date from Contentful
+		 */
+		dateFormat?: string | null;
+		type: 'Media Coverage' | 'Press Release' | 'News' | 'Publication' | 'Video';
+		author?: string | null;
+		/**
+		 * TMG team members who authored this news
+		 */
+		authorTmg?: (string | Team)[] | null;
+		summary?: string | null;
+		source?: string | null;
+		sourceUrl?: string | null;
+	};
+	content?: {
+		image?: (string | null) | Media;
+		description?: {
 			root: {
 				type: string;
 				children: {
@@ -289,39 +1047,823 @@ export interface HeadingBlock {
 			[k: string]: unknown;
 		} | null;
 	};
-	id?: string | null;
-	blockName?: string | null;
-	blockType: 'heading';
+	relationships?: {
+		/**
+		 * Referenced publication
+		 */
+		publication?: (string | null) | Publication;
+		externalPublicationThumbnail?: (string | null) | Media;
+		externalPublicationUrl?: string | null;
+		/**
+		 * Related video
+		 */
+		video?: (string | null) | Video;
+		/**
+		 * Related news titles (will be linked later)
+		 */
+		relatedNews?:
+			| {
+					title?: string | null;
+					id?: string | null;
+			  }[]
+			| null;
+		/**
+		 * Related publications
+		 */
+		relatedPublications?: (string | Publication)[] | null;
+	};
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+		keywords?:
+			| {
+					keyword?: string | null;
+					id?: string | null;
+			  }[]
+			| null;
+	};
+	slug: string;
+	/**
+	 * Original Contentful entry ID (for migration tracking)
+	 */
+	contentfulId?: string | null;
+	/**
+	 * Notes about the migration process
+	 */
+	migrationNotes?: string | null;
+	updatedAt: string;
+	createdAt: string;
 }
-
-export interface PictureBlock {
-	image?: (string | null) | Media;
-	width?: ('sm' | 'md' | 'lg' | 'xl' | 'full') | null;
-	position?: ('left' | 'center' | 'right') | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "banners".
+ */
+export interface Banner {
+	id: string;
+	title: string;
+	/**
+	 * Select the type of banner
+	 */
+	type: 'newsletter' | 'publication' | 'event' | 'generic';
+	subtitle?: string | null;
+	richText?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	/**
+	 * Upload a background image or video
+	 */
+	backgroundMedia?: (string | null) | Media;
+	/**
+	 * Enter a hex color value (e.g., #FFFFFF)
+	 */
+	backgroundColor?: string | null;
+	image?:
+		| {
+				image: string | Media;
+				id?: string | null;
+		  }[]
+		| null;
+	publications?: (string | Publication)[] | null;
+	events?: (string | Event)[] | null;
+	link?: {
+		link: {
+			type?: ('reference' | 'custom') | null;
+			newTab?: boolean | null;
+			reference?:
+				| ({
+						relationTo: 'homepage';
+						value: string | Homepage;
+				  } | null)
+				| ({
+						relationTo: 'about';
+						value: string | About;
+				  } | null)
+				| ({
+						relationTo: 'research-page';
+						value: string | ResearchPage;
+				  } | null)
+				| ({
+						relationTo: 'resources-page';
+						value: string | ResourcesPage;
+				  } | null)
+				| ({
+						relationTo: 'insights-page';
+						value: string | InsightsPage;
+				  } | null)
+				| ({
+						relationTo: 'jobs-page';
+						value: string | JobsPage;
+				  } | null)
+				| ({
+						relationTo: 'categories';
+						value: string | Category;
+				  } | null)
+				| ({
+						relationTo: 'pages';
+						value: string | Page;
+				  } | null);
+			url?: string | null;
+			label: string;
+			/**
+			 * Optional description to display below the link label in navigation
+			 */
+			description?: string | null;
+			/**
+			 * Choose how the link should be displayed.
+			 */
+			appearance?: ('default' | 'outline') | null;
+		};
+	};
+	publishedAt?: string | null;
+	updatedAt: string;
+	createdAt: string;
+	_status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+	id: string;
+	title: string;
+	info?: {
+		type?: ('conference' | 'workshop' | 'discussion' | 'other') | null;
+		programme?: (string | null) | Category;
+		summary?: string | null;
+		eventUrl?: string | null;
+		isMultiLingual?: boolean | null;
+		secondLanguage?: string | null;
+		titleSecondLanguage?: string | null;
+		language?:
+			| {
+					languageCode?: ('en' | 'de' | 'fr') | null;
+					id?: string | null;
+			  }[]
+			| null;
+		organiser?:
+			| {
+					name?: string | null;
+					id?: string | null;
+			  }[]
+			| null;
+	};
+	content?: {
+		topBanner?: (string | null) | Media;
+		description?: {
+			root: {
+				type: string;
+				children: {
+					type: string;
+					version: number;
+					[k: string]: unknown;
+				}[];
+				direction: ('ltr' | 'rtl') | null;
+				format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+				indent: number;
+				version: number;
+			};
+			[k: string]: unknown;
+		} | null;
+		background?: {
+			root: {
+				type: string;
+				children: {
+					type: string;
+					version: number;
+					[k: string]: unknown;
+				}[];
+				direction: ('ltr' | 'rtl') | null;
+				format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+				indent: number;
+				version: number;
+			};
+			[k: string]: unknown;
+		} | null;
+		image?: (string | null) | Media;
+		imagePosition?: ('Top' | 'Bottom') | null;
+	};
+	relationships?: {
+		speakers?: (string | Speaker)[] | null;
+		facilitators?: (string | Speaker)[] | null;
+		video?: (string | null) | Video;
+		relatedNews?: (string | News)[] | null;
+		relatedEvents?: (string | Event)[] | null;
+		relatedVideos?: (string | Video)[] | null;
+		relatedDocuments?: (string | Publication)[] | null;
+	};
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+		keywords?:
+			| {
+					keyword?: string | null;
+					id?: string | null;
+			  }[]
+			| null;
+	};
+	slug: string;
+	date: string;
+	endDate?: string | null;
+	location?: string | null;
+	/**
+	 * Original Contentful entry ID (for migration tracking)
+	 */
+	contentfulId?: string | null;
+	/**
+	 * Notes about the migration process
+	 */
+	migrationNotes?: string | null;
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "speakers".
+ */
+export interface Speaker {
+	id: string;
+	name: string;
+	position?: string | null;
+	organisation?: string | null;
+	organisationUrl?: string | null;
+	bio?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	picture?: (string | null) | LocalImage;
+	twitter?: string | null;
+	email?: string | null;
+	slug: string;
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+	id: string;
+	title: string;
+	description?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+	};
+	publishedAt?: string | null;
+	slug?: string | null;
+	slugLock?: boolean | null;
+	updatedAt: string;
+	createdAt: string;
+	_status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "research-page".
+ */
+export interface ResearchPage {
+	id: string;
+	title: string;
+	description?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+	};
+	publishedAt?: string | null;
+	slug?: string | null;
+	slugLock?: boolean | null;
+	updatedAt: string;
+	createdAt: string;
+	_status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-page".
+ */
+export interface ResourcesPage {
+	id: string;
+	title: string;
+	description?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+	};
+	publishedAt?: string | null;
+	slug?: string | null;
+	slugLock?: boolean | null;
+	updatedAt: string;
+	createdAt: string;
+	_status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "insights-page".
+ */
+export interface InsightsPage {
+	id: string;
+	title: string;
+	description?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+	};
+	publishedAt?: string | null;
+	slug?: string | null;
+	slugLock?: boolean | null;
+	updatedAt: string;
+	createdAt: string;
+	_status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs-page".
+ */
+export interface JobsPage {
+	id: string;
+	title: string;
+	featuredJobs?: (string | Job)[] | null;
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+	};
+	publishedAt?: string | null;
+	slug?: string | null;
+	slugLock?: boolean | null;
+	updatedAt: string;
+	createdAt: string;
+	_status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs".
+ */
+export interface Job {
+	id: string;
+	title: string;
+	applicationFile?: (string | null) | Media;
+	applicationLink?: string | null;
+	deadlineDate?: string | null;
+	url?: string | null;
+	summary?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	category?: ('Job' | 'Consultancy') | null;
+	/**
+	 * Date when the job was posted
+	 */
+	date?: string | null;
+	slug: string;
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+	id: string;
+	title: string;
+	content?: {
+		/**
+		 * Main page content (from Contentful description field)
+		 */
+		description?: {
+			root: {
+				type: string;
+				children: {
+					type: string;
+					version: number;
+					[k: string]: unknown;
+				}[];
+				direction: ('ltr' | 'rtl') | null;
+				format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+				indent: number;
+				version: number;
+			};
+			[k: string]: unknown;
+		} | null;
+		layout?: BannerBlock[] | null;
+	};
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+	};
+	publishedAt?: string | null;
+	slug?: string | null;
+	slugLock?: boolean | null;
+	/**
+	 * Original Contentful entry ID (for migration tracking)
+	 */
+	contentfulId?: string | null;
+	/**
+	 * Notes about the migration process
+	 */
+	migrationNotes?: string | null;
+	parent?: (string | null) | Page;
+	breadcrumbs?:
+		| {
+				doc?: (string | null) | Page;
+				url?: string | null;
+				label?: string | null;
+				id?: string | null;
+		  }[]
+		| null;
+	updatedAt: string;
+	createdAt: string;
+	_status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BannerBlock".
+ */
+export interface BannerBlock {
+	heading: string;
+	/**
+	 * Brief description or text content for the banner
+	 */
+	description?: string | null;
+	/**
+	 * Select the type of content this banner will feature
+	 */
+	contentType: 'publication' | 'post' | 'video' | 'initiative';
+	/**
+	 * Select the publication to feature
+	 */
+	publication?: (string | null) | Publication;
+	/**
+	 * Additional documents available for download
+	 */
+	extraDocuments?: (string | Document)[] | null;
+	/**
+	 * Text for additional documents buttons
+	 */
+	extraDocumentsButtonText?: string | null;
+	/**
+	 * Select the post to feature
+	 */
+	post?: (string | null) | Post;
+	/**
+	 * Select the video to feature
+	 */
+	video?: (string | null) | Video;
+	/**
+	 * Select the initiative to feature
+	 */
+	initiative?: (string | null) | Initiative;
+	customButton?: {
+		text?: string | null;
+		/**
+		 * Override default URL for the selected content. Leave empty to use content's default URL.
+		 */
+		url?: string | null;
+		appearance?: ('outline' | 'filled' | 'ghost') | null;
+		/**
+		 * Choose from report colors or standard options
+		 */
+		color?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+			  )
+			| null;
+	};
+	display: {
+		/**
+		 * How the image should be displayed
+		 */
+		imageDisplay: 'background' | 'container';
+		/**
+		 * Position of image when displayed in container
+		 */
+		imagePosition?: ('left' | 'right') | null;
+		/**
+		 * Optional custom image to use as background. If not provided, uses content image.
+		 */
+		customImage?: (string | null) | Media;
+		/**
+		 * Choose from report colors or standard options
+		 */
+		backgroundColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+					| 'transparent'
+			  )
+			| null;
+		/**
+		 * Choose from report colors or standard options
+		 */
+		textColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+			  )
+			| null;
+		/**
+		 * Add a colored overlay over the background image for better text readability
+		 */
+		showOverlay?: boolean | null;
+		/**
+		 * Opacity of the overlay (0.0 to 1.0)
+		 */
+		overlayOpacity?: number | null;
+	};
+	/**
+	 * Maximum height constraint. Content can be shorter but not taller.
+	 */
+	height?: ('auto' | 'small' | 'medium' | 'large' | 'xl') | null;
+	textAlignment?: ('left' | 'center' | 'right') | null;
+	/**
+	 * Whether the banner content should be constrained by the layout container
+	 */
 	insideContainer?: boolean | null;
-	showCaption?: boolean | null;
-	captionSettings?: {
-		captionPosition?: ('bottom' | 'overlay') | null;
-	};
-	showOverlay?: boolean | null;
-	overlaySettings?: {
-		overlayColor?: string | null;
-		overlayOpacity?: ('10' | '20' | '30' | '40' | '50' | '60' | '70' | '80' | '90') | null;
-	};
 	id?: string | null;
 	blockName?: string | null;
-	blockType: 'picture';
+	blockType: 'banner';
 }
-
-export interface TextBlock {
-	width?: ('sm' | 'md' | 'lg' | 'xl' | 'full') | null;
-	columnLayout?: ('1' | '2' | '3') | null;
-	alignment?: ('left' | 'center' | 'right') | null;
-	position?: ('left' | 'center' | 'right') | null;
-	paddingTop?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
-	paddingBottom?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
-	paddingLeft?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
-	paddingRight?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "initiatives".
+ */
+export interface Initiative {
+	id: string;
+	title: string;
+	status?: ('draft' | 'active' | 'completed' | 'on-hold') | null;
+	basic: {
+		/**
+		 * Brief overview of the initiative (used in listings and previews)
+		 */
+		summary: string;
+		/**
+		 * Main banner image for the initiative
+		 */
+		banner: string | Media;
+		startDate?: string | null;
+		endDate?: string | null;
+		branding?: {
+			/**
+			 * Hex color code (e.g., #FF5733)
+			 */
+			primaryColor?: string | null;
+			/**
+			 * Hex color code (e.g., #33C3FF)
+			 */
+			secondaryColor?: string | null;
+			/**
+			 * Optional custom logo for this initiative
+			 */
+			logo?: (string | null) | Media;
+		};
+	};
+	content?: {
+		/**
+		 * Create flexible content sections that will be rendered as tabs in the frontend
+		 */
+		contentSections?:
+			| {
+					/**
+					 * This will be used as the tab title in the frontend
+					 */
+					sectionTitle: string;
+					/**
+					 * Add content blocks to this section. They will render in order.
+					 */
+					content?:
+						| (
+								| TextContentBlock
+								| RelatedContentBlock
+								| GalleryBlock
+								| {
+										/**
+										 * Optional heading for this quotes section
+										 */
+										heading?: string | null;
+										/**
+										 * Optional description for this quotes section
+										 */
+										description?: string | null;
+										/**
+										 * Add quotes with attribution and photos
+										 */
+										quotes?:
+											| {
+													/**
+													 * The quote content
+													 */
+													text: string;
+													/**
+													 * Name of the person who said this quote
+													 */
+													person: string;
+													/**
+													 * Organization or title of the person
+													 */
+													personOrganization: string;
+													/**
+													 * Photo of the person who said this quote
+													 */
+													picture?: (string | null) | LocalImage;
+													id?: string | null;
+											  }[]
+											| null;
+										display?: {
+											/**
+											 * How to display the quotes
+											 */
+											layout?: ('cards' | 'list') | null;
+											/**
+											 * Number of columns for grid/cards layout
+											 */
+											columns?: ('1' | '2' | '3') | null;
+											/**
+											 * Display person pictures with quotes
+											 */
+											showImages?: boolean | null;
+										};
+										id?: string | null;
+										blockName?: string | null;
+										blockType: 'quote';
+								  }
+								| BannerBlock
+						  )[]
+						| null;
+					id?: string | null;
+			  }[]
+			| null;
+	};
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+	};
+	slug: string;
+	/**
+	 * Display this initiative prominently on the homepage
+	 */
+	featured?: boolean | null;
+	/**
+	 * Original Contentful entry ID (for migration tracking)
+	 */
+	contentfulId?: string | null;
+	/**
+	 * Notes about the migration process
+	 */
+	migrationNotes?: string | null;
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextContentBlock".
+ */
+export interface TextContentBlock {
+	/**
+	 * Optional heading for this text content section
+	 */
+	heading?: string | null;
 	content?: {
 		root: {
 			type: string;
@@ -337,41 +1879,365 @@ export interface TextBlock {
 		};
 		[k: string]: unknown;
 	} | null;
-	insideContainer?: boolean | null;
-	styling?: {
-		textColor?: string | null;
-		backgroundColor?: string | null;
-		columnGap?: ('sm' | 'md' | 'lg' | 'xl') | null;
+	styling: {
+		textAlignment: 'left' | 'center' | 'right' | 'justify';
+		maxWidth: 'full' | 'large' | 'medium' | 'small';
+		paddingTop: 'none' | 'small' | 'normal' | 'large' | 'xl';
+		paddingBottom: 'none' | 'small' | 'normal' | 'large' | 'xl';
 	};
+	/**
+	 * Display a table of contents sidebar that automatically extracts headings (H2, H3, etc.) from the rich text content for easy navigation
+	 */
+	showTableOfContents?: boolean | null;
 	id?: string | null;
 	blockName?: string | null;
-	blockType: 'text';
+	blockType: 'textContent';
 }
-
-export interface HeroBlock {
-	title?: string | null;
-	subtitle?: string | null;
-	backgroundImage?: (string | null) | Media;
-	foregroundImage?: (string | null) | Media;
-	backgroundColor?: string | null;
-	textColor?: string | null;
-	alignment?: ('left' | 'center' | 'right') | null;
-	height?: ('sm' | 'md' | 'lg' | 'xl' | 'screen') | null;
-	id?: string | null;
-	blockName?: string | null;
-	blockType: 'hero';
-}
-
-export interface HighlightsBlock {
-	styling?: {
-		backgroundColor?: string | null;
-		headingColor?: string | null;
-		contentColor?: string | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RelatedContentBlock".
+ */
+export interface RelatedContentBlock {
+	featuredResource?: {
+		/**
+		 * Display a featured resource as a banner at the top of this section
+		 */
+		enable?: boolean | null;
+		resourceType?: ('publication' | 'post' | 'video') | null;
+		publication?: (string | null) | Publication;
+		post?:
+			| ({
+					relationTo: 'posts';
+					value: string | Post;
+			  } | null)
+			| ({
+					relationTo: 'news';
+					value: string | News;
+			  } | null);
+		video?: (string | null) | Video;
+		/**
+		 * Override the default title for the banner (optional)
+		 */
+		customTitle?: string | null;
+		/**
+		 * Override the default description for the banner (optional)
+		 */
+		customDescription?: string | null;
 	};
-	highlights?:
+	/**
+	 * Optional heading for this related content section
+	 */
+	heading?: string | null;
+	/**
+	 * Optional description text for this section
+	 */
+	description?: string | null;
+	/**
+	 * Choose the type of content to display in this section
+	 */
+	contentType: 'resources' | 'events' | 'partners' | 'team';
+	/**
+	 * Create groups of different resource types with custom headings
+	 */
+	resourceGroups?:
 		| {
-				heading?: string | null;
-				content?: {
+				/**
+				 * e.g., "Related Publications", "Featured Videos", "Blog Posts"
+				 */
+				heading: string;
+				/**
+				 * Choose the type of resources in this group
+				 */
+				resourceType: 'publications' | 'posts' | 'videos';
+				/**
+				 * Select publications to display in this group
+				 */
+				publications?: (string | Publication)[] | null;
+				/**
+				 * Select posts and news articles to display in this group
+				 */
+				posts?:
+					| (
+							| {
+									relationTo: 'posts';
+									value: string | Post;
+							  }
+							| {
+									relationTo: 'news';
+									value: string | News;
+							  }
+					  )[]
+					| null;
+				/**
+				 * Select videos to display in this group
+				 */
+				videos?: (string | Video)[] | null;
+				id?: string | null;
+		  }[]
+		| null;
+	/**
+	 * Select related events to display
+	 */
+	events?: (string | Event)[] | null;
+	/**
+	 * Select partners and collaborators to display
+	 */
+	partners?: (string | Collaborator)[] | null;
+	/**
+	 * Select team members working on this initiative
+	 */
+	teamMembers?: (string | Collaborator)[] | null;
+	display: {
+		layout: 'grid' | 'list' | 'cards' | 'carousel' | 'simple';
+		columns?: ('1' | '2' | '3' | '4' | '5') | null;
+		showImages?: boolean | null;
+		showDescriptions?: boolean | null;
+		showMetadata?: boolean | null;
+		/**
+		 * Leave empty to show all items
+		 */
+		itemLimit?: number | null;
+	};
+	id?: string | null;
+	blockName?: string | null;
+	blockType: 'relatedContent';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collaborators".
+ */
+export interface Collaborator {
+	id: string;
+	type: 'partner' | 'funder' | 'network' | 'contracting-authority';
+	name: string;
+	logo?: (string | null) | Media;
+	/**
+	 * URL to the partner website
+	 */
+	url?: string | null;
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock".
+ */
+export interface GalleryBlock {
+	/**
+	 * Optional heading for this gallery section
+	 */
+	heading?: string | null;
+	/**
+	 * Optional description text for the gallery
+	 */
+	description?: string | null;
+	images?: (string | Media)[] | null;
+	display: {
+		layout: 'grid' | 'masonry' | 'carousel' | 'slideshow';
+		columns?: ('2' | '3' | '4' | '5') | null;
+		aspectRatio: 'auto' | 'square' | 'landscape' | 'portrait';
+		/**
+		 * Allow users to view full-size images
+		 */
+		enableLightbox?: boolean | null;
+		showCaptions?: boolean | null;
+	};
+	id?: string | null;
+	blockName?: string | null;
+	blockType: 'gallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page".
+ */
+export interface ContactPage {
+	id: string;
+	title: string;
+	description?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	contactForm?: (string | null) | Form;
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+	};
+	publishedAt?: string | null;
+	slug?: string | null;
+	slugLock?: boolean | null;
+	updatedAt: string;
+	createdAt: string;
+	_status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "forms".
+ */
+export interface Form {
+	id: string;
+	title: string;
+	fields?:
+		| (
+				| {
+						name: string;
+						label?: string | null;
+						width?: number | null;
+						required?: boolean | null;
+						defaultValue?: boolean | null;
+						id?: string | null;
+						blockName?: string | null;
+						blockType: 'checkbox';
+				  }
+				| {
+						name: string;
+						label?: string | null;
+						width?: number | null;
+						required?: boolean | null;
+						id?: string | null;
+						blockName?: string | null;
+						blockType: 'country';
+				  }
+				| {
+						name: string;
+						label?: string | null;
+						width?: number | null;
+						required?: boolean | null;
+						id?: string | null;
+						blockName?: string | null;
+						blockType: 'email';
+				  }
+				| {
+						message?: {
+							root: {
+								type: string;
+								children: {
+									type: string;
+									version: number;
+									[k: string]: unknown;
+								}[];
+								direction: ('ltr' | 'rtl') | null;
+								format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+								indent: number;
+								version: number;
+							};
+							[k: string]: unknown;
+						} | null;
+						id?: string | null;
+						blockName?: string | null;
+						blockType: 'message';
+				  }
+				| {
+						name: string;
+						label?: string | null;
+						width?: number | null;
+						defaultValue?: number | null;
+						required?: boolean | null;
+						id?: string | null;
+						blockName?: string | null;
+						blockType: 'number';
+				  }
+				| {
+						name: string;
+						label?: string | null;
+						width?: number | null;
+						defaultValue?: string | null;
+						placeholder?: string | null;
+						options?:
+							| {
+									label: string;
+									value: string;
+									id?: string | null;
+							  }[]
+							| null;
+						required?: boolean | null;
+						id?: string | null;
+						blockName?: string | null;
+						blockType: 'select';
+				  }
+				| {
+						name: string;
+						label?: string | null;
+						width?: number | null;
+						required?: boolean | null;
+						id?: string | null;
+						blockName?: string | null;
+						blockType: 'state';
+				  }
+				| {
+						name: string;
+						label?: string | null;
+						width?: number | null;
+						defaultValue?: string | null;
+						required?: boolean | null;
+						id?: string | null;
+						blockName?: string | null;
+						blockType: 'text';
+				  }
+				| {
+						name: string;
+						label?: string | null;
+						width?: number | null;
+						defaultValue?: string | null;
+						required?: boolean | null;
+						id?: string | null;
+						blockName?: string | null;
+						blockType: 'textarea';
+				  }
+		  )[]
+		| null;
+	submitButtonLabel?: string | null;
+	/**
+	 * Choose whether to display an on-page message or redirect to a different page after they submit the form.
+	 */
+	confirmationType?: ('message' | 'redirect') | null;
+	confirmationMessage?: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	} | null;
+	redirect?: {
+		url: string;
+	};
+	/**
+	 * Send custom emails when the form submits. Use comma separated lists to send the same email to multiple recipients. To reference a value from this form, wrap that field's name with double curly brackets, i.e. {{firstName}}. You can use a wildcard {{*}} to output all data and {{*:table}} to format it as an HTML table in the email.
+	 */
+	emails?:
+		| {
+				emailTo?: string | null;
+				cc?: string | null;
+				bcc?: string | null;
+				replyTo?: string | null;
+				emailFrom?: string | null;
+				subject: string;
+				/**
+				 * Enter the message that should be sent in this email.
+				 */
+				message?: {
 					root: {
 						type: string;
 						children: {
@@ -389,70 +2255,719 @@ export interface HighlightsBlock {
 				id?: string | null;
 		  }[]
 		| null;
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "report-builder".
+ */
+export interface ReportBuilder {
+	id: string;
+	title: string;
+	/**
+	 * Link this report to a publication
+	 */
+	publication?: (string | null) | Publication;
+	/**
+	 * Build your interactive report using scrollytelling blocks
+	 */
+	layout: (
+		| ScrollytellingBlock
+		| SectionBlock
+		| TextBoxBlock
+		| HeroBlock
+		| HighlightsBlock
+		| GridTextImageBlock
+		| TextBlock
+		| PictureBlock
+		| HeadingBlock
+		| BannerBlock
+	)[];
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+	};
+	publishedAt?: string | null;
+	/**
+	 * Define custom colors for this report
+	 */
+	colors?: {
+		/**
+		 * Hex color code (e.g., #2563eb)
+		 */
+		primary?: string | null;
+		/**
+		 * Hex color code (e.g., #60a5fa)
+		 */
+		primaryLight?: string | null;
+		/**
+		 * Hex color code (e.g., #10b981)
+		 */
+		secondary?: string | null;
+		/**
+		 * Hex color code (e.g., #34d399)
+		 */
+		secondaryLight?: string | null;
+		/**
+		 * Hex color code (e.g., #f59e0b)
+		 */
+		tertiary?: string | null;
+		/**
+		 * Hex color code (e.g., #fbbf24)
+		 */
+		tertiaryLight?: string | null;
+	};
+	slug?: string | null;
+	slugLock?: boolean | null;
+	updatedAt: string;
+	createdAt: string;
+	_status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ScrollytellingBlock".
+ */
+export interface ScrollytellingBlock {
+	layout: (HeroBlock | HighlightsBlock | GridTextImageBlock | TextBoxBlock)[];
+	id?: string | null;
+	blockName?: string | null;
+	blockType: 'scrollytelling';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock".
+ */
+export interface HeroBlock {
+	content?: {
+		layout?: (HeadingBlock | PictureBlock)[] | null;
+	};
+	metadata?: {
+		topicArea?: string | null;
+		type?: string | null;
+		publicationDate?: string | null;
+	};
+	authors?:
+		| {
+				name: string;
+				logo?: (string | null) | Media;
+				url?: string | null;
+				id?: string | null;
+		  }[]
+		| null;
+	styling?: {
+		/**
+		 * Choose from report colors or standard options
+		 */
+		backgroundColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+					| 'transparent'
+			  )
+			| null;
+		/**
+		 * Choose from report colors or standard options
+		 */
+		textColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+			  )
+			| null;
+	};
+	id?: string | null;
+	blockName?: string | null;
+	blockType: 'hero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeadingBlock".
+ */
+export interface HeadingBlock {
+	parameters: {
+		fontSize: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl';
+		fontWeight: 'light' | 'normal' | 'medium' | 'bold';
+		textTransform: 'none' | 'capitalize' | 'uppercase';
+		width: 'half' | 'two-thirds' | 'full';
+		alignment: 'left' | 'center' | 'right';
+		position: 'left' | 'center' | 'right';
+		paddingTop: 'none' | 'small' | 'normal' | 'large' | 'xl';
+		paddingBottom: 'none' | 'small' | 'normal' | 'large' | 'xl';
+		/**
+		 * Used in layout blocks like GridTextImage to control heading placement
+		 */
+		layoutPosition?: ('default' | 'topOfImage' | 'topOfText') | null;
+		insideContainer?: boolean | null;
+	};
+	styling?: {
+		/**
+		 * Choose from report colors or standard options
+		 */
+		textColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+			  )
+			| null;
+		/**
+		 * Color for highlighting specific words or phrases
+		 */
+		highlightColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+			  )
+			| null;
+		showBackground?: boolean | null;
+		/**
+		 * Choose from report colors or standard options
+		 */
+		backgroundColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+					| 'transparent'
+			  )
+			| null;
+		/**
+		 * Apply rounded corners to background
+		 */
+		backgroundRounded?: boolean | null;
+	};
+	content: {
+		content: string;
+	};
+	id?: string | null;
+	blockName?: string | null;
+	blockType: 'heading';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PictureBlock".
+ */
+export interface PictureBlock {
+	image: string | Media;
+	width: 'half' | 'two-thirds' | 'full';
+	position?: ('left' | 'center' | 'right') | null;
+	insideContainer?: boolean | null;
+	/**
+	 * Display image alt text as caption
+	 */
+	showCaption?: boolean | null;
+	captionSettings?: {
+		/**
+		 * Position of the caption relative to the image
+		 */
+		captionPosition:
+			| 'bottom-left'
+			| 'bottom-center'
+			| 'bottom-right'
+			| 'top-left'
+			| 'top-center'
+			| 'top-right';
+	};
+	showOverlay?: boolean | null;
+	overlaySettings?: {
+		/**
+		 * Choose from report colors or standard options
+		 */
+		overlayColor:
+			| 'primary'
+			| 'primaryLight'
+			| 'secondary'
+			| 'secondaryLight'
+			| 'tertiary'
+			| 'tertiaryLight'
+			| '#000000'
+			| '#ffffff';
+		/**
+		 * Opacity percentage (0-100)
+		 */
+		overlayOpacity: number;
+	};
+	id?: string | null;
+	blockName?: string | null;
+	blockType: 'picture';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HighlightsBlock".
+ */
+export interface HighlightsBlock {
+	styling?: {
+		/**
+		 * Choose from report colors or standard options
+		 */
+		backgroundColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+					| 'transparent'
+			  )
+			| null;
+		/**
+		 * Choose from report colors or standard options
+		 */
+		headingColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+			  )
+			| null;
+		/**
+		 * Choose from report colors or standard options
+		 */
+		contentColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+			  )
+			| null;
+	};
+	highlights?:
+		| {
+				heading: string;
+				content: {
+					root: {
+						type: string;
+						children: {
+							type: string;
+							version: number;
+							[k: string]: unknown;
+						}[];
+						direction: ('ltr' | 'rtl') | null;
+						format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+						indent: number;
+						version: number;
+					};
+					[k: string]: unknown;
+				};
+				id?: string | null;
+		  }[]
+		| null;
 	id?: string | null;
 	blockName?: string | null;
 	blockType: 'highlights';
 }
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GridTextImageBlock".
+ */
 export interface GridTextImageBlock {
 	parameters?: {
+		/**
+		 * Make image sticky when scrolling
+		 */
 		stickyImage?: boolean | null;
+		/**
+		 * Switch the order of text and image columns
+		 */
 		invertColumns?: boolean | null;
+		/**
+		 * Constrain text content width using layout container
+		 */
+		insideContainer?: boolean | null;
 	};
 	styling?: {
-		backgroundColor?: string | null;
-		textColor?: string | null;
+		/**
+		 * Choose from report colors or standard options
+		 */
+		backgroundColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+					| 'transparent'
+			  )
+			| null;
+		/**
+		 * Choose from report colors or standard options
+		 */
+		textColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+			  )
+			| null;
 	};
-	content?: {
-		heading?: {
-			heading?: HeadingBlock;
-		};
-		text?: {
-			text?: TextBlock;
-		};
-		image?: {
-			picture?: PictureBlock;
-		};
+	content: {
+		/**
+		 * Optional heading for this section. Use the position field in the heading to control placement. Note: Width, container, and background styling options are not used in this layout.
+		 */
+		heading?: HeadingBlock[] | null;
+		text: TextBlock[];
+		/**
+		 * Image for this section. Note: Width, container, positioning, and overlay options are not used in this layout.
+		 */
+		image: PictureBlock[];
 	};
 	id?: string | null;
 	blockName?: string | null;
 	blockType: 'gridTextImage';
 }
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock".
+ */
+export interface TextBlock {
+	width: 'half' | 'two-thirds' | 'full';
+	/**
+	 * Two columns will automatically flow content using CSS columns
+	 */
+	columnLayout: 'one-column' | 'two-columns';
+	alignment: 'left' | 'center' | 'right';
+	position: 'left' | 'center' | 'right';
+	paddingTop: 'none' | 'small' | 'normal' | 'large' | 'xl';
+	paddingBottom: 'none' | 'small' | 'normal' | 'large' | 'xl';
+	paddingLeft: 'none' | 'small' | 'normal' | 'large' | 'xl';
+	paddingRight: 'none' | 'small' | 'normal' | 'large' | 'xl';
+	/**
+	 * Content will automatically flow into columns when two-column layout is selected
+	 */
+	content: {
+		root: {
+			type: string;
+			children: {
+				type: string;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ('ltr' | 'rtl') | null;
+			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	};
+	insideContainer?: boolean | null;
+	styling?: {
+		/**
+		 * Choose from report colors or standard options
+		 */
+		textColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+			  )
+			| null;
+		/**
+		 * Choose from report colors or standard options
+		 */
+		backgroundColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+					| 'transparent'
+			  )
+			| null;
+		/**
+		 * Spacing between columns (only applies to two-column layout)
+		 */
+		columnGap?: ('small' | 'normal' | 'large') | null;
+	};
+	id?: string | null;
+	blockName?: string | null;
+	blockType: 'text';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBoxBlock".
+ */
 export interface TextBoxBlock {
-	width?: ('sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+	width: 'half' | 'two-thirds' | 'full';
 	position?: ('left' | 'center' | 'right') | null;
 	content?: {
 		Blocks?: (HeadingBlock | TextBlock)[] | null;
 	};
-	styling?: {
-		backgroundColor?: string | null;
-		borderColor?: string | null;
-		borderWidth?: ('1' | '2' | '4' | '8') | null;
-		borderRadius?: ('none' | 'sm' | 'md' | 'lg' | 'full') | null;
+	styling: {
+		/**
+		 * Choose from report colors or standard options
+		 */
+		backgroundColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+					| 'transparent'
+			  )
+			| null;
+		/**
+		 * Choose from report colors or standard options
+		 */
+		borderColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+			  )
+			| null;
+		borderWidth: '0' | '1' | '2' | '4';
+		borderRadius?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+		/**
+		 * Add a large colored accent border on the left side
+		 */
 		showLeftAccent?: boolean | null;
-		leftAccentColor?: string | null;
-		leftAccentWidth?: ('2' | '4' | '8') | null;
+		/**
+		 * Choose color for the left accent border
+		 */
+		leftAccentColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+			  )
+			| null;
+		leftAccentWidth?: ('8' | '12' | '16' | '24') | null;
 	};
 	id?: string | null;
 	blockName?: string | null;
 	blockType: 'textBox';
 }
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionBlock".
+ */
+export interface SectionBlock {
+	parameters: {
+		width: 'half' | 'two-thirds' | 'full';
+		alignment: 'left' | 'center' | 'right';
+		verticalAlignment: 'top' | 'center' | 'bottom';
+		paddingTop: 'none' | 'small' | 'normal' | 'large' | 'xl';
+		paddingBottom: 'none' | 'small' | 'normal' | 'large' | 'xl';
+		paddingLeft: 'none' | 'small' | 'normal' | 'large' | 'xl';
+		paddingRight: 'none' | 'small' | 'normal' | 'large' | 'xl';
+		/**
+		 * Whether this section should use the layout container
+		 */
+		insideContainer?: boolean | null;
+		/**
+		 * Minimum height for this section
+		 */
+		minHeight?: ('auto' | 'screen' | 'half-screen') | null;
+		/**
+		 * Add any blocks to this section. They will be rendered in order.
+		 */
+		content?:
+			| (
+					| HeadingBlock
+					| PictureBlock
+					| TextBlock
+					| HeroBlock
+					| HighlightsBlock
+					| GridTextImageBlock
+					| TextBoxBlock
+					| TwoColumnBlock
+					| TableBlock
+					| ScrollytellingBlock
+			  )[]
+			| null;
+	};
+	styling?: {
+		/**
+		 * Choose from report colors or standard options
+		 */
+		backgroundColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+					| '#f8fafc'
+					| '#e2e8f0'
+					| 'transparent'
+			  )
+			| null;
+		/**
+		 * Choose from report colors or standard options
+		 */
+		textColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+					| '#1e293b'
+					| '#64748b'
+			  )
+			| null;
+		borderRadius?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+		shadow?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+	};
+	id?: string | null;
+	blockName?: string | null;
+	blockType: 'section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TwoColumnBlock".
+ */
 export interface TwoColumnBlock {
-	parameters?: {
-		leftColumnWidth?: ('25' | '33' | '50' | '66' | '75') | null;
-		columnGap?: ('sm' | 'md' | 'lg' | 'xl') | null;
-		leftColumnPosition?: ('top' | 'center' | 'bottom') | null;
-		rightColumnPosition?: ('top' | 'center' | 'bottom') | null;
+	parameters: {
+		/**
+		 * Width of left column, right column is calculated automatically
+		 */
+		leftColumnWidth: '33' | '50' | '67';
+		/**
+		 * Space between columns
+		 */
+		columnGap: 'small' | 'normal' | 'large' | 'xl';
+		/**
+		 * Vertical position of content within the left column
+		 */
+		leftColumnPosition: 'top' | 'center' | 'bottom';
+		/**
+		 * Vertical position of content within the right column
+		 */
+		rightColumnPosition: 'top' | 'center' | 'bottom';
+		/**
+		 * Make left column content stick to the top of the viewport while scrolling.
+		 */
 		leftColumnSticky?: boolean | null;
+		/**
+		 * Make right column content stick to the top of the viewport while scrolling.
+		 */
 		rightColumnSticky?: boolean | null;
 	};
 	styling?: {
-		backgroundColor?: string | null;
-		textColor?: string | null;
+		/**
+		 * Choose from report colors or standard options
+		 */
+		backgroundColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+					| '#f8fafc'
+					| '#e2e8f0'
+					| 'transparent'
+			  )
+			| null;
+		/**
+		 * Choose from report colors or standard options
+		 */
+		textColor?:
+			| (
+					| 'primary'
+					| 'primaryLight'
+					| 'secondary'
+					| 'secondaryLight'
+					| 'tertiary'
+					| 'tertiaryLight'
+					| '#000000'
+					| '#ffffff'
+					| '#1e293b'
+					| '#64748b'
+			  )
+			| null;
 	};
 	content?: {
+		/**
+		 * Add blocks to the left column.
+		 */
 		leftColumnContent?:
 			| (
 					| HeadingBlock
@@ -466,6 +2981,9 @@ export interface TwoColumnBlock {
 					| ScrollytellingBlock
 			  )[]
 			| null;
+		/**
+		 * Add blocks to the right column.
+		 */
 		rightColumnContent?:
 			| (
 					| HeadingBlock
@@ -484,23 +3002,75 @@ export interface TwoColumnBlock {
 	blockName?: string | null;
 	blockType: 'twoColumn';
 }
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableBlock".
+ */
 export interface TableBlock {
-	parameters?: {
-		rowGap?: ('sm' | 'md' | 'lg') | null;
+	parameters: {
+		/**
+		 * Optional title displayed above the table in small font
+		 */
+		title?: string | null;
+		width: 'half' | 'two-thirds' | 'full';
+		position: 'left' | 'center' | 'right';
+		rowGap: 'none' | 'small' | 'normal' | 'large' | 'xl';
+		paddingTop: 'none' | 'small' | 'normal' | 'large' | 'xl';
+		paddingBottom: 'none' | 'small' | 'normal' | 'large' | 'xl';
+		paddingLeft: 'none' | 'small' | 'normal' | 'large' | 'xl';
+		paddingRight: 'none' | 'small' | 'normal' | 'large' | 'xl';
+		/**
+		 * Whether this table should use the layout container
+		 */
+		insideContainer?: boolean | null;
 	};
 	content?: {
+		/**
+		 * Add rows to your table. Each row can have different styling and layout.
+		 */
 		rows?:
 			| {
-					styling?: {
-						backgroundColor?: string | null;
-						textColor?: string | null;
-						fontSize?: ('xs' | 'sm' | 'base' | 'lg' | 'xl') | null;
-						fontWeight?: ('light' | 'normal' | 'medium' | 'semibold' | 'bold') | null;
+					styling: {
+						backgroundColor?:
+							| (
+									| 'primary'
+									| 'primaryLight'
+									| 'secondary'
+									| 'secondaryLight'
+									| 'tertiary'
+									| 'tertiaryLight'
+									| '#000000'
+									| '#ffffff'
+									| '#f8fafc'
+									| '#e2e8f0'
+									| 'transparent'
+							  )
+							| null;
+						textColor?:
+							| (
+									| 'primary'
+									| 'primaryLight'
+									| 'secondary'
+									| 'secondaryLight'
+									| 'tertiary'
+									| 'tertiaryLight'
+									| '#000000'
+									| '#ffffff'
+									| '#1e293b'
+									| '#64748b'
+							  )
+							| null;
+						backgroundOpacity?:
+							| ('10' | '20' | '30' | '40' | '50' | '60' | '70' | '80' | '90' | '100')
+							| null;
+						fontSize: 'small' | 'normal' | 'large' | 'xl';
+						fontWeight: 'normal' | 'medium' | 'semibold' | 'bold';
 					};
-					layout?: {
-						columnLayout?: ('1' | '2' | '3' | '4') | null;
+					layout: {
+						columnLayout: 'single' | 'two';
 						showBullets?: boolean | null;
+						leftColumnBullets?: boolean | null;
+						rightColumnBullets?: boolean | null;
 						singleContent?: {
 							root: {
 								type: string;
@@ -555,509 +3125,3043 @@ export interface TableBlock {
 	blockName?: string | null;
 	blockType: 'table';
 }
-
-export interface ScrollytellingBlock {
-	backgroundColor?: string | null;
-	content?:
-		| (
-				| {
-						blockType?: 'stepContent';
-						content?: {
-							root: {
-								type: string;
-								children: {
-									type: string;
-									version: number;
-									[k: string]: unknown;
-								}[];
-								direction: ('ltr' | 'rtl') | null;
-								format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-								indent: number;
-								version: number;
-							};
-							[k: string]: unknown;
-						} | null;
-						id?: string | null;
-				  }
-				| {
-						blockType?: 'stepVisual';
-						image?: (string | null) | Media;
-						id?: string | null;
-				  }
-		  )[]
-		| null;
-	id?: string | null;
-	blockName?: string | null;
-	blockType: 'scrollytelling';
-}
-
-// Base interface definitions for other types that are referenced
-export interface Media {
-	id: string;
-	isImported?: boolean | null;
-	alt?: string | null;
-	caption?: {
-		root: {
-			type: string;
-			children: {
-				type: string;
-				version: number;
-				[k: string]: unknown;
-			}[];
-			direction: ('ltr' | 'rtl') | null;
-			format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-			indent: number;
-			version: number;
-		};
-		[k: string]: unknown;
-	} | null;
-	folder?: (string | null) | FolderInterface;
-	updatedAt: string;
-	createdAt: string;
-	url?: string | null;
-	thumbnailURL?: string | null;
-	filename?: string | null;
-	mimeType?: string | null;
-	filesize?: number | null;
-	width?: number | null;
-	height?: number | null;
-	focalX?: number | null;
-	focalY?: number | null;
-}
-
-export interface FolderInterface {
-	id: string;
-	name: string;
-	folder?: (string | null) | FolderInterface;
-	documentsAndFolders?: {
-		docs?: (
-			| {
-					relationTo?: 'folders';
-					value: string | FolderInterface;
-			  }
-			| {
-					relationTo?: 'media';
-					value: string | Media;
-			  }
-		)[];
-		hasNextPage?: boolean;
-		totalDocs?: number;
-	};
-	updatedAt: string;
-	createdAt: string;
-}
-
-// Placeholder interfaces for other types - these would be fully defined based on your Payload config
-export interface UserAuthOperations {
-	forgotPassword: {
-		email: string;
-		password: string;
-	};
-	login: {
-		email: string;
-		password: string;
-	};
-	registerFirstUser: {
-		email: string;
-		password: string;
-	};
-	unlock: {
-		email: string;
-		password: string;
-	};
-}
-
-export interface Homepage {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface About {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface EventsPage {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface BlogPage {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface JobsPage {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface NewsPage {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface PublicationsPage {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface Publication {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface VideosPage {
-	id: string;
-	[k: string]: unknown;
-}
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publication-features".
+ */
 export interface PublicationFeature {
 	id: string;
-	[k: string]: unknown;
+	title: string;
+	info: {
+		summary: string;
+		/**
+		 * Display this publication feature on the homepage
+		 */
+		featuredOnHomepage?: boolean | null;
+		/**
+		 * Date until which this item is featured (if featuredOnHomepage is true)
+		 */
+		cutoffDate?: string | null;
+		keywords?:
+			| {
+					keyword?: string | null;
+					id?: string | null;
+			  }[]
+			| null;
+		/**
+		 * Primary color for theme
+		 */
+		color1?: string | null;
+		/**
+		 * Secondary color for theme
+		 */
+		color2?: string | null;
+	};
+	content?: {
+		/**
+		 * Content sections with text, images, and embedded content
+		 */
+		sections?:
+			| {
+					contentBlocks?:
+						| {
+								/**
+								 * The type of content block
+								 */
+								blockType: 'textBlock' | 'textBoxBlock' | 'imageBlock' | 'banners';
+								/**
+								 * Block title (used for banners and some text blocks)
+								 */
+								title?: string | null;
+								/**
+								 * Block subtitle (used for banners)
+								 */
+								subtitle?: string | null;
+								/**
+								 * Rich text content
+								 */
+								text?: {
+									root: {
+										type: string;
+										children: {
+											type: string;
+											version: number;
+											[k: string]: unknown;
+										}[];
+										direction: ('ltr' | 'rtl') | null;
+										format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+										indent: number;
+										version: number;
+									};
+									[k: string]: unknown;
+								} | null;
+								/**
+								 * Enable embedded content (iframe)
+								 */
+								embedContent?: boolean | null;
+								/**
+								 * HTML iframe code for embedded content
+								 */
+								iFrameCode?: string | null;
+								/**
+								 * Image for image blocks
+								 */
+								image?: (string | null) | Media;
+								/**
+								 * Related publications for banner blocks
+								 */
+								publications?: (string | Publication)[] | null;
+								/**
+								 * Button text for banner blocks
+								 */
+								buttonText?: string | null;
+								/**
+								 * Button link/path for banner blocks
+								 */
+								buttonPath?: string | null;
+								id?: string | null;
+						  }[]
+						| null;
+					id?: string | null;
+			  }[]
+			| null;
+		/**
+		 * Main page banner image
+		 */
+		pageBanner?: (string | null) | Media;
+		/**
+		 * Feature image (for listings)
+		 */
+		image?: (string | null) | Media;
+		/**
+		 * Image gallery
+		 */
+		gallery?: (string | Media)[] | null;
+	};
+	relationships?: {
+		/**
+		 * Related events
+		 */
+		events?: (string | Event)[] | null;
+		/**
+		 * Related news articles
+		 */
+		news?: (string | News)[] | null;
+		/**
+		 * Related publications/documents
+		 */
+		relatedDocuments?: (string | Publication)[] | null;
+		/**
+		 * Partner logos
+		 */
+		partnersLogos?: (string | Media)[] | null;
+	};
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+	};
+	slug: string;
+	/**
+	 * Original Contentful entry ID (for migration tracking)
+	 */
+	contentfulId?: string | null;
+	/**
+	 * Notes about the migration process
+	 */
+	migrationNotes?: string | null;
+	updatedAt: string;
+	createdAt: string;
 }
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-series".
+ */
 export interface EventSery {
 	id: string;
-	[k: string]: unknown;
+	title: string;
+	info: {
+		summary: string;
+		/**
+		 * Display this event series on the homepage
+		 */
+		featuredOnHomepage?: boolean | null;
+		/**
+		 * Date until which this item is featured (if featuredOnHomepage is true)
+		 */
+		cutoffDate?: string | null;
+		keywords?:
+			| {
+					keyword?: string | null;
+					id?: string | null;
+			  }[]
+			| null;
+		/**
+		 * Title for the statistics section
+		 */
+		statsTitle?: string | null;
+		/**
+		 * Number of events in this series
+		 */
+		statsEvents?: number | null;
+		/**
+		 * Number of speakers in this series
+		 */
+		statsSpeakers?: number | null;
+		/**
+		 * Primary theme color
+		 */
+		color1?: string | null;
+		/**
+		 * Secondary theme color
+		 */
+		color2?: string | null;
+	};
+	content?: {
+		/**
+		 * Main description of the event series
+		 */
+		description?: {
+			root: {
+				type: string;
+				children: {
+					type: string;
+					version: number;
+					[k: string]: unknown;
+				}[];
+				direction: ('ltr' | 'rtl') | null;
+				format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+				indent: number;
+				version: number;
+			};
+			[k: string]: unknown;
+		} | null;
+		/**
+		 * Quote text for featured quote section
+		 */
+		quoteText?: string | null;
+		/**
+		 * Person who said the quote
+		 */
+		quotePerson?: string | null;
+		/**
+		 * Organization of the quote person
+		 */
+		quotePersonOrganization?: string | null;
+		/**
+		 * Additional text section 2
+		 */
+		text2?: {
+			root: {
+				type: string;
+				children: {
+					type: string;
+					version: number;
+					[k: string]: unknown;
+				}[];
+				direction: ('ltr' | 'rtl') | null;
+				format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+				indent: number;
+				version: number;
+			};
+			[k: string]: unknown;
+		} | null;
+		/**
+		 * Additional text section 3
+		 */
+		text3?: {
+			root: {
+				type: string;
+				children: {
+					type: string;
+					version: number;
+					[k: string]: unknown;
+				}[];
+				direction: ('ltr' | 'rtl') | null;
+				format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+				indent: number;
+				version: number;
+			};
+			[k: string]: unknown;
+		} | null;
+		/**
+		 * Additional text section 4
+		 */
+		text4?: {
+			root: {
+				type: string;
+				children: {
+					type: string;
+					version: number;
+					[k: string]: unknown;
+				}[];
+				direction: ('ltr' | 'rtl') | null;
+				format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+				indent: number;
+				version: number;
+			};
+			[k: string]: unknown;
+		} | null;
+		/**
+		 * Main image for listings and cards
+		 */
+		image?: (string | null) | Media;
+		/**
+		 * Page banner image
+		 */
+		pageBanner?: (string | null) | Media;
+		/**
+		 * Image gallery for the event series
+		 */
+		gallery?: (string | Media)[] | null;
+	};
+	relationships?: {
+		/**
+		 * Featured event for this series
+		 */
+		eventFeatured?: (string | null) | Event;
+		/**
+		 * Events that are part of this series
+		 */
+		events?: (string | Event)[] | null;
+		/**
+		 * Related news articles
+		 */
+		news?: (string | News)[] | null;
+		/**
+		 * Related publications/documents
+		 */
+		relatedDocuments?: (string | Publication)[] | null;
+		/**
+		 * Additional events from partners and network
+		 */
+		additionalEvents?: (string | Event)[] | null;
+	};
+	meta?: {
+		title?: string | null;
+		/**
+		 * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+		 */
+		image?: (string | null) | Media;
+		description?: string | null;
+	};
+	slug: string;
+	/**
+	 * Original Contentful entry ID (for migration tracking)
+	 */
+	contentfulId?: string | null;
+	/**
+	 * Notes about the migration process
+	 */
+	migrationNotes?: string | null;
+	updatedAt: string;
+	createdAt: string;
 }
-
-export interface Project {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface Initiative {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface Event {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface Speaker {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface News {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface Banner {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface Page {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface Post {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface Category {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface Collaborator {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface Job {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface Team {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface Document {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface LocalImage {
-	id: string;
-	[k: string]: unknown;
-}
-
-export interface Video {
-	id: string;
-	[k: string]: unknown;
-}
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
 export interface User {
 	id: string;
-	[k: string]: unknown;
+	name?: string | null;
+	updatedAt: string;
+	createdAt: string;
+	email: string;
+	resetPasswordToken?: string | null;
+	resetPasswordExpiration?: string | null;
+	salt?: string | null;
+	hash?: string | null;
+	loginAttempts?: number | null;
+	lockUntil?: string | null;
+	sessions?:
+		| {
+				id: string;
+				createdAt?: string | null;
+				expiresAt: string;
+		  }[]
+		| null;
+	password?: string | null;
 }
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects".
+ */
 export interface Redirect {
 	id: string;
-	[k: string]: unknown;
+	/**
+	 * You will need to rebuild the website when changing this field.
+	 */
+	from: string;
+	to?: {
+		type?: ('reference' | 'custom') | null;
+		reference?:
+			| ({
+					relationTo: 'pages';
+					value: string | Page;
+			  } | null)
+			| ({
+					relationTo: 'posts';
+					value: string | Post;
+			  } | null);
+		url?: string | null;
+	};
+	updatedAt: string;
+	createdAt: string;
 }
-
-export interface Form {
-	id: string;
-	[k: string]: unknown;
-}
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions".
+ */
 export interface FormSubmission {
 	id: string;
-	[k: string]: unknown;
+	form: string | Form;
+	submissionData?:
+		| {
+				field: string;
+				value: string;
+				id?: string | null;
+		  }[]
+		| null;
+	updatedAt: string;
+	createdAt: string;
 }
-
+/**
+ * This is a collection of automatically created search results. These results are used by the global site search and will be updated automatically as documents in the CMS are created or updated.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "search".
+ */
 export interface Search {
 	id: string;
-	[k: string]: unknown;
+	title?: string | null;
+	priority?: number | null;
+	doc: {
+		relationTo: 'posts';
+		value: string | Post;
+	};
+	slug?: string | null;
+	meta?: {
+		title?: string | null;
+		description?: string | null;
+		image?: (string | null) | Media;
+	};
+	categories?:
+		| {
+				relationTo?: string | null;
+				id?: string | null;
+				title?: string | null;
+		  }[]
+		| null;
+	updatedAt: string;
+	createdAt: string;
 }
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs".
+ */
 export interface PayloadJob {
 	id: string;
-	[k: string]: unknown;
+	/**
+	 * Input data provided to the job
+	 */
+	input?:
+		| {
+				[k: string]: unknown;
+		  }
+		| unknown[]
+		| string
+		| number
+		| boolean
+		| null;
+	taskStatus?:
+		| {
+				[k: string]: unknown;
+		  }
+		| unknown[]
+		| string
+		| number
+		| boolean
+		| null;
+	completedAt?: string | null;
+	totalTried?: number | null;
+	/**
+	 * If hasError is true this job will not be retried
+	 */
+	hasError?: boolean | null;
+	/**
+	 * If hasError is true, this is the error that caused it
+	 */
+	error?:
+		| {
+				[k: string]: unknown;
+		  }
+		| unknown[]
+		| string
+		| number
+		| boolean
+		| null;
+	/**
+	 * Task execution log
+	 */
+	log?:
+		| {
+				executedAt: string;
+				completedAt: string;
+				taskSlug: 'inline' | 'schedulePublish';
+				taskID: string;
+				input?:
+					| {
+							[k: string]: unknown;
+					  }
+					| unknown[]
+					| string
+					| number
+					| boolean
+					| null;
+				output?:
+					| {
+							[k: string]: unknown;
+					  }
+					| unknown[]
+					| string
+					| number
+					| boolean
+					| null;
+				state: 'failed' | 'succeeded';
+				error?:
+					| {
+							[k: string]: unknown;
+					  }
+					| unknown[]
+					| string
+					| number
+					| boolean
+					| null;
+				id?: string | null;
+		  }[]
+		| null;
+	taskSlug?: ('inline' | 'schedulePublish') | null;
+	queue?: string | null;
+	waitUntil?: string | null;
+	processing?: boolean | null;
+	updatedAt: string;
+	createdAt: string;
 }
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents".
+ */
 export interface PayloadLockedDocument {
 	id: string;
-	[k: string]: unknown;
+	document?:
+		| ({
+				relationTo: 'homepage';
+				value: string | Homepage;
+		  } | null)
+		| ({
+				relationTo: 'categories';
+				value: string | Category;
+		  } | null)
+		| ({
+				relationTo: 'about';
+				value: string | About;
+		  } | null)
+		| ({
+				relationTo: 'research-page';
+				value: string | ResearchPage;
+		  } | null)
+		| ({
+				relationTo: 'resources-page';
+				value: string | ResourcesPage;
+		  } | null)
+		| ({
+				relationTo: 'insights-page';
+				value: string | InsightsPage;
+		  } | null)
+		| ({
+				relationTo: 'contact-page';
+				value: string | ContactPage;
+		  } | null)
+		| ({
+				relationTo: 'jobs-page';
+				value: string | JobsPage;
+		  } | null)
+		| ({
+				relationTo: 'report-builder';
+				value: string | ReportBuilder;
+		  } | null)
+		| ({
+				relationTo: 'initiatives';
+				value: string | Initiative;
+		  } | null)
+		| ({
+				relationTo: 'posts';
+				value: string | Post;
+		  } | null)
+		| ({
+				relationTo: 'publications';
+				value: string | Publication;
+		  } | null)
+		| ({
+				relationTo: 'speakers';
+				value: string | Speaker;
+		  } | null)
+		| ({
+				relationTo: 'banners';
+				value: string | Banner;
+		  } | null)
+		| ({
+				relationTo: 'pages';
+				value: string | Page;
+		  } | null)
+		| ({
+				relationTo: 'teams';
+				value: string | Team;
+		  } | null)
+		| ({
+				relationTo: 'collaborators';
+				value: string | Collaborator;
+		  } | null)
+		| ({
+				relationTo: 'jobs';
+				value: string | Job;
+		  } | null)
+		| ({
+				relationTo: 'documents';
+				value: string | Document;
+		  } | null)
+		| ({
+				relationTo: 'media';
+				value: string | Media;
+		  } | null)
+		| ({
+				relationTo: 'local-images';
+				value: string | LocalImage;
+		  } | null)
+		| ({
+				relationTo: 'videos';
+				value: string | Video;
+		  } | null)
+		| ({
+				relationTo: 'publication-features';
+				value: string | PublicationFeature;
+		  } | null)
+		| ({
+				relationTo: 'event-series';
+				value: string | EventSery;
+		  } | null)
+		| ({
+				relationTo: 'projects';
+				value: string | Project;
+		  } | null)
+		| ({
+				relationTo: 'events';
+				value: string | Event;
+		  } | null)
+		| ({
+				relationTo: 'news';
+				value: string | News;
+		  } | null)
+		| ({
+				relationTo: 'users';
+				value: string | User;
+		  } | null)
+		| ({
+				relationTo: 'redirects';
+				value: string | Redirect;
+		  } | null)
+		| ({
+				relationTo: 'forms';
+				value: string | Form;
+		  } | null)
+		| ({
+				relationTo: 'form-submissions';
+				value: string | FormSubmission;
+		  } | null)
+		| ({
+				relationTo: 'search';
+				value: string | Search;
+		  } | null)
+		| ({
+				relationTo: 'payload-jobs';
+				value: string | PayloadJob;
+		  } | null)
+		| ({
+				relationTo: 'folders';
+				value: string | FolderInterface;
+		  } | null);
+	globalSlug?: string | null;
+	user: {
+		relationTo: 'users';
+		value: string | User;
+	};
+	updatedAt: string;
+	createdAt: string;
 }
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences".
+ */
 export interface PayloadPreference {
 	id: string;
-	[k: string]: unknown;
+	user: {
+		relationTo: 'users';
+		value: string | User;
+	};
+	key?: string | null;
+	value?:
+		| {
+				[k: string]: unknown;
+		  }
+		| unknown[]
+		| string
+		| number
+		| boolean
+		| null;
+	updatedAt: string;
+	createdAt: string;
 }
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations".
+ */
 export interface PayloadMigration {
 	id: string;
-	[k: string]: unknown;
+	name?: string | null;
+	batch?: number | null;
+	updatedAt: string;
+	createdAt: string;
 }
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage_select".
+ */
+export interface HomepageSelect<T extends boolean = true> {
+	title?: T;
+	image?: T;
+	featuredItems?:
+		| T
+		| {
+				item?: T;
+				image?: T;
+				id?: T;
+		  };
+	valuePropositionHeading?: T;
+	valueProposition?: T;
+	exploreOurWorkHeading?: T;
+	exploreOurWork?: T;
+	thematicAreasTitle?: T;
+	thematicAreas?: T;
+	newsletterBanner?: T;
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	publishedAt?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	_status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+	title?: T;
+	image?: T;
+	info?:
+		| T
+		| {
+				summary?: T;
+				valueProposition?:
+					| T
+					| {
+							heading?: T;
+							content?: T;
+					  };
+				aimService?:
+					| T
+					| {
+							heading?: T;
+							content?: T;
+					  };
+		  };
+	topics?:
+		| T
+		| {
+				topic?:
+					| T
+					| {
+							title?: T;
+							description?: T;
+							image?: T;
+							slug?: T;
+							slugLock?: T;
+							id?: T;
+					  };
+		  };
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	slug?: T;
+	slugLock?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+	title?: T;
+	description?: T;
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	publishedAt?: T;
+	slug?: T;
+	slugLock?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	_status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "research-page_select".
+ */
+export interface ResearchPageSelect<T extends boolean = true> {
+	title?: T;
+	description?: T;
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	publishedAt?: T;
+	slug?: T;
+	slugLock?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	_status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-page_select".
+ */
+export interface ResourcesPageSelect<T extends boolean = true> {
+	title?: T;
+	description?: T;
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	publishedAt?: T;
+	slug?: T;
+	slugLock?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	_status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "insights-page_select".
+ */
+export interface InsightsPageSelect<T extends boolean = true> {
+	title?: T;
+	description?: T;
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	publishedAt?: T;
+	slug?: T;
+	slugLock?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	_status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page_select".
+ */
+export interface ContactPageSelect<T extends boolean = true> {
+	title?: T;
+	description?: T;
+	contactForm?: T;
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	publishedAt?: T;
+	slug?: T;
+	slugLock?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	_status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs-page_select".
+ */
+export interface JobsPageSelect<T extends boolean = true> {
+	title?: T;
+	featuredJobs?: T;
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	publishedAt?: T;
+	slug?: T;
+	slugLock?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	_status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "report-builder_select".
+ */
+export interface ReportBuilderSelect<T extends boolean = true> {
+	title?: T;
+	publication?: T;
+	layout?:
+		| T
+		| {
+				scrollytelling?: T | ScrollytellingBlockSelect<T>;
+				section?: T | SectionBlockSelect<T>;
+				textBox?: T | TextBoxBlockSelect<T>;
+				hero?: T | HeroBlockSelect<T>;
+				highlights?: T | HighlightsBlockSelect<T>;
+				gridTextImage?: T | GridTextImageBlockSelect<T>;
+				text?: T | TextBlockSelect<T>;
+				picture?: T | PictureBlockSelect<T>;
+				heading?: T | HeadingBlockSelect<T>;
+				banner?: T | BannerBlockSelect<T>;
+		  };
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	publishedAt?: T;
+	colors?:
+		| T
+		| {
+				primary?: T;
+				primaryLight?: T;
+				secondary?: T;
+				secondaryLight?: T;
+				tertiary?: T;
+				tertiaryLight?: T;
+		  };
+	slug?: T;
+	slugLock?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	_status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ScrollytellingBlock_select".
+ */
+export interface ScrollytellingBlockSelect<T extends boolean = true> {
+	layout?:
+		| T
+		| {
+				hero?: T | HeroBlockSelect<T>;
+				highlights?: T | HighlightsBlockSelect<T>;
+				gridTextImage?: T | GridTextImageBlockSelect<T>;
+				textBox?: T | TextBoxBlockSelect<T>;
+		  };
+	id?: T;
+	blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock_select".
+ */
+export interface HeroBlockSelect<T extends boolean = true> {
+	content?:
+		| T
+		| {
+				layout?:
+					| T
+					| {
+							heading?: T | HeadingBlockSelect<T>;
+							picture?: T | PictureBlockSelect<T>;
+					  };
+		  };
+	metadata?:
+		| T
+		| {
+				topicArea?: T;
+				type?: T;
+				publicationDate?: T;
+		  };
+	authors?:
+		| T
+		| {
+				name?: T;
+				logo?: T;
+				url?: T;
+				id?: T;
+		  };
+	styling?:
+		| T
+		| {
+				backgroundColor?: T;
+				textColor?: T;
+		  };
+	id?: T;
+	blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeadingBlock_select".
+ */
+export interface HeadingBlockSelect<T extends boolean = true> {
+	parameters?:
+		| T
+		| {
+				fontSize?: T;
+				fontWeight?: T;
+				textTransform?: T;
+				width?: T;
+				alignment?: T;
+				position?: T;
+				paddingTop?: T;
+				paddingBottom?: T;
+				layoutPosition?: T;
+				insideContainer?: T;
+		  };
+	styling?:
+		| T
+		| {
+				textColor?: T;
+				highlightColor?: T;
+				showBackground?: T;
+				backgroundColor?: T;
+				backgroundRounded?: T;
+		  };
+	content?:
+		| T
+		| {
+				content?: T;
+		  };
+	id?: T;
+	blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PictureBlock_select".
+ */
+export interface PictureBlockSelect<T extends boolean = true> {
+	image?: T;
+	width?: T;
+	position?: T;
+	insideContainer?: T;
+	showCaption?: T;
+	captionSettings?:
+		| T
+		| {
+				captionPosition?: T;
+		  };
+	showOverlay?: T;
+	overlaySettings?:
+		| T
+		| {
+				overlayColor?: T;
+				overlayOpacity?: T;
+		  };
+	id?: T;
+	blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HighlightsBlock_select".
+ */
+export interface HighlightsBlockSelect<T extends boolean = true> {
+	styling?:
+		| T
+		| {
+				backgroundColor?: T;
+				headingColor?: T;
+				contentColor?: T;
+		  };
+	highlights?:
+		| T
+		| {
+				heading?: T;
+				content?: T;
+				id?: T;
+		  };
+	id?: T;
+	blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GridTextImageBlock_select".
+ */
+export interface GridTextImageBlockSelect<T extends boolean = true> {
+	parameters?:
+		| T
+		| {
+				stickyImage?: T;
+				invertColumns?: T;
+				insideContainer?: T;
+		  };
+	styling?:
+		| T
+		| {
+				backgroundColor?: T;
+				textColor?: T;
+		  };
+	content?:
+		| T
+		| {
+				heading?:
+					| T
+					| {
+							heading?: T | HeadingBlockSelect<T>;
+					  };
+				text?:
+					| T
+					| {
+							text?: T | TextBlockSelect<T>;
+					  };
+				image?:
+					| T
+					| {
+							picture?: T | PictureBlockSelect<T>;
+					  };
+		  };
+	id?: T;
+	blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock_select".
+ */
+export interface TextBlockSelect<T extends boolean = true> {
+	width?: T;
+	columnLayout?: T;
+	alignment?: T;
+	position?: T;
+	paddingTop?: T;
+	paddingBottom?: T;
+	paddingLeft?: T;
+	paddingRight?: T;
+	content?: T;
+	insideContainer?: T;
+	styling?:
+		| T
+		| {
+				textColor?: T;
+				backgroundColor?: T;
+				columnGap?: T;
+		  };
+	id?: T;
+	blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBoxBlock_select".
+ */
+export interface TextBoxBlockSelect<T extends boolean = true> {
+	width?: T;
+	position?: T;
+	content?:
+		| T
+		| {
+				Blocks?:
+					| T
+					| {
+							heading?: T | HeadingBlockSelect<T>;
+							text?: T | TextBlockSelect<T>;
+					  };
+		  };
+	styling?:
+		| T
+		| {
+				backgroundColor?: T;
+				borderColor?: T;
+				borderWidth?: T;
+				borderRadius?: T;
+				showLeftAccent?: T;
+				leftAccentColor?: T;
+				leftAccentWidth?: T;
+		  };
+	id?: T;
+	blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionBlock_select".
+ */
+export interface SectionBlockSelect<T extends boolean = true> {
+	parameters?:
+		| T
+		| {
+				width?: T;
+				alignment?: T;
+				verticalAlignment?: T;
+				paddingTop?: T;
+				paddingBottom?: T;
+				paddingLeft?: T;
+				paddingRight?: T;
+				insideContainer?: T;
+				minHeight?: T;
+				content?:
+					| T
+					| {
+							heading?: T | HeadingBlockSelect<T>;
+							picture?: T | PictureBlockSelect<T>;
+							text?: T | TextBlockSelect<T>;
+							hero?: T | HeroBlockSelect<T>;
+							highlights?: T | HighlightsBlockSelect<T>;
+							gridTextImage?: T | GridTextImageBlockSelect<T>;
+							textBox?: T | TextBoxBlockSelect<T>;
+							twoColumn?: T | TwoColumnBlockSelect<T>;
+							table?: T | TableBlockSelect<T>;
+							scrollytelling?: T | ScrollytellingBlockSelect<T>;
+					  };
+		  };
+	styling?:
+		| T
+		| {
+				backgroundColor?: T;
+				textColor?: T;
+				borderRadius?: T;
+				shadow?: T;
+		  };
+	id?: T;
+	blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TwoColumnBlock_select".
+ */
+export interface TwoColumnBlockSelect<T extends boolean = true> {
+	parameters?:
+		| T
+		| {
+				leftColumnWidth?: T;
+				columnGap?: T;
+				leftColumnPosition?: T;
+				rightColumnPosition?: T;
+				leftColumnSticky?: T;
+				rightColumnSticky?: T;
+		  };
+	styling?:
+		| T
+		| {
+				backgroundColor?: T;
+				textColor?: T;
+		  };
+	content?:
+		| T
+		| {
+				leftColumnContent?:
+					| T
+					| {
+							heading?: T | HeadingBlockSelect<T>;
+							picture?: T | PictureBlockSelect<T>;
+							text?: T | TextBlockSelect<T>;
+							hero?: T | HeroBlockSelect<T>;
+							highlights?: T | HighlightsBlockSelect<T>;
+							gridTextImage?: T | GridTextImageBlockSelect<T>;
+							textBox?: T | TextBoxBlockSelect<T>;
+							table?: T | TableBlockSelect<T>;
+							scrollytelling?: T | ScrollytellingBlockSelect<T>;
+					  };
+				rightColumnContent?:
+					| T
+					| {
+							heading?: T | HeadingBlockSelect<T>;
+							picture?: T | PictureBlockSelect<T>;
+							text?: T | TextBlockSelect<T>;
+							hero?: T | HeroBlockSelect<T>;
+							highlights?: T | HighlightsBlockSelect<T>;
+							gridTextImage?: T | GridTextImageBlockSelect<T>;
+							textBox?: T | TextBoxBlockSelect<T>;
+							table?: T | TableBlockSelect<T>;
+							scrollytelling?: T | ScrollytellingBlockSelect<T>;
+					  };
+		  };
+	id?: T;
+	blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableBlock_select".
+ */
+export interface TableBlockSelect<T extends boolean = true> {
+	parameters?:
+		| T
+		| {
+				title?: T;
+				width?: T;
+				position?: T;
+				rowGap?: T;
+				paddingTop?: T;
+				paddingBottom?: T;
+				paddingLeft?: T;
+				paddingRight?: T;
+				insideContainer?: T;
+		  };
+	content?:
+		| T
+		| {
+				rows?:
+					| T
+					| {
+							styling?:
+								| T
+								| {
+										backgroundColor?: T;
+										textColor?: T;
+										backgroundOpacity?: T;
+										fontSize?: T;
+										fontWeight?: T;
+								  };
+							layout?:
+								| T
+								| {
+										columnLayout?: T;
+										showBullets?: T;
+										leftColumnBullets?: T;
+										rightColumnBullets?: T;
+										singleContent?: T;
+										leftContent?: T;
+										rightContent?: T;
+								  };
+							id?: T;
+					  };
+		  };
+	id?: T;
+	blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BannerBlock_select".
+ */
+export interface BannerBlockSelect<T extends boolean = true> {
+	heading?: T;
+	description?: T;
+	contentType?: T;
+	publication?: T;
+	extraDocuments?: T;
+	extraDocumentsButtonText?: T;
+	post?: T;
+	video?: T;
+	initiative?: T;
+	customButton?:
+		| T
+		| {
+				text?: T;
+				url?: T;
+				appearance?: T;
+				color?: T;
+		  };
+	display?:
+		| T
+		| {
+				imageDisplay?: T;
+				imagePosition?: T;
+				customImage?: T;
+				backgroundColor?: T;
+				textColor?: T;
+				showOverlay?: T;
+				overlayOpacity?: T;
+		  };
+	height?: T;
+	textAlignment?: T;
+	insideContainer?: T;
+	id?: T;
+	blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "initiatives_select".
+ */
+export interface InitiativesSelect<T extends boolean = true> {
+	title?: T;
+	status?: T;
+	basic?:
+		| T
+		| {
+				summary?: T;
+				banner?: T;
+				startDate?: T;
+				endDate?: T;
+				branding?:
+					| T
+					| {
+							primaryColor?: T;
+							secondaryColor?: T;
+							logo?: T;
+					  };
+		  };
+	content?:
+		| T
+		| {
+				contentSections?:
+					| T
+					| {
+							sectionTitle?: T;
+							content?:
+								| T
+								| {
+										textContent?: T | TextContentBlockSelect<T>;
+										relatedContent?: T | RelatedContentBlockSelect<T>;
+										gallery?: T | GalleryBlockSelect<T>;
+										quote?:
+											| T
+											| {
+													heading?: T;
+													description?: T;
+													quotes?:
+														| T
+														| {
+																text?: T;
+																person?: T;
+																personOrganization?: T;
+																picture?: T;
+																id?: T;
+														  };
+													display?:
+														| T
+														| {
+																layout?: T;
+																columns?: T;
+																showImages?: T;
+														  };
+													id?: T;
+													blockName?: T;
+											  };
+										banner?: T | BannerBlockSelect<T>;
+								  };
+							id?: T;
+					  };
+		  };
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	slug?: T;
+	featured?: T;
+	contentfulId?: T;
+	migrationNotes?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextContentBlock_select".
+ */
+export interface TextContentBlockSelect<T extends boolean = true> {
+	heading?: T;
+	content?: T;
+	styling?:
+		| T
+		| {
+				textAlignment?: T;
+				maxWidth?: T;
+				paddingTop?: T;
+				paddingBottom?: T;
+		  };
+	showTableOfContents?: T;
+	id?: T;
+	blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RelatedContentBlock_select".
+ */
+export interface RelatedContentBlockSelect<T extends boolean = true> {
+	featuredResource?:
+		| T
+		| {
+				enable?: T;
+				resourceType?: T;
+				publication?: T;
+				post?: T;
+				video?: T;
+				customTitle?: T;
+				customDescription?: T;
+		  };
+	heading?: T;
+	description?: T;
+	contentType?: T;
+	resourceGroups?:
+		| T
+		| {
+				heading?: T;
+				resourceType?: T;
+				publications?: T;
+				posts?: T;
+				videos?: T;
+				id?: T;
+		  };
+	events?: T;
+	partners?: T;
+	teamMembers?: T;
+	display?:
+		| T
+		| {
+				layout?: T;
+				columns?: T;
+				showImages?: T;
+				showDescriptions?: T;
+				showMetadata?: T;
+				itemLimit?: T;
+		  };
+	id?: T;
+	blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock_select".
+ */
+export interface GalleryBlockSelect<T extends boolean = true> {
+	heading?: T;
+	description?: T;
+	images?: T;
+	display?:
+		| T
+		| {
+				layout?: T;
+				columns?: T;
+				aspectRatio?: T;
+				enableLightbox?: T;
+				showCaptions?: T;
+		  };
+	id?: T;
+	blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+	title?: T;
+	Info?:
+		| T
+		| {
+				programme?: T;
+				secondProgramme?: T;
+				project?: T;
+				dateFormat?: T;
+				summary?: T;
+				date?: T;
+				keywords?:
+					| T
+					| {
+							keyword?: T;
+							id?: T;
+					  };
+				source?: T;
+				sourceUrl?: T;
+		  };
+	heroImage?: T;
+	content?: T;
+	relatedPosts?: T;
+	relatedNews?: T;
+	relatedPublications?: T;
+	video?: T;
+	categories?: T;
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	publishedAt?: T;
+	authors?:
+		| T
+		| {
+				authorType?: T;
+				teamMember?: T;
+				externalAuthor?: T;
+				id?: T;
+		  };
+	populatedAuthors?:
+		| T
+		| {
+				id?: T;
+				name?: T;
+				type?: T;
+		  };
+	contentfulId?: T;
+	migrationNotes?: T;
+	imageFromCloudinary?: T;
+	hasEmbeddedAssets?: T;
+	embeddedAssetsInfo?: T;
+	slug?: T;
+	slugLock?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	_status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publications_select".
+ */
+export interface PublicationsSelect<T extends boolean = true> {
+	title?: T;
+	info?:
+		| T
+		| {
+				category?: T;
+				programme?: T;
+				thematicArea?: T;
+				project?: T;
+				author?: T;
+				authorTmg?: T;
+				summary?: T;
+				publicationDate?: T;
+				language?: T;
+				keywords?:
+					| T
+					| {
+							keyword?: T;
+							id?: T;
+					  };
+				doi?: T;
+				doiNumber?: T;
+				doiUrl?: T;
+				citation?: T;
+		  };
+	content?:
+		| T
+		| {
+				generateNewsEntry?: T;
+				description?: T;
+				thumbnail?: T;
+				pdf?: T;
+		  };
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	slug?: T;
+	automatedNewsEntry?: T;
+	thumbnailFromCloudinary?: T;
+	contentfulId?: T;
+	migrationNotes?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "speakers_select".
+ */
+export interface SpeakersSelect<T extends boolean = true> {
+	name?: T;
+	position?: T;
+	organisation?: T;
+	organisationUrl?: T;
+	bio?: T;
+	picture?: T;
+	twitter?: T;
+	email?: T;
+	slug?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "banners_select".
+ */
+export interface BannersSelect<T extends boolean = true> {
+	title?: T;
+	type?: T;
+	subtitle?: T;
+	richText?: T;
+	backgroundMedia?: T;
+	backgroundColor?: T;
+	image?:
+		| T
+		| {
+				image?: T;
+				id?: T;
+		  };
+	publications?: T;
+	events?: T;
+	link?:
+		| T
+		| {
+				link?:
+					| T
+					| {
+							type?: T;
+							newTab?: T;
+							reference?: T;
+							url?: T;
+							label?: T;
+							description?: T;
+							appearance?: T;
+					  };
+		  };
+	publishedAt?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	_status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+	title?: T;
+	content?:
+		| T
+		| {
+				description?: T;
+				layout?:
+					| T
+					| {
+							banner?: T | BannerBlockSelect<T>;
+					  };
+		  };
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	publishedAt?: T;
+	slug?: T;
+	slugLock?: T;
+	contentfulId?: T;
+	migrationNotes?: T;
+	parent?: T;
+	breadcrumbs?:
+		| T
+		| {
+				doc?: T;
+				url?: T;
+				label?: T;
+				id?: T;
+		  };
+	updatedAt?: T;
+	createdAt?: T;
+	_status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "teams_select".
+ */
+export interface TeamsSelect<T extends boolean = true> {
+	name?: T;
+	position?: T;
+	picture?: T;
+	bio?: T;
+	linkedin?: T;
+	twitter?: T;
+	email?: T;
+	slug?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collaborators_select".
+ */
+export interface CollaboratorsSelect<T extends boolean = true> {
+	type?: T;
+	name?: T;
+	logo?: T;
+	url?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs_select".
+ */
+export interface JobsSelect<T extends boolean = true> {
+	title?: T;
+	applicationFile?: T;
+	applicationLink?: T;
+	deadlineDate?: T;
+	url?: T;
+	summary?: T;
+	category?: T;
+	date?: T;
+	slug?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents_select".
+ */
+export interface DocumentsSelect<T extends boolean = true> {
+	title?: T;
+	description?: T;
+	thumbnailPath?: T;
+	thumbnailGenerated?: T;
+	originalUrl?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	url?: T;
+	thumbnailURL?: T;
+	filename?: T;
+	mimeType?: T;
+	filesize?: T;
+	width?: T;
+	height?: T;
+	focalX?: T;
+	focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+	isImported?: T;
+	alt?: T;
+	caption?: T;
+	folder?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	url?: T;
+	thumbnailURL?: T;
+	filename?: T;
+	mimeType?: T;
+	filesize?: T;
+	width?: T;
+	height?: T;
+	focalX?: T;
+	focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "local-images_select".
+ */
+export interface LocalImagesSelect<T extends boolean = true> {
+	alt?: T;
+	caption?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	url?: T;
+	thumbnailURL?: T;
+	filename?: T;
+	mimeType?: T;
+	filesize?: T;
+	width?: T;
+	height?: T;
+	focalX?: T;
+	focalY?: T;
+	sizes?:
+		| T
+		| {
+				thumbnail?:
+					| T
+					| {
+							url?: T;
+							width?: T;
+							height?: T;
+							mimeType?: T;
+							filesize?: T;
+							filename?: T;
+					  };
+				square?:
+					| T
+					| {
+							url?: T;
+							width?: T;
+							height?: T;
+							mimeType?: T;
+							filesize?: T;
+							filename?: T;
+					  };
+				medium?:
+					| T
+					| {
+							url?: T;
+							width?: T;
+							height?: T;
+							mimeType?: T;
+							filesize?: T;
+							filename?: T;
+					  };
+		  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "videos_select".
+ */
+export interface VideosSelect<T extends boolean = true> {
+	title?: T;
+	date?: T;
+	description?: T;
+	automatedNewsEntry?: T;
+	summary?: T;
+	keywords?:
+		| T
+		| {
+				keyword?: T;
+				id?: T;
+		  };
+	url?: T;
+	videoId?: T;
+	image?: T;
+	programmes?: T;
+	projects?:
+		| T
+		| {
+				project?: T;
+				id?: T;
+		  };
+	eventSeries?:
+		| T
+		| {
+				eventSeries?: T;
+				id?: T;
+		  };
+	slug?: T;
+	contentfulId?: T;
+	migrationNotes?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publication-features_select".
+ */
+export interface PublicationFeaturesSelect<T extends boolean = true> {
+	title?: T;
+	info?:
+		| T
+		| {
+				summary?: T;
+				featuredOnHomepage?: T;
+				cutoffDate?: T;
+				keywords?:
+					| T
+					| {
+							keyword?: T;
+							id?: T;
+					  };
+				color1?: T;
+				color2?: T;
+		  };
+	content?:
+		| T
+		| {
+				sections?:
+					| T
+					| {
+							contentBlocks?:
+								| T
+								| {
+										blockType?: T;
+										title?: T;
+										subtitle?: T;
+										text?: T;
+										embedContent?: T;
+										iFrameCode?: T;
+										image?: T;
+										publications?: T;
+										buttonText?: T;
+										buttonPath?: T;
+										id?: T;
+								  };
+							id?: T;
+					  };
+				pageBanner?: T;
+				image?: T;
+				gallery?: T;
+		  };
+	relationships?:
+		| T
+		| {
+				events?: T;
+				news?: T;
+				relatedDocuments?: T;
+				partnersLogos?: T;
+		  };
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	slug?: T;
+	contentfulId?: T;
+	migrationNotes?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-series_select".
+ */
+export interface EventSeriesSelect<T extends boolean = true> {
+	title?: T;
+	info?:
+		| T
+		| {
+				summary?: T;
+				featuredOnHomepage?: T;
+				cutoffDate?: T;
+				keywords?:
+					| T
+					| {
+							keyword?: T;
+							id?: T;
+					  };
+				statsTitle?: T;
+				statsEvents?: T;
+				statsSpeakers?: T;
+				color1?: T;
+				color2?: T;
+		  };
+	content?:
+		| T
+		| {
+				description?: T;
+				quoteText?: T;
+				quotePerson?: T;
+				quotePersonOrganization?: T;
+				text2?: T;
+				text3?: T;
+				text4?: T;
+				image?: T;
+				pageBanner?: T;
+				gallery?: T;
+		  };
+	relationships?:
+		| T
+		| {
+				eventFeatured?: T;
+				events?: T;
+				news?: T;
+				relatedDocuments?: T;
+				additionalEvents?: T;
+		  };
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	slug?: T;
+	contentfulId?: T;
+	migrationNotes?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+	name?: T;
+	info?:
+		| T
+		| {
+				summary?: T;
+				quote?: T;
+				quoteAuthor?: T;
+				programme?: T;
+				topics?: T;
+				year?: T;
+				partnersList?:
+					| T
+					| {
+							partner?: T;
+							id?: T;
+					  };
+				fundersList?:
+					| T
+					| {
+							funder?: T;
+							id?: T;
+					  };
+				contractingAuthorityList?:
+					| T
+					| {
+							authority?: T;
+							id?: T;
+					  };
+				url?: T;
+		  };
+	content?:
+		| T
+		| {
+				description?: T;
+				thumbnail?: T;
+				gallery?:
+					| T
+					| {
+							image?: T;
+							id?: T;
+					  };
+		  };
+	relationships?:
+		| T
+		| {
+				team?: T;
+				videos?: T;
+				relatedProjects?: T;
+		  };
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+		  };
+	slug?: T;
+	thumbnailFromCloudinary?: T;
+	contentfulId?: T;
+	migrationNotes?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+	title?: T;
+	info?:
+		| T
+		| {
+				type?: T;
+				programme?: T;
+				summary?: T;
+				eventUrl?: T;
+				isMultiLingual?: T;
+				secondLanguage?: T;
+				titleSecondLanguage?: T;
+				language?:
+					| T
+					| {
+							languageCode?: T;
+							id?: T;
+					  };
+				organiser?:
+					| T
+					| {
+							name?: T;
+							id?: T;
+					  };
+		  };
+	content?:
+		| T
+		| {
+				topBanner?: T;
+				description?: T;
+				background?: T;
+				image?: T;
+				imagePosition?: T;
+		  };
+	relationships?:
+		| T
+		| {
+				speakers?: T;
+				facilitators?: T;
+				video?: T;
+				relatedNews?: T;
+				relatedEvents?: T;
+				relatedVideos?: T;
+				relatedDocuments?: T;
+		  };
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+				keywords?:
+					| T
+					| {
+							keyword?: T;
+							id?: T;
+					  };
+		  };
+	slug?: T;
+	date?: T;
+	endDate?: T;
+	location?: T;
+	contentfulId?: T;
+	migrationNotes?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news_select".
+ */
+export interface NewsSelect<T extends boolean = true> {
+	title?: T;
+	info?:
+		| T
+		| {
+				programme?: T;
+				secondProgramme?: T;
+				project?: T;
+				dateFormat?: T;
+				type?: T;
+				author?: T;
+				authorTmg?: T;
+				summary?: T;
+				source?: T;
+				sourceUrl?: T;
+		  };
+	content?:
+		| T
+		| {
+				image?: T;
+				description?: T;
+		  };
+	relationships?:
+		| T
+		| {
+				publication?: T;
+				externalPublicationThumbnail?: T;
+				externalPublicationUrl?: T;
+				video?: T;
+				relatedNews?:
+					| T
+					| {
+							title?: T;
+							id?: T;
+					  };
+				relatedPublications?: T;
+		  };
+	meta?:
+		| T
+		| {
+				title?: T;
+				image?: T;
+				description?: T;
+				keywords?:
+					| T
+					| {
+							keyword?: T;
+							id?: T;
+					  };
+		  };
+	slug?: T;
+	contentfulId?: T;
+	migrationNotes?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+	name?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	email?: T;
+	resetPasswordToken?: T;
+	resetPasswordExpiration?: T;
+	salt?: T;
+	hash?: T;
+	loginAttempts?: T;
+	lockUntil?: T;
+	sessions?:
+		| T
+		| {
+				id?: T;
+				createdAt?: T;
+				expiresAt?: T;
+		  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects_select".
+ */
+export interface RedirectsSelect<T extends boolean = true> {
+	from?: T;
+	to?:
+		| T
+		| {
+				type?: T;
+				reference?: T;
+				url?: T;
+		  };
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "forms_select".
+ */
+export interface FormsSelect<T extends boolean = true> {
+	title?: T;
+	fields?:
+		| T
+		| {
+				checkbox?:
+					| T
+					| {
+							name?: T;
+							label?: T;
+							width?: T;
+							required?: T;
+							defaultValue?: T;
+							id?: T;
+							blockName?: T;
+					  };
+				country?:
+					| T
+					| {
+							name?: T;
+							label?: T;
+							width?: T;
+							required?: T;
+							id?: T;
+							blockName?: T;
+					  };
+				email?:
+					| T
+					| {
+							name?: T;
+							label?: T;
+							width?: T;
+							required?: T;
+							id?: T;
+							blockName?: T;
+					  };
+				message?:
+					| T
+					| {
+							message?: T;
+							id?: T;
+							blockName?: T;
+					  };
+				number?:
+					| T
+					| {
+							name?: T;
+							label?: T;
+							width?: T;
+							defaultValue?: T;
+							required?: T;
+							id?: T;
+							blockName?: T;
+					  };
+				select?:
+					| T
+					| {
+							name?: T;
+							label?: T;
+							width?: T;
+							defaultValue?: T;
+							placeholder?: T;
+							options?:
+								| T
+								| {
+										label?: T;
+										value?: T;
+										id?: T;
+								  };
+							required?: T;
+							id?: T;
+							blockName?: T;
+					  };
+				state?:
+					| T
+					| {
+							name?: T;
+							label?: T;
+							width?: T;
+							required?: T;
+							id?: T;
+							blockName?: T;
+					  };
+				text?:
+					| T
+					| {
+							name?: T;
+							label?: T;
+							width?: T;
+							defaultValue?: T;
+							required?: T;
+							id?: T;
+							blockName?: T;
+					  };
+				textarea?:
+					| T
+					| {
+							name?: T;
+							label?: T;
+							width?: T;
+							defaultValue?: T;
+							required?: T;
+							id?: T;
+							blockName?: T;
+					  };
+		  };
+	submitButtonLabel?: T;
+	confirmationType?: T;
+	confirmationMessage?: T;
+	redirect?:
+		| T
+		| {
+				url?: T;
+		  };
+	emails?:
+		| T
+		| {
+				emailTo?: T;
+				cc?: T;
+				bcc?: T;
+				replyTo?: T;
+				emailFrom?: T;
+				subject?: T;
+				message?: T;
+				id?: T;
+		  };
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions_select".
+ */
+export interface FormSubmissionsSelect<T extends boolean = true> {
+	form?: T;
+	submissionData?:
+		| T
+		| {
+				field?: T;
+				value?: T;
+				id?: T;
+		  };
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "search_select".
+ */
+export interface SearchSelect<T extends boolean = true> {
+	title?: T;
+	priority?: T;
+	doc?: T;
+	slug?: T;
+	meta?:
+		| T
+		| {
+				title?: T;
+				description?: T;
+				image?: T;
+		  };
+	categories?:
+		| T
+		| {
+				relationTo?: T;
+				id?: T;
+				title?: T;
+		  };
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs_select".
+ */
+export interface PayloadJobsSelect<T extends boolean = true> {
+	input?: T;
+	taskStatus?: T;
+	completedAt?: T;
+	totalTried?: T;
+	hasError?: T;
+	error?: T;
+	log?:
+		| T
+		| {
+				executedAt?: T;
+				completedAt?: T;
+				taskSlug?: T;
+				taskID?: T;
+				input?: T;
+				output?: T;
+				state?: T;
+				error?: T;
+				id?: T;
+		  };
+	taskSlug?: T;
+	queue?: T;
+	waitUntil?: T;
+	processing?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "folders_select".
+ */
+export interface FoldersSelect<T extends boolean = true> {
+	name?: T;
+	folder?: T;
+	documentsAndFolders?: T;
+	folderType?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+	document?: T;
+	globalSlug?: T;
+	user?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+	user?: T;
+	key?: T;
+	value?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+	name?: T;
+	batch?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header".
+ */
 export interface Header {
 	id: string;
-	[k: string]: unknown;
+	/**
+	 * Navigation categories with links (for accordion-style navigation)
+	 */
+	categories?:
+		| {
+				/**
+				 * Category name that will appear in the navigation
+				 */
+				categoryTitle: string;
+				/**
+				 * Links within this category
+				 */
+				navItems?:
+					| {
+							link: {
+								type?: ('reference' | 'custom') | null;
+								newTab?: boolean | null;
+								reference?:
+									| ({
+											relationTo: 'homepage';
+											value: string | Homepage;
+									  } | null)
+									| ({
+											relationTo: 'about';
+											value: string | About;
+									  } | null)
+									| ({
+											relationTo: 'research-page';
+											value: string | ResearchPage;
+									  } | null)
+									| ({
+											relationTo: 'resources-page';
+											value: string | ResourcesPage;
+									  } | null)
+									| ({
+											relationTo: 'insights-page';
+											value: string | InsightsPage;
+									  } | null)
+									| ({
+											relationTo: 'jobs-page';
+											value: string | JobsPage;
+									  } | null)
+									| ({
+											relationTo: 'categories';
+											value: string | Category;
+									  } | null)
+									| ({
+											relationTo: 'pages';
+											value: string | Page;
+									  } | null);
+								url?: string | null;
+								label: string;
+								/**
+								 * Optional description to display below the link label in navigation
+								 */
+								description?: string | null;
+							};
+							id?: string | null;
+					  }[]
+					| null;
+				id?: string | null;
+		  }[]
+		| null;
+	/**
+	 * Contact Us button configuration
+	 */
+	contactButton: {
+		link: {
+			type?: ('reference' | 'custom') | null;
+			newTab?: boolean | null;
+			reference?:
+				| ({
+						relationTo: 'homepage';
+						value: string | Homepage;
+				  } | null)
+				| ({
+						relationTo: 'about';
+						value: string | About;
+				  } | null)
+				| ({
+						relationTo: 'research-page';
+						value: string | ResearchPage;
+				  } | null)
+				| ({
+						relationTo: 'resources-page';
+						value: string | ResourcesPage;
+				  } | null)
+				| ({
+						relationTo: 'insights-page';
+						value: string | InsightsPage;
+				  } | null)
+				| ({
+						relationTo: 'jobs-page';
+						value: string | JobsPage;
+				  } | null)
+				| ({
+						relationTo: 'categories';
+						value: string | Category;
+				  } | null)
+				| ({
+						relationTo: 'pages';
+						value: string | Page;
+				  } | null);
+			url?: string | null;
+			label: string;
+			/**
+			 * Optional description to display below the link label in navigation
+			 */
+			description?: string | null;
+			/**
+			 * Choose how the link should be displayed.
+			 */
+			appearance?: ('default' | 'outline') | null;
+		};
+	};
+	updatedAt?: string | null;
+	createdAt?: string | null;
 }
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
 export interface Footer {
 	id: string;
-	[k: string]: unknown;
+	/**
+	 * Navigation categories with links (for footer grid layout)
+	 */
+	categories?:
+		| {
+				/**
+				 * Category name that will appear in the footer
+				 */
+				categoryTitle: string;
+				/**
+				 * Links within this category
+				 */
+				navItems?:
+					| {
+							link: {
+								type?: ('reference' | 'custom') | null;
+								newTab?: boolean | null;
+								reference?:
+									| ({
+											relationTo: 'homepage';
+											value: string | Homepage;
+									  } | null)
+									| ({
+											relationTo: 'about';
+											value: string | About;
+									  } | null)
+									| ({
+											relationTo: 'research-page';
+											value: string | ResearchPage;
+									  } | null)
+									| ({
+											relationTo: 'resources-page';
+											value: string | ResourcesPage;
+									  } | null)
+									| ({
+											relationTo: 'insights-page';
+											value: string | InsightsPage;
+									  } | null)
+									| ({
+											relationTo: 'jobs-page';
+											value: string | JobsPage;
+									  } | null)
+									| ({
+											relationTo: 'categories';
+											value: string | Category;
+									  } | null)
+									| ({
+											relationTo: 'pages';
+											value: string | Page;
+									  } | null);
+								url?: string | null;
+								label: string;
+								/**
+								 * Optional description to display below the link label in navigation
+								 */
+								description?: string | null;
+							};
+							id?: string | null;
+					  }[]
+					| null;
+				id?: string | null;
+		  }[]
+		| null;
+	/**
+	 * Legal information and links
+	 */
+	legal?: {
+		/**
+		 * Copyright text (e.g., "© 2024 TMG. All rights reserved.")
+		 */
+		copyrightText?: string | null;
+		/**
+		 * Legal links (Privacy Policy, Terms, etc.)
+		 */
+		legalLinks?:
+			| {
+					link: {
+						type?: ('reference' | 'custom') | null;
+						newTab?: boolean | null;
+						reference?:
+							| ({
+									relationTo: 'homepage';
+									value: string | Homepage;
+							  } | null)
+							| ({
+									relationTo: 'about';
+									value: string | About;
+							  } | null)
+							| ({
+									relationTo: 'research-page';
+									value: string | ResearchPage;
+							  } | null)
+							| ({
+									relationTo: 'resources-page';
+									value: string | ResourcesPage;
+							  } | null)
+							| ({
+									relationTo: 'insights-page';
+									value: string | InsightsPage;
+							  } | null)
+							| ({
+									relationTo: 'jobs-page';
+									value: string | JobsPage;
+							  } | null)
+							| ({
+									relationTo: 'categories';
+									value: string | Category;
+							  } | null)
+							| ({
+									relationTo: 'pages';
+									value: string | Page;
+							  } | null);
+						url?: string | null;
+						label: string;
+						/**
+						 * Optional description to display below the link label in navigation
+						 */
+						description?: string | null;
+					};
+					id?: string | null;
+			  }[]
+			| null;
+	};
+	newsletter?: {
+		form?: (string | null) | Form;
+	};
+	updatedAt?: string | null;
+	createdAt?: string | null;
 }
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "socials".
+ */
+export interface Social {
+	id: string;
+	/**
+	 * Social media links and platforms
+	 */
+	socialLinks?:
+		| {
+				/**
+				 * Select the social media platform
+				 */
+				platform: 'facebook' | 'instagram' | 'twitter' | 'linkedin' | 'youtube';
+				/**
+				 * Full URL to your social media profile (e.g., https://facebook.com/yourpage)
+				 */
+				url: string;
+				/**
+				 * Optional custom label (defaults to platform name)
+				 */
+				label?: string | null;
+				id?: string | null;
+		  }[]
+		| null;
+	updatedAt?: string | null;
+	createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header_select".
+ */
+export interface HeaderSelect<T extends boolean = true> {
+	categories?:
+		| T
+		| {
+				categoryTitle?: T;
+				navItems?:
+					| T
+					| {
+							link?:
+								| T
+								| {
+										type?: T;
+										newTab?: T;
+										reference?: T;
+										url?: T;
+										label?: T;
+										description?: T;
+								  };
+							id?: T;
+					  };
+				id?: T;
+		  };
+	contactButton?:
+		| T
+		| {
+				link?:
+					| T
+					| {
+							type?: T;
+							newTab?: T;
+							reference?: T;
+							url?: T;
+							label?: T;
+							description?: T;
+							appearance?: T;
+					  };
+		  };
+	updatedAt?: T;
+	createdAt?: T;
+	globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+	categories?:
+		| T
+		| {
+				categoryTitle?: T;
+				navItems?:
+					| T
+					| {
+							link?:
+								| T
+								| {
+										type?: T;
+										newTab?: T;
+										reference?: T;
+										url?: T;
+										label?: T;
+										description?: T;
+								  };
+							id?: T;
+					  };
+				id?: T;
+		  };
+	legal?:
+		| T
+		| {
+				copyrightText?: T;
+				legalLinks?:
+					| T
+					| {
+							link?:
+								| T
+								| {
+										type?: T;
+										newTab?: T;
+										reference?: T;
+										url?: T;
+										label?: T;
+										description?: T;
+								  };
+							id?: T;
+					  };
+		  };
+	newsletter?:
+		| T
+		| {
+				form?: T;
+		  };
+	updatedAt?: T;
+	createdAt?: T;
+	globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "socials_select".
+ */
+export interface SocialsSelect<T extends boolean = true> {
+	socialLinks?:
+		| T
+		| {
+				platform?: T;
+				url?: T;
+				label?: T;
+				id?: T;
+		  };
+	updatedAt?: T;
+	createdAt?: T;
+	globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskSchedulePublish".
+ */
 export interface TaskSchedulePublish {
-	input: unknown;
+	input: {
+		type?: ('publish' | 'unpublish') | null;
+		locale?: string | null;
+		doc?:
+			| ({
+					relationTo: 'homepage';
+					value: string | Homepage;
+			  } | null)
+			| ({
+					relationTo: 'about';
+					value: string | About;
+			  } | null)
+			| ({
+					relationTo: 'research-page';
+					value: string | ResearchPage;
+			  } | null)
+			| ({
+					relationTo: 'resources-page';
+					value: string | ResourcesPage;
+			  } | null)
+			| ({
+					relationTo: 'insights-page';
+					value: string | InsightsPage;
+			  } | null)
+			| ({
+					relationTo: 'contact-page';
+					value: string | ContactPage;
+			  } | null)
+			| ({
+					relationTo: 'jobs-page';
+					value: string | JobsPage;
+			  } | null)
+			| ({
+					relationTo: 'posts';
+					value: string | Post;
+			  } | null)
+			| ({
+					relationTo: 'pages';
+					value: string | Page;
+			  } | null);
+		global?: string | null;
+		user?: (string | null) | User;
+	};
 	output?: unknown;
 }
-
-// Select interfaces - simplified versions
-export interface HomepageSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeBlock".
+ */
+export interface CodeBlock {
+	language?: ('typescript' | 'javascript' | 'css') | null;
+	code: string;
+	id?: string | null;
+	blockName?: string | null;
+	blockType: 'code';
 }
-
-export interface AboutSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock".
+ */
+export interface MediaBlock {
+	media: string | Media;
+	id?: string | null;
+	blockName?: string | null;
+	blockType: 'mediaBlock';
 }
-
-export interface EventsPageSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface BlogPageSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface JobsPageSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface NewsPageSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface PublicationsPageSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface PublicationsSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface ReportBuilderSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface VideosPageSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface PublicationFeaturesSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface EventSeriesSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface ProjectsSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface InitiativesSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface EventsSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface SpeakersSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface NewsSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface BannersSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface PagesSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface PostsSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface CategoriesSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface CollaboratorsSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface JobsSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface TeamsSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface DocumentsSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface MediaSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface LocalImagesSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface VideosSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface UsersSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface RedirectsSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface FormsSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface FormSubmissionsSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface SearchSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface FoldersSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface PayloadJobsSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface PayloadPreferencesSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface PayloadMigrationsSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface HeaderSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface FooterSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface HeadingBlockSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface PictureBlockSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface TextBlockSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface HeroBlockSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface HighlightsBlockSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface GridTextImageBlockSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface TextBoxBlockSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface SectionBlockSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface TwoColumnBlockSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface TableBlockSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
-}
-
-export interface ScrollytellingBlockSelect<T extends boolean = true> {
-	[k: string]: T | unknown;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "auth".
+ */
+export interface Auth {
+	[k: string]: unknown;
 }

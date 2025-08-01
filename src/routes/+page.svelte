@@ -11,11 +11,9 @@
 		BlogPost
 	} from '$lib/types/types';
 
-	import Hero from '$components/Hero/Hero.svelte';
 	import HeroV4 from '$components/Hero/HeroV4.svelte';
 	import HeroProgrammesV2 from '$components/Hero/HeroProgrammesV2.svelte';
 	import LatestV2 from '$components/Latest/LatestV2.svelte';
-	import NewsletterBanner from '$components/Banner/NewsletterBanner.svelte';
 	import NetworksBanner from '$components/Banner/NetworksBanner.svelte';
 	import BlogHomepage from '$components/Blog/BlogHomepage.svelte';
 	import EventsHomepage from '$components/Events/EventsHomepage.svelte';
@@ -35,7 +33,7 @@
 		newsletter: Newsletter[];
 		partners: Partner[];
 		events: Event[];
-		news: News[];
+		blog: BlogPost[];
 		publicationFeatures: PublicationFeature[];
 		eventSeries: EventSeries[];
 		blogPosts: BlogPost[];
@@ -47,14 +45,13 @@
 		newsletter,
 		partners,
 		events,
-		news,
+		blog,
 		publicationFeatures,
 		eventSeries,
-		blogPosts
 	} = data;
+
 </script>
 
-<!-- <Hero hero={landingPage} /> -->
 <HeroV4 hero={landingPage} />
 <LatestV2 {landingPage} />
 <ImageBannerEventSeries items={eventSeries} />
@@ -64,6 +61,6 @@
 	heroProgrammes={programmes}
 	programmeSectionTitle={landingPage.fields.programmeSectionTitle}
 />
-<BlogHomepage {news} {landingPage} />
+<BlogHomepage {blog} {landingPage} />
 <NewsletterBannerV2 {newsletter} {landingPage} />
 <NetworksBanner {partners} {landingPage} />
