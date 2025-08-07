@@ -563,6 +563,21 @@
 					/>
 				</div>
 			{/if}
+					<!-- Quote 6 -->
+					{#if item.fields.quote6Text && item.fields.quote6Person && item.fields.quote6PersonOrganization}
+					<div class="mb-16">	
+						<EnhancedQuote
+							quoteText={item.fields.quote6Text}
+							quotePerson={item.fields.quote6Person}
+							quotePersonOrganization={item.fields.quote6PersonOrganization}
+							quotePersonPictureUrl={item.fields.quotesPictures &&
+								item.fields.quotesPictures.length > 5
+								? item.fields.quotesPictures[5].secure_url
+								: ''}
+							color={item.fields.color1 || '#333'}
+						/>
+					</div>
+				{/if}
 		</div>
 	{/if}
 </div>

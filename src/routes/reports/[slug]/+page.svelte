@@ -16,7 +16,7 @@
 	// Helper to format date
 	function formatDate(dateString: string): string {
 		try {
-			return new Date(dateString).toLocaleDateString('en-US', {
+			return new Date(dateString).toLocaleDateString('en-GB', {
 				year: 'numeric',
 				month: 'long',
 				day: 'numeric'
@@ -36,9 +36,7 @@
 		if (report.meta?.description) {
 			return report.meta.description;
 		}
-		if (report.description) {
-			return report.description;
-		}
+
 		return `A research report by TMG Think Tank: ${report.title || 'Untitled Report'}`;
 	});
 
@@ -119,9 +117,9 @@
 					<h1 class="mb-8 text-4xl font-bold tracking-tight text-gray-900 lg:text-5xl">
 						{report.title || 'Untitled Report'}
 					</h1>
-					{#if report.description}
+					{#if report.meta?.description}
 						<p class="mb-8 text-lg text-gray-600">
-							{report.description}
+							{report.meta.description}
 						</p>
 					{/if}
 					{#if report.publishedAt}

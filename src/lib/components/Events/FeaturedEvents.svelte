@@ -32,7 +32,7 @@
 							<div class="space-y-2 p-5">
 								<h3 class="text-lg font-semibold text-blue-normal">{event.fields.title}</h3>
 								<p class="text-sm text-gray-600">
-									{new Date(event.fields.date).toLocaleDateString('en-US', {
+									{new Date(event.fields.date).toLocaleDateString('en-GB', {
 										month: 'long',
 										day: 'numeric',
 										year: 'numeric'

@@ -206,6 +206,9 @@ export interface Initiative extends ContentfulEntry {
 		quote5Text: string;
 		quote5Person: string;
 		quote5PersonOrganization: string;
+		quote6Text: string;
+		quote6Person: string;
+		quote6PersonOrganization: string;
 		quotesPictures: ImageCdn[];
 		color1: string;
 		color2: string;

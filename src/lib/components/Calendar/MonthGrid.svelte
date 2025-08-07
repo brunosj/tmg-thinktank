@@ -163,7 +163,7 @@
 								new Date(currentMonth).getDate() - new Date(currentMonth).getDay() + 1 + index
 							)
 						)
-							.toLocaleDateString('en-US', { weekday: 'short' })
+							.toLocaleDateString('en-GB', { weekday: 'short' })
 							.toUpperCase()}
 					</div>
 				{/each}

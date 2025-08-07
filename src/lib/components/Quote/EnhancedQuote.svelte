@@ -64,7 +64,7 @@
 					<!-- Quote text -->
 					<div>
 						<p class="mb-6 text-base italic leading-relaxed md:text-xl" style="color: {color}">
-							"{quoteText}"
+							{quoteText}
 						</p>
 
 						<div class="flex items-center">
@@ -73,7 +73,7 @@
 								<p class="text-xl font-medium" style="color: {color}">
 									{quotePerson}
 								</p>
-								<p class="text-sm text-gray-600">{quotePersonOrganization}</p>
+								<p class="text-base text-gray-600">{quotePersonOrganization}</p>
 							</div>
 						</div>
 					</div>

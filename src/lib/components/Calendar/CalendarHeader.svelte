@@ -42,7 +42,7 @@
 			const monthDate = new Date(startYear, startMonth + i, 1);
 			options.push({
 				value: `${monthDate.getFullYear()}-${('0' + (monthDate.getMonth() + 1)).slice(-2)}-01`,
-				label: `${monthDate.toLocaleString('en-US', { month: 'long' })} ${monthDate.getFullYear()}`
+				label: `${monthDate.toLocaleString('en-GB', { month: 'long' })} ${monthDate.getFullYear()}`
 			});
 		}
 
