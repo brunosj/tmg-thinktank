@@ -1,4 +1,6 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+export const prerender = true;
+
+import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
 import {
 	transformPublicationToNews,
 	transformVideoToNews,
@@ -9,33 +11,36 @@ export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const entries = await fetchContentfulData('staff');
-		const item = entries.find((p) => p.fields.slug === slug);
+		const item = await getEntryBySlug(slug, 'staff');
 
-		const publications = await fetchContentfulData('publications');
+		if (!item) {
+			throw new Error('Entry not found');
+		}
+
+		// Fetch related data in parallel for better performance
+		const [publications, videos, blogPosts, news] = await Promise.all([
+			fetchContentfulData('publications'),
+			fetchContentfulData('video'),
+			fetchContentfulData('blogPost'),
+			fetchContentfulData('news')
+		]);
+
 		const publicationNewsItems = publications.filter((p) => p.fields.automatedNewsEntry);
 		const transformedPublicationNewsItems = publicationNewsItems.map(transformPublicationToNews);
 
-		const videos = await fetchContentfulData('video');
 		const videoNewsItems = videos.filter((p) => p.fields.automatedNewsEntry);
 		const transformedVideoNewsItems = videoNewsItems?.map(transformVideoToNews);
 
-		const blogPosts = await fetchContentfulData('blogPost');
 		const transformedBlogPosts = blogPosts?.map(transformBlogPostToNews);
 
-		let news = await fetchContentfulData('news');
-		news = [
+		const combinedNews = [
 			...news,
 			...transformedPublicationNewsItems,
 			...transformedVideoNewsItems,
 			...transformedBlogPosts
 		];
 
-		if (item) {
-			return { item, publications, news };
-		} else {
-			throw new Error('Entry not found');
-		}
+		return { item, publications, news: combinedNews };
 	} catch (error) {
 		console.error('Error fetching entry data:', error);
 		throw error;

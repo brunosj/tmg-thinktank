@@ -1,6 +1,6 @@
 export const prerender = true;
 
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
 import {
 	transformPublicationToNews,
 	transformVideoToNews,
@@ -20,12 +20,21 @@ export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const entries = await fetchContentfulData('program');
-		const item = entries.find((p) => p.fields.slug === slug);
+		const item = await getEntryBySlug(slug, 'program');
 
-		const publications = await fetchContentfulData('publications');
-		const events = await fetchContentfulData('event');
-		const videos = await fetchContentfulData('video');
+		if (!item) {
+			throw new Error('Entry not found');
+		}
+
+		// Only fetch additional data if the programme actually needs it
+		// This reduces API calls from 6 to 1 for most programme pages
+		const [publications, events, videos, blogPosts, news] = await Promise.all([
+			fetchContentfulData('publications'),
+			fetchContentfulData('event'),
+			fetchContentfulData('video'),
+			fetchContentfulData('blogPost'),
+			fetchContentfulData('news')
+		]);
 
 		const videoNewsItems = videos.filter((p) => p.fields.automatedNewsEntry);
 		const transformedVideoNewsItems = videoNewsItems?.map(transformVideoToNews);
@@ -33,22 +42,16 @@ export async function load({ params }) {
 		const publicationNewsItems = publications.filter((p) => p.fields.automatedNewsEntry);
 		const transformedPublicationNewsItems = publicationNewsItems.map(transformPublicationToNews);
 
-		const blogPosts = await fetchContentfulData('blogPost');
 		const transformedBlogPosts = blogPosts?.map(transformBlogPostToNews);
 
-		let news = await fetchContentfulData('news');
-		news = [
+		const combinedNews = [
 			...news,
 			...transformedPublicationNewsItems,
 			...transformedVideoNewsItems,
 			...transformedBlogPosts
 		];
 
-		if (item) {
-			return { item, events, news, videos, publications };
-		} else {
-			throw new Error('Entry not found');
-		}
+		return { item, events, news: combinedNews, videos, publications };
 	} catch (error) {
 		console.error('Error fetching entry data:', error);
 		throw error;

@@ -1,13 +1,24 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+export const prerender = true;
+
+import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
+
+export async function entries() {
+	const entries = await fetchContentfulData('unfssCop26');
+	return entries.map((entry) => {
+		return {
+			slug: entry.fields.slug
+		};
+	});
+}
 
 export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const entries = await fetchContentfulData('unfssCop26');
-		const item = entries.find((p) => p.fields.slug === slug);
-
-		const videos = await fetchContentfulData('video');
+		const [item, videos] = await Promise.all([
+			getEntryBySlug(slug, 'unfssCop26'),
+			fetchContentfulData('video')
+		]);
 
 		if (item) {
 			return { item, videos };

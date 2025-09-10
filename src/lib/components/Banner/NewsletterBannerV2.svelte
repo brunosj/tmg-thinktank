@@ -208,7 +208,5 @@
 		}
 	}
 
-	.animate-float {
-		animation: float 6s ease-in-out infinite;
-	}
+
 </style>

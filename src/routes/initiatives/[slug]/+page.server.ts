@@ -1,14 +1,25 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+export const prerender = true;
+
+import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
 import type { Initiative } from '$lib/types/types';
+
+export async function entries() {
+	const entries = await fetchContentfulData('initiative');
+	return entries.map((entry) => {
+		return {
+			slug: entry.fields.slug
+		};
+	});
+}
+
 export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const entries: Initiative[] = await fetchContentfulData('initiative');
-		const item = entries.find((p) => p.fields.slug === slug);
+		const item: Initiative = await getEntryBySlug(slug, 'initiative');
 
 		if (item) {
-			return { item };
+			return item;
 		} else {
 			throw new Error('Entry not found');
 		}

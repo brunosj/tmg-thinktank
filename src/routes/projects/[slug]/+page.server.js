@@ -1,6 +1,6 @@
-// export const prerender = true;
+export const prerender = true;
 
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
 import {
 	transformPublicationToNews,
 	transformVideoToNews,
@@ -20,35 +20,37 @@ export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const entries = await fetchContentfulData('portfolio');
-		const item = entries.find((p) => p.fields.slug === slug);
+		const item = await getEntryBySlug(slug, 'portfolio');
 
-		const events = await fetchContentfulData('event');
-		const videos = await fetchContentfulData('video');
+		if (!item) {
+			throw new Error('Entry not found');
+		}
+
+		// Fetch related data in parallel for better performance
+		const [events, videos, publications, blogPosts, news] = await Promise.all([
+			fetchContentfulData('event'),
+			fetchContentfulData('video'),
+			fetchContentfulData('publications'),
+			fetchContentfulData('blogPost'),
+			fetchContentfulData('news')
+		]);
+
 		const videoNewsItems = videos.filter((p) => p.fields.automatedNewsEntry);
 		const transformedVideoNewsItems = videoNewsItems?.map(transformVideoToNews);
-
-		const publications = await fetchContentfulData('publications');
-
-		const blogPosts = await fetchContentfulData('blogPost');
-		const transformedBlogPosts = blogPosts?.map(transformBlogPostToNews);
 
 		const publicationNewsItems = publications.filter((p) => p.fields.automatedNewsEntry);
 		const transformedPublicationNewsItems = publicationNewsItems.map(transformPublicationToNews);
 
-		let news = await fetchContentfulData('news');
-		news = [
+		const transformedBlogPosts = blogPosts?.map(transformBlogPostToNews);
+
+		const combinedNews = [
 			...news,
 			...transformedBlogPosts,
 			...transformedVideoNewsItems,
 			...transformedPublicationNewsItems
 		];
 
-		if (item) {
-			return { item, events, news, videos, publications };
-		} else {
-			throw new Error('Entry not found');
-		}
+		return { item, events, news: combinedNews, videos, publications };
 	} catch (error) {
 		console.error('Error fetching entry data:', error);
 		throw error;

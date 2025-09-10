@@ -183,9 +183,29 @@ export function renderRichText(richText: any) {
 
 			const url = node.data.uri;
 			const text = node.content[0].value;
-			const isExternalLink = url.includes('http') || url.includes('https') || url.includes('www');
+
+			// Sanitize and validate the URL
+			const safeUrl = sanitizeUrl(url);
+
+			// If URL couldn't be sanitized, just return the text without a link
+			if (safeUrl === '#' || safeUrl === '' || !safeUrl) {
+				console.warn(`Skipping invalid URL in rich text: ${url}`);
+				return `<span class="text-gray-600 italic">${text}</span>`;
+			}
+
+			// Apply HTTPS if needed
+			const finalUrl = ensureHttps(safeUrl);
+
+			// Double-check the final URL
+			if (finalUrl === '#' || finalUrl === '' || !finalUrl) {
+				console.warn(`Skipping invalid final URL in rich text: ${url} -> ${finalUrl}`);
+				return `<span class="text-gray-600 italic">${text}</span>`;
+			}
+
+			const isExternalLink =
+				finalUrl.includes('http') || finalUrl.includes('https') || finalUrl.includes('www');
 			const targetAttribute = isExternalLink ? 'target="_blank" rel="noopener noreferrer"' : '';
-			return `<a href="${ensureHttps(url)}" ${targetAttribute}>${text}</a>`;
+			return `<a href="${finalUrl}" ${targetAttribute}>${text}</a>`;
 		}
 	};
 
@@ -295,10 +315,78 @@ export function formatDateNews(date: string) {
 }
 
 export function ensureHttps(url: string) {
-	if (!url.startsWith('http://') && !url.startsWith('https://')) {
-		return 'https://' + url;
+	if (!url || typeof url !== 'string') {
+		return '#';
 	}
-	return url;
+
+	// Clean and validate the URL
+	const cleanUrl = sanitizeUrl(url);
+
+	// If sanitization returned '#' or empty string, return it as-is
+	if (cleanUrl === '#' || cleanUrl === '') {
+		return '#';
+	}
+
+	if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
+		// Don't add https:// to '#' or other fallback values
+		if (cleanUrl === '#') {
+			return '#';
+		}
+		return 'https://' + cleanUrl;
+	}
+	return cleanUrl;
+}
+
+export function sanitizeUrl(url: string): string {
+	if (!url || typeof url !== 'string') {
+		return '';
+	}
+
+	try {
+		// Remove excessive whitespace and decode URL components
+		let cleanUrl = url.trim();
+
+		// Handle malformed URLs with colons in wrong places
+		// The problematic URL has "http://ethiopia:" which is invalid
+		if (cleanUrl.includes('://') && cleanUrl.indexOf('://') > 10) {
+			// If :// appears after position 10, it's likely malformed
+			// Extract what looks like a real URL from the mess
+			const urlMatch = cleanUrl.match(/(https?:\/\/[^\s|]+)/);
+			if (urlMatch) {
+				cleanUrl = urlMatch[1];
+			} else {
+				// If no valid URL pattern found, return a safe fallback
+				console.warn('Invalid URL detected and sanitized:', url);
+				return '#';
+			}
+		}
+
+		// Remove pipe characters and everything after them (common in malformed URLs)
+		cleanUrl = cleanUrl.split('|')[0].trim();
+
+		// Basic URL validation using URL constructor
+		if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
+			try {
+				new URL(cleanUrl);
+				return cleanUrl;
+			} catch (e) {
+				console.warn('Invalid URL detected and sanitized:', url);
+				return '#';
+			}
+		}
+
+		// For relative URLs or URLs without protocol
+		if (cleanUrl.startsWith('/') || cleanUrl.includes('.')) {
+			return cleanUrl;
+		}
+
+		// If all else fails, return safe fallback
+		console.warn('URL could not be sanitized, using fallback:', url);
+		return '#';
+	} catch (error) {
+		console.warn('Error sanitizing URL:', url, error);
+		return '#';
+	}
 }
 
 export function formatDateLong(date: string) {

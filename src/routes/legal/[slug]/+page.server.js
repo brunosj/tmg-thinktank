@@ -1,6 +1,6 @@
 export const prerender = true;
 
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
 
 export async function entries() {
 	const entries = await fetchContentfulData('genericPage');
@@ -15,8 +15,7 @@ export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const entries = await fetchContentfulData('genericPage');
-		const item = entries.find((p) => p.fields.slug === slug);
+		const item = await getEntryBySlug(slug, 'genericPage');
 
 		if (item) {
 			return item;

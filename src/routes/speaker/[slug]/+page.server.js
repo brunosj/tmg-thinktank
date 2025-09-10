@@ -1,12 +1,24 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+export const prerender = true;
+
+import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
+
+export async function entries() {
+	const entries = await fetchContentfulData('speakers');
+	return entries.map((entry) => {
+		return {
+			slug: entry.fields.slug
+		};
+	});
+}
 
 export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const entries = await fetchContentfulData('speakers');
-		const item = entries.find((p) => p.fields.slug === slug);
-		const events = await fetchContentfulData('event');
+		const [item, events] = await Promise.all([
+			getEntryBySlug(slug, 'speakers'),
+			fetchContentfulData('event')
+		]);
 
 		if (item) {
 			return { item, events };

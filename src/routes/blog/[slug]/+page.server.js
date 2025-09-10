@@ -1,16 +1,27 @@
-// export const prerender = 'true';
+export const prerender = true;
 
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
+
+export async function entries() {
+	const entries = await fetchContentfulData('blogPost');
+	return entries.map((entry) => {
+		return {
+			slug: entry.fields.slug
+		};
+	});
+}
 
 export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const entries = await fetchContentfulData('blogPost');
-		const item = entries.find((p) => p.fields.slug === slug);
+		const [item, entries] = await Promise.all([
+			getEntryBySlug(slug, 'blogPost'),
+			fetchContentfulData('blogPost')
+		]);
 
 		if (item) {
-			return { entries, item };
+			return { item, entries };
 		} else {
 			throw new Error('Entry not found');
 		}
