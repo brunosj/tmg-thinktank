@@ -47,12 +47,12 @@
 	keywords={item.fields.keywords}
 />
 <div class="layout overflow-hidden pt-16 lg:pt-32">
-	<section class="mt-6 border-b border-blue-normal lg:mt-12">
+	<section class="border-blue-normal mt-6 border-b lg:mt-12">
 		<div class="space-y-6 overflow-hidden">
 			<div class="font-bold text-white">
 				<span class="rounded-md bg-gray-900 px-2 py-1">{item.fields.type}</span>
 			</div>
-			<h2 class="font-bold leading-tight text-blue-normal">
+			<h2 class="text-blue-normal leading-tight font-bold">
 				{item.fields.title}
 			</h2>
 			<h4 class="pb-12">{item.fields.summary}</h4>
@@ -70,7 +70,7 @@
 		<div class="mt-12 lg:max-w-4xl">
 			<img loading="lazy" src={image} alt={item.fields.title} />
 			{#if imageCaption}
-				<div class="pt-2 text-center text-sm font-normal italic text-black">
+				<div class="pt-2 text-center text-sm font-normal text-black italic">
 					{imageCaption}
 				</div>
 			{/if}
@@ -78,7 +78,7 @@
 	{/if}
 
 	<div class="gap-x-24 gap-y-6 pb-6">
-		<div class="richText pb-4 pt-8 lg:max-w-4xl">
+		<div class="richText pt-8 pb-4 lg:max-w-4xl">
 			{@html renderRichText(item.fields.descriptionRich)}
 		</div>
 
@@ -92,18 +92,18 @@
 
 		{#if item.fields.relatedPublications}
 			{#snippet relatedPublicationsContent()}
-				<PublicationListing items={item.fields.relatedPublications} />
+				<PublicationListing items={item.fields.relatedPublications} layout={false} />
 			{/snippet}
 
 			<RelatedContentSection title="Related Publications" children={relatedPublicationsContent} />
 		{/if}
 
 		<div
-			class="grid grid-cols-1 border-b-0 border-t border-gray-300 py-6 lg:grid-cols-3 lg:border-b"
+			class="grid grid-cols-1 border-t border-b-0 border-gray-300 py-6 lg:grid-cols-3 lg:border-b"
 		>
 			<div class="col-span-2 my-auto leading-relaxed">
 				{#if item.fields.author}
-					<p class="pb-1 pt-3">
+					<p class="pt-3 pb-1">
 						Written by <span class="font-semibold">{item.fields.author}</span>
 					</p>
 				{/if}

@@ -131,7 +131,7 @@
 	</section>
 
 	{#if item.fields.text2}
-		<section class="layout pb-6 pt-6 lg:pb-12 lg:pt-0">
+		<section class="layout pt-6 pb-6 lg:pt-0 lg:pb-12">
 			<div class="gap-x-12 lg:grid lg:grid-cols-3">
 				<div class=" col-span-2 col-start-2 pt-8 lg:pt-0">
 					<div class="richText">
@@ -149,7 +149,7 @@
 	{/if}
 
 	{#if item.fields.text3}
-		<section class="layout pb-6 pt-6 lg:pb-12 lg:pt-0">
+		<section class="layout pt-6 pb-6 lg:pt-0 lg:pb-12">
 			<div class="gap-x-12 lg:grid lg:grid-cols-3">
 				<div class=" col-span-2 col-start-1 pt-8 lg:pt-0">
 					<div class="richText">
@@ -186,14 +186,10 @@
 			/>
 			<div class="layout py-6">
 				{#snippet publicationsContent()}
-					<PublicationListing items={item.fields.relatedDocuments} />
+					<PublicationListing items={item.fields.relatedDocuments} layout={false} />
 				{/snippet}
 
-				<RelatedContentSection
-					title="Publications & Articles"
-					hasBorder={false}
-					children={publicationsContent}
-				/>
+				<RelatedContentSection title="" hasBorder={false} children={publicationsContent} />
 			</div>
 		</section>
 	{/if}
@@ -210,7 +206,7 @@
 					<NewsListing items={item.fields.news} />
 				{/snippet}
 
-				<RelatedContentSection title="News & Blog Posts" hasBorder={false} children={newsContent} />
+				<RelatedContentSection title="" hasBorder={false} children={newsContent} />
 			</div>
 		</section>
 	{/if}

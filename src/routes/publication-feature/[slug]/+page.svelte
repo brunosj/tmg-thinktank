@@ -136,7 +136,7 @@
 					/>
 				{/snippet}
 
-				<RelatedContentSection title="Related Events" hasBorder={false} children={eventsContent} />
+				<RelatedContentSection title="" hasBorder={false} children={eventsContent} />
 			</div>
 		</section>
 	{/if}
@@ -148,7 +148,7 @@
 				<PublicationListing items={feature.fields.relatedDocuments} />
 			{/snippet}
 
-			<RelatedContentSection title="Documents" hasBorder={false} children={documentsContent} />
+			<RelatedContentSection title="" hasBorder={false} children={documentsContent} />
 		</section>
 	{/if}
 
