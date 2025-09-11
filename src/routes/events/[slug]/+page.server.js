@@ -18,7 +18,7 @@ export async function load({ params }) {
 		const item = await getEntryBySlug(slug, 'event');
 
 		if (item) {
-			return { data: item };
+			return item;
 		} else {
 			throw new Error('Entry not found');
 		}

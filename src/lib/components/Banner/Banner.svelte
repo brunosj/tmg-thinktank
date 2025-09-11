@@ -11,7 +11,7 @@
 		return `lg:grid-cols-${nbrColumns}`;
 	};
 
-	const nbrColumns = generateNbrColumnsClass(item.fields.publications?.length ?? 1);
+	const nbrColumns = generateNbrColumnsClass(item.fields?.publications?.length ?? 1);
 </script>
 
 <section>
@@ -48,30 +48,32 @@
 					{/if}
 				</div>
 			</div>
-			<div class={`grid grid-cols-2 gap-6 ${nbrColumns}`}>
-				{#each item.fields.publications ?? [] as publication (publication.fields.slug || publication.sys.id)}
-					{#if publication.fields.pdf?.fields?.file?.url}
-						<a href={publication.fields.pdf.fields.file.url} target="_blank" class="">
-							<img
-								loading="lazy"
-								src={publication.fields.thumbnail.fields.file.url}
-								alt={publication.fields.title}
-								class="mx-auto h-full max-h-[50vh] w-auto object-contain duration-300 hover:opacity-80 lg:max-h-[35vh] lg:w-full"
-							/>
-						</a>
-					{:else}
-						<!-- Fallback for publications without PDF -->
-						<div class="">
-							<img
-								loading="lazy"
-								src={publication.fields.thumbnail.fields.file.url}
-								alt={publication.fields.title}
-								class="mx-auto h-full max-h-[50vh] w-auto object-contain duration-300 hover:opacity-80 lg:max-h-[35vh] lg:w-full"
-							/>
-						</div>
-					{/if}
-				{/each}
-			</div>
+			{#if item.fields?.publications && item.fields.publications.length > 0}
+				<div class={`grid grid-cols-2 gap-6 ${nbrColumns}`}>
+					{#each item.fields.publications as publication (publication.fields?.slug || publication.sys?.id || Math.random())}
+						{#if publication.fields?.pdf?.fields?.file?.url}
+							<a href={publication.fields.pdf.fields.file.url} target="_blank" class="">
+								<img
+									loading="lazy"
+									src={publication.fields.thumbnail?.fields?.file?.url || ''}
+									alt={publication.fields?.title || ''}
+									class="mx-auto h-full max-h-[50vh] w-auto object-contain duration-300 hover:opacity-80 lg:max-h-[35vh] lg:w-full"
+								/>
+							</a>
+						{:else}
+							<!-- Fallback for publications without PDF -->
+							<div class="">
+								<img
+									loading="lazy"
+									src={publication.fields?.thumbnail?.fields?.file?.url || ''}
+									alt={publication.fields?.title || ''}
+									class="mx-auto h-full max-h-[50vh] w-auto object-contain duration-300 hover:opacity-80 lg:max-h-[35vh] lg:w-full"
+								/>
+							</div>
+						{/if}
+					{/each}
+				</div>
+			{/if}
 		</div>
 	</div>
 </section>
