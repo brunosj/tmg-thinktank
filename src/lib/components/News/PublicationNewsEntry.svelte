@@ -28,7 +28,7 @@
 	);
 
 	let link = $derived(
-		item.fields.publication?.fields.pdf.fields.file.url || item.fields.externalPublicationUrl
+		item.fields.publication?.fields.pdf?.fields?.file?.url || item.fields.externalPublicationUrl
 	);
 </script>
 
@@ -42,13 +42,13 @@
 	<div class="overflow-hidden">
 		<section class="bg-blue-light">
 			<div
-				class="layout grid grid-cols-1 overflow-hidden pb-6 pt-24 lg:grid-cols-3 lg:pb-12 lg:pt-32"
+				class="layout grid grid-cols-1 overflow-hidden pt-24 pb-6 lg:grid-cols-3 lg:pt-32 lg:pb-12"
 			>
 				<div class="col-span-2 m-auto w-full space-y-6">
 					<div class="font-bold text-white">
 						<span class="rounded-md bg-gray-900 px-2 py-1">{item.fields.type}</span>
 					</div>
-					<h2 class="font-bold leading-tight text-blue-normal">
+					<h2 class="text-blue-normal leading-tight font-bold">
 						{item.fields.title}
 					</h2>
 					<h4>{item.fields.summary}</h4>
@@ -63,7 +63,7 @@
 				</div>
 
 				{#if image}
-					<div class="my-auto w-full py-12 pl-12 pr-12 lg:py-0 lg:pl-32 lg:pr-0">
+					<div class="my-auto w-full py-12 pr-12 pl-12 lg:py-0 lg:pr-0 lg:pl-32">
 						<a href={link} target="_blank">
 							<img loading="lazy" src={image} alt={item.fields.title} />
 						</a>
@@ -94,7 +94,7 @@
 		</div>
 
 		<div class="layout">
-			<div class="border-b border-t border-gray-300 py-6 leading-relaxed">
+			<div class="border-t border-b border-gray-300 py-6 leading-relaxed">
 				{#if item.fields.source && item.fields.sourceUrl}
 					<h1 class="text-base font-light">
 						Originally published at <a

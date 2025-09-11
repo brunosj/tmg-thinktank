@@ -4,7 +4,7 @@
 	import SEO from '$components/SEO/SEO.svelte';
 	let { data } = $props();
 
-	let item = $derived(data);
+	let item = $derived(data.item);
 </script>
 
 <SEO title={item.fields.title} />

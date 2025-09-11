@@ -15,27 +15,36 @@
 	description={data.fields.summary}
 	image={data.fields.thumbnail.fields.file.url}
 />
-<div class="layout pb-12 pt-24 lg:pb-16 lg:pt-40">
+<div class="layout pt-24 pb-12 lg:pt-40 lg:pb-16">
 	<div class="gril-cols-1 layout grid pb-10 lg:grid-cols-4">
 		{#if data.fields.thumbnail?.fields}
 			<div
 				class="w-1/3 rounded-full px-2 pb-5 transition duration-150 ease-in-out group-hover:opacity-75 lg:w-full lg:pb-2"
 			>
-				<a href={data.fields.pdf.fields.file.url}>
+				{#if data.fields.pdf?.fields?.file?.url}
+					<a href={data.fields.pdf.fields.file.url}>
+						<img
+							loading="lazy"
+							class=""
+							src={data.fields.thumbnail.fields.file.url}
+							alt={data.fields.title}
+						/>
+					</a>
+				{:else}
 					<img
 						loading="lazy"
 						class=""
 						src={data.fields.thumbnail.fields.file.url}
 						alt={data.fields.title}
 					/>
-				</a>
+				{/if}
 			</div>
 		{/if}
 
 		<div class="justify-between px-2 leading-normal lg:col-span-3 lg:px-8">
 			<div class="space-y-6">
 				<div class="space-y-2">
-					<p class="font-semibold text-blue-normal">
+					<p class="text-blue-normal font-semibold">
 						{data.fields.category}
 					</p>
 					<h2 class=" text-black">
@@ -59,7 +68,9 @@
 				</div>
 				<div class="flex gap-2">
 					<div>
-						<Button to={data.fields.pdf.fields.file.url} colors="green">Download</Button>
+						{#if data.fields.pdf?.fields?.file?.url}
+							<Button to={data.fields.pdf.fields.file.url} colors="green">Download</Button>
+						{/if}
 					</div>
 					{#if data.fields.additionalButtonFile?.fields}
 						<div>

@@ -20,7 +20,7 @@ const config = {
 		},
 		prerender: {
 			handleHttpError: 'warn',
-			handleEntryGeneratorMismatch: 'ignore',
+			handleEntryGeneratorMismatch: 'warn',
 			handleMissingId: 'ignore',
 			entries: ['/newsletter', '/programmes', '/search.json']
 		},

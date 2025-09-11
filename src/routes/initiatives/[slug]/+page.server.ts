@@ -19,7 +19,7 @@ export async function load({ params }) {
 		const item: Initiative = await getEntryBySlug(slug, 'initiative');
 
 		if (item) {
-			return item;
+			return { item };
 		} else {
 			throw new Error('Entry not found');
 		}

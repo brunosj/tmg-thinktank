@@ -18,7 +18,7 @@ export async function load({ params }) {
 		const item = await getEntryBySlug(slug, 'genericPage');
 
 		if (item) {
-			return item;
+			return { item };
 		} else {
 			throw new Error('Entry not found');
 		}

@@ -24,7 +24,7 @@
 			: item.fields.thumbnail.fields.file.url
 	);
 
-	let link = $derived(item.fields.pdf.fields.file.url);
+	let link = $derived(item.fields.pdf?.fields?.file?.url || '#');
 </script>
 
 <!-- <SEO title={item.fields.title} description={item.fields.summary} {image} /> -->
@@ -39,7 +39,7 @@
 			</div>
 			<div class=" grid grid-cols-1 gap-6 overflow-hidden lg:grid-cols-3">
 				<div class="col-span-2 m-auto w-full space-y-6">
-					<h2 class="font-bold leading-tight text-blue-normal">
+					<h2 class="text-blue-normal leading-tight font-bold">
 						{item.fields.title}
 					</h2>
 					{#if item.fields.author}

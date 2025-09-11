@@ -75,7 +75,7 @@ export async function GET() {
 			},
 			type: item.fields.category,
 			date: item.fields.publicationDate,
-			link: item.fields.pdf ? item.fields.pdf.fields.file.url : null
+			link: item.fields.pdf?.fields?.file?.url || null
 		}));
 
 		const publicationFeatures = publicationFeaturesData.map((item) => ({
