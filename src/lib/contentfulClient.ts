@@ -10,6 +10,8 @@ const client = contentful.createClient({
 	space: SECRET_CONTENTFUL_SPACE_ID
 });
 
+// Note: Cache-busting is now handled at the HTTP response level in route files
+
 export async function fetchContentfulData<T>(contentType: string): Promise<T[]> {
 	try {
 		console.log(`Fetching ${contentType} from Contentful`);

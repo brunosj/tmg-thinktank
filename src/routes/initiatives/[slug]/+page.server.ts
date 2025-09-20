@@ -1,11 +1,4 @@
-// export const prerender = true;
-
-// ISR configuration - revalidate every 5 minutes
-export const config = {
-	isr: {
-		expiration: 300 // 5 minutes in seconds
-	}
-};
+// Fully dynamic - no prerendering for immediate content updates
 
 import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
 import type { Initiative } from '$lib/types/types';
@@ -26,9 +19,11 @@ export async function load({ params, setHeaders }) {
 		const item: Initiative | null = await getEntryBySlug(slug, 'initiative');
 
 		if (item) {
-			// Cache at edge for 5 minutes, stale-while-revalidate for 1 hour
+			// Disable caching for immediate content updates
 			setHeaders({
-				'Cache-Control': 'public, max-age=300, s-maxage=300, stale-while-revalidate=3600'
+				'Cache-Control': 'no-cache, no-store, must-revalidate',
+				Pragma: 'no-cache',
+				Expires: '0'
 			});
 
 			return { item };
