@@ -12,7 +12,7 @@ import type {
 	BlogPost
 } from '$lib/types/types';
 
-export const prerender = true;
+// export const prerender = true;
 
 export async function GET() {
 	try {

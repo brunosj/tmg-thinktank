@@ -1,4 +1,4 @@
-export const prerender = false;
+// export const prerender = false;
 
 import { fail } from '@sveltejs/kit';
 import { SECRET_BREVO_API_KEY } from '$env/static/private';
