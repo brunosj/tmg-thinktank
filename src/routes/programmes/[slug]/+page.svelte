@@ -161,7 +161,7 @@
 		title={programme.fields.title}
 	/>
 
-	<div class="lg-pb-24 pb-12 pt-12 lg:pt-24">
+	<div class="lg-pb-24 pt-12 pb-12 lg:pt-24">
 		<ProgrammeDescription
 			quoteText={programme.fields.quote}
 			quoteAuthor={programme.fields.quoteAuthor}
@@ -183,7 +183,9 @@
 		{/if} -->
 
 		{#if initiatives.length > 0}
-			<ProgrammeFeatured item={initiatives[0]} type="initiative" />
+			{#each initiatives as initiative}
+				<ProgrammeFeatured item={initiative} type="initiative" />
+			{/each}
 		{/if}
 		{#if programme.fields.flagshipOutput}
 			<ProgrammeFeatured

@@ -10,20 +10,7 @@ const client = contentful.createClient({
 	space: SECRET_CONTENTFUL_SPACE_ID
 });
 
-// In-memory cache with TTL
-const cache = new Map();
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
-
 export async function fetchContentfulData<T>(contentType: string): Promise<T[]> {
-	const cacheKey = contentType;
-	const cached = cache.get(cacheKey);
-
-	// Return cached data if still valid
-	if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
-		console.log(`Cache hit for ${contentType}`);
-		return cached.data;
-	}
-
 	try {
 		console.log(`Fetching ${contentType} from Contentful`);
 		const response = await client.getEntries({
@@ -32,13 +19,10 @@ export async function fetchContentfulData<T>(contentType: string): Promise<T[]> 
 			include: 2 // Reduced from 10 to minimize API usage
 		});
 
-		const data = response.items as T[];
-		cache.set(cacheKey, { data, timestamp: Date.now() });
-		return data;
+		return response.items as T[];
 	} catch (error) {
 		console.error('Error fetching content from Contentful:', error);
-		// Return cached data if available, even if expired
-		return cached?.data || [];
+		return [];
 	}
 }
 
@@ -60,15 +44,6 @@ export async function getEntryBySlug<T extends ContentfulEntry>(
 	slug: string,
 	contentType: string
 ): Promise<T | null> {
-	const cacheKey = `${contentType}-${slug}`;
-	const cached = cache.get(cacheKey);
-
-	// Return cached data if still valid
-	if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
-		console.log(`Cache hit for ${cacheKey}`);
-		return cached.data;
-	}
-
 	try {
 		console.log(`Fetching ${contentType} entry with slug: ${slug}`);
 		const response = await client.getEntries({
@@ -78,8 +53,7 @@ export async function getEntryBySlug<T extends ContentfulEntry>(
 			include: 2
 		});
 
-		const entry = (response.items[0] as T) || null;
-		cache.set(cacheKey, { data: entry, timestamp: Date.now() });
+		const entry = (response.items[0] as unknown as T) || null;
 
 		if (!entry) {
 			throw new Error('Entry not found');
@@ -88,25 +62,11 @@ export async function getEntryBySlug<T extends ContentfulEntry>(
 		return entry;
 	} catch (error) {
 		console.error('Error fetching entry data:', error);
-		// Return cached data if available, even if expired
-		const cachedEntry = cached?.data;
-		if (cachedEntry) {
-			return cachedEntry;
-		}
 		throw error;
 	}
 }
 
 export async function getEntryByDOINumber(doiNumber: string): Promise<Publication | null> {
-	const cacheKey = `publications-doi-${doiNumber}`;
-	const cached = cache.get(cacheKey);
-
-	// Return cached data if still valid
-	if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
-		console.log(`Cache hit for ${cacheKey}`);
-		return cached.data;
-	}
-
 	try {
 		console.log(`Fetching publication with DOI: ${doiNumber}`);
 		// First try to parse as number for the DOI field
@@ -129,8 +89,6 @@ export async function getEntryByDOINumber(doiNumber: string): Promise<Publicatio
 				(item) => item.fields.doiNumber && item.fields.doiNumber.toString() === doiNumber
 			);
 
-			cache.set(cacheKey, { data: entry || null, timestamp: Date.now() });
-
 			if (!entry) {
 				throw new Error('Entry not found');
 			}
@@ -138,8 +96,7 @@ export async function getEntryByDOINumber(doiNumber: string): Promise<Publicatio
 			return entry;
 		}
 
-		const entry = (response.items[0] as Publication) || null;
-		cache.set(cacheKey, { data: entry, timestamp: Date.now() });
+		const entry = (response.items[0] as unknown as Publication) || null;
 
 		if (!entry) {
 			throw new Error('Entry not found');
@@ -148,11 +105,6 @@ export async function getEntryByDOINumber(doiNumber: string): Promise<Publicatio
 		return entry;
 	} catch (error) {
 		console.error('Error fetching entry data:', error);
-		// Return cached data if available, even if expired
-		const cachedEntry = cached?.data;
-		if (cachedEntry) {
-			return cachedEntry;
-		}
 		throw error;
 	}
 }
