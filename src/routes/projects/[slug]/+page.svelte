@@ -34,7 +34,7 @@
 	// Filter and sort publications
 	let filteredPublications = $derived(
 		data.publications
-			.filter((publication) => publication.fields.project?.fields.name === project.fields?.name)
+			.filter((publication) => publication.fields?.project?.fields?.name === project.fields?.name)
 			.sort((a, b) => {
 				const dateA = new Date(a.fields.publicationDate).getTime();
 				const dateB = new Date(b.fields.publicationDate).getTime();
@@ -63,7 +63,7 @@
 	let filteredVideos = $derived(
 		data.videos
 			.filter((video) =>
-				video.fields.projects?.some((item: any) => item.fields?.name === project.fields?.name)
+				video.fields?.projects?.some((item: any) => item.fields?.name === project.fields?.name)
 			)
 			.sort((a, b) => {
 				const dateA = new Date(a.fields.date).getTime();
@@ -99,20 +99,22 @@
 <SEO title={project.fields.name} description={project.fields.summary} image={projectImage} />
 
 <!-- Hero section with dynamic background -->
-<div class="relative overflow-hidden bg-blue-normal pb-24">
+<div class="bg-blue-normal relative overflow-hidden pb-24">
 	<!-- Breadcrumbs at the top of hero -->
 	<div class="layout relative z-10 pt-24 lg:pt-32">
 		<div class="mx-auto max-w-full">
 			<div class="text-sm text-white/80">
 				<a href="/" class="transition duration-200 hover:text-white hover:underline">Home</a>
 				<span> {' > '} </span>
-				<a
-					href={`/programmes/${slugify(project.fields.programme.fields.title)}`}
-					class="transition duration-200 hover:text-white hover:underline"
-				>
-					{project.fields.programme.fields.title}
-				</a>
-				<span> {' > '} </span>
+				{#if project.fields.programme?.fields?.title}
+					<a
+						href={`/programmes/${slugify(project.fields.programme.fields.title)}`}
+						class="transition duration-200 hover:text-white hover:underline"
+					>
+						{project.fields.programme.fields.title}
+					</a>
+					<span> {' > '} </span>
+				{/if}
 				<span class="text-white">{project.fields.name}</span>
 			</div>
 		</div>
@@ -123,7 +125,7 @@
 		<div class="mx-auto max-w-full">
 			<div>
 				<h1
-					class="mb-4 max-w-4xl font-heading text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl"
+					class="font-heading mb-4 max-w-4xl text-4xl leading-tight font-bold tracking-tight text-white md:text-5xl lg:text-6xl"
 				>
 					{project.fields.name}
 				</h1>
@@ -131,7 +133,7 @@
 				<!-- Separator -->
 				<div class="my-4 h-1 w-20 rounded-sm bg-white/60"></div>
 
-				<div class="max-w-4xl text-base font-light leading-relaxed text-white md:text-xl">
+				<div class="max-w-4xl text-base leading-relaxed font-light text-white md:text-xl">
 					{project.fields.summary}
 				</div>
 			</div>
@@ -174,8 +176,8 @@
 
 			<!-- Right column: Project details - 1/3 width -->
 			<div class="lg:col-span-1">
-				<div class="sticky top-20 rounded-xl bg-blue-light/40 p-5 shadow-xs lg:p-8">
-					<h2 class="mb-6 text-xl font-bold text-blue-normal">Details</h2>
+				<div class="bg-blue-light/40 sticky top-20 rounded-xl p-5 shadow-xs lg:p-8">
+					<h2 class="text-blue-normal mb-6 text-xl font-bold">Details</h2>
 					<div class="text-sm">
 						<ProjectDetails item={project} />
 					</div>
@@ -186,7 +188,7 @@
 		<!-- Funders section -->
 		{#if project.fields.fundersList && project.fields.fundersList.length > 0}
 			<div class="mt-6">
-				<h3 class="mb-4 text-left text-xl font-bold text-blue-normal lg:text-2xl">Supported by</h3>
+				<h3 class="text-blue-normal mb-4 text-left text-xl font-bold lg:text-2xl">Supported by</h3>
 				<div class="flex flex-wrap items-center justify-start gap-4">
 					{#each project.fields.fundersList as funder}
 						{#if project.fields.fundersList.length > 4}
@@ -204,7 +206,7 @@
 <!-- Team Section -->
 {#if project.fields.team && project.fields.team.length > 0}
 	<!-- Full-width divider/banner for team -->
-	<div class="mt-12 w-full bg-blue-normal py-12">
+	<div class="bg-blue-normal mt-12 w-full py-12">
 		<div class="layout">
 			<h2 class="text-center text-2xl font-bold text-white lg:text-3xl">Team</h2>
 		</div>
@@ -226,7 +228,7 @@
 <!-- Publications Section -->
 {#if filteredPublications.length > 0}
 	<!-- Full-width divider/banner for publications -->
-	<div class="mt-12 w-full bg-blue-normal py-12">
+	<div class="bg-blue-normal mt-12 w-full py-12">
 		<div class="layout">
 			<h2 class="text-center text-2xl font-bold text-white lg:text-3xl">Publications</h2>
 		</div>
@@ -252,7 +254,7 @@
 <!-- News Section -->
 {#if filteredNews.length > 0}
 	<!-- Full-width divider/banner for news -->
-	<div class="mt-12 w-full bg-blue-normal py-12">
+	<div class="bg-blue-normal mt-12 w-full py-12">
 		<div class="layout">
 			<h2 class="text-center text-2xl font-bold text-white lg:text-3xl">News & Blog Posts</h2>
 		</div>
@@ -273,7 +275,7 @@
 <!-- Videos Section -->
 {#if filteredVideos.length > 0}
 	<!-- Full-width divider/banner for videos -->
-	<div class="mt-12 w-full bg-blue-normal py-12">
+	<div class="bg-blue-normal mt-12 w-full py-12">
 		<div class="layout">
 			<h2 class="text-center text-2xl font-bold text-white lg:text-3xl">Videos</h2>
 		</div>

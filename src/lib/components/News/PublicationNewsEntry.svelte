@@ -24,7 +24,8 @@
 	});
 
 	let image = $derived(
-		item.fields.publication?.fields.thumbnail.fields.file.url || item.fields.image.fields.file.url
+		item.fields.publication?.fields?.thumbnail?.fields?.file?.url ||
+			item.fields.image?.fields?.file?.url
 	);
 
 	let link = $derived(
@@ -104,11 +105,13 @@
 						>
 					</h1>
 				{/if}
-				<div class="pt-2 text-sm font-bold">
-					More: <Tag to={`/programmes/${slugify(item.fields.programme.fields.title)}#news`}
-						>{item.fields.programme.fields.title}</Tag
-					>
-				</div>
+				{#if item.fields.programme?.fields?.title}
+					<div class="pt-2 text-sm font-bold">
+						More: <Tag to={`/programmes/${slugify(item.fields.programme.fields.title)}#news`}
+							>{item.fields.programme.fields.title}</Tag
+						>
+					</div>
+				{/if}
 			</div>
 			<div class="py-12">
 				<Button colors="green" to="/publications">View All Publications</Button>

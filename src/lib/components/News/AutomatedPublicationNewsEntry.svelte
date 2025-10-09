@@ -21,7 +21,7 @@
 	run(() => {
 		item = item;
 	});
-	let image = $derived(item.fields.thumbnail.fields.file.url);
+	let image = $derived(item.fields.thumbnail?.fields?.file?.url);
 	let link = $derived(item.fields.pdf?.fields?.file?.url || '#');
 </script>
 
@@ -85,11 +85,13 @@
 						>
 					</h1>
 				{/if} -->
-				<div class="pt-2 text-sm font-bold">
-					More: <Tag to={`/programmes/${slugify(item.fields.programme.fields.title)}#news`}
-						>{item.fields.programme.fields.title}</Tag
-					>
-				</div>
+				{#if item.fields.programme?.fields?.title}
+					<div class="pt-2 text-sm font-bold">
+						More: <Tag to={`/programmes/${slugify(item.fields.programme.fields.title)}#news`}
+							>{item.fields.programme.fields.title}</Tag
+						>
+					</div>
+				{/if}
 			</div>
 			<div class="py-12">
 				<a href="/publications">

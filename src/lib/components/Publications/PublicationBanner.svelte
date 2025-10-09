@@ -41,7 +41,7 @@
 					<a href={publication.fields.pdf.fields.file.url} target="_blank">
 						<img
 							loading="lazy"
-							src={publication.fields.thumbnail.fields.file.url}
+							src={publication.fields.thumbnail?.fields?.file?.url}
 							alt={publication.fields.title}
 							class="h-80 w-full object-cover"
 						/>
@@ -49,7 +49,7 @@
 				{:else}
 					<img
 						loading="lazy"
-						src={publication.fields.thumbnail.fields.file.url}
+						src={publication.fields.thumbnail?.fields?.file?.url}
 						alt={publication.fields.title}
 						class="h-80 w-full object-cover"
 					/>

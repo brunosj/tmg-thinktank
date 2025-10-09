@@ -17,7 +17,7 @@
 		<div class="layout grid grid-cols-1 items-center gap-x-12 py-16 lg:grid-cols-2">
 			<div class={textAlignment}>
 				<div
-					class="pb-10 pt-5 text-2xl font-extrabold leading-tight text-white lg:pb-0 lg:pt-0 lg:text-7xl"
+					class="pt-5 pb-10 text-2xl leading-tight font-extrabold text-white lg:pt-0 lg:pb-0 lg:text-7xl"
 				>
 					{text}
 				</div>
@@ -28,7 +28,7 @@
 						<VideoWrapper
 							videoSrcURL={video.fields.url}
 							videoTitle={video.fields.title}
-							videoImage={video.fields.image.fields.file.url}
+							videoImage={video.fields.image?.fields?.file?.url}
 						/>
 					</div>
 				</div>

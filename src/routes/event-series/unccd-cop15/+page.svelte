@@ -36,7 +36,7 @@
 	run(() => {
 		videos = videos
 			.filter((video) => {
-				return video.fields.eventSeries?.some((series) => series.fields.slug === item.fields.slug);
+				return video.fields.eventSeries?.some((series) => series.fields?.slug === item.fields.slug);
 			})
 			.sort((a, b) => {
 				const dateA = new Date(a.fields.date);
@@ -48,24 +48,19 @@
 	run(() => {
 		events = item.fields.events;
 		events?.forEach((event) => {
-			event.fields.speakers?.forEach((speaker) => {
+			event.fields?.speakers?.forEach((speaker) => {
 				if (
-					!speakers.some((existingSpeaker) => existingSpeaker.fields.slug === speaker.fields.slug)
+					speaker.fields?.slug &&
+					!speakers.some((existingSpeaker) => existingSpeaker.fields?.slug === speaker.fields?.slug)
 				) {
 					speakers.push(speaker);
 				}
 			});
 		});
 		speakers = speakers?.sort((a, b) => {
-			const nameA = a.fields.name;
-			const nameB = b.fields.name;
-			if (nameA < nameB) {
-				return -1;
-			}
-			if (nameA > nameB) {
-				return 1;
-			}
-			return 0;
+			const nameA = a.fields?.name || '';
+			const nameB = b.fields?.name || '';
+			return nameA.localeCompare(nameB);
 		});
 	});
 
@@ -85,7 +80,7 @@
 		subtitle={item.fields.summary}
 	/>
 
-	<section class="layout pb-6 pt-6 lg:pb-24 lg:pt-12">
+	<section class="layout pt-6 pb-6 lg:pt-12 lg:pb-24">
 		<div class="grid grid-cols-1 gap-x-12 lg:grid-cols-3">
 			<div class="richText col-span-2">
 				{@html renderRichText(item.fields.description)}
@@ -112,7 +107,7 @@
 		color="#6f62b1"
 	/>
 
-	<section class="layout pb-6 pt-6 lg:pb-12 lg:pt-0">
+	<section class="layout pt-6 pb-6 lg:pt-0 lg:pb-12">
 		<div class="gap-x-12 lg:grid lg:grid-cols-3">
 			<div class=" col-span-2 col-start-2 pt-8 lg:pt-0">
 				<div class="richText">

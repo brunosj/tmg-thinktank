@@ -13,7 +13,7 @@
 <SEO
 	title={data.fields.title}
 	description={data.fields.summary}
-	image={data.fields.thumbnail.fields.file.url}
+	image={data.fields.thumbnail?.fields?.file?.url}
 />
 <div class="layout pt-24 pb-12 lg:pt-40 lg:pb-16">
 	<div class="gril-cols-1 layout grid pb-10 lg:grid-cols-4">
@@ -26,7 +26,7 @@
 						<img
 							loading="lazy"
 							class=""
-							src={data.fields.thumbnail.fields.file.url}
+							src={data.fields.thumbnail?.fields?.file?.url}
 							alt={data.fields.title}
 						/>
 					</a>
@@ -34,7 +34,7 @@
 					<img
 						loading="lazy"
 						class=""
-						src={data.fields.thumbnail.fields.file.url}
+						src={data.fields.thumbnail?.fields?.file?.url}
 						alt={data.fields.title}
 					/>
 				{/if}

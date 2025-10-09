@@ -37,13 +37,13 @@
 	let image = $derived(
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image.fields.file.url
+			: item.fields.image?.fields?.file?.url
 	);
 
 	let imageCaption = $derived(
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].context?.custom.caption
-			: item.fields.image.fields.description
+			: item.fields.image?.fields?.description
 	);
 </script>
 
@@ -56,7 +56,7 @@
 
 <article class="bg-green-light">
 	<section>
-		<div class="relative z-0 bg-blue-light py-24 lg:pb-32 lg:pt-40">
+		<div class="bg-blue-light relative z-0 py-24 lg:pt-40 lg:pb-32">
 			<div class="layout w-full space-y-6 last:pb-12 lg:w-2/3">
 				<div class="font-bold text-white">
 					<span class="rounded-md bg-gray-900 px-2 py-1">Blog Post</span>
@@ -75,7 +75,7 @@
 			</div>
 		</div>
 
-		<div class="layout relative -bottom-24 -top-24 z-20 h-full w-2/3">
+		<div class="layout relative -top-24 -bottom-24 z-20 h-full w-2/3">
 			<div
 				class="mt-auto h-[30vh] opacity-100 transition duration-300 ease-in-out group-hover:opacity-90 lg:h-[50vh]"
 			>
@@ -138,7 +138,7 @@
 
 		<RelatedContentSection title="Recent Blogs" extraClasses="pb-12" children={blogContent} />
 
-		<div class="items-center border-b-0 border-t border-gray-300 md:flex md:py-12 lg:border-b">
+		<div class="items-center border-t border-b-0 border-gray-300 md:flex md:py-12 lg:border-b">
 			<div class="leading-relaxed">
 				{#if item.fields.author}
 					<p class="pt-6 md:pt-0">
@@ -160,12 +160,14 @@
 						</a>
 					</div>
 				{/if}
-				<div class="pt-2 font-bold">
-					More:
-					<Tag to={`/programmes/${slugify(item.fields.programme.fields.title)}#news`}>
-						{item.fields.programme.fields.title}</Tag
-					>
-				</div>
+				{#if item.fields.programme?.fields?.title}
+					<div class="pt-2 font-bold">
+						More:
+						<Tag to={`/programmes/${slugify(item.fields.programme.fields.title)}#news`}>
+							{item.fields.programme.fields.title}</Tag
+						>
+					</div>
+				{/if}
 			</div>
 			<div class="ml-auto py-3 lg:py-0">
 				<Button colors="green" to="/blog">View All Blogs</Button>

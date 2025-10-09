@@ -21,7 +21,7 @@
 	let image = $derived(
 		item.fields.thumbnailCdn?.length > 0
 			? item.fields.thumbnailCdn[0].secure_url
-			: item.fields.thumbnail.fields.file.url
+			: item.fields.thumbnail?.fields?.file?.url
 	);
 
 	let link = $derived(item.fields.pdf?.fields?.file?.url || '#');

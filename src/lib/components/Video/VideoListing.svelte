@@ -19,7 +19,7 @@
 				{@const image =
 					video.fields.imageCdn?.length > 0
 						? video.fields.imageCdn[0].secure_url
-						: video.fields.image.fields.file.url}
+						: video.fields.image?.fields?.file?.url}
 				<li id={video.fields.videoId}>
 					<div class="h-full rounded-md border">
 						<VideoWrapper
@@ -34,14 +34,14 @@
 								<div class="flex w-full items-center justify-between gap-x-4 text-xs">
 									<a
 										href={`/programmes/${video.fields.programmes[0].fields.slug}`}
-										class="ite relative z-10 rounded-md bg-blue-light px-3 py-1.5 font-medium text-gray-600 duration-300"
+										class="ite bg-blue-light relative z-10 rounded-md px-3 py-1.5 font-medium text-gray-600 duration-300"
 									>
 										{video.fields.programmes[0].fields.title}
 									</a>
 									<span class="text-gray-500">{formatDateNews(video.fields.date)}</span>
 								</div>
 								<h1
-									class="font text-base font-bold leading-tight text-black group-hover:text-blue-normal lg:text-xl"
+									class="font group-hover:text-blue-normal text-base leading-tight font-bold text-black lg:text-xl"
 								>
 									{video.fields.title}
 								</h1>
@@ -63,12 +63,12 @@
 					videoWidth="1248"
 					videoHeight="600"
 					videoTitle={videosArray[0].fields.title}
-					videoImage={videosArray[0].fields.image.fields.file.url}
+					videoImage={videosArray[0].fields.image?.fields?.file?.url}
 				/>
 				{#if showTitle}
 					<div class="space-y-3 p-4">
 						<h1
-							class="text-base font-bold leading-tight text-black group-hover:text-blue-normal lg:text-xl"
+							class="group-hover:text-blue-normal text-base leading-tight font-bold text-black lg:text-xl"
 						>
 							{videosArray[0].fields.title}
 						</h1>

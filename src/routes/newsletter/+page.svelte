@@ -54,7 +54,7 @@
 						{@const image =
 							item.fields.thumbnailCdn?.length > 0
 								? item.fields.thumbnailCdn[0].secure_url
-								: item.fields.thumbnail.fields.file.url}
+								: item.fields.thumbnail?.fields?.file?.url}
 						<a href={item.fields.url} target="_blank" rel="noopener noreferrer" class="group">
 							<div
 								class="overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl"

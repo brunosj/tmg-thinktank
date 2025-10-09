@@ -38,23 +38,25 @@
 			href={`/${getSingleItemPrefix(item.fields.type)}/${item.fields.slug}`}
 			class="group h-full rounded-md border pb-5 lg:pb-0"
 		>
-			<div
-				class="h-48 rounded-t-md opacity-100 transition duration-300 ease-in-out group-hover:saturate-[0.25]"
-			>
-				<img
-					loading="lazy"
-					src={item.fields.imageCdn?.length > 0
-						? item.fields.imageCdn[0].secure_url
-						: item.fields.image.fields.file.url}
-					alt={item.fields.title}
-					class=" h-full w-full rounded-t-md object-cover"
-				/>
-			</div>
+			{#if item.fields.image}
+				<div
+					class="h-48 rounded-t-md opacity-100 transition duration-300 ease-in-out group-hover:saturate-[0.25]"
+				>
+					<img
+						loading="lazy"
+						src={item.fields.imageCdn?.length > 0
+							? item.fields.imageCdn[0].secure_url
+							: item.fields.image?.fields?.file?.url}
+						alt={item.fields.title}
+						class=" h-full w-full rounded-t-md object-cover"
+					/>
+				</div>
+			{/if}
 
 			<div class="p-4">
 				<div class="flex items-center justify-between gap-x-4 pt-2 text-white">
 					<span
-						class="rounded-md bg-black px-2 py-1 text-xs font-bold duration-300 ease-in-out group-hover:bg-blue-normal"
+						class="group-hover:bg-blue-normal rounded-md bg-black px-2 py-1 text-xs font-bold duration-300 ease-in-out"
 					>
 						{item.fields.type || 'Blog Post'}
 					</span>
@@ -62,7 +64,7 @@
 				</div>
 
 				<h1
-					class="font pt-3 text-base font-bold leading-tight text-black duration-300 group-hover:text-blue-normal lg:text-2xl"
+					class="font group-hover:text-blue-normal pt-3 text-base leading-tight font-bold text-black duration-300 lg:text-2xl"
 				>
 					{item.fields.title}
 				</h1>

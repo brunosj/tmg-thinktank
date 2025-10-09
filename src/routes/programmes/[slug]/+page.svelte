@@ -61,7 +61,7 @@
 	let filteredEvents = $derived(
 		programme && 'fields' in programme
 			? events
-					.filter((event) => event.fields.programme?.fields.title === programme?.fields?.title)
+					.filter((event) => event.fields?.programme?.fields?.title === programme?.fields?.title)
 					.sort((a, b) => {
 						const dateA = new Date(a.fields.date).getTime();
 						const dateB = new Date(b.fields.date).getTime();
@@ -75,7 +75,8 @@
 		programme && 'fields' in programme
 			? publications
 					.filter(
-						(publication) => publication.fields.programme?.fields.title === programme?.fields?.title
+						(publication) =>
+							publication.fields?.programme?.fields?.title === programme?.fields?.title
 					)
 					.sort((a, b) => {
 						const dateA = new Date(a.fields.publicationDate).getTime();
@@ -89,7 +90,7 @@
 	let filteredNews = $derived(
 		programme && 'fields' in programme
 			? news
-					.filter((news) => news.fields.programme?.fields.title === programme?.fields?.title)
+					.filter((news) => news.fields?.programme?.fields?.title === programme?.fields?.title)
 					.sort((a, b) => {
 						const dateA = new Date(a.fields.dateFormat).getTime();
 						const dateB = new Date(b.fields.dateFormat).getTime();
@@ -104,7 +105,7 @@
 			? videos
 					.filter((video) => {
 						return video.fields.programmes?.some(
-							(prog) => prog.fields.title === programme?.fields?.title
+							(prog) => prog.fields?.title === programme?.fields?.title
 						);
 					})
 					.sort((a, b) => {

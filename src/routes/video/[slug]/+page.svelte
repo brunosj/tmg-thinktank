@@ -24,7 +24,7 @@
 	let image = $derived(
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image.fields.file.url
+			: item.fields.image?.fields?.file?.url
 	);
 </script>
 
@@ -35,9 +35,9 @@
 	keywords={item.fields.keywords}
 />
 <article class="overflow-hidden pt-16 lg:pt-32">
-	<section class="layout space-y-6 border-b border-blue-normal pb-6 lg:pb-12">
-		<h3 class="font-semibold leading-relaxed text-black">{item.fields.type}</h3>
-		<h1 class="font-bold leading-tight text-blue-normal">
+	<section class="layout border-blue-normal space-y-6 border-b pb-6 lg:pb-12">
+		<h3 class="leading-relaxed font-semibold text-black">{item.fields.type}</h3>
+		<h1 class="text-blue-normal leading-tight font-bold">
 			{item.fields.title}
 		</h1>
 		<p class="text-xl">{item.fields.summary}</p>

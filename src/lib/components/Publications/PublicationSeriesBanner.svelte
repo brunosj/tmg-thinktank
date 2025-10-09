@@ -40,7 +40,7 @@
 						<a href={publication.fields.pdf.fields.file.url} target="_blank" class="">
 							<img
 								loading="lazy"
-								src={publication.fields.thumbnail.fields.file.url}
+								src={publication.fields.thumbnail?.fields?.file?.url}
 								alt={publication.fields.title}
 								class="h-full max-h-[35vh] w-full object-contain duration-300 hover:opacity-80"
 							/>
@@ -49,7 +49,7 @@
 						<div class="">
 							<img
 								loading="lazy"
-								src={publication.fields.thumbnail.fields.file.url}
+								src={publication.fields.thumbnail?.fields?.file?.url}
 								alt={publication.fields.title}
 								class="h-full max-h-[35vh] w-full object-contain duration-300 hover:opacity-80"
 							/>

@@ -40,7 +40,7 @@
 	let imageSource = $state(
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image?.fields.file.url
+			: item.fields.image?.fields?.file?.url
 				? item.fields.image.fields.file.url
 				: 'https://res.cloudinary.com/tmgthinktank/image/upload/v1717147613/Placeholder_image_event_uhiror.jpg'
 	);
@@ -55,7 +55,7 @@
 </script>
 
 <div
-	class={`group relative h-full w-full overflow-hidden border-r-[0.1px] border-blue-light bg-blue-normal bg-opacity-100 text-white duration-300 hover:bg-opacity-90 ${
+	class={`group border-blue-light bg-blue-normal bg-opacity-100 hover:bg-opacity-90 relative h-full w-full overflow-hidden border-r-[0.1px] text-white duration-300 ${
 		i === 0 ? 'rounded-l-xl' : ''
 	} ${i === slidesQty - 1 ? 'rounded-r-xl' : ''}`}
 	in:fly={{ y: 200, duration: 300 }}
@@ -78,7 +78,7 @@
 				</span>
 			</div>
 
-			<div class="leading-tight duration-300 ease-in-out group-hover:text-blue-light">
+			<div class="group-hover:text-blue-light leading-tight duration-300 ease-in-out">
 				<h3>
 					{item.fields.title}
 				</h3>

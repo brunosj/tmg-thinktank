@@ -13,7 +13,7 @@
 		{@const image =
 			item.fields.imageCdn?.length > 0
 				? item.fields.imageCdn[0].secure_url
-				: item.fields.image.fields.file.url}
+				: item.fields.image?.fields?.file?.url}
 		<a
 			href={`/event-series/${item.fields.slug}`}
 			class={`group grid-cols-2 gap-6 rounded-md border bg-white duration-300 lg:grid `}
@@ -25,7 +25,7 @@
 				class="duration-300 group-hover:saturate-[0.25]"
 			/>
 			<div class="my-auto space-y-3 p-4">
-				<h2 class="text-lg font-semibold leading-6 duration-300">
+				<h2 class="text-lg leading-6 font-semibold duration-300">
 					{item.fields.title}
 				</h2>
 				<p class="line-clamp-3 text-sm leading-6 text-gray-600">

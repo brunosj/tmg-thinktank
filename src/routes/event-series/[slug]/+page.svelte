@@ -31,7 +31,7 @@
 		data.videos
 			.filter((video) => {
 				return video.fields.eventSeries?.some(
-					(series: EventSeries) => series.fields.slug === item.fields.slug
+					(series: EventSeries) => series.fields?.slug === item.fields.slug
 				);
 			})
 			.sort((a, b) => {
@@ -45,29 +45,30 @@
 		const events = item.fields.events;
 		const newSpeakers: Speaker[] = [];
 		events?.forEach((event: Event) => {
-			event.fields.speakers?.forEach((speaker: Speaker) => {
+			event.fields?.speakers?.forEach((speaker: Speaker) => {
 				if (
+					speaker.fields?.slug &&
 					!newSpeakers.some(
-						(existingSpeaker: Speaker) => existingSpeaker.fields.slug === speaker.fields.slug
+						(existingSpeaker: Speaker) => existingSpeaker.fields?.slug === speaker.fields?.slug
 					)
 				) {
 					newSpeakers.push(speaker);
 				}
 			});
 		});
-		return newSpeakers.sort((a, b) => a.fields.name.localeCompare(b.fields.name));
+		return newSpeakers.sort((a, b) => a.fields?.name?.localeCompare(b.fields?.name || '') || 0);
 	});
 
 	let image = $derived(
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image.fields.file.url
+			: item.fields.image?.fields?.file?.url
 	);
 
 	let banner = $derived(
 		item.fields.pageBannerCdn?.length > 0
 			? item.fields.pageBannerCdn[0].secure_url
-			: item.fields.pageBanner.fields.file.url
+			: item.fields.pageBanner?.fields?.file?.url
 	);
 </script>
 

@@ -20,7 +20,7 @@
 </script>
 
 {#each topics as topic, i}
-	<section id={topic.fields.slug} class="layout border-b border-t py-6">
+	<section id={topic.fields.slug} class="layout border-t border-b py-6">
 		<h1 class="py-0 text-center text-2xl font-bold lg:py-6 lg:text-left lg:text-3xl">
 			{topic.fields.title}
 		</h1>
@@ -30,13 +30,13 @@
 			>
 				<img
 					loading="lazy"
-					src={topic.fields.image.fields.file.url}
+					src={topic.fields.image?.fields?.file?.url}
 					alt={topic.fields.title}
 					class="h-auto w-full rounded-md"
 				/>
 			</div>
 			<div class="col-span-2 pl-0 md:pl-0">
-				<h2 class="text-center text-lg font-semibold leading-tight lg:text-left lg:text-xl">
+				<h2 class="text-center text-lg leading-tight font-semibold lg:text-left lg:text-xl">
 					{topic.fields.summary}
 				</h2>
 				<div class="richText richText mt-6">
@@ -51,10 +51,10 @@
 					<div class="flex py-3">
 						<button class="w-full lg:w-1/3" onclick={() => handleDescriptionMore(i)}>
 							<div
-								class="focus:shadow-outline group flex items-center justify-around rounded-md border border-blue-normal bg-white align-middle text-sm text-blue-normal transition duration-300 ease-in-out hover:bg-blue-normal hover:text-white focus:outline-hidden md:text-base"
+								class="focus:shadow-outline group border-blue-normal text-blue-normal hover:bg-blue-normal flex items-center justify-around rounded-md border bg-white align-middle text-sm transition duration-300 ease-in-out hover:text-white focus:outline-hidden md:text-base"
 							>
 								<div class="flex">
-									<div class="py-3 pl-3 font-bold leading-snug">Read more</div>
+									<div class="py-3 pl-3 leading-snug font-bold">Read more</div>
 								</div>
 							</div>
 						</button>
@@ -65,7 +65,7 @@
 
 		{#if topic.fields.projects}
 			<div class="mt-6 lg:mt-0 lg:pl-0">
-				<h2 class="pb-6 pt-3 text-lg font-bold lg:text-xl">Projects</h2>
+				<h2 class="pt-3 pb-6 text-lg font-bold lg:text-xl">Projects</h2>
 
 				<div class="grid-cols-2 gap-4 space-y-2 lg:grid lg:space-y-0">
 					{#each topic.fields.projects as project}

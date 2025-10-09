@@ -25,18 +25,18 @@
 	let image = $derived(
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image.fields.file.url
+			: item.fields.image?.fields?.file?.url
 	);
 
 	let imageCaption = $derived(
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].context?.custom.caption
-			: item.fields.image.fields.description
+			: item.fields.image?.fields?.description
 	);
 
 	// Filter out the current news item from related news
 	let filteredRelatedNews = $derived(
-		item.fields.relatedNews?.filter((news) => news.fields.slug !== item.fields.slug) || []
+		item.fields.relatedNews?.filter((news) => news.fields?.slug !== item.fields.slug) || []
 	);
 </script>
 
@@ -116,12 +116,14 @@
 						>
 					</div>
 				{/if}
-				<div class="text-sm font-bold">
-					More:
-					<Tag to={`/programmes/${slugify(item.fields.programme.fields.title)}#news`}
-						>{item.fields.programme.fields.title}</Tag
-					>
-				</div>
+				{#if item.fields.programme?.fields?.title}
+					<div class="text-sm font-bold">
+						More:
+						<Tag to={`/programmes/${slugify(item.fields.programme.fields.title)}#news`}
+							>{item.fields.programme.fields.title}</Tag
+						>
+					</div>
+				{/if}
 			</div>
 			<div class="col-span-1 my-auto ml-auto">
 				<Button colors="green" to="/news">View All News</Button>

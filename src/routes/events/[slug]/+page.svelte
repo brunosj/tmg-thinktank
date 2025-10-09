@@ -61,14 +61,14 @@
 				<img loading="lazy" src={image} alt={item.fields.title} />
 				{#if imageCaption}
 					<div class="flex">
-						<span class="ml-auto pt-2 text-sm font-normal italic text-black">
+						<span class="ml-auto pt-2 text-sm font-normal text-black italic">
 							{imageCaption}
 						</span>
 					</div>
 				{/if}
 			</div>
 		{/if}
-		<div class="layout grid grid-cols-1 gap-0 pb-6 pt-6 lg:grid-cols-3 lg:gap-12">
+		<div class="layout grid grid-cols-1 gap-0 pt-6 pb-6 lg:grid-cols-3 lg:gap-12">
 			<div class="col-span-2 space-y-12">
 				<ShareSocialMedia
 					text={item.fields.title}
@@ -120,7 +120,7 @@
 					<img loading="lazy" src={image} alt={item.fields.title} />
 					{#if imageCaption}
 						<div class="flex">
-							<span class="ml-auto pt-2 text-sm font-normal italic text-black">
+							<span class="ml-auto pt-2 text-sm font-normal text-black italic">
 								{imageCaption}
 							</span>
 						</div>
@@ -129,7 +129,7 @@
 			{/if}
 
 			{#if item.fields.programme?.fields?.title}
-				<div class="border-b border-t border-gray-300 py-6 leading-loose">
+				<div class="border-t border-b border-gray-300 py-6 leading-loose">
 					<div class="text-sm font-bold">
 						More:
 						<Tag to={`/programmes/${slugify(item.fields.programme.fields.title)}#events`}

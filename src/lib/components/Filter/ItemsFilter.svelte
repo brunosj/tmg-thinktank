@@ -38,9 +38,11 @@
 	}
 
 	function getProgrammes(items: News[] | Publication[]) {
-		let programmeItems = items.map((item) => {
-			return item.fields.programme.fields.title;
-		});
+		let programmeItems = items
+			.map((item) => {
+				return item.fields.programme?.fields?.title;
+			})
+			.filter((title) => title !== undefined);
 		let uniqueProgrammes = new Set(programmeItems);
 		let programmes = Array.from(uniqueProgrammes);
 		programmes = ['All Programmes', ...programmes];
@@ -66,7 +68,7 @@
 			filteredItems = [...items];
 		} else {
 			filteredItems = items.filter(
-				(item: News | Publication) => item.fields.programme.fields.title === programme
+				(item: News | Publication) => item.fields.programme?.fields?.title === programme
 			);
 		}
 		onFilteredData(filteredItems);
@@ -80,7 +82,7 @@
 </script>
 
 <div class="bg-white p-5">
-	<h1 class="pb-6 pt-3 text-lg font-bold lg:text-xl">Filter results</h1>
+	<h1 class="pt-3 pb-6 text-lg font-bold lg:text-xl">Filter results</h1>
 
 	<Accordion flush class="w-full">
 		<AccordionItem open tag="div">
@@ -105,7 +107,7 @@
 					<div class="ml-3 min-w-0 text-sm">
 						<label
 							for="{filterField}-{index}"
-							class="cursor-pointer select-none font-medium text-black">{filter}</label
+							class="cursor-pointer font-medium text-black select-none">{filter}</label
 						>
 					</div>
 				</button>
@@ -134,7 +136,7 @@
 						/>
 					</div>
 					<div class="ml-3 min-w-0 text-sm">
-						<label for="programme-{index}" class="cursor-pointer select-none font-medium text-black"
+						<label for="programme-{index}" class="cursor-pointer font-medium text-black select-none"
 							>{programme}</label
 						>
 					</div>

@@ -18,13 +18,13 @@
 					loading="lazy"
 					src={item.fields.thumbnailCdn?.length > 0
 						? item.fields.thumbnailCdn[0].secure_url
-						: item.fields.thumbnail.fields.file.url}
+						: item.fields.thumbnail?.fields?.file?.url}
 					alt={item.fields.name}
 					class="aspect-square h-full w-full object-cover"
 				/>
 			</div>
 			<div
-				class="flex grow items-center justify-center p-5 text-center text-base font-bold text-black transition duration-300 ease-in-out group-hover:bg-blue-normal group-hover:text-green-light"
+				class="group-hover:bg-blue-normal group-hover:text-green-light flex grow items-center justify-center p-5 text-center text-base font-bold text-black transition duration-300 ease-in-out"
 			>
 				{item.fields.name}
 			</div>

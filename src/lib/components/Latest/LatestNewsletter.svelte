@@ -7,7 +7,7 @@
 	let { newsletter }: Props = $props();
 </script>
 
-<section class="pb-6 pt-3 text-base lg:pb-3 lg:pt-12 lg:text-lg">
+<section class="pt-3 pb-6 text-base lg:pt-12 lg:pb-3 lg:text-lg">
 	<div>
 		<p>
 			Never miss any updates from our research programmes and partner networks by subscribing to our
@@ -40,7 +40,7 @@
 				>
 					<img
 						loading="lazy"
-						src={newsletter[0].fields.thumbnail.fields.file.url}
+						src={newsletter[0].fields.thumbnail?.fields?.file?.url}
 						alt={`Newsletter #${newsletter[0].fields.number}`}
 						class="h-64 w-64 scale-100 object-contain hover:scale-105 lg:h-96 lg:w-96"
 					/>
@@ -62,7 +62,7 @@
 					>
 						<img
 							loading="lazy"
-							src={item.fields.thumbnail.fields.file.url}
+							src={item.fields.thumbnail?.fields?.file?.url}
 							alt={`Newsletter #${item.fields.number}`}
 							class="w-48 object-contain"
 						/>
