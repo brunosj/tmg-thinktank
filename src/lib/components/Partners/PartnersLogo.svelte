@@ -16,14 +16,10 @@
 		lgPadding = 'lg:p-5'
 	}: Props = $props();
 
-	let image = $derived(
-		item.fields.logoCdn?.length > 0
-			? item.fields.logoCdn[0].secure_url
-			: item.fields.logo.fields.file.url
-	);
+	let image = $derived(item.fields.logoCdn?.length > 0 ? item.fields.logoCdn[0].secure_url : null);
 </script>
 
-{#if image}
+{#if image !== null}
 	<a href={item.fields.url} target="_blank">
 		<div class="{width} {padding} {lgWidth} {lgPadding}">
 			<img loading="lazy" src={image} alt={item.fields.name} class="h-full w-full" />
