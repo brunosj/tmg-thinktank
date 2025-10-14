@@ -1,21 +1,25 @@
 import type { LayoutServerLoad } from './$types';
 import { fetchContentfulData } from '$lib/contentfulClient';
+import type {
+	Event,
+	News,
+	BlogPost,
+	Programme,
+	Partner,
+	Newsletter,
+	PublicationFeature,
+	EventSeries
+} from '$lib/types/types';
 
 export const load: LayoutServerLoad = async ({ url, setHeaders }) => {
 	const { pathname } = url;
 
 	try {
 		// Use longer cache for layout data since it changes infrequently
-		const programmes = await fetchContentfulData('program', {
-			ttl: 30 * 60 * 1000, // 30 minutes
-			select: ['fields.title', 'fields.slug', 'fields.summary'] // Only fetch needed fields
-		});
+		const programmes = await fetchContentfulData<Programme>('program');
 
-		// Set HTTP cache headers for layout data
-		setHeaders({
-			'Cache-Control': 'public, max-age=300, s-maxage=1800', // 5 min browser, 30 min CDN
-			Vary: 'Accept-Encoding'
-		});
+		// Note: Cache headers are set by individual page load functions
+		// Layout data is cached at the Contentful client level
 
 		return {
 			pathname,

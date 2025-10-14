@@ -15,7 +15,10 @@
 	// Track which dropdowns are open
 	let openDropdowns = $state(new Set<string>(['programmes', 'Outreach']));
 
-	const programmeLinks = generateProgrammeLinks(programmes);
+	// Make programmeLinks reactive to handle when programmes data loads
+	const programmeLinks = $derived(
+		programmes && programmes.length > 0 ? generateProgrammeLinks(programmes) : []
+	);
 
 	const toggleDropdown = (category: string) => {
 		const newOpenDropdowns = new Set(openDropdowns);

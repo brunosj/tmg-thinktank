@@ -24,16 +24,19 @@ export async function load({ setHeaders }) {
 		// Fetch all data in parallel with optimized field selection
 		const [landingPage, programmes, newsletter, partners, events, blogPosts] = await Promise.all([
 			fetchContentfulData('landingPage', { ttl: 30 * 60 * 1000 }),
-			fetchContentfulData<Programme>('program', {
-				select: ['fields.title', 'fields.slug', 'fields.summary'],
-				ttl: 30 * 60 * 1000
-			}),
+			fetchContentfulData<Programme>('program'),
 			fetchContentfulData<Newsletter>('newsletter', {
 				select: ['fields.title', 'fields.description'],
 				ttl: 30 * 60 * 1000
 			}),
 			fetchContentfulData<Partner>('partners', {
-				select: ['fields.name', 'fields.logo', 'fields.url'],
+				select: [
+					'fields.name',
+					'fields.logo',
+					'fields.logoCdn',
+					'fields.url',
+					'fields.partnerOrFunder'
+				],
 				ttl: 30 * 60 * 1000
 			}),
 			fetchContentfulData<Event>('event', {

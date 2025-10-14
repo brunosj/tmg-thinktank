@@ -6,18 +6,21 @@
 
 	let { programmes } = $props();
 
-	const programmeLinks = generateProgrammeLinks(programmes);
+	// Make programmeLinks reactive to handle when programmes data loads
+	const programmeLinks = $derived(
+		programmes && programmes.length > 0 ? generateProgrammeLinks(programmes) : []
+	);
 </script>
 
-<footer class="overflow-hidden bg-linear-to-br from-navy-blue to-gray-800">
+<footer class="from-navy-blue overflow-hidden bg-linear-to-br to-gray-800">
 	<LearnMore />
 
-	<div class="layout pb-8 pt-0 lg:pb-8 lg:pt-16">
+	<div class="layout pt-0 pb-8 lg:pt-16 lg:pb-8">
 		<div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-6">
 			<div class="lg:col-span-4">
 				<div class="grid grid-cols-2 gap-8 lg:grid-cols-4">
 					<div>
-						<h4 class="mb-6 text-sm font-bold uppercase tracking-wider text-white">Programmes</h4>
+						<h4 class="mb-6 text-sm font-bold tracking-wider text-white uppercase">Programmes</h4>
 						<ul class="space-y-4">
 							{#each programmeLinks as programme}
 								<li>
@@ -33,7 +36,7 @@
 
 					{#each footerMenu as category}
 						<div>
-							<h4 class="mb-6 text-sm font-bold uppercase tracking-wider text-white">
+							<h4 class="mb-6 text-sm font-bold tracking-wider text-white uppercase">
 								{category.category}
 							</h4>
 							<ul class="space-y-4">
@@ -53,7 +56,7 @@
 			</div>
 
 			<div class="lg:col-span-2">
-				<h4 class="mb-6 text-sm font-bold uppercase tracking-wider text-white">Stay in touch</h4>
+				<h4 class="mb-6 text-sm font-bold tracking-wider text-white uppercase">Stay in touch</h4>
 				<p class="mb-6 text-sm text-gray-300">Hear about our latest events and research</p>
 				<Button to="https://bit.ly/34L0mFV" colors="white">Sign up to our newsletter</Button>
 			</div>
