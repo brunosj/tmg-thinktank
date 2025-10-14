@@ -1,10 +1,11 @@
-// Fully dynamic - no prerendering for immediate content updates
-
 import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
 import type { Initiative } from '$lib/types/types';
 
 export async function entries() {
-	const entries: Initiative[] = await fetchContentfulData('initiative');
+	const entries: Initiative[] = await fetchContentfulData('initiative', {
+		select: ['fields.slug'],
+		ttl: 30 * 60 * 1000
+	});
 	return entries.map((entry) => {
 		return {
 			slug: entry.fields.slug
@@ -16,14 +17,15 @@ export async function load({ params, setHeaders }) {
 	const { slug } = params;
 
 	try {
-		const item: Initiative | null = await getEntryBySlug(slug, 'initiative');
+		const item: Initiative | null = await getEntryBySlug(slug, 'initiative', {
+			ttl: 10 * 60 * 1000 // 10 minutes cache for initiatives
+		});
 
 		if (item) {
-			// Disable caching for immediate content updates
+			// Set reasonable caching for initiatives
 			setHeaders({
-				'Cache-Control': 'no-cache, no-store, must-revalidate',
-				Pragma: 'no-cache',
-				Expires: '0'
+				'Cache-Control': 'public, max-age=300, s-maxage=600', // 5 min browser, 10 min CDN
+				Vary: 'Accept-Encoding'
 			});
 
 			return { item };

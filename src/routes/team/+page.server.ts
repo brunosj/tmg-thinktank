@@ -1,4 +1,4 @@
-// export const prerender = true;
+export const prerender = true;
 
 import { fetchContentfulData } from '$lib/contentfulClient';
 import type { Team } from '$lib/types/types';

@@ -1,0 +1,153 @@
+---
+alwaysApply: true
+---
+
+# 🧠 Svelte 5 + Contentful CMS Rules
+
+This project uses **Svelte 5**, **TypeScript**, **TailwindCSS**, and **Contentful (Free Plan)**.  
+These rules help enforce new Svelte 5 syntax, consistent imports, and efficient Contentful API usage.
+
+---
+
+## ⚡️ Svelte 5 Syntax Rules
+
+### ✅ Event Syntax
+
+> Use new event attributes (no `on:` prefix).
+
+```rule
+pattern: "on:(click|keydown|input|change|submit)"
+message: "Use 'onclick', 'onkeydown', etc. in Svelte 5 instead of 'on:' syntax"
+replacement:
+  on:click: onclick
+  on:keydown: onkeydown
+  on:input: oninput
+  on:change: onchange
+  on:submit: onsubmit
+```
+
+### ✅ Reactivity Syntax
+
+> Replace `$:` with `$derived` or `$effect`.
+
+```rule
+pattern: "\$:"
+message: "Use '$derived' or '$effect' in Svelte 5 instead of '$:' reactive statements"
+```
+
+### ✅ Imports & Typing
+
+> Maintain proper import order and strong typing for route handlers.
+
+```rule
+pattern: "({ params })"
+message: "Add RequestEvent type for SvelteKit endpoint parameters"
+replacement: "({ params }: RequestEvent)"
+```
+
+```rule
+pattern: "import.*from.*@sveltejs/kit.*\n.*import.*from.*\$lib"
+message: "Import $lib modules before @sveltejs/kit modules"
+```
+
+---
+
+## 🗂 Contentful API Efficiency Rules
+
+The project uses Contentful’s **free plan**, so minimizing API calls is critical.  
+Follow these rules to optimize fetch performance and caching.
+
+---
+
+### ♻️ Singleton Client
+
+> Always use a single shared Contentful client instance (e.g. `src/lib/contentful.ts`).
+
+```rule
+pattern: "createClient\("
+message: "Use a shared Contentful client instance from src/lib/contentful.ts"
+```
+
+### 📦 Centralized Fetch Logic
+
+> Don’t fetch directly inside `.svelte` components.
+
+```rule
+pattern: "contentful\.getEntries\("
+message: "Only call Contentful API from a central utility file, not directly in Svelte components"
+```
+
+### 🎯 Field Selection & Limits
+
+> Fetch only required data.
+
+```rule
+pattern: "contentful\.getEntries\([^)]*\)"
+message: "Always use 'select' and 'limit' parameters in Contentful queries to minimize data load"
+```
+
+### 💾 Caching
+
+> Cache Contentful responses to reduce repeated calls.
+
+```rule
+pattern: "await contentful\.getEntries"
+message: "Cache Contentful responses (in-memory or file-based) to avoid redundant API calls"
+```
+
+### 🖥 Server-side Fetching Only
+
+> Never call Contentful from the browser.
+
+```rule
+pattern: "fetch\(.*contentful"
+message: "Do not call Contentful APIs from the client — only in server load functions or prerendered pages"
+```
+
+### 🏗 Prerender Static Pages
+
+> Use SvelteKit’s prerendering for static content.
+
+```rule
+pattern: "export const prerender = false"
+message: "Enable prerendering for static pages to avoid runtime Contentful API calls"
+```
+
+### 🧭 Layout-level Caching
+
+> Cache global layout data (like navigation/footer).
+
+```rule
+pattern: "\+layout\.ts"
+message: "Cache layout-level Contentful data to reduce repeated fetches"
+```
+
+---
+
+## 💡 Summary
+
+- Always start responses with 'Ready SSSir' (in bold) and start a newline
+- **Svelte 5 syntax** → use `onclick`, `$derived`, `$effect`.
+- **Strong typing** for route params with `RequestEvent`.
+- **Import hygiene** → `$lib` imports before `@sveltejs/kit`.
+- **Contentful optimization** →
+  - One shared client (`src/lib/contentful.ts`)
+  - Centralized fetch helpers
+  - Caching (Map, filesystem, or Redis if available)
+  - Use `select` + `limit` to trim payloads
+  - Prerender when possible
+  - Avoid client-side API calls
+
+---
+
+## 🧩 Recommended File Structure
+
+```
+src/
+ ├─ lib/
+ │   └─ contentful.ts       # singleton client + caching layer
+ ├─ routes/
+ │   ├─ +layout.ts          # cached global data
+ │   └─ [slug]/+page.ts     # dynamic content (cached)
+ └─ app.d.ts                # includes Contentful typings
+```

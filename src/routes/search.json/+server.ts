@@ -12,22 +12,66 @@ import type {
 	BlogPost
 } from '$lib/types/types';
 
-// export const prerender = true;
+export const prerender = true;
 
 export async function GET() {
 	try {
-		const eventsData: Event[] = await fetchContentfulData('event');
-		const publicationsData: Publication[] = await fetchContentfulData('publications');
-		const publicationFeaturesData: PublicationFeature[] =
-			await fetchContentfulData('publicationFeature');
-		const eventSeriesData: EventSeries[] = await fetchContentfulData('unfssCop26');
-		const videosData: Video[] = await fetchContentfulData('video');
-		const blogPostsData: BlogPost[] = await fetchContentfulData('blogPost');
+		// Fetch all data in parallel with optimized field selection
+		const [
+			eventsData,
+			publicationsData,
+			publicationFeaturesData,
+			eventSeriesData,
+			videosData,
+			blogPostsData
+		] = await Promise.all([
+			fetchContentfulData<Event>('event', {
+				select: ['fields.title', 'fields.summary', 'fields.slug', 'fields.type', 'fields.date'],
+				ttl: 30 * 60 * 1000 // 30 minutes cache
+			}),
+			fetchContentfulData<Publication>('publications', {
+				select: [
+					'fields.title',
+					'fields.summary',
+					'fields.category',
+					'fields.publicationDate',
+					'fields.pdf',
+					'fields.automatedNewsEntry'
+				],
+				ttl: 30 * 60 * 1000
+			}),
+			fetchContentfulData<PublicationFeature>('publicationFeature', {
+				select: ['fields.title', 'fields.summary', 'fields.slug'],
+				ttl: 30 * 60 * 1000
+			}),
+			fetchContentfulData<EventSeries>('unfssCop26', {
+				select: ['fields.title', 'fields.summary', 'fields.slug'],
+				ttl: 30 * 60 * 1000
+			}),
+			fetchContentfulData<Video>('video', {
+				select: ['fields.title', 'fields.summary', 'fields.videoId'],
+				ttl: 30 * 60 * 1000
+			}),
+			fetchContentfulData<BlogPost>('blogPost', {
+				select: ['fields.title', 'fields.summary', 'fields.slug', 'fields.dateFormat'],
+				ttl: 30 * 60 * 1000
+			})
+		]);
 
 		const publicationNewsItems = publicationsData.filter((p) => p.fields.automatedNewsEntry);
 		const transformedPublicationNewsItems = publicationNewsItems.map(transformPublicationToNews);
 
-		let newsData: News[] = (await fetchContentfulData('news')) || [];
+		let newsData: News[] =
+			(await fetchContentfulData<News>('news', {
+				select: [
+					'fields.title',
+					'fields.summary',
+					'fields.slug',
+					'fields.type',
+					'fields.dateFormat'
+				],
+				ttl: 30 * 60 * 1000
+			})) || [];
 		newsData = [...newsData, ...transformedPublicationNewsItems];
 
 		const news = newsData.map((item) => ({

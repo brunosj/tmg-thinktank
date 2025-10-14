@@ -22,7 +22,17 @@ const config = {
 			handleHttpError: 'warn',
 			handleEntryGeneratorMismatch: 'warn',
 			handleMissingId: 'ignore',
-			entries: ['/newsletter', '/programmes', '/search.json']
+			entries: [
+				'/newsletter',
+				'/programmes',
+				'/search.json',
+				'/about',
+				'/team',
+				'/publications',
+				'/blog',
+				'/events',
+				'/publication-feature'
+			]
 		},
 		paths: {
 			relative: false

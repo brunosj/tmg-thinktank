@@ -11,16 +11,40 @@ import type {
 	EventSeries
 } from '$lib/types/types';
 
-export async function load() {
+export async function load({ setHeaders }) {
 	try {
 		const today = new Date();
 
-		const landingPage = await fetchContentfulData('landingPage');
-		const programmes = (await fetchContentfulData('program')) as Programme[];
-		const newsletter = (await fetchContentfulData('newsletter')) as Newsletter[];
-		const partners = (await fetchContentfulData('partners')) as Partner[];
-		const events = (await fetchContentfulData('event')) as Event[];
-		const blogPosts = (await fetchContentfulData('blogPost')) as BlogPost[];
+		// Set HTTP cache headers for homepage
+		setHeaders({
+			'Cache-Control': 'public, max-age=300, s-maxage=900', // 5 min browser, 15 min CDN
+			Vary: 'Accept-Encoding'
+		});
+
+		// Fetch all data in parallel with optimized field selection
+		const [landingPage, programmes, newsletter, partners, events, blogPosts] = await Promise.all([
+			fetchContentfulData('landingPage', { ttl: 30 * 60 * 1000 }),
+			fetchContentfulData<Programme>('program', {
+				select: ['fields.title', 'fields.slug', 'fields.summary'],
+				ttl: 30 * 60 * 1000
+			}),
+			fetchContentfulData<Newsletter>('newsletter', {
+				select: ['fields.title', 'fields.description'],
+				ttl: 30 * 60 * 1000
+			}),
+			fetchContentfulData<Partner>('partners', {
+				select: ['fields.name', 'fields.logo', 'fields.url'],
+				ttl: 30 * 60 * 1000
+			}),
+			fetchContentfulData<Event>('event', {
+				select: ['fields.title', 'fields.date', 'fields.slug', 'fields.summary'],
+				ttl: 15 * 60 * 1000 // Shorter cache for events
+			}),
+			fetchContentfulData<BlogPost>('blogPost', {
+				select: ['fields.title', 'fields.dateFormat', 'fields.slug', 'fields.summary'],
+				ttl: 15 * 60 * 1000
+			})
+		]);
 
 		const upcomingEvents = events
 			.filter((event: Event) => {
@@ -42,10 +66,17 @@ export async function load() {
 			})
 			.slice(0, 3);
 
-		const publicationFeatures = (await fetchContentfulData(
-			'publicationFeature'
-		)) as PublicationFeature[];
-		const eventSeries = (await fetchContentfulData('unfssCop26')) as EventSeries[];
+		// Fetch additional data in parallel
+		const [publicationFeatures, eventSeries] = await Promise.all([
+			fetchContentfulData<PublicationFeature>('publicationFeature', {
+				select: ['fields.title', 'fields.slug', 'fields.summary'],
+				ttl: 30 * 60 * 1000
+			}),
+			fetchContentfulData<EventSeries>('unfssCop26', {
+				select: ['fields.title', 'fields.slug', 'fields.summary'],
+				ttl: 30 * 60 * 1000
+			})
+		]);
 
 		return {
 			landingPage,
