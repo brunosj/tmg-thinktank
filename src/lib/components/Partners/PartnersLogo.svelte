@@ -16,7 +16,12 @@
 		lgPadding = 'lg:p-5'
 	}: Props = $props();
 
-	let image = $derived(item.fields.logoCdn?.length > 0 ? item.fields.logoCdn[0].secure_url : null);
+	// if item if network use image like this, otherwise use field
+	let image = $derived(
+		item.fields.logoCdn?.length > 0
+			? item.fields.logoCdn[0].secure_url
+			: item.fields.logo.fields.file.url
+	);
 </script>
 
 {#if image !== null}

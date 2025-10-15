@@ -241,23 +241,23 @@
 <div style="background-color: {item.fields.color1}" class="relative overflow-hidden">
 	<!-- Simplified decorative elements -->
 	<div class="absolute inset-0 opacity-10">
-		<div class="absolute left-0 top-0 h-32 w-32 rounded-full bg-white blur-xl"></div>
-		<div class="absolute bottom-0 right-0 h-40 w-40 rounded-full bg-white blur-xl"></div>
-		<div class="absolute right-1/4 top-1/2 h-24 w-24 rounded-full bg-white blur-lg"></div>
+		<div class="absolute top-0 left-0 h-32 w-32 rounded-full bg-white blur-xl"></div>
+		<div class="absolute right-0 bottom-0 h-40 w-40 rounded-full bg-white blur-xl"></div>
+		<div class="absolute top-1/2 right-1/4 h-24 w-24 rounded-full bg-white blur-lg"></div>
 	</div>
 
 	<!-- Animated shapes (visible after mount) -->
 	{#if animationReady}
 		<div class="pointer-events-none absolute inset-0">
 			<div
-				class="absolute left-[10%] top-10 h-16 w-16 animate-pulse rounded-full bg-white/10"
+				class="absolute top-10 left-[10%] h-16 w-16 animate-pulse rounded-full bg-white/10"
 			></div>
 			<div
-				class="absolute bottom-20 right-[15%] h-20 w-20 animate-ping rounded-full bg-white/10"
+				class="absolute right-[15%] bottom-20 h-20 w-20 animate-ping rounded-full bg-white/10"
 				style="animation-duration: 3s"
 			></div>
 			<div
-				class="absolute right-1/3 top-1/3 h-12 w-12 animate-pulse rounded-full bg-white/10"
+				class="absolute top-1/3 right-1/3 h-12 w-12 animate-pulse rounded-full bg-white/10"
 				style="animation-duration: 2.5s"
 			></div>
 		</div>
@@ -267,7 +267,7 @@
 	<div class="layout relative z-10 flex h-full flex-col items-center justify-center py-24 md:py-32">
 		<div class="max-w-3xl text-center">
 			<h1
-				class="mb-4 font-heading text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl"
+				class="font-heading mb-4 text-4xl leading-tight font-bold tracking-tight text-white md:text-5xl lg:text-6xl"
 			>
 				{item.fields.title}
 			</h1>
@@ -275,7 +275,7 @@
 			<!-- Simplified separator -->
 			<div class="mx-auto my-4 h-1 w-20 rounded-sm bg-white/60"></div>
 
-			<h2 class="mx-auto max-w-2xl text-base font-light leading-relaxed text-white md:text-2xl">
+			<h2 class="mx-auto max-w-2xl text-base leading-relaxed font-light text-white md:text-2xl">
 				{item.fields.summary}
 			</h2>
 		</div>
@@ -300,7 +300,7 @@
 				<div class="flex flex-wrap justify-center gap-2">
 					{#each availableTabs() as tab}
 						<button
-							class="relative whitespace-nowrap rounded-full px-3 py-1.5 font-heading text-sm font-medium transition-all duration-200 sm:px-4 sm:py-2 sm:text-base"
+							class="font-heading relative rounded-full px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-all duration-200 sm:px-4 sm:py-2 sm:text-base"
 							style="background-color: {activeTab === tab.id ? item.fields.color1 : 'transparent'}; 
 							color: {activeTab === tab.id ? 'white' : 'rgba(0,0,0,0.7)'}"
 							onclick={() => handleTabChange(tab.id)}
@@ -563,21 +563,21 @@
 					/>
 				</div>
 			{/if}
-					<!-- Quote 6 -->
-					{#if item.fields.quote6Text && item.fields.quote6Person && item.fields.quote6PersonOrganization}
-					<div class="mb-16">	
-						<EnhancedQuote
-							quoteText={item.fields.quote6Text}
-							quotePerson={item.fields.quote6Person}
-							quotePersonOrganization={item.fields.quote6PersonOrganization}
-							quotePersonPictureUrl={item.fields.quotesPictures &&
-								item.fields.quotesPictures.length > 5
-								? item.fields.quotesPictures[5].secure_url
-								: ''}
-							color={item.fields.color1 || '#333'}
-						/>
-					</div>
-				{/if}
+			<!-- Quote 6 -->
+			{#if item.fields.quote6Text && item.fields.quote6Person && item.fields.quote6PersonOrganization}
+				<div class="mb-16">
+					<EnhancedQuote
+						quoteText={item.fields.quote6Text}
+						quotePerson={item.fields.quote6Person}
+						quotePersonOrganization={item.fields.quote6PersonOrganization}
+						quotePersonPictureUrl={item.fields.quotesPictures &&
+						item.fields.quotesPictures.length > 5
+							? item.fields.quotesPictures[5].secure_url
+							: ''}
+						color={item.fields.color1 || '#333'}
+					/>
+				</div>
+			{/if}
 		</div>
 	{/if}
 </div>

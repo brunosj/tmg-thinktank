@@ -72,7 +72,7 @@
 		</p>
 	{:else if node.type === 'heading'}
 		{#if node.tag === 'h1'}
-			<h1 class="mb-6 mt-0 text-4xl font-semibold">
+			<h1 class="mt-0 mb-6 text-4xl font-semibold">
 				{#if node.children}
 					{#each node.children as child}
 						{@render renderNode(child)}
@@ -80,7 +80,7 @@
 				{/if}
 			</h1>
 		{:else if node.tag === 'h2'}
-			<h2 class="mb-5 mt-0 text-3xl font-semibold">
+			<h2 class="mt-0 mb-5 text-3xl font-semibold">
 				{#if node.children}
 					{#each node.children as child}
 						{@render renderNode(child)}
@@ -88,7 +88,7 @@
 				{/if}
 			</h2>
 		{:else if node.tag === 'h3'}
-			<h3 class="mb-4 mt-0 text-2xl font-semibold">
+			<h3 class="mt-0 mb-4 text-2xl font-semibold">
 				{#if node.children}
 					{#each node.children as child}
 						{@render renderNode(child)}
@@ -96,7 +96,7 @@
 				{/if}
 			</h3>
 		{:else if node.tag === 'h4'}
-			<h4 class="mb-3 mt-0 text-xl font-semibold">
+			<h4 class="mt-0 mb-3 text-xl font-semibold">
 				{#if node.children}
 					{#each node.children as child}
 						{@render renderNode(child)}
@@ -104,7 +104,7 @@
 				{/if}
 			</h4>
 		{:else if node.tag === 'h5'}
-			<h5 class="mb-2 mt-0 text-lg font-semibold">
+			<h5 class="mt-0 mb-2 text-lg font-semibold">
 				{#if node.children}
 					{#each node.children as child}
 						{@render renderNode(child)}
@@ -112,7 +112,7 @@
 				{/if}
 			</h5>
 		{:else if node.tag === 'h6'}
-			<h6 class="mb-2 mt-0 text-base font-semibold">
+			<h6 class="mt-0 mb-2 text-base font-semibold">
 				{#if node.children}
 					{#each node.children as child}
 						{@render renderNode(child)}
@@ -120,7 +120,7 @@
 				{/if}
 			</h6>
 		{:else}
-			<h1 class="mb-6 mt-8 text-4xl font-semibold">
+			<h1 class="mt-8 mb-6 text-4xl font-semibold">
 				{#if node.children}
 					{#each node.children as child}
 						{@render renderNode(child)}
@@ -131,7 +131,6 @@
 	{:else if node.type === 'text'}
 		<span class={getTextFormatClasses(node.format)}>{node.text || ''}</span>
 	{:else if node.type === 'link'}
-		{console.log(node)}
 		<a
 			href={node.fields.url}
 			target={node.fields.linkType === 'custom' ? '_blank' : '_self'}
@@ -172,7 +171,7 @@
 			{/if}
 		</li>
 	{:else if node.type === 'quote'}
-		<blockquote class="my-4 border-l-4 border-gray-300 pl-4 italic text-gray-700">
+		<blockquote class="my-4 border-l-4 border-gray-300 pl-4 text-gray-700 italic">
 			{#if node.children}
 				{#each node.children as child}
 					{@render renderNode(child)}
