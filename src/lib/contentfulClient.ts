@@ -2,13 +2,43 @@ import type { Publication, ContentfulEntry } from '$lib/types/types';
 
 import { SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN } from '$env/static/private';
 import { PUBLIC_CONTENTFUL_HOST } from '$env/static/public';
+import { dev } from '$app/environment';
 
 import * as contentful from 'contentful';
+
+// Get preview access token from environment (may be undefined in production)
+const SECRET_CONTENTFUL_PREVIEW_ACCESS_TOKEN = process.env.SECRET_CONTENTFUL_PREVIEW_ACCESS_TOKEN;
+
+// Detect if we're in preview mode based on environment variables
+// Only enable preview mode if we have the token AND one of the preview conditions is met
+const isPreviewMode =
+	!!SECRET_CONTENTFUL_PREVIEW_ACCESS_TOKEN &&
+	(dev ||
+		process.env.VERCEL_ENV === 'preview' ||
+		process.env.NODE_ENV === 'preview' ||
+		PUBLIC_CONTENTFUL_HOST === 'preview.contentful.com');
+
+// For production builds, always use production mode regardless of preview token availability
+const isProductionBuild = process.env.NODE_ENV === 'production' && !dev;
+const finalPreviewMode = isProductionBuild ? false : isPreviewMode;
+
+// Create appropriate client based on mode
 const client = contentful.createClient({
-	accessToken: SECRET_CONTENTFUL_ACCESS_TOKEN,
-	host: PUBLIC_CONTENTFUL_HOST,
+	accessToken: finalPreviewMode
+		? SECRET_CONTENTFUL_PREVIEW_ACCESS_TOKEN
+		: SECRET_CONTENTFUL_ACCESS_TOKEN,
+	host: finalPreviewMode
+		? 'preview.contentful.com'
+		: PUBLIC_CONTENTFUL_HOST || 'cdn.contentful.com',
 	space: SECRET_CONTENTFUL_SPACE_ID
 });
+
+console.log(
+	`🔧 Contentful client initialized in ${finalPreviewMode ? 'PREVIEW' : 'PRODUCTION'} mode`
+);
+
+// Export preview mode detection for use in other modules
+export { finalPreviewMode as isPreviewMode };
 
 // In-memory cache with TTL
 interface CacheEntry<T> {

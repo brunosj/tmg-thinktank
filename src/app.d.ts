@@ -7,6 +7,11 @@ declare namespace App {
 	// interface Platform {}
 }
 
+declare module '$env/static/private' {
+	export const SECRET_CONTENTFUL_SPACE_ID: string;
+	export const SECRET_CONTENTFUL_ACCESS_TOKEN: string;
+}
+
 declare module '$env/dynamic/private' {
 	export const env: {
 		SECRET_BREVO_API_KEY: string;
