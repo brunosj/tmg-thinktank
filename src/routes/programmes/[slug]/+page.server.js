@@ -6,7 +6,7 @@ import {
 } from '$utils/utils';
 
 // Disable prerendering in preview mode to allow dynamic content
-export const prerender = !isPreviewMode;
+// export const prerender = !isPreviewMode;
 
 export async function entries() {
 	// Skip entries generation in preview mode since we're not prerendering
