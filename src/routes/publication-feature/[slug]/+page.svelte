@@ -100,12 +100,16 @@
 				<div class="col-span-1 flex items-center border-b lg:border-none">
 					{#each sectionContent.contentBlocks as item}
 						{#if item.sys.contentType.sys.id === 'textBoxBlock'}
+							{@const textAlign = item.fields.textAlignment || 'center'}
 							{#if item.fields.embedContent}
 								<div class="w-full">
 									{@html item.fields.iFrameCode}
 								</div>
 							{:else}
-								<div class="richText bg-blue-light p-8 text-center text-black">
+								<div
+									class="richText bg-blue-light px-8 pt-8 pb-4 text-black"
+									style="text-align: {textAlign}"
+								>
 									{@html renderRichText(item.fields.text)}
 								</div>
 							{/if}

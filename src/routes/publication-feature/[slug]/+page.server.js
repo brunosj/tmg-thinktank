@@ -8,7 +8,9 @@ export async function entries() {
 		.filter((entry) => {
 			// Filter out entries without slugs (common in draft mode)
 			if (!entry.fields.slug) {
-				console.warn(`⚠️ Publication feature entry ${entry.sys.id} missing slug, skipping from prerender`);
+				console.warn(
+					`⚠️ Publication feature entry ${entry.sys.id} missing slug, skipping from prerender`
+				);
 				return false;
 			}
 			return true;
@@ -24,7 +26,7 @@ export async function load({ params }) {
 	const { slug } = params;
 
 	try {
-		const item = await getEntryBySlug(slug, 'publicationFeature');
+		const item = await getEntryBySlug(slug, 'publicationFeature', { include: 4 });
 
 		if (item) {
 			return { item };
