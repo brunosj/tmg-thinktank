@@ -356,6 +356,8 @@ export interface Publication extends ContentfulEntry {
 		citation: string;
 		additionalButtonText: string;
 		additionalButtonFile: MediaFile;
+		additionalButton2Text: string;
+		additionalButton2File: MediaFile;
 	};
 }
 
@@ -415,6 +417,7 @@ export interface PublicationFeature extends ContentfulEntry {
 		featuredOnHomepage: boolean;
 		cutoffDate: string;
 		title: string;
+		hideTitle: boolean;
 		summary: string;
 		keywords: string[];
 		sections: {
@@ -548,6 +551,7 @@ export interface ContentBlock {
 		buttonText?: string;
 		iFrameCode?: string;
 		embedContent?: boolean;
+		textAlignment?: 'left' | 'center' | 'right';
 	};
 	sys: {
 		contentType: {

@@ -23,6 +23,7 @@
 	const styling = (block as any).styling || {};
 	const content = (block as any).content || {};
 	const blocks = content.Blocks || [];
+	const textAlignment = content.textAlignment || 'left';
 
 	// Helper to resolve color values
 	function resolveColor(colorValue: string | null | undefined): string | undefined {
@@ -121,7 +122,7 @@
 		<div class="left-accent-border"></div>
 	{/if}
 
-	<div class="textbox-content leading-relaxed">
+	<div class="textbox-content leading-relaxed" style="text-align: {textAlignment}">
 		<RenderBlocks {blocks} {reportColors} />
 	</div>
 </div>
