@@ -26,16 +26,14 @@
 				<div
 					class=" group-hover:bg-blue-light flex h-full flex-col items-center space-y-2 bg-white p-8 duration-300"
 				>
-					{#if !item.fields.hideTitle}
-						<div class="text-base leading-6 font-semibold text-gray-500">
-							{item.fields.title}
-						</div>
-						<div
-							class="text-2xl leading-none font-semibold tracking-tight duration-300 group-hover:opacity-70"
-						>
-							{item.fields.title}
-						</div>
-					{/if}
+					<div class="text-base leading-6 font-semibold text-gray-500">
+						{item.fields.title}
+					</div>
+					<div
+						class="text-2xl leading-none font-semibold tracking-tight duration-300 group-hover:opacity-70"
+					>
+						{item.fields.title}
+					</div>
 				</div>
 			</a>
 		{/each}

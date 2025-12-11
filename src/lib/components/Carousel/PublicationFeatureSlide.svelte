@@ -1,8 +1,6 @@
 <script lang="ts">
 	import type { PublicationFeature as PublicationFeatureType } from '$lib/types/types';
 	import { fly } from 'svelte/transition';
-	import { formatDateNews } from '$utils/utils';
-	import PublicationFeature from '$components/Publications/PublicationFeature.svelte';
 	interface Props {
 		item: PublicationFeatureType;
 		slidesQty: number;
@@ -27,7 +25,7 @@
 </script>
 
 <div
-	class={`group relative h-full w-full overflow-hidden border border-blue-light bg-white duration-300 hover:border-white hover:bg-blue-light ${
+	class={`group border-blue-light hover:bg-blue-light relative h-full w-full overflow-hidden border bg-white duration-300 hover:border-white ${
 		i === 0 ? 'rounded-l-xl' : ''
 	} ${i === slidesQty - 1 ? 'rounded-r-xl' : ''}`}
 	in:fly={{ y: 200, duration: 300 }}
@@ -53,7 +51,7 @@
 						</span>
 						</div> -->
 
-			<div class="leading-tight duration-300 ease-in-out group-hover:text-blue-normal">
+			<div class="group-hover:text-blue-normal leading-tight duration-300 ease-in-out">
 				<h3>
 					{item.fields.title}
 				</h3>
