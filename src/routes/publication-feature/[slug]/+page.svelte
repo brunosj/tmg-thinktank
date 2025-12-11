@@ -65,9 +65,9 @@
 
 	<section class="pt layout space-y-3 pt-6 lg:pt-12">
 		{#if !feature.fields.hideTitle}
-			<h1>{feature.fields.title}</h1>
+			<h1 class="max-w-full lg:max-w-2/3">{feature.fields.title}</h1>
 		{/if}
-		<h3>{feature.fields.summary}</h3>
+		<h3 class="max-w-full lg:max-w-2/3">{feature.fields.summary}</h3>
 	</section>
 
 	{#if sectionsWithContentBlocks.length > 0}
