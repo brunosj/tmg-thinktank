@@ -148,7 +148,49 @@
 
 	{#if sectionsWithContentBlocks.length > 0}
 		{#each sectionsWithContentBlocks as sectionContent, index}
-			<div class="layout grid grid-cols-1 gap-6 py-6 lg:grid-cols-3 lg:gap-12 lg:py-12">
+			<!-- Mobile: Render blocks in natural CMS order -->
+			<div class="layout space-y-6 py-6 lg:hidden">
+				{#each sectionContent.contentBlocks as item}
+					{#if item.sys.contentType.sys.id === 'textBlock'}
+						{#if item.fields.embedContent}
+							<div class="w-full">
+								<ResponsiveIFrame iframeCode={item.fields.iFrameCode || ''} />
+							</div>
+						{:else}
+							<div class="richText">
+								{@html renderRichText(item.fields.text)}
+							</div>
+						{/if}
+					{:else if item.sys.contentType.sys.id === 'imageBlock'}
+						<div class="richText">
+							<img
+								loading="lazy"
+								src={item.fields.imageCdn[0].secure_url}
+								alt={''}
+								class="w-full"
+							/>
+						</div>
+					{:else if item.sys.contentType.sys.id === 'textBoxBlock'}
+						{@const textAlign = item.fields.textAlignment || 'center'}
+						{#if item.fields.embedContent}
+							<div class="w-full border-b">
+								{@html item.fields.iFrameCode}
+							</div>
+						{:else}
+							<div
+								class="richText bg-blue-light border-b px-8 pt-8 pb-4 text-black"
+								style="text-align: {textAlign}"
+							>
+								{@html renderRichText(item.fields.text)}
+							</div>
+						{/if}
+					{/if}
+				{/each}
+			</div>
+
+			<!-- Desktop: Render in column layout -->
+			<div class="layout hidden grid-cols-3 gap-12 py-12 lg:grid">
+				<!-- TEXT/IMAGE blocks column -->
 				<div class="col-span-2 {index % 2 === 1 ? 'order-last' : 'order-first'}">
 					{#each sectionContent.contentBlocks as item}
 						{#if item.sys.contentType.sys.id === 'textBlock'}
@@ -173,7 +215,9 @@
 						{/if}
 					{/each}
 				</div>
-				<div class="col-span-1 flex items-center border-b lg:border-none">
+
+				<!-- TEXT_BOX blocks column -->
+				<div class="col-span-1 flex items-center">
 					{#each sectionContent.contentBlocks as item}
 						{#if item.sys.contentType.sys.id === 'textBoxBlock'}
 							{@const textAlign = item.fields.textAlignment || 'center'}
