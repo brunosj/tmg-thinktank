@@ -11,6 +11,10 @@
 	import Banner from '$components/Banner/Banner.svelte';
 	import ResponsiveIFrame from '$lib/components/IFrame/ResponsiveIFrame.svelte';
 	import RelatedContentSection from '$components/Layout/RelatedContentSection.svelte';
+	import IntersectionObserver from 'svelte-intersection-observer';
+	import { fly, fade } from 'svelte/transition';
+	import { cubicInOut } from 'svelte/easing';
+	import Button from '$components/UI/Button.svelte';
 
 	interface Props {
 		data: Page;
@@ -38,6 +42,19 @@
 			: feature.fields.pageBanner.fields.file.url
 	);
 
+	// Check if hero banner fields are present
+	let hasHeroBanner = $derived(
+		!!feature.fields.heroBannerTitle &&
+			!!feature.fields.heroBannerSubtitle &&
+			!!feature.fields.heroBannerPicture &&
+			feature.fields.heroBannerPicture.length > 0
+	);
+
+	let heroImage = $derived(hasHeroBanner ? feature.fields.heroBannerPicture[0]?.secure_url : '');
+
+	let element = $state<HTMLElement | null>(null);
+	let intersecting = $state(false);
+
 	let seoReady = $derived(!!feature);
 </script>
 
@@ -49,19 +66,75 @@
 		keywords={feature.fields.keywords}
 	/>
 {/if}
+
 <article class="py-10 lg:py-16">
-	<section class="h-full w-full">
-		<div class="justify-center">
-			<div class="z-0 m-auto">
-				<img
-					loading="lazy"
-					src={image}
-					alt={feature.fields.title}
-					class="h-full w-full object-cover lg:h-[60vh]"
-				/>
+	{#if hasHeroBanner}
+		<!-- Hero Banner Section (similar to HeroV4) -->
+		<section
+			class="relative min-h-[50vh] w-full overflow-hidden"
+			bind:this={element}
+			style={`background-color: ${feature.fields.color2 || '#1e3a8a'};`}
+		>
+			<IntersectionObserver {element} bind:intersecting once threshold={0.2}>
+				{#if intersecting}
+					<div class="layout grid min-h-[50vh] grid-cols-1 lg:grid-cols-4">
+						<!-- Content Section -->
+						<div
+							class="col-span-1 flex items-center lg:col-span-3"
+							in:fade={{ duration: 800, easing: cubicInOut }}
+						>
+							<div class="w-full space-y-8 py-12 text-white lg:w-[90%]">
+								<h1
+									class="text-3xl leading-tight font-semibold tracking-tight lg:text-5xl"
+									transition:fly={{ x: -50, duration: 500, delay: 250, easing: cubicInOut }}
+								>
+									{feature.fields.heroBannerTitle}
+								</h1>
+								<h2
+									class="text-base leading-relaxed font-normal text-white/90 lg:text-xl"
+									in:fly={{ x: -50, duration: 500, delay: 250, easing: cubicInOut }}
+								>
+									{feature.fields.heroBannerSubtitle}
+								</h2>
+								{#if feature.fields.heroBannerButtonLink}
+									<div in:fly={{ x: -50, duration: 500, delay: 450, easing: cubicInOut }}>
+										<Button to={feature.fields.heroBannerButtonLink} colors="blue-invert"
+											>Read more</Button
+										>
+									</div>
+								{/if}
+							</div>
+						</div>
+
+						<!-- Image Section -->
+						<div class="col-span-1 flex items-center justify-center backdrop-blur-xs">
+							<img
+								loading="eager"
+								src={heroImage}
+								alt={feature.fields.heroBannerTitle}
+								class="h-auto w-full object-contain"
+								transition:fly={{ x: 50, duration: 500, delay: 250, easing: cubicInOut }}
+							/>
+						</div>
+					</div>
+				{/if}
+			</IntersectionObserver>
+		</section>
+	{:else}
+		<!-- Regular Banner Section -->
+		<section class=" h-full w-full">
+			<div class="justify-center">
+				<div class="z-0 m-auto">
+					<img
+						loading="lazy"
+						src={image}
+						alt={feature.fields.title}
+						class="h-full w-full object-cover lg:h-[60vh]"
+					/>
+				</div>
 			</div>
-		</div>
-	</section>
+		</section>
+	{/if}
 
 	<section class="pt layout space-y-3 pt-6 lg:pt-12">
 		{#if !feature.fields.hideTitle}

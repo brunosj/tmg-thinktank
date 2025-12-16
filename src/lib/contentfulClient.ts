@@ -1,13 +1,14 @@
 import type { Publication, ContentfulEntry } from '$lib/types/types';
 
-import { SECRET_CONTENTFUL_SPACE_ID, SECRET_CONTENTFUL_ACCESS_TOKEN } from '$env/static/private';
+import {
+	SECRET_CONTENTFUL_SPACE_ID,
+	SECRET_CONTENTFUL_ACCESS_TOKEN,
+	SECRET_CONTENTFUL_PREVIEW_ACCESS_TOKEN
+} from '$env/static/private';
 import { PUBLIC_CONTENTFUL_HOST } from '$env/static/public';
 import { dev } from '$app/environment';
 
 import * as contentful from 'contentful';
-
-// Get preview access token from environment (may be undefined in production)
-const SECRET_CONTENTFUL_PREVIEW_ACCESS_TOKEN = process.env.SECRET_CONTENTFUL_PREVIEW_ACCESS_TOKEN;
 
 // Detect if we're in preview mode based on environment variables
 // Only enable preview mode if we have the token AND one of the preview conditions is met

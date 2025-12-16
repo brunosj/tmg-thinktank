@@ -82,9 +82,9 @@
 							</Button>
 						</div>
 					{/if}
-					{#if item.fields.additionalButton2File?.fields}
+					{#if item.fields.additionalButton2Link}
 						<div>
-							<Button to={item.fields.additionalButton2File.fields.file.url} colors="green">
+							<Button to={item.fields.additionalButton2Link} colors="green">
 								{item.fields.additionalButton2Text}
 							</Button>
 						</div>

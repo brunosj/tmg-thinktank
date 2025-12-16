@@ -357,7 +357,7 @@ export interface Publication extends ContentfulEntry {
 		additionalButtonText: string;
 		additionalButtonFile: MediaFile;
 		additionalButton2Text: string;
-		additionalButton2File: MediaFile;
+		additionalButton2Link: string;
 	};
 }
 
@@ -418,6 +418,10 @@ export interface PublicationFeature extends ContentfulEntry {
 		cutoffDate: string;
 		title: string;
 		hideTitle: boolean;
+		heroBannerTitle: string;
+		heroBannerSubtitle: string;
+		heroBannerPicture: ImageCdn[];
+		heroBannerButtonLink: string;
 		summary: string;
 		keywords: string[];
 		sections: {
