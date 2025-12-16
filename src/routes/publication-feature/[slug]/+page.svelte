@@ -45,7 +45,6 @@
 	// Check if hero banner fields are present
 	let hasHeroBanner = $derived(
 		!!feature.fields.heroBannerTitle &&
-			!!feature.fields.heroBannerSubtitle &&
 			!!feature.fields.heroBannerPicture &&
 			feature.fields.heroBannerPicture.length > 0
 	);
@@ -90,16 +89,18 @@
 								>
 									{feature.fields.heroBannerTitle}
 								</h1>
-								<h2
-									class="text-base leading-relaxed font-normal text-white/90 lg:text-xl"
-									in:fly={{ x: -50, duration: 500, delay: 250, easing: cubicInOut }}
-								>
-									{feature.fields.heroBannerSubtitle}
-								</h2>
+								{#if feature.fields.heroBannerSubtitle}
+									<h2
+										class="text-base leading-relaxed font-normal text-white/90 lg:text-xl"
+										in:fly={{ x: -50, duration: 500, delay: 250, easing: cubicInOut }}
+									>
+										{feature.fields.heroBannerSubtitle}
+									</h2>
+								{/if}
 								{#if feature.fields.heroBannerButtonLink}
 									<div in:fly={{ x: -50, duration: 500, delay: 450, easing: cubicInOut }}>
 										<Button to={feature.fields.heroBannerButtonLink} colors="blue-invert"
-											>Read more</Button
+											>{feature.fields.heroBannerButtonText || 'Download'}</Button
 										>
 									</div>
 								{/if}
@@ -107,7 +108,7 @@
 						</div>
 
 						<!-- Image Section -->
-						<div class="col-span-1 flex items-center justify-center backdrop-blur-xs">
+						<div class="relative col-span-1 flex items-center justify-center backdrop-blur-xs">
 							<img
 								loading="eager"
 								src={heroImage}

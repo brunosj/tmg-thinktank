@@ -49,9 +49,9 @@
 	>
 		<button
 			class={colors === 'green'
-				? 'bg-blue-normal hover:bg-opacity-80 focus-visible:outline-blue-normal cursor-pointer rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid lg:text-lg'
+				? 'bg-blue-normal hover:bg-opacity-60 focus-visible:outline-blue-normal cursor-pointer rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid lg:text-lg'
 				: colors === 'blue'
-					? 'bg-navy-blue hover:bg-opacity-80 focus-visible:outline-navy-blue cursor-pointer rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid lg:text-lg'
+					? 'bg-navy-blue hover:bg-opacity-60 focus-visible:outline-navy-blue cursor-pointer rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid lg:text-lg'
 					: colors === 'blue-invert'
 						? 'text-navy-blue focus-visible:outline-navy-blue cursor-pointer rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold shadow-xs duration-300 hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid lg:text-lg'
 						: 'text-blue-normal focus-visible:outline-blue-normal cursor-pointer rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold shadow-xs duration-300 hover:bg-gray-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid lg:text-lg'}
@@ -64,9 +64,9 @@
 {:else}
 	<button
 		class={colors === 'green'
-			? 'bg-blue-normal hover:bg-opacity-80 focus-visible:outline-blue-normal rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid lg:text-lg'
+			? 'bg-blue-normal hover:bg-opacity-60 focus-visible:outline-blue-normal rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid lg:text-lg'
 			: colors === 'blue'
-				? 'bg-navy-blue hover:bg-opacity-80 focus-visible:outline-navy-blue rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid lg:text-lg'
+				? 'bg-navy-blue hover:bg-opacity-60 focus-visible:outline-navy-blue rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid lg:text-lg'
 				: colors === 'blue-invert'
 					? 'text-navy-blue focus-visible:outline-navy-blue rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold shadow-xs duration-300 hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid lg:text-lg'
 					: 'text-blue-normal focus-visible:outline-blue-normal rounded-md border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-semibold shadow-xs duration-300 hover:bg-gray-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid lg:text-lg'}

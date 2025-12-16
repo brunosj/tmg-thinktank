@@ -419,9 +419,10 @@ export interface PublicationFeature extends ContentfulEntry {
 		title: string;
 		hideTitle: boolean;
 		heroBannerTitle: string;
-		heroBannerSubtitle: string;
+		heroBannerSubtitle?: string;
 		heroBannerPicture: ImageCdn[];
-		heroBannerButtonLink: string;
+		heroBannerButtonText?: string;
+		heroBannerButtonLink?: string;
 		summary: string;
 		keywords: string[];
 		sections: {
