@@ -108,7 +108,9 @@
 						</div>
 
 						<!-- Image Section -->
-						<div class="relative col-span-1 flex items-center justify-center backdrop-blur-xs">
+						<div
+							class="lg:pb6 relative col-span-1 flex items-center justify-center p-0 pb-6 lg:p-6"
+						>
 							<img
 								loading="eager"
 								src={heroImage}
