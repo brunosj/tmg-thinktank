@@ -68,7 +68,7 @@
 
 						<h1
 							class="text-3xl leading-tight font-bold tracking-tight sm:text-4xl lg:text-5xl xl:text-6xl"
-							style="word-wrap: break-word; overflow-wrap: break-word; hyphens: auto;"
+							style="word-wrap: break-word; overflow-wrap: break-word;"
 							transition:fly={{
 								x: imageOnRight ? -50 : 50,
 								duration: 600,
