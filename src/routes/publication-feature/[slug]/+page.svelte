@@ -11,10 +11,7 @@
 	import Banner from '$components/Banner/Banner.svelte';
 	import ResponsiveIFrame from '$lib/components/IFrame/ResponsiveIFrame.svelte';
 	import RelatedContentSection from '$components/Layout/RelatedContentSection.svelte';
-	import IntersectionObserver from 'svelte-intersection-observer';
-	import { fly, fade } from 'svelte/transition';
-	import { cubicInOut } from 'svelte/easing';
-	import Button from '$components/UI/Button.svelte';
+	import PublicationHeroBanner from '$components/Hero/PublicationHeroBanner.svelte';
 
 	interface Props {
 		data: Page;
@@ -51,9 +48,6 @@
 
 	let heroImage = $derived(hasHeroBanner ? feature.fields.heroBannerPicture[0]?.secure_url : '');
 
-	let element = $state<HTMLElement | null>(null);
-	let intersecting = $state(false);
-
 	let seoReady = $derived(!!feature);
 </script>
 
@@ -68,61 +62,14 @@
 
 <article class="py-10 lg:py-16">
 	{#if hasHeroBanner}
-		<!-- Hero Banner Section (similar to HeroV4) -->
-		<section
-			class="relative min-h-[50vh] w-full overflow-hidden"
-			bind:this={element}
-			style={`background-color: ${feature.fields.color2 || '#1e3a8a'};`}
-		>
-			<IntersectionObserver {element} bind:intersecting once threshold={0.2}>
-				{#if intersecting}
-					<div class="layout grid min-h-[50vh] grid-cols-1 lg:grid-cols-4">
-						<!-- Content Section -->
-						<div
-							class="col-span-1 flex items-center lg:col-span-3"
-							in:fade={{ duration: 800, easing: cubicInOut }}
-						>
-							<div class="w-full space-y-8 py-12 text-white lg:w-[90%]">
-								<h1
-									class="text-3xl leading-tight font-semibold tracking-tight lg:text-5xl"
-									transition:fly={{ x: -50, duration: 500, delay: 250, easing: cubicInOut }}
-								>
-									{feature.fields.heroBannerTitle}
-								</h1>
-								{#if feature.fields.heroBannerSubtitle}
-									<h2
-										class="text-base leading-relaxed font-normal text-white/90 lg:text-xl"
-										in:fly={{ x: -50, duration: 500, delay: 250, easing: cubicInOut }}
-									>
-										{feature.fields.heroBannerSubtitle}
-									</h2>
-								{/if}
-								{#if feature.fields.heroBannerButtonLink}
-									<div in:fly={{ x: -50, duration: 500, delay: 450, easing: cubicInOut }}>
-										<Button to={feature.fields.heroBannerButtonLink} colors="blue-invert"
-											>{feature.fields.heroBannerButtonText || 'Download'}</Button
-										>
-									</div>
-								{/if}
-							</div>
-						</div>
-
-						<!-- Image Section -->
-						<div
-							class="lg:pb6 relative col-span-1 flex items-center justify-center p-0 pb-6 lg:p-6"
-						>
-							<img
-								loading="eager"
-								src={heroImage}
-								alt={feature.fields.heroBannerTitle}
-								class="h-auto w-full object-contain"
-								transition:fly={{ x: 50, duration: 500, delay: 250, easing: cubicInOut }}
-							/>
-						</div>
-					</div>
-				{/if}
-			</IntersectionObserver>
-		</section>
+		<PublicationHeroBanner
+			title={feature.fields.heroBannerTitle}
+			subtitle={feature.fields.heroBannerSubtitle}
+			image={heroImage}
+			buttonText={feature.fields.heroBannerButtonText}
+			buttonLink={feature.fields.heroBannerButtonLink}
+			backgroundColor={feature.fields.color2 || '#1e3a8a'}
+		/>
 	{:else}
 		<!-- Regular Banner Section -->
 		<section class=" h-full w-full">
