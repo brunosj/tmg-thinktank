@@ -13,16 +13,18 @@
 
 	// Create a derived value for sorted items instead of a reactive statement
 	let sortedItems = $derived(
-		[...items].sort(
-			(a, b) => +new Date(b.fields.publicationDate) - +new Date(a.fields.publicationDate)
-		)
+		[...items].sort((a, b) => {
+			const dateA = a.fields.publicationDate ? +new Date(a.fields.publicationDate) : 0;
+			const dateB = b.fields.publicationDate ? +new Date(b.fields.publicationDate) : 0;
+			return dateB - dateA;
+		})
 	);
 </script>
 
 <div
 	class={`${layout ? 'layout' : ' '} grid grid-cols-1 pb-6 ${paddingTop} lg:grid-cols-2 lg:gap-5`}
 >
-	{#each sortedItems as item, i (item.fields.title)}
+	{#each sortedItems as item, i (item.sys?.id || `fallback-${i}`)}
 		{@const image =
 			item.fields?.thumbnailCdn?.length > 0
 				? item.fields?.thumbnailCdn[0]?.secure_url
@@ -61,12 +63,14 @@
 								</span>
 							</p>
 						{/if}
-						<p class="text-xs text-black">
-							Published on{' '}
-							<span class="font-semibold">
-								{formatDateNews(item.fields.publicationDate)}
-							</span>
-						</p>
+						{#if item.fields.publicationDate}
+							<p class="text-xs text-black">
+								Published on{' '}
+								<span class="font-semibold">
+									{formatDateNews(item.fields.publicationDate)}
+								</span>
+							</p>
+						{/if}
 					</div>
 				</div>
 			</a>
