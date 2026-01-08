@@ -1,6 +1,14 @@
 // export const prerender = true;
 
-import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
+import {
+	fetchProjects,
+	fetchEvents,
+	fetchVideos,
+	fetchPublications,
+	fetchBlogPosts,
+	fetchNews,
+	getEntryBySlug
+} from '$lib/dataClient';
 import {
 	transformPublicationToNews,
 	transformVideoToNews,
@@ -8,7 +16,7 @@ import {
 } from '$utils/utils';
 
 export async function entries() {
-	const entries = await fetchContentfulData('portfolio');
+	const entries = await fetchProjects();
 	return entries
 		.filter((entry) => {
 			// Filter out entries without slugs (common in draft mode)
@@ -37,11 +45,11 @@ export async function load({ params }) {
 
 		// Fetch related data in parallel for better performance
 		const [events, videos, publications, blogPosts, news] = await Promise.all([
-			fetchContentfulData('event'),
-			fetchContentfulData('video'),
-			fetchContentfulData('publications'),
-			fetchContentfulData('blogPost'),
-			fetchContentfulData('news')
+			fetchEvents(),
+			fetchVideos(),
+			fetchPublications(),
+			fetchBlogPosts(),
+			fetchNews()
 		]);
 
 		const videoNewsItems = videos.filter((p) => p.fields.automatedNewsEntry);

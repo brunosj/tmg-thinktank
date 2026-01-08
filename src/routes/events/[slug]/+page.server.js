@@ -1,4 +1,5 @@
-import { fetchContentfulData, getEntryBySlug, isPreviewMode } from '$lib/contentfulClient';
+import { isPreviewMode } from '$lib/contentfulClient';
+import { fetchEvents, getEntryBySlug } from '$lib/dataClient';
 
 // Disable prerendering in preview mode to allow dynamic content
 // export const prerender = !isPreviewMode;
@@ -10,7 +11,7 @@ export async function entries() {
 		return [];
 	}
 
-	const entries = await fetchContentfulData('event');
+	const entries = await fetchEvents();
 	return entries
 		.filter((entry) => {
 			// Filter out entries without slugs (common in draft mode)

@@ -1,4 +1,11 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+import {
+	fetchContentfulData,
+	fetchProgrammes,
+	fetchNewsletters,
+	fetchPartners,
+	fetchEvents,
+	fetchBlogPosts
+} from '$lib/dataClient';
 import { slugify } from '$utils/utils.js';
 import type {
 	Event,
@@ -21,35 +28,18 @@ export async function load({ setHeaders }) {
 			Vary: 'Accept-Encoding'
 		});
 
-		// Fetch all data in parallel with optimized field selection
+		// Fetch all data in parallel
 		const [landingPage, programmes, newsletter, partners, events, blogPosts] = await Promise.all([
 			fetchContentfulData('landingPage', { ttl: 30 * 60 * 1000 }),
-			fetchContentfulData<Programme>('program'),
-			fetchContentfulData<Newsletter>('newsletter', {
-				select: ['fields.title', 'fields.description'],
-				ttl: 30 * 60 * 1000
-			}),
-			fetchContentfulData<Partner>('partners', {
-				select: [
-					'fields.name',
-					'fields.logo',
-					'fields.logoCdn',
-					'fields.url',
-					'fields.partnerOrFunder'
-				],
-				ttl: 30 * 60 * 1000
-			}),
-			fetchContentfulData<Event>('event', {
-				select: ['fields.title', 'fields.date', 'fields.slug', 'fields.summary'],
-				ttl: 15 * 60 * 1000 // Shorter cache for events
-			}),
-			fetchContentfulData<BlogPost>('blogPost', {
-				select: ['fields.title', 'fields.dateFormat', 'fields.slug', 'fields.summary'],
-				ttl: 15 * 60 * 1000
-			})
+			fetchProgrammes(),
+			fetchNewsletters(),
+			fetchPartners(),
+			fetchEvents(),
+			fetchBlogPosts()
 		]);
 
-		const upcomingEvents = events
+		// Get upcoming events, or fall back to most recent past events
+		let upcomingEvents = events
 			.filter((event: Event) => {
 				const eventDate = new Date(event.fields.date);
 				return eventDate > today;
@@ -60,6 +50,17 @@ export async function load({ setHeaders }) {
 				return dateA - dateB;
 			})
 			.slice(0, 4);
+
+		// If no upcoming events, show most recent past events
+		if (upcomingEvents.length === 0) {
+			upcomingEvents = events
+				.sort((a: Event, b: Event) => {
+					const dateA = new Date(a.fields.date).getTime();
+					const dateB = new Date(b.fields.date).getTime();
+					return dateB - dateA; // Descending order (most recent first)
+				})
+				.slice(0, 4);
+		}
 
 		const latestBlog = blogPosts
 			.sort((a: BlogPost, b: BlogPost) => {
@@ -82,7 +83,7 @@ export async function load({ setHeaders }) {
 		]);
 
 		return {
-			landingPage,
+			landingPage: landingPage.length > 0 ? landingPage : [{ fields: {} }], // Fallback for Payload
 			programmes,
 			newsletter,
 			partners,
@@ -92,10 +93,19 @@ export async function load({ setHeaders }) {
 			publicationFeatures
 		};
 	} catch (error) {
-		console.error('Error fetching data:', error);
+		console.error('❌ Error fetching homepage data:', error);
+		console.error('❌ Error details:', JSON.stringify(error, null, 2));
 		return {
 			status: 500,
-			error: 'Server Error'
+			error: 'Server Error',
+			landingPage: [{ fields: {} }],
+			programmes: [],
+			newsletter: [],
+			partners: [],
+			events: [],
+			eventSeries: [],
+			blog: [],
+			publicationFeatures: []
 		};
 	}
 }

@@ -39,15 +39,17 @@
 		blogPosts: BlogPost[];
 	};
 
+
+
 	let landingPage = data.landingPage[0];
 	let { programmes, newsletter, partners, events, blog, publicationFeatures, eventSeries } = data;
 </script>
 
 <HeroV4 hero={landingPage} />
 <LatestV2 {landingPage} />
-<ImageBannerEventSeries items={eventSeries} />
+<!-- <ImageBannerEventSeries items={eventSeries} /> -->
 <EventsHomepage {events} {landingPage} />
-<ImageBannerPublicationFeature items={publicationFeatures} />
+<!-- <ImageBannerPublicationFeature items={publicationFeatures} /> -->
 <HeroProgrammesV2
 	heroProgrammes={programmes}
 	programmeSectionTitle={landingPage.fields.programmeSectionTitle}

@@ -1,5 +1,5 @@
 import type { LayoutServerLoad } from './$types';
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { fetchProgrammes } from '$lib/dataClient';
 import type {
 	Event,
 	News,
@@ -16,7 +16,7 @@ export const load: LayoutServerLoad = async ({ url, setHeaders }) => {
 
 	try {
 		// Use longer cache for layout data since it changes infrequently
-		const programmes = await fetchContentfulData<Programme>('program');
+		const programmes = await fetchProgrammes();
 
 		// Note: Cache headers are set by individual page load functions
 		// Layout data is cached at the Contentful client level

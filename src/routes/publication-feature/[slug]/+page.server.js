@@ -1,6 +1,6 @@
 // export const prerender = true;
 
-import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
+import { fetchContentfulData, getEntryBySlug } from '$lib/dataClient';
 
 export async function entries() {
 	const entries = await fetchContentfulData('publicationFeature');

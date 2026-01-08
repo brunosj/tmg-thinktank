@@ -1,5 +1,11 @@
 import { json } from '@sveltejs/kit';
-import { fetchContentfulData } from '$lib/contentfulClient';
+import {
+	fetchEvents,
+	fetchPublications,
+	fetchVideos,
+	fetchBlogPosts,
+	fetchContentfulData
+} from '$lib/dataClient';
 import { transformPublicationToNews } from '$utils/utils';
 import type {
 	SearchItem,
@@ -16,7 +22,7 @@ import type {
 
 export async function GET() {
 	try {
-		// Fetch all data in parallel with optimized field selection
+		// Fetch all data in parallel
 		const [
 			eventsData,
 			publicationsData,
@@ -25,21 +31,8 @@ export async function GET() {
 			videosData,
 			blogPostsData
 		] = await Promise.all([
-			fetchContentfulData<Event>('event', {
-				select: ['fields.title', 'fields.summary', 'fields.slug', 'fields.type', 'fields.date'],
-				ttl: 30 * 60 * 1000 // 30 minutes cache
-			}),
-			fetchContentfulData<Publication>('publications', {
-				select: [
-					'fields.title',
-					'fields.summary',
-					'fields.category',
-					'fields.publicationDate',
-					'fields.pdf',
-					'fields.automatedNewsEntry'
-				],
-				ttl: 30 * 60 * 1000
-			}),
+			fetchEvents(),
+			fetchPublications(),
 			fetchContentfulData<PublicationFeature>('publicationFeature', {
 				select: ['fields.title', 'fields.summary', 'fields.slug'],
 				ttl: 30 * 60 * 1000
@@ -48,14 +41,8 @@ export async function GET() {
 				select: ['fields.title', 'fields.summary', 'fields.slug'],
 				ttl: 30 * 60 * 1000
 			}),
-			fetchContentfulData<Video>('video', {
-				select: ['fields.title', 'fields.summary', 'fields.videoId'],
-				ttl: 30 * 60 * 1000
-			}),
-			fetchContentfulData<BlogPost>('blogPost', {
-				select: ['fields.title', 'fields.summary', 'fields.slug', 'fields.dateFormat'],
-				ttl: 30 * 60 * 1000
-			})
+			fetchVideos(),
+			fetchBlogPosts()
 		]);
 
 		const publicationNewsItems = publicationsData.filter((p) => p.fields.automatedNewsEntry);

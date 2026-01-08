@@ -1,4 +1,13 @@
-import { fetchContentfulData, getEntryBySlug, isPreviewMode } from '$lib/contentfulClient';
+import { isPreviewMode } from '$lib/contentfulClient';
+import {
+	fetchProgrammes,
+	fetchPublications,
+	fetchEvents,
+	fetchVideos,
+	fetchBlogPosts,
+	fetchNews,
+	getEntryBySlug
+} from '$lib/dataClient';
 import {
 	transformPublicationToNews,
 	transformVideoToNews,
@@ -14,7 +23,7 @@ export async function entries() {
 		console.log('📝 Preview mode detected, skipping entries generation for programmes');
 		return [];
 	}
-	const entries = await fetchContentfulData('program');
+	const entries = await fetchProgrammes();
 	return entries
 		.filter((entry) => {
 			// Filter out entries without slugs (common in draft mode)
@@ -41,14 +50,13 @@ export async function load({ params }) {
 			throw new Error('Entry not found');
 		}
 
-		// Only fetch additional data if the programme actually needs it
-		// This reduces API calls from 6 to 1 for most programme pages
+		// Fetch all content items
 		const [publications, events, videos, blogPosts, news] = await Promise.all([
-			fetchContentfulData('publications'),
-			fetchContentfulData('event'),
-			fetchContentfulData('video'),
-			fetchContentfulData('blogPost'),
-			fetchContentfulData('news')
+			fetchPublications(),
+			fetchEvents(),
+			fetchVideos(),
+			fetchBlogPosts(),
+			fetchNews()
 		]);
 
 		const videoNewsItems = videos.filter((p) => p.fields.automatedNewsEntry);

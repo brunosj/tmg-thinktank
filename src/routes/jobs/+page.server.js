@@ -1,4 +1,4 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { fetchContentfulData } from '$lib/dataClient';
 
 export async function load() {
 	let entries = [];

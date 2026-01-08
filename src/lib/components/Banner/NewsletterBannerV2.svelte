@@ -76,11 +76,11 @@
 					</div>
 
 					<h2 class="text-2xl font-bold leading-tight text-white md:text-3xl lg:text-4xl">
-						{landingPage.fields.newsletterBanner.fields.title}
+						{landingPage.fields.newsletterBanner?.fields?.title || 'Stay Connected'}
 					</h2>
 
 					<p class="max-w-xl text-base text-white/90 md:text-lg">
-						{landingPage.fields.newsletterBanner.fields.subtitle}
+						{landingPage.fields.newsletterBanner?.fields?.subtitle || 'Subscribe to our newsletter for updates and insights'}
 					</p>
 
 					<form class="flex max-w-lg flex-col gap-4 sm:flex-row" onsubmit={handleSubmit}>
@@ -95,7 +95,7 @@
 							/>
 						</div>
 						<Button colors="white" submit disabled={loading}>
-							{loading ? 'Subscribing...' : landingPage.fields.newsletterBanner.fields.buttonText}
+							{loading ? 'Subscribing...' : (landingPage.fields.newsletterBanner?.fields?.buttonText || 'Subscribe')}
 						</Button>
 					</form>
 

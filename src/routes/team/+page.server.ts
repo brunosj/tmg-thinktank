@@ -1,11 +1,11 @@
 // export const prerender = true;
 
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { fetchTeams } from '$lib/dataClient';
 import type { Team } from '$lib/types/types';
 
 export async function load() {
 	try {
-		const entries: Team[] = await fetchContentfulData('staff');
+		const entries: Team[] = await fetchTeams();
 		return {
 			entries
 		};

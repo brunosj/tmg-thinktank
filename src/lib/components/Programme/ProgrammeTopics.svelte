@@ -2,6 +2,7 @@
 	import type { Topic } from '$lib/types/types';
 	import { createEventDispatcher } from 'svelte';
 	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 	import ProjectCard from '$components/Programme/ProjectCard.svelte';
 	interface Props {
 		topics: Topic[];
@@ -17,6 +18,20 @@
 		topicStates[index].descriptionMore = true;
 		topicStates[index].viewButton = false;
 	};
+
+	// Helper to check if content is Lexical format
+	const isLexicalFormat = (content: any): boolean => {
+		return content && typeof content === 'object' && 'root' in content;
+	};
+
+	// Helper to check if content is Contentful format
+	const isContentfulFormat = (content: any): boolean => {
+		return (
+			content &&
+			typeof content === 'object' &&
+			('content' in content || 'nodeType' in content)
+		);
+	};
 </script>
 
 {#each topics as topic, i}
@@ -28,12 +43,21 @@
 			<div
 				class="rounded-md opacity-90 transition duration-300 ease-in-out group-hover:opacity-100"
 			>
-				<img
-					loading="lazy"
-					src={topic.fields.image?.fields?.file?.url}
-					alt={topic.fields.title}
-					class="h-auto w-full rounded-md"
-				/>
+				{#if topic.fields.imageCdn && topic.fields.imageCdn.length > 0}
+					<img
+						loading="lazy"
+						src={topic.fields.imageCdn[0].secure_url}
+						alt={topic.fields.title}
+						class="h-auto w-full rounded-md"
+					/>
+				{:else if topic.fields.image?.fields?.file?.url}
+					<img
+						loading="lazy"
+						src={topic.fields.image.fields.file.url}
+						alt={topic.fields.title}
+						class="h-auto w-full rounded-md"
+					/>
+				{/if}
 			</div>
 			<div class="col-span-2 pl-0 md:pl-0">
 				<h2 class="text-center text-lg leading-tight font-semibold lg:text-left lg:text-xl">
@@ -41,10 +65,22 @@
 				</h2>
 				<div class="richText richText mt-6">
 					{#if topic.fields.descriptionIntro}
-						{@html renderRichText(topic.fields.descriptionIntro)}
+						{#if isLexicalFormat(topic.fields.descriptionIntro)}
+							<RichText content={topic.fields.descriptionIntro as any} />
+						{:else if isContentfulFormat(topic.fields.descriptionIntro)}
+							{@html renderRichText(topic.fields.descriptionIntro)}
+						{:else if typeof topic.fields.descriptionIntro === 'string'}
+							<p>{topic.fields.descriptionIntro}</p>
+						{/if}
 					{/if}
 					{#if topicStates[i].descriptionMore}
-						{@html renderRichText(topic.fields.description)}
+						{#if isLexicalFormat(topic.fields.description)}
+							<RichText content={topic.fields.description as any} />
+						{:else if isContentfulFormat(topic.fields.description)}
+							{@html renderRichText(topic.fields.description)}
+						{:else if typeof topic.fields.description === 'string'}
+							<p>{topic.fields.description}</p>
+						{/if}
 					{/if}
 				</div>
 				{#if topic.fields.description && topicStates[i].viewButton}

@@ -1,11 +1,11 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { fetchContentfulData, fetchVideos } from '$lib/dataClient';
 
 export async function load() {
 	try {
 		const entries = await fetchContentfulData('unfssCop26');
 		const item = entries.find((item) => item.fields.slug === 'unccd-cop15');
 
-		const videos = await fetchContentfulData('video');
+		const videos = await fetchVideos();
 
 		if (item) {
 			return { item, videos };

@@ -1,4 +1,4 @@
-import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
+import { fetchContentfulData, getEntryBySlug } from '$lib/dataClient';
 import type { Initiative } from '$lib/types/types';
 
 export async function entries() {

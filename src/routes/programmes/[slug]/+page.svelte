@@ -57,11 +57,14 @@
 		}
 	});
 
-	// Filter and sort events
+	// Filter and sort events by programme
 	let filteredEvents = $derived(
 		programme && 'fields' in programme
 			? events
-					.filter((event) => event.fields?.programme?.fields?.title === programme?.fields?.title)
+					.filter((event) => {
+						const prog = event.fields?.programme;
+						return prog?.fields?.slug === programme.fields?.slug;
+					})
 					.sort((a, b) => {
 						const dateA = new Date(a.fields.date).getTime();
 						const dateB = new Date(b.fields.date).getTime();
@@ -70,14 +73,15 @@
 			: []
 	);
 
-	// Filter and sort publications
+	// Filter and sort publications by programme
 	let filteredPublications = $derived(
 		programme && 'fields' in programme
 			? publications
-					.filter(
-						(publication) =>
-							publication.fields?.programme?.fields?.title === programme?.fields?.title
-					)
+					.filter((publication) => {
+						const prog = publication.fields?.programme;
+
+						return prog?.fields?.slug === programme.fields?.slug;
+					})
 					.sort((a, b) => {
 						const dateA = new Date(a.fields.publicationDate).getTime();
 						const dateB = new Date(b.fields.publicationDate).getTime();
@@ -86,11 +90,14 @@
 			: []
 	);
 
-	// Filter and sort news
+	// Filter and sort news by programme
 	let filteredNews = $derived(
 		programme && 'fields' in programme
 			? news
-					.filter((news) => news.fields?.programme?.fields?.title === programme?.fields?.title)
+					.filter((newsItem) => {
+						const prog = newsItem.fields?.programme;
+						return prog?.fields?.slug === programme.fields?.slug;
+					})
 					.sort((a, b) => {
 						const dateA = new Date(a.fields.dateFormat).getTime();
 						const dateB = new Date(b.fields.dateFormat).getTime();
@@ -188,14 +195,14 @@
 				<ProgrammeFeatured item={initiative} type="initiative" />
 			{/each}
 		{/if}
-		{#if programme.fields.flagshipOutput}
+		<!-- {#if programme.fields.flagshipOutput}
 			<ProgrammeFeatured
 				item={programme.fields.flagshipOutput}
 				type="flagship"
 				theme="dark"
 				imagePosition="right"
 			/>
-		{/if}
+		{/if} -->
 
 		<Heading text="Topics" bgColor="#eaeaee" textColor="#2e2d51" />
 		<ProgrammeTopics topics={programme.fields.topics} />

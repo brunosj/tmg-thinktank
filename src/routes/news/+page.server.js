@@ -1,4 +1,9 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+import {
+	fetchPublications,
+	fetchVideos,
+	fetchNews,
+	fetchBlogPosts
+} from '$lib/dataClient';
 import {
 	transformPublicationToNews,
 	transformVideoToNews,
@@ -7,17 +12,17 @@ import {
 
 export async function load() {
 	try {
-		const publicationEntries = await fetchContentfulData('publications');
+		const publicationEntries = await fetchPublications();
 		const publicationNewsItems = publicationEntries.filter((p) => p.fields.automatedNewsEntry);
 		const transformedPublicationNewsItems = publicationNewsItems.map(transformPublicationToNews);
 
-		const videos = await fetchContentfulData('video');
+		const videos = await fetchVideos();
 		const videoNewsItems = videos.filter((p) => p.fields.automatedNewsEntry);
 		const transformedVideoNewsItems = videoNewsItems?.map(transformVideoToNews);
 
-		let entries = await fetchContentfulData('news');
+		let entries = await fetchNews();
 
-		const blogPosts = await fetchContentfulData('blogPost');
+		const blogPosts = await fetchBlogPosts();
 		const transformedBlogPosts = blogPosts?.map(transformBlogPostToNews);
 		entries = [
 			...entries,

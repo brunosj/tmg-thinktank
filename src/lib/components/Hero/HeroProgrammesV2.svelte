@@ -38,14 +38,16 @@
 						href={`/programmes/${programme.fields.slug}`}
 						class="group flex h-full flex-col rounded-lg"
 					>
-						<div class="relative">
-							<img
-								loading="lazy"
-								src={programme.fields.bannerPicture[0].secure_url}
-								class="-z-10 h-48 w-full rounded-t-lg object-cover"
-								alt="Programme Banner"
-							/>
-						</div>
+						{#if programme.fields.bannerPicture && programme.fields.bannerPicture.length > 0 && programme.fields.bannerPicture[0]?.secure_url}
+							<div class="relative">
+								<img
+									loading="lazy"
+									src={programme.fields.bannerPicture[0].secure_url}
+									class="-z-10 h-48 w-full rounded-t-lg object-cover"
+									alt="Programme Banner"
+								/>
+							</div>
+						{/if}
 						<div
 							class=" flex h-full flex-col items-center space-y-2 rounded-b-lg bg-white p-4 duration-300 group-hover:bg-blue-light lg:p-6"
 						>

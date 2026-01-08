@@ -51,6 +51,7 @@
 	function loadMoreItems() {
 		itemsCount += 12;
 	}
+
 </script>
 
 <SEO title="Publications" />

@@ -1,6 +1,12 @@
 // export const prerender = true;
 
-import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
+import {
+	fetchPublications,
+	fetchVideos,
+	fetchBlogPosts,
+	fetchNews,
+	getEntryBySlug
+} from '$lib/dataClient';
 import {
 	transformPublicationToNews,
 	transformVideoToNews,
@@ -19,10 +25,10 @@ export async function load({ params }) {
 
 		// Fetch related data in parallel for better performance
 		const [publications, videos, blogPosts, news] = await Promise.all([
-			fetchContentfulData('publications'),
-			fetchContentfulData('video'),
-			fetchContentfulData('blogPost'),
-			fetchContentfulData('news')
+			fetchPublications(),
+			fetchVideos(),
+			fetchBlogPosts(),
+			fetchNews()
 		]);
 
 		const publicationNewsItems = publications.filter((p) => p.fields.automatedNewsEntry);

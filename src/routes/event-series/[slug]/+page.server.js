@@ -1,6 +1,6 @@
 // export const prerender = true;
 
-import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
+import { fetchVideos, fetchContentfulData, getEntryBySlug } from '$lib/dataClient';
 
 export async function entries() {
 	const entries = await fetchContentfulData('unfssCop26');
@@ -17,7 +17,7 @@ export async function load({ params }) {
 	try {
 		const [item, videos] = await Promise.all([
 			getEntryBySlug(slug, 'unfssCop26'),
-			fetchContentfulData('video')
+			fetchVideos()
 		]);
 
 		if (item) {

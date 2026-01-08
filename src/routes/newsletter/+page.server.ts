@@ -1,9 +1,9 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { fetchNewsletters } from '$lib/dataClient';
 import type { Newsletter } from '$lib/types/types';
 
 export async function load() {
 	try {
-		let newsletter: Newsletter[] = await fetchContentfulData('newsletter');
+		let newsletter: Newsletter[] = await fetchNewsletters();
 
 		newsletter = newsletter.sort((a, b) => {
 			const dateA = new Date(a.fields.date);

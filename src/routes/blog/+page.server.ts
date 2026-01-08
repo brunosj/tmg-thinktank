@@ -1,9 +1,9 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { fetchBlogPosts } from '$lib/dataClient';
 import type { BlogPost } from '$lib/types/types';
 
 export async function load() {
 	try {
-		const news: BlogPost[] = await fetchContentfulData('blogPost');
+		const news: BlogPost[] = await fetchBlogPosts();
 		return {
 			news
 		};

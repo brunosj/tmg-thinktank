@@ -14,7 +14,10 @@ export default defineConfig({
 	],
 	server: {
 		port: 3000,
-		strictPort: false
+		strictPort: false,
+		hmr: {
+			overlay: false // Reduce HMR noise
+		}
 	},
 
 	preview: {

@@ -1,4 +1,4 @@
-import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
+import { fetchPublications, fetchBlogPosts, fetchNews, getEntryBySlug } from '$lib/dataClient';
 import { transformPublicationToNews, transformBlogPostToNews } from '$utils/utils';
 import type { News, Publication, BlogPost } from '$lib/types/types';
 
@@ -40,12 +40,11 @@ export async function load({ params }) {
 			throw new Error('Entry not found');
 		}
 
-		// Only fetch all entries if we need them for related content
-		// This is a significant optimization - from 3 API calls to 1
+		// Fetch all entries for related content
 		const [publicationEntries, blogPosts, newsEntries] = await Promise.all([
-			fetchContentfulData('publications'),
-			fetchContentfulData('blogPost'),
-			fetchContentfulData('news')
+			fetchPublications(),
+			fetchBlogPosts(),
+			fetchNews()
 		]);
 
 		const publicationNewsItems = publicationEntries.filter((p) => p.fields.automatedNewsEntry);

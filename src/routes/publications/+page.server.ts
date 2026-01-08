@@ -1,9 +1,9 @@
-import { fetchContentfulData } from '$lib/contentfulClient';
+import { fetchPublications, fetchContentfulData } from '$lib/dataClient';
 import type { Publication, PublicationFeature } from '$lib/types/types';
 
 export async function load() {
 	try {
-		let entries: Publication[] = await fetchContentfulData('publications');
+		let entries: Publication[] = await fetchPublications();
 
 		entries = entries.sort((a, b) => {
 			const dateA = new Date(a.fields.publicationDate);

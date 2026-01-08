@@ -92,12 +92,10 @@ export async function fetchContentfulData<T>(
 	// Check cache first
 	const cached = getFromCache<T[]>(cacheKey);
 	if (cached) {
-		console.log(`✅ Cache hit for ${contentType}`);
 		return cached;
 	}
 
 	try {
-		console.log(`🌐 Fetching ${contentType} from Contentful (cache miss)`);
 		const queryOptions: any = {
 			content_type: contentType,
 			limit,

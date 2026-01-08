@@ -1,4 +1,4 @@
-import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
+import { fetchVideos, fetchBlogPosts, fetchNews, getEntryBySlug } from '$lib/dataClient';
 import { transformVideoToNews, transformBlogPostToNews } from '$utils/utils';
 
 export async function load({ params }) {
@@ -36,11 +36,11 @@ export async function load({ params }) {
 			throw new Error('Entry not found');
 		}
 
-		// Only fetch all entries if we need them for related content
+		// Fetch all entries for related content
 		const [videos, blogPosts, newsEntries] = await Promise.all([
-			fetchContentfulData('video'),
-			fetchContentfulData('blogPost'),
-			fetchContentfulData('news')
+			fetchVideos(),
+			fetchBlogPosts(),
+			fetchNews()
 		]);
 
 		const videoNewsItems = videos.filter((p) => p.fields.automatedNewsEntry);

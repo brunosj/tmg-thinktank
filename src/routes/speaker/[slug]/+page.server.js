@@ -1,9 +1,9 @@
 // export const prerender = true;
 
-import { fetchContentfulData, getEntryBySlug } from '$lib/contentfulClient';
+import { fetchSpeakers, fetchEvents, getEntryBySlug } from '$lib/dataClient';
 
 export async function entries() {
-	const entries = await fetchContentfulData('speakers');
+	const entries = await fetchSpeakers();
 	return entries
 		.filter((entry) => {
 			// Filter out entries without slugs (common in draft mode)
@@ -25,8 +25,8 @@ export async function load({ params }) {
 
 	try {
 		const [item, events] = await Promise.all([
-			getEntryBySlug(slug, 'speakers'),
-			fetchContentfulData('event')
+			getEntryBySlug(slug, 'speaker'),
+			fetchEvents()
 		]);
 
 		if (item) {

@@ -1,6 +1,6 @@
 export const prerender = 'auto';
 
-import { getEntryByDOINumber } from '$lib/contentfulClient';
+import { getEntryByDOINumber } from '$lib/dataClient';
 
 export async function load({ params }) {
 	const { doiNumber } = params;
