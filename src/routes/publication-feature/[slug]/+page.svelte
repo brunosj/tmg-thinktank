@@ -86,12 +86,16 @@
 		</section>
 	{/if}
 
+	{#if !feature.fields.hideTitle || feature.fields.summary}
 	<section class="pt layout space-y-3 pt-6 lg:pt-12">
 		{#if !feature.fields.hideTitle}
 			<h1 class="max-w-full lg:max-w-2/3">{feature.fields.title}</h1>
 		{/if}
-		<h3 class="max-w-full lg:max-w-2/3">{feature.fields.summary}</h3>
+		{#if feature.fields.summary}
+			<h3 class="max-w-full lg:max-w-2/3">{feature.fields.summary}</h3>
+		{/if}
 	</section>
+	{/if}
 
 	{#if sectionsWithContentBlocks.length > 0}
 		{#each sectionsWithContentBlocks as sectionContent, index}
