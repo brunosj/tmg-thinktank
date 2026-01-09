@@ -50,7 +50,7 @@
 	<IntersectionObserver {element} bind:intersecting once threshold={0.2}>
 		{#if intersecting}
 			<div
-				class="relative z-10 container mx-auto grid min-h-[65vh] grid-cols-1 gap-8 px-6 py-16 lg:grid-cols-12 lg:gap-16 lg:px-12 lg:py-20"
+				class="relative z-10 layout mx-auto grid min-h-[65vh] grid-cols-1 gap-8 px-6 py-16 lg:grid-cols-12 lg:gap-16 lg:px-12 lg:py-20"
 				in:fade={{ duration: 800, easing: cubicInOut }}
 			>
 				<!-- Content Section -->

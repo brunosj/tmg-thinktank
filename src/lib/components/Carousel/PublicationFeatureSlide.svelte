@@ -58,7 +58,7 @@
 			</div>
 
 			<div class="mt-auto">
-				<p class="text-xs lg:text-sm">{item.fields.summary}</p>
+				<p class="text-xs lg:text-sm">{item.fields.heroBannerSubtitle || item.fields.summary}</p>
 			</div>
 		</div>
 	</a>
