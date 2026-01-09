@@ -20,7 +20,7 @@
 	let image = $derived(
 		item.fields.logoCdn?.length > 0
 			? item.fields.logoCdn[0].secure_url
-			: item.fields.logo.fields.file.url
+			: item.fields.logo?.fields?.file?.url || null
 	);
 </script>
 

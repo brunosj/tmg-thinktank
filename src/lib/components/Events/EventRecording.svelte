@@ -20,5 +20,7 @@
 			<span></span>
 		{/if}
 	</div>
-	<VideoListing videos={item.fields.eventRecording} />
+	{#if item.fields.eventRecording}
+		<VideoListing videos={item.fields.eventRecording} />
+	{/if}
 </section>

@@ -6,6 +6,8 @@
 	import HeadingV2 from '$components/Layout/HeadingV2.svelte';
 	import { formatDateNews } from '$utils/utils';
 	import Button from '$components/UI/Button.svelte';
+
+	console.log(blog)
 </script>
 
 <div class="sectionPy bg-white">

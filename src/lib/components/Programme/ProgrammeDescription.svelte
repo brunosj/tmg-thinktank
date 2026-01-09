@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { FlagshipOutput as FlagshipOutputType } from '$lib/types/types';
-	import { renderRichText } from '$utils/utils';
 	import RichText from '$components/RichText.svelte';
 	import ProgrammeQuote from '$components/Programme/ProgrammeQuote.svelte';
 	import FlagshipOutput from '$components/Programme/FlagshipOutput.svelte';
@@ -29,12 +28,8 @@
 	</div>
 	<div class="grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-16">
 		<div class="col-span-2">
-			{#if isLexical}
+			{#if isLexical || isContentful}
 				<RichText content={description} class="richText" />
-			{:else if isContentful}
-				<div class="richText">
-					{@html renderRichText(description)}
-				</div>
 			{:else if typeof description === 'string'}
 				<div class="richText">
 					<p>{description}</p>

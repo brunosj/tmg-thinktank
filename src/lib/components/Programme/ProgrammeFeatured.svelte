@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { FlagshipOutput, Initiative } from '$lib/types/types';
-	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 
 	interface Props {
 		item: FlagshipOutput | Initiative;

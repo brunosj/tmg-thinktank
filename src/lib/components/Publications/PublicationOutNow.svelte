@@ -5,8 +5,8 @@
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
-	import { ensureHttps } from '$utils/utils';
-	import { renderRichText } from '$utils/utils';
+	import { ensureHttps } from '$components/RichText.svelte';
+	import RichText from '$components/RichText.svelte';
 
 	interface Props {
 		item: Publication;
@@ -70,7 +70,7 @@
 
 		<div class="layout w-full pt-6 lg:w-3/4 lg:pt-12">
 			<div class="richText">
-				{@html renderRichText(item.fields.automatedNewsEntry)}
+				<RichText content={item.fields.automatedNewsEntry} class="richText" />
 			</div>
 
 			<section class="flex w-full pt-6">

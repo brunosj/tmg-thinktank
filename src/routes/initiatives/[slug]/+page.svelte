@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Speaker, Event, Initiative } from '$lib/types/types';
-	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import EventsSection from '$components/Events/EventsSection.svelte';
@@ -416,7 +416,7 @@
 			<SectionHeading title="Image Gallery" color={item.fields.color1 || '#333'} />
 			{#if item.fields.galleryText}
 				<div class="mx-auto">
-					{@html renderRichText(item.fields.galleryText)}
+					<RichText content={item.fields.galleryText} class="richText" />
 				</div>
 			{/if}
 

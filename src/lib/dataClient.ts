@@ -64,6 +64,13 @@ export async function fetchVideos(): Promise<Types.Video[]> {
 	return ContentfulClient.fetchContentfulData<Types.Video>('video');
 }
 
+export async function fetchEventSeries(): Promise<Types.EventSeries[]> {
+	if (USE_PAYLOAD) {
+		return PayloadClient.getAdaptedEventSeries();
+	}
+	return ContentfulClient.fetchContentfulData<Types.EventSeries>('unfssCop26');
+}
+
 export async function fetchTeams(): Promise<Types.Team[]> {
 	if (USE_PAYLOAD) {
 		return PayloadClient.getAdaptedTeams();
@@ -80,8 +87,7 @@ export async function fetchSpeakers(): Promise<Types.Speaker[]> {
 
 export async function fetchPartners(): Promise<Types.Partner[]> {
 	if (USE_PAYLOAD) {
-		// TODO: Add adapted partner getter when needed
-		return [];
+		return PayloadClient.getAdaptedCollaborators();
 	}
 	return ContentfulClient.fetchContentfulData<Types.Partner>('partners');
 }
@@ -120,6 +126,10 @@ export async function getEntryBySlug<T>(slug: string, collection: string): Promi
 				return PayloadClient.getAdaptedTeamBySlug(slug) as Promise<T | null>;
 			case 'speaker':
 				return PayloadClient.getAdaptedSpeakerBySlug(slug) as Promise<T | null>;
+			case 'unfssCop26':
+			case 'eventSeries':
+			case 'event-series':
+				return PayloadClient.getAdaptedEventSeriesBySlug(slug) as Promise<T | null>;
 			default:
 				console.warn(`No Payload adapter for collection: ${collection}`);
 				return null;
@@ -171,9 +181,12 @@ export async function fetchContentfulData<T>(
 				return PayloadClient.getAdaptedLandingPage() as Promise<T[]>;
 			case 'about':
 				return PayloadClient.getAdaptedAboutPage() as Promise<T[]>;
-			case 'publicationFeature':
 			case 'unfssCop26':
-				// These content types don't exist in Payload yet
+			case 'eventSeries':
+			case 'event-series':
+				return fetchEventSeries() as Promise<T[]>;
+			case 'publicationFeature':
+				// This content type doesn't exist in Payload yet
 				// Return empty array to prevent errors during testing
 				console.warn(`⚠️  Content type "${contentType}" not yet migrated to Payload`);
 				return [];

@@ -43,6 +43,7 @@
 
 	let landingPage = data.landingPage[0];
 	let { programmes, newsletter, partners, events, blog, publicationFeatures, eventSeries } = data;
+
 </script>
 
 <HeroV4 hero={landingPage} />

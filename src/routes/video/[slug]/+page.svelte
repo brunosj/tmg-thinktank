@@ -4,7 +4,7 @@
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import VideoListing from '$components/Video/VideoListing.svelte';
-	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 	import type { News } from '$lib/types/types';
 	import RelatedContentSection from '$components/Layout/RelatedContentSection.svelte';
 
@@ -48,8 +48,8 @@
 		</div>
 	</section>
 
-	<section class="richText layout w-full py-6 lg:w-2/3 lg:py-12">
-		{@html renderRichText(item.fields.descriptionRich)}
+	<section class="layout w-full py-6 lg:w-2/3 lg:py-12">
+		<RichText content={item.fields.descriptionRich} class="richText" />
 		{#if item.fields.relatedNews.length > 0}
 			{#snippet relatedNewsContent()}
 				<NewsListing items={item.fields.relatedNews} />

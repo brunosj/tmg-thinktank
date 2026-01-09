@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PublicationFeature as PublicationFeatureType } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
-	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 	import Heading from '$components/Layout/Heading.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
@@ -105,7 +105,7 @@
 							</div>
 						{:else}
 							<div class="richText">
-								{@html renderRichText(item.fields.text)}
+								<RichText content={item.fields.text} class="richText" />
 							</div>
 						{/if}
 					{:else if item.sys.contentType.sys.id === 'imageBlock'}
@@ -128,7 +128,7 @@
 								class="richText bg-blue-light border-b px-8 pt-8 pb-4 text-black"
 								style="text-align: {textAlign}"
 							>
-								{@html renderRichText(item.fields.text)}
+								<RichText content={item.fields.text} class="richText" />
 							</div>
 						{/if}
 					{/if}
@@ -147,7 +147,7 @@
 								</div>
 							{:else}
 								<div class="richText">
-									{@html renderRichText(item.fields.text)}
+									<RichText content={item.fields.text} class="richText" />
 								</div>
 							{/if}
 						{:else if item.sys.contentType.sys.id === 'imageBlock'}
@@ -177,7 +177,7 @@
 									class="richText bg-blue-light px-8 pt-8 pb-4 text-black"
 									style="text-align: {textAlign}"
 								>
-									{@html renderRichText(item.fields.text)}
+									<RichText content={item.fields.text} class="richText" />
 								</div>
 							{/if}
 						{/if}

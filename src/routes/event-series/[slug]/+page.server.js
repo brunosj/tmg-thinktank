@@ -1,14 +1,16 @@
 // export const prerender = true;
 
-import { fetchVideos, fetchContentfulData, getEntryBySlug } from '$lib/dataClient';
+import { fetchVideos, fetchEventSeries, getEntryBySlug } from '$lib/dataClient';
 
 export async function entries() {
-	const entries = await fetchContentfulData('unfssCop26');
-	return entries.map((entry) => {
-		return {
-			slug: entry.fields.slug
-		};
-	});
+	const entries = await fetchEventSeries();
+	return entries
+		.filter((entry) => entry.fields.slug)
+		.map((entry) => {
+			return {
+				slug: entry.fields.slug
+			};
+		});
 }
 
 export async function load({ params }) {
@@ -16,7 +18,7 @@ export async function load({ params }) {
 
 	try {
 		const [item, videos] = await Promise.all([
-			getEntryBySlug(slug, 'unfssCop26'),
+			getEntryBySlug(slug, 'eventSeries'),
 			fetchVideos()
 		]);
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import SectionHeaderLow from '$components/Layout/SectionHeaderLow.svelte';
-	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 	let { data } = $props();
 
@@ -13,7 +13,7 @@
 	<div class="layout py-12 lg:pb-16">
 		<div class="richText px-0 lg:px-32">
 			{#if item.fields.description}
-				{@html renderRichText(item.fields.description)}
+				<RichText content={item.fields.description} class="richText" />
 			{/if}
 		</div>
 	</div>

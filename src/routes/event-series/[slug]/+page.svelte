@@ -2,7 +2,7 @@
 	import { run } from 'svelte/legacy';
 
 	import type { EventSeries, Video, Speaker, Event } from '$lib/types/types';
-	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Heading from '$components/Layout/Heading.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
@@ -98,7 +98,7 @@
 	<section class="sectionPb layout lg:pt-12">
 		<div class="richText m-auto lg:w-3/4">
 			{#if item.fields.description}
-				{@html renderRichText(item.fields.description)}
+				<RichText content={item.fields.description} class="richText" />
 			{/if}
 		</div>
 	</section>
@@ -136,7 +136,7 @@
 			<div class="gap-x-12 lg:grid lg:grid-cols-3">
 				<div class=" col-span-2 col-start-2 pt-8 lg:pt-0">
 					<div class="richText">
-						{@html renderRichText(item.fields.text2)}
+						<RichText content={item.fields.text2} class="richText" />
 					</div>
 				</div>
 			</div>
@@ -154,7 +154,7 @@
 			<div class="gap-x-12 lg:grid lg:grid-cols-3">
 				<div class=" col-span-2 col-start-1 pt-8 lg:pt-0">
 					<div class="richText">
-						{@html renderRichText(item.fields.text3)}
+						<RichText content={item.fields.text3} class="richText" />
 					</div>
 				</div>
 			</div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 	import logo from '$assets/TMG_logo_white.png';
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';
@@ -56,10 +56,10 @@
 					<!-- Content Section -->
 					<div class="flex flex-col items-center md:items-start">
 						<div
-							class="richText text-center text-white md:text-left"
+							class="text-center text-white md:text-left"
 							transition:fly={{ x: 50, duration: 1000, delay: 250, easing: cubicInOut }}
 						>
-							{@html renderRichText(heroText)}
+							<RichText content={heroText} class="richText" />
 						</div>
 						<div
 							class="mt-6 flex items-center gap-x-6"

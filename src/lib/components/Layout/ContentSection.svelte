@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ImageCdn } from '$lib/types/types';
-	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 	import SectionHeading from './SectionHeading.svelte';
 	import { onMount } from 'svelte';
 
@@ -49,7 +49,7 @@
 		{/if}
 		{#if text}
 			<div class="richText prose prose-lg {maxWidth}">
-				{@html renderRichText(text)}
+				<RichText content={text} class="richText" />
 			</div>
 		{/if}
 

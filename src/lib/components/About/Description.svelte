@@ -4,7 +4,7 @@
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
-	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 
 	interface Props {
 		quotePicture: Image | ImageCdn;
@@ -44,8 +44,8 @@
 						{title}
 					</div>
 					<div class="grid grid-cols-1 lg:grid-cols-2">
-						<div class="richText m-auto pb-12 text-base lg:pb-0 lg:text-lg">
-							{@html renderRichText(description)}
+						<div class="m-auto pb-12 text-base lg:pb-0 lg:text-lg">
+							<RichText content={description as any} />
 						</div>
 						<!-- <div class="ml-auto mr-auto h-1/2 w-1/2 lg:mr-0">
 							<img loading="lazy" src={logo} alt="TMG Think Tank" class="" />

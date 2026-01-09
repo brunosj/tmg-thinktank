@@ -45,7 +45,7 @@
 					<div class="col-span-5 my-auto ml-10">
 						<div class="group flex-col space-y-2">
 							<div class="flex items-center gap-x-4">
-								<p class="text-sm font-semibold text-gray-500">{event.fields.type}</p>
+								<p class="text-sm font-semibold text-gray-500">{event.fields.type.charAt(0).toUpperCase() + event.fields.type.slice(1)}</p>
 								{#if event.fields.programme?.fields?.title}
 									<div
 										class="bg-blue-light relative z-10 hidden rounded-md px-3 py-1.5 text-xs font-medium text-gray-600 duration-300 group-hover:bg-white lg:block"

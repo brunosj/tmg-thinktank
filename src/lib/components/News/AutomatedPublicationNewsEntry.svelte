@@ -5,11 +5,11 @@
 	import SEO from '$components/SEO/SEO.svelte';
 	import Button from '$components/UI/Button.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
-	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
-	import { slugify } from '$utils/utils';
+	import { slugify } from '$components/RichText.svelte';
 	import Tag from '$components/UI/Tag.svelte';
-	import { formatDateNews } from '$utils/utils';
+	import { formatDateNews } from '$components/RichText.svelte';
 	import RelatedContentSection from '$components/Layout/RelatedContentSection.svelte';
 
 	interface Props {
@@ -69,7 +69,7 @@
 					/>
 				</section>
 				<div class="richText pb-5">
-					{@html renderRichText(item.fields.automatedNewsEntry)}
+					<RichText content={item.fields.automatedNewsEntry} class="richText" />
 				</div>
 			</div>
 		</div>

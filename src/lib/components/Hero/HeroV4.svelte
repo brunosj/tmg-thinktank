@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { renderRichText } from '$utils/utils';
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';

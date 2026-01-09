@@ -7,7 +7,7 @@
 	import VideoListing from '$components/Video/VideoListing.svelte';
 	import ButtonLoadMore from '$components/UI/ButtonLoadMore.svelte';
 	import Button from '$components/UI/Button.svelte';
-	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 	import ProjectTeam from '$components/Project/ProjectTeam.svelte';
 	import ProjectDetails from '../../../lib/components/Project/ProjectDetails.svelte';
 	import type { Project, Event, Publication, News, Video } from '$lib/types/types';
@@ -161,9 +161,9 @@
 					</div>
 				{/if}
 
-				<div class="prose prose-lg mx-auto max-w-none">
-					{@html renderRichText(project.fields.description)}
-				</div>
+			<div class="mx-auto max-w-none">
+				<RichText content={project.fields.description} class="prose prose-lg" />
+			</div>
 
 				<!-- Website link -->
 				{#if project.fields.url}

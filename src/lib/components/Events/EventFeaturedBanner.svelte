@@ -15,7 +15,7 @@
 		image =
 			event.fields.imageCdn?.length > 0
 				? event.fields.imageCdn[0].secure_url
-				: event.fields.image?.fields.file.url;
+				: event.fields.image?.fields?.file?.url;
 	});
 </script>
 

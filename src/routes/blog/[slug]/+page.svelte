@@ -4,9 +4,10 @@
 	import BlogListing from '$components/Blog/BlogListing.svelte';
 	import VideoListing from '$components/Video/VideoListing.svelte';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
-	import { slugify, renderRichText } from '$utils/utils';
+	import { slugify } from '$utils/utils';
 	import Tag from '$components/UI/Tag.svelte';
 	import SEO from '$components/SEO/SEO.svelte';
+	import RichText from '$components/RichText.svelte';
 	import { ensureHttps } from '$utils/utils';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import RelatedContentSection from '$components/Layout/RelatedContentSection.svelte';
@@ -104,9 +105,7 @@
 					url={`https://tmg-thinktank.com/blog/${item.fields.slug}`}
 				/>
 			</section>
-			<div class="richText">
-				{@html renderRichText(item.fields.descriptionRich)}
-			</div>
+			<RichText content={item.fields.descriptionRich} class="richText" />
 		</div>
 	</div>
 

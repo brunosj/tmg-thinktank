@@ -194,10 +194,6 @@ export async function getJobBySlug(slug: string): Promise<Job | null> {
 	return getPayloadEntryBySlug<Job>(slug, 'jobs');
 }
 
-export async function getCollaborators(): Promise<Collaborator[]> {
-	return fetchPayloadData<Collaborator>('collaborators');
-}
-
 export async function getSpeakers(): Promise<Speaker[]> {
 	return fetchPayloadData<Speaker>('speakers');
 }
@@ -290,6 +286,18 @@ export async function getProjects(): Promise<Project[]> {
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
 	return getPayloadEntryBySlug<Project>(slug, 'projects');
+}
+
+export async function getCollaborators(): Promise<any[]> {
+	try {
+		const response = await fetchFromPayload<PayloadCollectionResponse<any>>(
+			'/collaborators?limit=1000&depth=2'
+		);
+		return response.docs;
+	} catch (error) {
+		console.error('Error fetching collaborators:', error);
+		return [];
+	}
 }
 
 export async function getPublicationFeatures(): Promise<PublicationFeature[]> {
@@ -491,6 +499,11 @@ export async function getAdaptedSpeakers(): Promise<ContentfulTypes.Speaker[]> {
 	return Adapter.adaptPayloadSpeakers(speakers);
 }
 
+export async function getAdaptedCollaborators(): Promise<ContentfulTypes.Partner[]> {
+	const collaborators = await getCollaborators();
+	return Adapter.adaptPayloadCollaborators(collaborators);
+}
+
 // Single entry getters (by slug)
 
 export async function getAdaptedProgrammeBySlug(
@@ -558,6 +571,18 @@ export async function getAdaptedSpeakerBySlug(
 	return speaker ? Adapter.adaptPayloadSpeaker(speaker) : null;
 }
 
+export async function getAdaptedEventSeriesBySlug(
+	slug: string
+): Promise<ContentfulTypes.EventSeries | null> {
+	const eventSeries = await getEventSeriesBySlug(slug);
+	return eventSeries ? Adapter.adaptPayloadEventSeries(eventSeries) : null;
+}
+
+export async function getAdaptedEventSeries(): Promise<ContentfulTypes.EventSeries[]> {
+	const eventSeries = await getEventSeries();
+	return Adapter.adaptPayloadEventSeriesItems(eventSeries);
+}
+
 // Legacy page getters
 export async function getAdaptedLandingPage(): Promise<ContentfulTypes.LandingPage[]> {
 	// Fetch with depth=2 to get newsletter banner relationship
@@ -573,7 +598,10 @@ export async function getAdaptedLandingPage(): Promise<ContentfulTypes.LandingPa
 		if (page.heroPicture) {
 			const heroPicture = typeof page.heroPicture === 'object' ? page.heroPicture : null;
 			if (heroPicture?.url) {
-				heroPictureArray = [{ secure_url: `${PAYLOAD_BASE_URL}${heroPicture.url}` }];
+				const imageUrl = heroPicture.url.startsWith('http')
+					? heroPicture.url
+					: `${PAYLOAD_BASE_URL}${heroPicture.url}`;
+				heroPictureArray = [{ secure_url: imageUrl }];
 			}
 		}
 
@@ -588,7 +616,7 @@ export async function getAdaptedLandingPage(): Promise<ContentfulTypes.LandingPa
 				publications: []
 			}
 		};
-		
+
 		if (page.newsletterBanner && typeof page.newsletterBanner === 'object') {
 			const banner = page.newsletterBanner;
 

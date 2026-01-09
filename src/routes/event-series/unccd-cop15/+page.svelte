@@ -3,7 +3,7 @@
 
 	import type { EventSeries, Video, Speaker, Event } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
-	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 	import Heading from '$components/Layout/Heading.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
 	import TitleImageGradientHeader from '$components/Layout/TitleImageGradientHeader.svelte';
@@ -83,7 +83,7 @@
 	<section class="layout pt-6 pb-6 lg:pt-12 lg:pb-24">
 		<div class="grid grid-cols-1 gap-x-12 lg:grid-cols-3">
 			<div class="richText col-span-2">
-				{@html renderRichText(item.fields.description)}
+				<RichText content={item.fields.description} class="richText" />
 			</div>
 		</div>
 	</section>
@@ -111,7 +111,7 @@
 		<div class="gap-x-12 lg:grid lg:grid-cols-3">
 			<div class=" col-span-2 col-start-2 pt-8 lg:pt-0">
 				<div class="richText">
-					{@html renderRichText(item.fields.text2)}
+					<RichText content={item.fields.text2} class="richText" />
 				</div>
 				<EventListing events={item.fields.events} color="#6f62b1" />
 			</div>
@@ -129,13 +129,13 @@
 	<div class="sectionPy">
 		<section class="layout grid grid-cols-1 gap-x-12 lg:grid-cols-3">
 			<div class="richText col-span-2 col-start-1">
-				{@html renderRichText(item.fields.text3)}
+				<RichText content={item.fields.text3} class="richText" />
 			</div>
 		</section>
 
 		<section class="sectionPt layout grid grid-cols-1 gap-x-12 lg:grid-cols-3">
 			<div class="richText col-span-2 col-start-2">
-				{@html renderRichText(item.fields.text4)}
+				<RichText content={item.fields.text4} class="richText" />
 			</div>
 		</section>
 	</div>

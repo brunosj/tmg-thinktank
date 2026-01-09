@@ -82,14 +82,16 @@
 					<!-- <p class="text-sm">Event location local time</p> -->
 				</div>
 			{/if}
-			<div class="">
-				<p class="pb-1 font-bold">Organisers</p>
-				{#each item.fields.organiser as organiser}
-					<div class="">
-						<p class="flex pb-1 text-sm">{organiser}</p>
-					</div>
-				{/each}
-			</div>
+			{#if item.fields.organiser && item.fields.organiser.length > 0}
+				<div class="">
+					<p class="pb-1 font-bold">Organisers</p>
+					{#each item.fields.organiser as organiser}
+						<div class="">
+							<p class="flex pb-1 text-sm">{organiser}</p>
+						</div>
+					{/each}
+				</div>
+			{/if}
 
 			{#if item.fields.location}
 				<div class="">
@@ -98,7 +100,7 @@
 				</div>
 			{/if}
 
-			{#if item.fields.language}
+			{#if item.fields.language && item.fields.language.length > 0}
 				<div class="">
 					<p class="pb-1 font-bold">Languages</p>
 					{#each item.fields.language as language}

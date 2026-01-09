@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Topic } from '$lib/types/types';
 	import { createEventDispatcher } from 'svelte';
-	import { renderRichText } from '$utils/utils';
 	import RichText from '$components/RichText.svelte';
 	import ProjectCard from '$components/Programme/ProjectCard.svelte';
 	interface Props {
@@ -20,7 +19,7 @@
 	};
 
 	// Helper to check if content is Lexical format
-	const isLexicalFormat = (content: any): boolean => {
+	const isLexical = (content: any): boolean => {
 		return content && typeof content === 'object' && 'root' in content;
 	};
 
@@ -65,19 +64,19 @@
 				</h2>
 				<div class="richText richText mt-6">
 					{#if topic.fields.descriptionIntro}
-						{#if isLexicalFormat(topic.fields.descriptionIntro)}
+							{#if isLexical(topic.fields.descriptionIntro)}
 							<RichText content={topic.fields.descriptionIntro as any} />
 						{:else if isContentfulFormat(topic.fields.descriptionIntro)}
-							{@html renderRichText(topic.fields.descriptionIntro)}
+							<RichText content={topic.fields.descriptionIntro as any} />
 						{:else if typeof topic.fields.descriptionIntro === 'string'}
 							<p>{topic.fields.descriptionIntro}</p>
 						{/if}
 					{/if}
 					{#if topicStates[i].descriptionMore}
-						{#if isLexicalFormat(topic.fields.description)}
+						{#if isLexical(topic.fields.description)}
 							<RichText content={topic.fields.description as any} />
 						{:else if isContentfulFormat(topic.fields.description)}
-							{@html renderRichText(topic.fields.description)}
+							<RichText content={topic.fields.description as any} />
 						{:else if typeof topic.fields.description === 'string'}
 							<p>{topic.fields.description}</p>
 						{/if}

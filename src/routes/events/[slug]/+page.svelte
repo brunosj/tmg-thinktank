@@ -2,7 +2,7 @@
 	import type { Event } from '$lib/types/types';
 	import SEO from '$components/SEO/SEO.svelte';
 	import Button from '$components/UI/Button.svelte';
-	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
 	import { slugify } from '$utils/utils';
 	import Tag from '$components/UI/Tag.svelte';
@@ -27,7 +27,7 @@
 	let image = $derived(
 		item.fields.imageCdn?.length > 0
 			? item.fields.imageCdn[0].secure_url
-			: item.fields.image?.fields.file.url
+			: item.fields.image?.fields?.file?.url
 	);
 
 	let imageCaption = $derived(
@@ -44,7 +44,7 @@
 	keywords={item.fields.keywords}
 />
 <article>
-	{#if item.fields.topBanner}
+	{#if item.fields.topBanner && item.fields.topBanner.length > 0 && item.fields.topBanner[0]}
 		<div class="w-full pt-12 lg:pt-16">
 			<img
 				loading="lazy"
@@ -54,7 +54,7 @@
 			/>
 		</div>
 	{/if}
-	<div class={`overflow-hidden ${item.fields.topBanner ? 'pt-8 lg:pt-16' : 'pt-16 lg:pt-32'}`}>
+	<div class={`overflow-hidden ${item.fields.topBanner && item.fields.topBanner.length > 0 ? 'pt-8 lg:pt-16' : 'pt-16 lg:pt-32'}`}>
 		<EventHeader {item} />
 		{#if image && item.fields.imagePosition === 'Top'}
 			<div class="layout w-full py-6 lg:py-12">
@@ -75,26 +75,24 @@
 					url={`https://tmg-thinktank.com/events/${item.fields.slug}`}
 				/>
 				{#if item.fields.description}
-					<div class="richText">
-						{@html renderRichText(item.fields.description)}
-					</div>
+					<RichText content={item.fields.description} class="richText" />
 				{/if}
 				{#if item.fields.background}
 					<EventBackground {item} />
 				{/if}
-				{#if item.fields.video}
-					{#snippet videoContent()}
-						<VideoListing videos={item.fields.video} />
-					{/snippet}
+			{#if item.fields.video && (Array.isArray(item.fields.video) ? item.fields.video.length > 0 : true)}
+				{#snippet videoContent()}
+					<VideoListing videos={item.fields.video} />
+				{/snippet}
 
-					<RelatedContentSection
-						title={Array.isArray(item.fields.video) && item.fields.video.length > 1
-							? 'Related Videos'
-							: 'Related Video'}
-						hasBorder={false}
-						children={videoContent}
-					/>
-				{/if}
+				<RelatedContentSection
+					title={Array.isArray(item.fields.video) && item.fields.video.length > 1
+						? 'Related Videos'
+						: 'Related Video'}
+					hasBorder={false}
+					children={videoContent}
+				/>
+			{/if}
 				{#if item.fields.eventRecording}
 					<EventRecording {item} />
 				{/if}

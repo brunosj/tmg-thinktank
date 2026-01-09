@@ -4,7 +4,7 @@
 	import Button from '$components/UI/Button.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
 	import PublicationListing from '$components/Publications/PublicationListing.svelte';
-	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
 	import { slugify } from '$utils/utils';
 	import Tag from '$components/UI/Tag.svelte';
@@ -78,8 +78,8 @@
 	{/if}
 
 	<div class="gap-x-24 gap-y-6 pb-6">
-		<div class="richText pt-8 pb-4 lg:max-w-4xl">
-			{@html renderRichText(item.fields.descriptionRich)}
+		<div class="pt-8 pb-4 lg:max-w-4xl">
+			<RichText content={item.fields.descriptionRich} class="richText" />
 		</div>
 
 		{#if filteredRelatedNews.length > 0}

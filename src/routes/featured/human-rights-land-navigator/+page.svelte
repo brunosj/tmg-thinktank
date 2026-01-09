@@ -1,6 +1,6 @@
 <script lang="ts">
 	import SEO from '$components/SEO/SEO.svelte';
-	import { renderRichText } from '$utils/utils';
+	import RichText from '$components/RichText.svelte';
 	import QuoteBanner from '$components/Banner/QuoteBanner.svelte';
 	import TitleImageGradientHeader from '$components/Layout/TitleImageGradientHeader.svelte';
 	import VideoBanner from '$components/Banner/VideoBanner.svelte';
@@ -25,7 +25,7 @@
 		<div class="grid grid-cols-1 gap-x-12 lg:grid-cols-3">
 			<div class="richText col-span-2">
 				{#if item.fields.text1}
-					{@html renderRichText(item.fields.text1)}
+					<RichText content={item.fields.text1} class="richText" />
 				{/if}
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 	<section class="layout grid grid-cols-1 gap-x-12 pt-6 pb-6 lg:grid-cols-3 lg:pt-12 lg:pb-12">
 		<div class="richText col-span-2">
 			{#if item.fields.text2}
-				{@html renderRichText(item.fields.text2)}
+				<RichText content={item.fields.text2} class="richText" />
 			{/if}
 		</div>
 		<div class="">

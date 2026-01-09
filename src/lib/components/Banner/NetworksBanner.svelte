@@ -16,6 +16,7 @@
 			.filter((partner) => partner.fields.partnerOrFunder === 'Network')
 			.sort((a, b) => a.fields.name.localeCompare(b.fields.name));
 	}
+	console.log(networks)
 </script>
 
 <section class="section Py bg-white">

@@ -1,8 +1,8 @@
-import { fetchContentfulData, fetchEvents } from '$lib/dataClient';
+import { fetchEventSeries, fetchEvents } from '$lib/dataClient';
 
 export async function load() {
 	try {
-		const eventSeries = await fetchContentfulData('unfssCop26');
+		const eventSeries = await fetchEventSeries();
 		const events = await fetchEvents();
 
 		return {

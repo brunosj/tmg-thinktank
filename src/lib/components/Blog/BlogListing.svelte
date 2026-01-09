@@ -9,6 +9,8 @@
 	const gridClass = `mx-auto mt-6 grid max-w-2xl grid-cols-1 gap-x-4 gap-y-4  pt-6 lg:mx-0 lg:max-w-none lg:gap-y-12 lg:grid-cols-${nbrColumns} `;
 
 	const bgClass = reverseBackground ? 'bg-white' : 'bg-blue-light';
+
+
 </script>
 
 <section>

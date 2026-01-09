@@ -368,11 +368,34 @@ export function adaptPayloadEvent(payload: PayloadTypes.Event | string): Content
 	const info = get(payload, 'info', {});
 	const content = get(payload, 'content', {});
 	const relationships = get(payload, 'relationships', {});
+	const meta = get(payload, 'meta', {});
+
+	// Handle organiser array - extract names from objects
+	const organiserArray = Array.isArray(info.organiser)
+		? info.organiser.map((org: any) => org.name || org).filter(Boolean)
+		: [];
+
+	// Handle language array - extract language codes from objects
+	const languageArray = Array.isArray(info.language)
+		? info.language.map((lang: any) => lang.languageCode || lang).filter(Boolean)
+		: [];
+
+	// Handle keywords array - extract keyword strings from objects
+	const keywordsArray = Array.isArray(meta.keywords)
+		? meta.keywords.map((kw: any) => kw.keyword || kw).filter(Boolean)
+		: [];
+
+	// Handle topBanner - it's a single media object in Payload
+	let topBannerArray: ContentfulTypes.ImageCdn[] = [];
+	if (content.topBanner && isPopulated(content.topBanner)) {
+		const bannerMedia = Array.isArray(content.topBanner) ? content.topBanner : [content.topBanner];
+		topBannerArray = adaptMediaArray(bannerMedia);
+	}
 
 	return {
 		fields: {
-			topBanner: info.topBanner ? adaptMediaArray(info.topBanner) : [],
-			featureOnEventsPage: info.featured || false,
+			topBanner: topBannerArray,
+			featureOnEventsPage: info.featureOnEventsPage || false,
 			programme: isPopulated(info.programme)
 				? adaptPayloadProgramme(info.programme)
 				: null,
@@ -380,18 +403,20 @@ export function adaptPayloadEvent(payload: PayloadTypes.Event | string): Content
 			secondLanguage: info.secondLanguage || '',
 			titleSecondLanguage: info.titleSecondLanguage || '',
 			summary: info.summary || '',
-			keywords: info.keywords || [],
+			keywords: keywordsArray,
 			tmgMainOrganizer: info.tmgMainOrganizer || false,
-			organiser: info.organizer || [],
+			organiser: organiserArray,
 			type: info.type || '',
 			date: payload.date || '', // Top-level field, not in info
 			endDate: payload.endDate || '', // Top-level field, not in info
 			location: payload.location || '', // Top-level field, not in info
-			language: info.language || [],
+			language: languageArray,
 			eventUrl: info.eventUrl || '',
 			description: adaptRichText(content.description),
 			background: adaptRichText(content.background),
-			video: null,
+			video: isPopulated(relationships.video) 
+				? adaptPayloadVideo(relationships.video as PayloadTypes.Video)
+				: null,
 			speakers: Array.isArray(relationships.speakers)
 				? relationships.speakers.map((s: any) => (isPopulated(s) ? adaptPayloadSpeaker(s) : null)).filter(Boolean)
 				: [],
@@ -406,9 +431,9 @@ export function adaptPayloadEvent(payload: PayloadTypes.Event | string): Content
 				? info.contactPerson.map((c: any) => (isPopulated(c) ? adaptPayloadTeam(c) : null)).filter(Boolean)
 				: [],
 			contactPersonEmail: info.contactPersonEmail || '',
-			imagePosition: info.imagePosition || 'Top',
-			news: Array.isArray(relationships.news)
-				? relationships.news.map((n: any) => (isPopulated(n) ? adaptPayloadNews(n) : null)).filter(Boolean)
+			imagePosition: content.imagePosition || 'Top',
+			news: Array.isArray(relationships.relatedNews)
+				? relationships.relatedNews.map((n: any) => (isPopulated(n) ? adaptPayloadNews(n) : null)).filter(Boolean)
 				: [],
 			relatedEvents: Array.isArray(relationships.relatedEvents)
 				? relationships.relatedEvents.map((e: any) => (isPopulated(e) ? adaptPayloadEvent(e) : null)).filter(Boolean)
@@ -421,12 +446,18 @@ export function adaptPayloadEvent(payload: PayloadTypes.Event | string): Content
 						.map((d: any) => (isPopulated(d) ? adaptPayloadPublication(d) : null))
 						.filter(Boolean)
 				: [],
-			eventRecording: null,
-			livestreamUrl: info.livestreamUrl || '',
-			livestreamPassword: info.livestreamPassword || '',
-			livestream: null,
-			chat: null,
-			thumbnail: content.thumbnail ? adaptMedia(content.thumbnail) : null,
+			eventRecording: isPopulated(relationships.eventRecording)
+				? adaptPayloadVideo(relationships.eventRecording as PayloadTypes.Video)
+				: null,
+			livestreamUrl: relationships.livestreamUrl || '',
+			livestreamPassword: relationships.livestreamPassword || '',
+			livestream: isPopulated(relationships.livestream)
+				? adaptPayloadVideo(relationships.livestream as PayloadTypes.Video)
+				: null,
+			chat: isPopulated(relationships.chat)
+				? adaptPayloadVideo(relationships.chat as PayloadTypes.Video)
+				: null,
+			thumbnail: relationships.thumbnail ? adaptMedia(relationships.thumbnail) : null,
 			slug: payload.slug || ''
 		}
 	};
@@ -563,7 +594,7 @@ export function adaptPayloadPublication(
 export function adaptPayloadBlogPost(payload: PayloadTypes.Post | string): ContentfulTypes.BlogPost | null {
 	if (!payload || typeof payload === 'string') return null;
 
-	const info = get(payload, 'info', {});
+	const info = get(payload, 'Info', {});
 	const content = get(payload, 'content', {});
 	const relationships = get(payload, 'relationships', {});
 
@@ -578,7 +609,7 @@ export function adaptPayloadBlogPost(payload: PayloadTypes.Post | string): Conte
 			project: Array.isArray(info.project)
 				? info.project.map((p: any) => (isPopulated(p) ? adaptPayloadProject(p) : null)).filter(Boolean)
 				: [],
-			dateFormat: (payload as any).publishedAt || '',
+			dateFormat: (payload as any).publishedAt || info.dateFormat || '',
 			author: info.author || '',
 			authorTmg: Array.isArray(info.authorTmg)
 				? info.authorTmg.map((a: any) => (isPopulated(a) ? adaptPayloadTeam(a) : null)).filter(Boolean)
@@ -688,6 +719,102 @@ export function adaptPayloadSpeaker(payload: PayloadTypes.Speaker | string): Con
 	};
 }
 
+/**
+ * Adapt Payload EventSeries to Contentful EventSeries
+ */
+export function adaptPayloadEventSeries(payload: PayloadTypes.EventSery | string): ContentfulTypes.EventSeries | null {
+	if (!payload || typeof payload === 'string') return null;
+
+	const basic = get(payload, 'basic', {});
+	const contentFields = get(payload, 'contentFields', {});
+	const eventsSection = get(payload, 'eventsSection', {});
+	const relationships = get(payload, 'relationships', {});
+
+	// Handle imageCdn
+	const imageCdn = Array.isArray(basic.imageCdn)
+		? basic.imageCdn.map((img: any) => ({
+				secure_url: img.url || '',
+				context: {
+					custom: {
+						caption: img.caption || ''
+					}
+				}
+		  }))
+		: [];
+
+	// Handle pageBannerCdn
+	const pageBannerCdn = Array.isArray(basic.pageBannerCdn)
+		? basic.pageBannerCdn.map((img: any) => ({
+				secure_url: img.url || '',
+				context: {
+					custom: {
+						caption: img.caption || ''
+					}
+				}
+		  }))
+		: [];
+
+	// Handle gallery
+	const gallery = Array.isArray(contentFields.gallery)
+		? contentFields.gallery.map((img: any) => ({
+				secure_url: img.url || '',
+				context: {
+					custom: {
+						caption: img.caption || ''
+					}
+				}
+		  }))
+		: [];
+
+	// Handle keywords
+	const keywords = Array.isArray(basic.keywords)
+		? basic.keywords.map((kw: any) => kw.keyword || kw).filter(Boolean)
+		: [];
+
+	return {
+		fields: {
+			featuredOnHomepage: payload.featuredOnHomepage || false,
+			cutoffDate: payload.cutoffDate || '',
+			title: payload.title || '',
+			summary: basic.summary || '',
+			keywords: keywords,
+			description: adaptRichText(basic.description),
+			quoteText: contentFields.quoteText || '',
+			quotePerson: contentFields.quotePerson || '',
+			quotePersonOrganization: contentFields.quotePersonOrganization || '',
+			text2: adaptRichText(contentFields.text2) || '',
+			statsTitle: contentFields.statsTitle || '',
+			statsEvents: contentFields.statsEvents || 0,
+			statsSpeakers: contentFields.statsSpeakers || 0,
+			text3: adaptRichText(contentFields.text3) || '',
+			text4: adaptRichText(contentFields.text4) || '',
+			eventFeatured: isPopulated(eventsSection.eventFeatured)
+				? adaptPayloadEvent(eventsSection.eventFeatured as PayloadTypes.Event)
+				: null,
+			events: Array.isArray(eventsSection.events)
+				? eventsSection.events.map((e: any) => (isPopulated(e) ? adaptPayloadEvent(e) : null)).filter(Boolean)
+				: [],
+			news: Array.isArray(relationships.news)
+				? relationships.news.map((n: any) => (isPopulated(n) ? adaptPayloadNews(n) : null)).filter(Boolean)
+				: [],
+			relatedDocuments: Array.isArray(relationships.relatedDocuments)
+				? relationships.relatedDocuments.map((d: any) => (isPopulated(d) ? adaptPayloadPublication(d) : null)).filter(Boolean)
+				: [],
+			additionalEvents: Array.isArray(eventsSection.additionalEvents)
+				? eventsSection.additionalEvents.map((e: any) => (isPopulated(e) ? adaptPayloadEvent(e) : null)).filter(Boolean)
+				: [],
+			gallery: gallery,
+			image: basic.image ? adaptMedia(basic.image) : null,
+			imageCdn: imageCdn,
+			pageBanner: basic.pageBanner ? adaptMedia(basic.pageBanner) : null,
+			pageBannerCdn: pageBannerCdn,
+			slug: payload.slug || '',
+			color1: basic.color1 || '',
+			color2: basic.color2 || ''
+		}
+	};
+}
+
 // ============================================================================
 // BATCH ADAPTERS (for arrays)
 // ============================================================================
@@ -730,3 +857,60 @@ export function adaptPayloadSpeakers(items: (PayloadTypes.Speaker | string)[]): 
 	return items.map(adaptPayloadSpeaker).filter(Boolean) as ContentfulTypes.Speaker[];
 }
 
+export function adaptPayloadEventSeriesItems(items: (PayloadTypes.EventSery | string)[]): ContentfulTypes.EventSeries[] {
+	return items.map(adaptPayloadEventSeries).filter(Boolean) as ContentfulTypes.EventSeries[];
+}
+
+/**
+ * Adapt Payload Collaborator to Contentful Partner format
+ */
+export function adaptPayloadCollaborator(payload: any): ContentfulTypes.Partner | null {
+	if (!payload || typeof payload === 'string') return null;
+
+	let logoCdn: ContentfulTypes.ImageCdn[] = [];
+	let logoFields = null;
+	let hasLogo = false;
+
+	if (payload.logo && typeof payload.logo === 'object') {
+		const logoUrl = payload.logo.url || '';
+		if (logoUrl) {
+			hasLogo = true;
+			if (logoUrl.startsWith('http')) {
+				logoCdn = [{
+					secure_url: logoUrl,
+					context: {
+						custom: {
+							caption: payload.logo.alt || ''
+						}
+					}
+				}];
+			} else {
+				logoFields = {
+					fields: {
+						file: {
+							url: logoUrl
+						}
+					}
+				};
+			}
+		}
+	}
+
+	if (!hasLogo) {
+		return null;
+	}
+
+	return {
+		fields: {
+			name: payload.name || '',
+			partnerOrFunder: payload.type === 'network' ? 'Network' : payload.type === 'partner' ? 'Partner' : 'Funder',
+			url: payload.url || '',
+			logoCdn: logoCdn,
+			logo: logoFields as any
+		}
+	};
+}
+
+export function adaptPayloadCollaborators(items: any[]): ContentfulTypes.Partner[] {
+	return items.map(adaptPayloadCollaborator).filter(Boolean) as ContentfulTypes.Partner[];
+}
