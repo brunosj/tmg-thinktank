@@ -815,6 +815,101 @@ export function adaptPayloadEventSeries(payload: PayloadTypes.EventSery | string
 	};
 }
 
+export function adaptPayloadPublicationFeature(
+	payload: PayloadTypes.PublicationFeature | string
+): ContentfulTypes.PublicationFeature | null {
+	if (!payload || typeof payload === 'string') return null;
+
+	const info = payload.info || {};
+	const content = payload.content || {};
+	const relationships = payload.relationships || {};
+
+	const keywords = Array.isArray(info.keywords)
+		? info.keywords.map((k: any) => k.keyword || '').filter(Boolean)
+		: [];
+
+	const sections = Array.isArray(content.sections)
+		? content.sections.map((section: any) => ({
+				fields: {
+					contentBlocks: Array.isArray(section.contentBlocks) ? section.contentBlocks : []
+				}
+		  }))
+		: [];
+
+	let imageCdn: ContentfulTypes.ImageCdn[] = [];
+	let pageBannerCdn: ContentfulTypes.ImageCdn[] = [];
+	let gallery: ContentfulTypes.ImageCdn[] = [];
+
+	if (content.image && typeof content.image === 'object' && content.image.url) {
+		const imageUrl = content.image.url;
+		if (imageUrl.startsWith('http')) {
+			imageCdn = [{ secure_url: imageUrl }];
+		}
+	}
+
+	if (content.pageBanner && typeof content.pageBanner === 'object' && content.pageBanner.url) {
+		const bannerUrl = content.pageBanner.url;
+		if (bannerUrl.startsWith('http')) {
+			pageBannerCdn = [{ secure_url: bannerUrl }];
+		}
+	}
+
+	if (Array.isArray(content.gallery)) {
+		gallery = content.gallery
+			.map((img: any) => {
+				if (typeof img === 'object' && img.url) {
+					return { secure_url: img.url };
+				}
+				return null;
+			})
+			.filter(Boolean);
+	}
+
+	return {
+		fields: {
+			featuredOnHomepage: info.featuredOnHomepage || false,
+			cutoffDate: info.cutoffDate || '',
+			title: payload.title || '',
+			hideTitle: false,
+			heroBannerTitle: payload.title || '',
+			heroBannerSubtitle: info.summary || '',
+			heroBannerPicture: pageBannerCdn,
+			heroBannerButtonText: '',
+			heroBannerButtonLink: '',
+			summary: info.summary || '',
+			keywords: keywords,
+			sections: sections,
+			pageBanner: content.pageBanner ? adaptMedia(content.pageBanner) : null,
+			pageBannerCdn: pageBannerCdn,
+			gallery: gallery,
+			events: Array.isArray(relationships.events)
+				? relationships.events
+						.map((e: any) => (isPopulated(e) ? adaptPayloadEvent(e) : null))
+						.filter(Boolean)
+				: [],
+			news: Array.isArray(relationships.news)
+				? relationships.news.map((n: any) => (isPopulated(n) ? adaptPayloadNews(n) : null)).filter(Boolean)
+				: [],
+			relatedDocuments: Array.isArray(relationships.relatedDocuments)
+				? relationships.relatedDocuments
+						.map((d: any) => (isPopulated(d) ? adaptPayloadPublication(d) : null))
+						.filter(Boolean)
+				: [],
+			partnersLogos: [],
+			image: content.image ? adaptMedia(content.image) : null,
+			imageCdn: imageCdn,
+			slug: payload.slug || '',
+			color1: info.color1 || '',
+			color2: info.color2 || ''
+		},
+		sys: {
+			id: payload.id || '',
+			createdAt: payload.createdAt || new Date().toISOString(),
+			updatedAt: payload.updatedAt || new Date().toISOString()
+		}
+	};
+}
+
 // ============================================================================
 // BATCH ADAPTERS (for arrays)
 // ============================================================================
@@ -859,6 +954,12 @@ export function adaptPayloadSpeakers(items: (PayloadTypes.Speaker | string)[]): 
 
 export function adaptPayloadEventSeriesItems(items: (PayloadTypes.EventSery | string)[]): ContentfulTypes.EventSeries[] {
 	return items.map(adaptPayloadEventSeries).filter(Boolean) as ContentfulTypes.EventSeries[];
+}
+
+export function adaptPayloadPublicationFeatures(
+	items: (PayloadTypes.PublicationFeature | string)[]
+): ContentfulTypes.PublicationFeature[] {
+	return items.map(adaptPayloadPublicationFeature).filter(Boolean) as ContentfulTypes.PublicationFeature[];
 }
 
 /**

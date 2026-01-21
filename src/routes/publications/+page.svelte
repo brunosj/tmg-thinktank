@@ -66,9 +66,11 @@
 					transition:fade={{ duration: 500, delay: 500, easing: cubicInOut }}
 				>
 					<CarouselV2 slides={features} />
-					<div class="lg:py-6">
-						<PublicationOutNow item={latestPublicationWithNewsEntry} />
-					</div>
+					{#if latestPublicationWithNewsEntry}
+						<div class="lg:py-6">
+							<PublicationOutNow item={latestPublicationWithNewsEntry} />
+						</div>
+					{/if}
 				</div>
 			</section>
 			<Heading text="All Publications" textColor="" bgColor="white" />

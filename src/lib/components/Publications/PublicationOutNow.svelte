@@ -5,8 +5,8 @@
 
 	import SEO from '$components/SEO/SEO.svelte';
 	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
-	import { ensureHttps } from '$components/RichText.svelte';
 	import RichText from '$components/RichText.svelte';
+	import { ensureHttps } from '$utils/utils';
 
 	interface Props {
 		item: Publication;

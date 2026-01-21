@@ -583,6 +583,11 @@ export async function getAdaptedEventSeries(): Promise<ContentfulTypes.EventSeri
 	return Adapter.adaptPayloadEventSeriesItems(eventSeries);
 }
 
+export async function getAdaptedPublicationFeatures(): Promise<ContentfulTypes.PublicationFeature[]> {
+	const features = await getPublicationFeatures();
+	return Adapter.adaptPayloadPublicationFeatures(features);
+}
+
 // Legacy page getters
 export async function getAdaptedLandingPage(): Promise<ContentfulTypes.LandingPage[]> {
 	// Fetch with depth=2 to get newsletter banner relationship

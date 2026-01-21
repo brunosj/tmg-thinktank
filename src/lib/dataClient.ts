@@ -100,6 +100,13 @@ export async function fetchNewsletters(): Promise<Types.Newsletter[]> {
 	return ContentfulClient.fetchContentfulData<Types.Newsletter>('newsletter');
 }
 
+export async function fetchPublicationFeatures(): Promise<Types.PublicationFeature[]> {
+	if (USE_PAYLOAD) {
+		return PayloadClient.getAdaptedPublicationFeatures();
+	}
+	return ContentfulClient.fetchContentfulData<Types.PublicationFeature>('publicationFeature');
+}
+
 // ============================================================================
 // SINGLE ENTRY FETCHERS (by slug)
 // ============================================================================
@@ -186,10 +193,7 @@ export async function fetchContentfulData<T>(
 			case 'event-series':
 				return fetchEventSeries() as Promise<T[]>;
 			case 'publicationFeature':
-				// This content type doesn't exist in Payload yet
-				// Return empty array to prevent errors during testing
-				console.warn(`⚠️  Content type "${contentType}" not yet migrated to Payload`);
-				return [];
+				return PayloadClient.getAdaptedPublicationFeatures() as Promise<T[]>;
 			default:
 				console.warn(`No Payload mapping for content type: ${contentType}`);
 				return [];

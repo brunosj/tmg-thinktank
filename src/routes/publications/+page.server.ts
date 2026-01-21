@@ -1,4 +1,4 @@
-import { fetchPublications, fetchContentfulData } from '$lib/dataClient';
+import { fetchPublicationFeatures, fetchPublications } from '$lib/dataClient';
 import type { Publication, PublicationFeature } from '$lib/types/types';
 
 export async function load() {
@@ -11,7 +11,7 @@ export async function load() {
 			return dateB.getTime() - dateA.getTime();
 		});
 
-		let features: PublicationFeature[] = await fetchContentfulData('publicationFeature');
+		let features: PublicationFeature[] = await fetchPublicationFeatures();
 		features = features.sort((a, b) => {
 			const dateA = new Date(a.sys.updatedAt);
 			const dateB = new Date(b.sys.updatedAt);

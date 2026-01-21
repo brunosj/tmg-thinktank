@@ -2,16 +2,14 @@
 	import { run } from 'svelte/legacy';
 
 	import type { News } from '$lib/types/types';
-	import SEO from '$components/SEO/SEO.svelte';
 	import Button from '$components/UI/Button.svelte';
 	import NewsListing from '$components/News/NewsListing.svelte';
-	import RichText from '$components/RichText.svelte';
-	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
-	import { slugify } from '$components/RichText.svelte';
-	import Tag from '$components/UI/Tag.svelte';
-	import { ensureHttps } from '$components/RichText.svelte';
-	import { formatDateNews } from '$components/RichText.svelte';
 	import RelatedContentSection from '$components/Layout/RelatedContentSection.svelte';
+	import RichText from '$components/RichText.svelte';
+	import SEO from '$components/SEO/SEO.svelte';
+	import ShareSocialMedia from '$components/UI/ShareSocialMedia.svelte';
+	import Tag from '$components/UI/Tag.svelte';
+	import { ensureHttps, formatDateNews, slugify } from '$utils/utils';
 
 	interface Props {
 		item: News;
