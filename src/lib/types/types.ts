@@ -356,8 +356,12 @@ export interface Publication extends ContentfulEntry {
 		citation: string;
 		additionalButtonText: string;
 		additionalButtonFile: MediaFile;
-		additionalButton2Text: string;
-		additionalButton2Link: string;
+		addtionalButton2text: string;
+		addtionalButton2Link: string;
+		additionalButton3Text: string;
+		additionalButton3Link: string;
+		additionalButton4Text: string;
+		additionalButton4Link: string;
 	};
 }
 

@@ -11,7 +11,6 @@
 
 	let { data }: Props = $props();
 	let item = $derived(data.item);
-
 </script>
 
 <SEO
@@ -70,12 +69,12 @@
 					</p>
 					<a href={item.fields.doiUrl}>{item.fields.doiUrl}</a>
 				</div>
-				<div class="flex gap-2">
+				<div class="flex flex-wrap gap-2">
 					{#if item.fields.pdf?.fields?.file?.url}
-					<div>
+						<div>
 							<Button to={item.fields.pdf.fields.file.url} colors="green">Download</Button>
 						</div>
-						{/if}
+					{/if}
 					{#if item.fields.additionalButtonFile?.fields}
 						<div>
 							<Button to={item.fields.additionalButtonFile.fields.file.url} colors="green">
@@ -87,6 +86,20 @@
 						<div>
 							<Button to={item.fields.addtionalButton2Link} colors="green">
 								{item.fields.addtionalButton2text}
+							</Button>
+						</div>
+					{/if}
+					{#if item.fields.additionalButton3Link}
+						<div>
+							<Button to={item.fields.additionalButton3Link} colors="green">
+								{item.fields.additionalButton3Text}
+							</Button>
+						</div>
+					{/if}
+					{#if item.fields.additionalButton4Link}
+						<div>
+							<Button to={item.fields.additionalButton4Link} colors="green">
+								{item.fields.additionalButton4Text}
 							</Button>
 						</div>
 					{/if}
