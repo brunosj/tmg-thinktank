@@ -25,7 +25,7 @@
 	}
 </script>
 
-<SEO />
+<SEO outputOgImage={false} />
 
 <Header programmes={data.programmes} />
 {#key pathname}

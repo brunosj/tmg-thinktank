@@ -37,7 +37,7 @@
 	let image = $derived(
 		feature.fields.pageBannerCdn?.length > 0
 			? feature.fields.pageBannerCdn[0].secure_url
-			: feature.fields.pageBanner?.fields?.file?.url ?? ''
+			: (feature.fields.pageBanner?.fields?.file?.url ?? '')
 	);
 
 	// Check if hero banner fields are present

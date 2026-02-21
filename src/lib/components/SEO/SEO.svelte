@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import { siteMetadata } from '$data/siteMetadata';
 	import { page } from '$app/stores';
 	import SchemaOrg from './SchemaOrg.svelte';
@@ -10,6 +9,7 @@
 		tags?: any;
 		ogType?: string;
 		keywords?: string[];
+		outputOgImage?: boolean;
 	}
 
 	let {
@@ -18,7 +18,9 @@
 		image = '',
 		tags = ['development', 'foodsystems', 'thinktank', 'Berlin'],
 		ogType = 'website',
-		keywords = []
+		keywords = [],
+		/** When false, og:image is not rendered - use for layout SEO so page-level og:image wins (crawlers use first og:image) */
+		outputOgImage = true
 	}: Props = $props();
 
 	const {
@@ -82,7 +84,9 @@
 		<meta name="description" content={`${description} - ${keywords.join(', ')}`} />
 		<meta property="og:description" content={`${description} - ${keywords.join(', ')}`} />
 	{/if}
-	<meta property="og:image" content={imageSeo || 'https://tmg-thinktank.com/tmg-seo.jpg'} />
+	{#if outputOgImage}
+		<meta property="og:image" content={imageSeo || 'https://tmg-thinktank.com/tmg-seo.jpg'} />
+	{/if}
 	{#if tags.length > 0}
 		<meta name="keywords" content={tags.join(',')} />
 	{/if}

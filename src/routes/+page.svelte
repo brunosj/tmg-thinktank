@@ -11,6 +11,7 @@
 		BlogPost
 	} from '$lib/types/types';
 
+	import SEO from '$components/SEO/SEO.svelte';
 	import HeroV4 from '$components/Hero/HeroV4.svelte';
 	import HeroProgrammesV2 from '$components/Hero/HeroProgrammesV2.svelte';
 	import LatestV2 from '$components/Latest/LatestV2.svelte';
@@ -43,6 +44,7 @@
 	let { programmes, newsletter, partners, events, blog, publicationFeatures, eventSeries } = data;
 </script>
 
+<SEO outputOgImage={true} />
 <HeroV4 hero={landingPage} />
 <LatestV2 {landingPage} />
 <ImageBannerEventSeries items={eventSeries} />
