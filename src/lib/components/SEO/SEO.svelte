@@ -59,7 +59,15 @@
 		githubPage,
 		keywords
 	};
-	let imageSeo = image?.startsWith('//') ? 'https:' + image : image;
+	// OG image must be an absolute URL; crawlers don't resolve relative paths
+	function toAbsoluteImageUrl(url: string | undefined): string {
+		if (!url?.trim()) return siteImage;
+		if (url.startsWith('https://') || url.startsWith('http://')) return url;
+		if (url.startsWith('//')) return 'https:' + url;
+		const base = siteUrl.replace(/\/$/, '');
+		return url.startsWith('/') ? base + url : `${base}/${url}`;
+	}
+	let imageSeo = $derived(toAbsoluteImageUrl(image));
 
 	let seoKeywords = keywords.length > 0 ? keywords.join(', ') : siteKeywords.join(', ');
 </script>

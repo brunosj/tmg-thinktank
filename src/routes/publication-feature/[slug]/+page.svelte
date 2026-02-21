@@ -55,7 +55,7 @@
 	<SEO
 		title={feature.fields.title}
 		description={feature.fields.summary}
-		{image}
+		image={image}
 		keywords={feature.fields.keywords}
 	/>
 {/if}
