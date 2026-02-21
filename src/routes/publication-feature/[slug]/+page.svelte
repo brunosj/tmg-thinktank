@@ -21,6 +21,7 @@
 
 	type Page = {
 		item: PublicationFeatureType;
+		seoImage?: string;
 	};
 
 	let feature: PublicationFeatureType = $derived(data.item);
@@ -36,7 +37,7 @@
 	let image = $derived(
 		feature.fields.pageBannerCdn?.length > 0
 			? feature.fields.pageBannerCdn[0].secure_url
-			: feature.fields.pageBanner.fields.file.url
+			: feature.fields.pageBanner?.fields?.file?.url ?? ''
 	);
 
 	// Check if hero banner fields are present
@@ -49,13 +50,16 @@
 	let heroImage = $derived(hasHeroBanner ? feature.fields.heroBannerPicture[0]?.secure_url : '');
 
 	let seoReady = $derived(!!feature);
+
+	// Use server-computed seoImage for OG (ensures correct value in SSR/prerender)
+	let seoImage = $derived(data.seoImage ?? image);
 </script>
 
 {#if seoReady}
 	<SEO
 		title={feature.fields.title}
 		description={feature.fields.summary}
-		image={image}
+		image={seoImage}
 		keywords={feature.fields.keywords}
 	/>
 {/if}
@@ -87,14 +91,14 @@
 	{/if}
 
 	{#if !feature.fields.hideTitle || feature.fields.summary}
-	<section class="pt layout space-y-3 pt-6 lg:pt-12">
-		{#if !feature.fields.hideTitle}
-			<h1 class="max-w-full lg:max-w-2/3">{feature.fields.title}</h1>
-		{/if}
-		{#if feature.fields.summary}
-			<h3 class="max-w-full lg:max-w-2/3">{feature.fields.summary}</h3>
-		{/if}
-	</section>
+		<section class="pt layout space-y-3 pt-6 lg:pt-12">
+			{#if !feature.fields.hideTitle}
+				<h1 class="max-w-full lg:max-w-2/3">{feature.fields.title}</h1>
+			{/if}
+			{#if feature.fields.summary}
+				<h3 class="max-w-full lg:max-w-2/3">{feature.fields.summary}</h3>
+			{/if}
+		</section>
 	{/if}
 
 	{#if sectionsWithContentBlocks.length > 0}
