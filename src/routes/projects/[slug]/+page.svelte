@@ -28,10 +28,18 @@
 		videos: Video[];
 	};
 
-	let project: Project = $state(data.item);
-	let animationReady = $state(false);
+let project: Project = $state(data.item);
+let animationReady = $state(false);
 
-	// Filter and sort publications
+let fundersWithLogo = $derived(
+	project.fields.fundersList?.filter((funder) => {
+		const hasCdnLogo = funder?.fields?.logoCdn?.length > 0;
+		const hasFileLogo = funder?.fields?.logo?.fields?.file?.url;
+		return hasCdnLogo || hasFileLogo;
+	}) ?? []
+);
+
+// Filter and sort publications
 	let filteredPublications = $derived(
 		data.publications
 			.filter((publication) => publication.fields?.project?.fields?.name === project.fields?.name)
@@ -186,11 +194,11 @@
 		</div>
 
 		<!-- Funders section -->
-		{#if project.fields.fundersList && project.fields.fundersList.length > 0}
+		{#if fundersWithLogo.length > 0}
 			<div class="mt-6">
 				<h3 class="text-blue-normal mb-4 text-left text-xl font-bold lg:text-2xl">Supported by</h3>
 				<div class="flex flex-wrap items-center justify-start gap-4">
-					{#each project.fields.fundersList as funder}
+					{#each fundersWithLogo as funder}
 						{#if project.fields.fundersList.length > 4}
 							<PartnersLogo item={funder} width="w-24" lgWidth="lg:w-48" />
 						{:else}
